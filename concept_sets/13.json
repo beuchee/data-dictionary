@@ -89,7 +89,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T19:17:34.542Z",
+        "status": "needs_revision",
+        "comments": "## Summary\n**Needs revision.** Proposal ([issue #24](https://github.com/indicate-eu/data-dictionary/issues/24)): map the Ramsay scale to SNOMED 4105091 (Measurement domain, consistent with the other sedation/pain scales) instead of LOINC 1091379 (Observation domain). Note that 4105091 is currently an explicit exclusion in this set. Our CQL (QI07) uses 4105091, so no concept of the current set is referenced.\n\n## Use in our quality indicators\n- Used in QI07 (Pain, sedation, delirium).\n- CQL: no concept of this set is referenced by our libraries.\n\n## Suggestions\n- Replace LOINC 1091379 by SNOMED 4105091 (Measurement domain), see [issue #24](https://github.com/indicate-eu/data-dictionary/issues/24).\n",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [],
     "distributionStats": null
   }

@@ -97,6 +97,20 @@
         "reviewTimestamp": "2026-08-20T17:00:00.000Z",
         "comments": "Reply to Maxim Moinat's review. Not to study the type of tube: the Mapping Notes already send an unqualified tube to the generic concept, and the variants only exist so that sources recording a type have somewhere to map. The purpose is reconstructing the real period of invasive ventilation. In clinical data warehouses the invasive-ventilation concept is often a prescription rather than an observation, entered late and left open because nobody discontinued it, so the period is wrong at both ends. We plan to derive it from converging signals: ventilation parameters (tidal volume, PEEP and the rest) and the presence of an airway device. That is also why this is not redundant with concept set 305: intubation is a brief act, and its duration, when recorded at all, is the duration of the gesture rather than of the ventilation, whereas the device exposure spans the whole time the tube is in place.",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T18:58:08.998Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI01/QI02 for intubation status (tube present). Works for us because we're using, like in the concept set, \"4097216\tEndotracheal tube\" and all its descendents.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS), QI02 (Weaning).\n- CQL: covered as a whole via the anchor concept 4097216 Endotracheal tube with descendants (OMOP hierarchy codesystem) in [`IndicateQiElements.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQiElements.cql?plain=1); the 19 resolved concepts were not reviewed one by one.\n\n## Decision trail\n- 2026-03-23 · Gregor Lichtner (interoperability): CS 299 (Endotracheal tube) and CS 314 (Inspiratory pressure setting) added to project 5; new sets 339/340 (PCV/VCV) created from the CS 306 procedure codes. — [DD PR #4 (merged by Boris Delange 2026-04-01)](https://github.com/indicate-eu/data-dictionary/pull/4)\n- 2026-05-11 · Jan Moringen (implementation): Intubation status via the OMOP hierarchy of 4097216 (Endotracheal tube), i.e. the whole set. — [CQL commit 29493fb](https://github.com/umg-minai/cql-indicate-qi/commit/29493fbb214dbcaaa352d28e494935896fda3f2d)\n\n## Suggestions\n- None.\n",
+        "version": "1.1.0"
       }
     ],
     "versions": [

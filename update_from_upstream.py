@@ -2,7 +2,7 @@
 """Update the code of this fork from the INDICATE upstream repository.
 
 Pulls the latest version of the application code (build/resolve/reset scripts,
-SPA assets in docs/, Claude skills, CLAUDE.md) from the upstream repo,
+SPA assets in legacy/, Claude skills, CLAUDE.md) from the upstream repo,
 without touching team-owned content (concept_sets/, projects/, units/,
 mapping_recommendations/, config.json, branding assets, etc.).
 
@@ -36,29 +36,31 @@ UPSTREAM_PATHS = [
     "reset.py",
     "update_from_upstream.py",
     "CLAUDE.md",
+    "AGENTS.md",
+    "docs",
     "FORKING.md",
     "concept_set.example.json",
     "config.local.example.json",
     ".gitignore",
     ".gitlab-ci.yml",
     ".github/workflows/build-and-deploy.yml",
-    "docs/index.html",
-    "docs/app.css",
-    "docs/app.js",
-    "docs/router.js",
-    "docs/spa-init.js",
-    "docs/concept-sets.js",
-    "docs/projects.js",
-    "docs/mapping.js",
-    "docs/settings.js",
-    "docs/general-settings.js",
-    "docs/dev-tools.js",
-    "docs/documentation.js",
-    "docs/duckdb-loader.js",
-    "docs/projects.html",
-    "docs/settings.html",
-    "docs/general-settings.html",
-    "docs/dev-tools.html",
+    "legacy/index.html",
+    "legacy/app.css",
+    "legacy/app.js",
+    "legacy/router.js",
+    "legacy/spa-init.js",
+    "legacy/concept-sets.js",
+    "legacy/projects.js",
+    "legacy/mapping.js",
+    "legacy/settings.js",
+    "legacy/general-settings.js",
+    "legacy/dev-tools.js",
+    "legacy/documentation.js",
+    "legacy/duckdb-loader.js",
+    "legacy/projects.html",
+    "legacy/settings.html",
+    "legacy/general-settings.html",
+    "legacy/dev-tools.html",
     ".claude/skills",
 ]
 
@@ -68,9 +70,9 @@ UPSTREAM_PATHS = [
 PROTECTED = {
     "config.json",            # fork's branding/identity
     "config.local.json",      # fork's machine paths (gitignored anyway)
-    "docs/logo.png",
-    "docs/favicon.png",
-    "docs/data_dictionary.png",
+    "legacy/logo.png",
+    "legacy/favicon.png",
+    "legacy/data_dictionary.png",
 }
 
 
@@ -178,8 +180,8 @@ def main():
     print(f"\nUpdating code from upstream/{branch}. The following content is preserved:")
     print("  - concept_sets/, projects/, units/, mapping_recommendations/, concept_sets_resolved/")
     print("  - config.json, config.local.json, id_counters.json")
-    print("  - docs/logo.png, docs/favicon.png, docs/data_dictionary.png")
-    print("  - docs/data.json, docs/data_inline.js (regenerated via build.py)")
+    print("  - legacy/logo.png, legacy/favicon.png, legacy/data_dictionary.png")
+    print("  - legacy/data.json, legacy/data_inline.js (regenerated via build.py)")
     print()
 
     if not args.dry_run and not args.yes:
@@ -193,7 +195,7 @@ def main():
         return
 
     print("\nDone. Review changes with `git diff` and commit when satisfied.")
-    print("If build.py or any source data changed, run `python3 build.py` to regenerate docs/data.json.")
+    print("If build.py or any source data changed, run `python3 build.py` to regenerate legacy/data.json.")
 
 
 if __name__ == "__main__":

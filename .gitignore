@@ -11,7 +11,7 @@ export_review_sheet.py
 # (.github/workflows/build-and-deploy.yml) and GitLab Pages (.gitlab-ci.yml).
 # Never commit them: a fork that publishes without running build.py serves a site
 # whose data files 404, and the app dies on `DATA is not defined`.
-docs/data.json
-docs/data_inline.js
-docs/resolved_concept_ids.json
-docs/concept_sets_resolved/
+legacy/data.json
+legacy/data_inline.js
+legacy/resolved_concept_ids.json
+legacy/concept_sets_resolved/

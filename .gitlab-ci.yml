@@ -3,7 +3,7 @@
 # gitignored, so CI regenerates them before publishing.
 #
 # GitLab Pages serves whatever lands in `public/`, so the job runs build.py and
-# then copies docs/ across. The image ships Python *and* git: build.py shells out
+# then copies legacy/ across. The image ships Python *and* git: build.py shells out
 # to git to read the concept set versions that projects pin, and exits with an
 # explicit error if git is missing.
 #
@@ -30,7 +30,7 @@ pages:
   script:
     - python3 build.py
     - mkdir -p public
-    - cp -r docs/. public/
+    - cp -r legacy/. public/
   artifacts:
     paths:
       - public

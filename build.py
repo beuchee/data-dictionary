@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build docs/data_inline.js and docs/data.json from concept_sets/, projects/, units/ and mapping_recommendations/."""
+"""Build legacy/data_inline.js and legacy/data.json from concept_sets/, projects/, units/ and mapping_recommendations/."""
 
 import datetime
 import hashlib
@@ -12,7 +12,7 @@ import subprocess
 import snapshot
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-DOCS = os.path.join(ROOT, "docs")
+DOCS = os.path.join(ROOT, "legacy")
 
 
 def git_show(sha, repo_path):
@@ -204,7 +204,7 @@ def main():
             })
             deferred_count += 1
 
-    # Copy deferred resolved files to docs/ for lazy loading
+    # Copy deferred resolved files to legacy/ for lazy loading
     docs_resolved_dir = os.path.join(DOCS, "concept_sets_resolved")
     if os.path.isdir(docs_resolved_dir):
         shutil.rmtree(docs_resolved_dir)
@@ -257,7 +257,7 @@ def main():
     resolved_ids_list = sorted(resolved_ids)
     with open(os.path.join(DOCS, "resolved_concept_ids.json"), "w", encoding="utf-8") as f:
         json.dump(resolved_ids_list, f, separators=(",", ":"))
-    print(f"  -> docs/resolved_concept_ids.json ({len(resolved_ids_list)} unique concept IDs)")
+    print(f"  -> legacy/resolved_concept_ids.json ({len(resolved_ids_list)} unique concept IDs)")
 
     compact = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
@@ -273,8 +273,8 @@ def main():
           f"{len(unit_conversions)} unit conversions, {len(recommended_units)} recommended units, "
           f"mapping recommendations ({mr_langs} languages), "
           f"versioned snapshots ({n_cs_snapshots} concept set definitions)")
-    print(f"  -> docs/data.json ({os.path.getsize(os.path.join(DOCS, 'data.json')):,} bytes)")
-    print(f"  -> docs/data_inline.js ({os.path.getsize(os.path.join(DOCS, 'data_inline.js')):,} bytes)")
+    print(f"  -> legacy/data.json ({os.path.getsize(os.path.join(DOCS, 'data.json')):,} bytes)")
+    print(f"  -> legacy/data_inline.js ({os.path.getsize(os.path.join(DOCS, 'data_inline.js')):,} bytes)")
 
 
 if __name__ == "__main__":

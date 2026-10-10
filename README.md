@@ -5,14 +5,14 @@
 [![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399?style=for-the-badge)](https://indicate-europe.eu/)
 [![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue?style=for-the-badge)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 
-![INDICATE Data Dictionary — bridging clinicians and data engineers](docs/screenshots/readme_banner.png)
+![INDICATE Data Dictionary — bridging clinicians and data engineers](legacy/screenshots/readme_banner.png)
 
 > Clinicians writing a research protocol rarely say _"I need LOINC 1975-2 and 14631-6."_ They say _"I need total bilirubin."_<br />
 > Data engineers building an OMOP ETL need the exact concept IDs, descendants, and unit conversions.
 >
 > The **INDICATE Data Dictionary** sits between those two worlds — a shared workspace where clinical variables are defined *once*, reviewed by experts, versioned, and handed off to data teams as ready-to-use **OHDSI concept sets** with SQL, unit harmonization, and ATLAS-compatible JSON.
 
-![Catalog Screenshot](docs/data_dictionary.png)
+![Catalog Screenshot](legacy/data_dictionary.png)
 
 ---
 
@@ -33,13 +33,13 @@ The INDICATE Data Dictionary fills that gap with an **extension of the OHDSI Con
 - **Review & comment without installing anything** — the site runs in your browser. Disagree with a definition? Submit a review, and the app opens a pre-filled GitHub edit page for you.
 - **Multilingual** — every concept set currently carries English and French translations in its metadata; the format generalizes to any number of languages.
 
-![Concept set details — concepts list with hierarchy graph](docs/screenshots/concept-set-details.png)
+![Concept set details — concepts list with hierarchy graph](legacy/screenshots/concept-set-details.png)
 *Concept set detail view. The underlying OMOP concepts are listed on the left; selecting one shows its details on the right, including an interactive **concept hierarchy** graph — the concept's position within its source vocabulary — so you can check the definition sits at the right level.*
 
-![Concept set expert clinical comments](docs/screenshots/expert-comments.png)
+![Concept set expert clinical comments](legacy/screenshots/expert-comments.png)
 *Expert commentary written by consortium experts — definition, clinical context, and a breakdown of the included concepts grouped by specimen — giving both clinicians and ETL engineers the rationale behind the codes on the same page.*
 
-<p align="center"><img src="docs/screenshots/review.png" alt="Review workflow with status tracking" width="720"></p>
+<p align="center"><img src="legacy/screenshots/review.png" alt="Review workflow with status tracking" width="720"></p>
 
 *Review tab of a concept set. Each review captures the reviewer's identity, date, version, status (Approved, Needs Revision, Pending Review…) and free-text comments — giving each concept set an auditable peer-review history, similar to what the Phenotype Library provides for phenotypes.*
 
@@ -55,7 +55,7 @@ The INDICATE Data Dictionary fills that gap with an **extension of the OHDSI Con
 - **Dev Tools** — in-browser SQL editor (Ace + DuckDB-WASM) against loaded OHDSI vocabularies, plus an ERD visualization of the OMOP CDM.
 - **Mapping recommendations** — multilingual guidance on how to map common source concepts, with examples.
 
-![SQL export with per-concept unit conversion](docs/screenshots/sql-export.png)
+![SQL export with per-concept unit conversion](legacy/screenshots/sql-export.png)
 *SQL export tab for a laboratory concept set. The user picks a reference unit (here `umol/L`); the app generates a ready-to-run OMOP query with a per-concept `CASE WHEN` that converts each source unit into the reference, so the `value_as_number` column comes out harmonized.*
 
 
@@ -68,13 +68,13 @@ There are two ways to work with the dictionary: **in the browser** (nothing to i
 **In the browser** — no install needed. Search, filter, read expert comments and resolved concept lists right away:
 → <https://indicate-eu.github.io/data-dictionary/>
 
-**Locally** — clone the repo and serve `docs/` as static files:
+**Locally** — clone the repo and serve `legacy/` as static files:
 ```bash
 git clone https://github.com/indicate-eu/data-dictionary.git
 cd data-dictionary
 python3 -m http.server 8000 --directory docs   # then open http://localhost:8000
 ```
-The catalog works offline — the bundled `docs/data.json` already contains every concept set. To search the source terminologies or build new sets, [import the OHDSI Athena vocabularies through the app's settings](https://indicate-eu.github.io/data-dictionary/#/documentation?section=dictionary-settings) (loaded into in-browser DuckDB-WASM; your data never leaves your machine).
+The catalog works offline — the bundled `legacy/data.json` already contains every concept set. To search the source terminologies or build new sets, [import the OHDSI Athena vocabularies through the app's settings](https://indicate-eu.github.io/data-dictionary/#/documentation?section=dictionary-settings) (loaded into in-browser DuckDB-WASM; your data never leaves your machine).
 
 ### Edit concept sets
 
@@ -84,9 +84,9 @@ The catalog works offline — the bundled `docs/data.json` already contains ever
 ```bash
 # edit concept_sets/{id}.json …
 python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb   # if you changed an expression, re-expands descendants/mapped
-python3 build.py                                               # preview locally: regenerates docs/data.json (calls snapshot.py)
+python3 build.py                                               # preview locally: regenerates legacy/data.json (calls snapshot.py)
 ```
-You don't need to run `build.py` to publish — pushing to `main` triggers a GitHub Actions workflow that runs it and deploys `docs/`; it's only for previewing locally. CI does **not** run `resolve.py`, though: if you edit a concept set's `expression`, run `resolve.py` yourself and **commit** the updated `concept_sets_resolved/{id}.json`, otherwise the live site keeps showing the old resolved concepts. (No OHDSI vocabulary DuckDB? Skip `resolve.py` — the catalog still works, you just won't regenerate resolved concept lists.)
+You don't need to run `build.py` to publish — pushing to `main` triggers a GitHub Actions workflow that runs it and deploys `legacy/`; it's only for previewing locally. CI does **not** run `resolve.py`, though: if you edit a concept set's `expression`, run `resolve.py` yourself and **commit** the updated `concept_sets_resolved/{id}.json`, otherwise the live site keeps showing the old resolved concepts. (No OHDSI vocabulary DuckDB? Skip `resolve.py` — the catalog still works, you just won't regenerate resolved concept lists.)
 
 **When you bump a concept set version** (e.g. `1.0.0` → `1.1.0` in `concept_sets/{id}.json`), use a two-commit flow so projects pinned to the previous version remain reproducible:
 ```bash
@@ -160,21 +160,22 @@ concept_sets_resolved/       # Resolved concept sets (descendants + mapped, gene
 projects/                    # Clinical project definitions with linked concept sets (each pinned to a specific version)
 units/                       # Recommended units + unit conversion table
 mapping_recommendations/     # Multilingual ETL mapping guidance
-docs/                        # GitHub Pages SPA (browse/edit/review in the browser)
+legacy/                      # v1 GitHub Pages SPA (browse/edit/review in the browser)
+docs/                        # Developer documentation (data formats, build pipeline, plans)
 concept_sets_versions.json   # Index { id: { version: commit_sha } } — points to historical snapshots in Git
-build.py                     # Aggregates JSON → docs/data.json + docs/data_inline.js (also calls snapshot.py)
+build.py                     # Aggregates JSON → legacy/data.json + legacy/data_inline.js (also calls snapshot.py)
 resolve.py                   # Expands expressions via OMOP vocab (DuckDB)
 snapshot.py                  # Records commit SHAs in concept_sets_versions.json on version bumps (--backfill recovers missed ones)
 reset.py                     # Wipes content for a fresh fork (see FORKING.md)
 update_from_upstream.py      # Pulls code updates from this repo into a fork
 config.json                  # Per-fork branding, GitHub repo, organization
-.github/workflows/           # GitHub Actions: rebuilds docs/ and deploys to GitHub Pages on every push to main
+.github/workflows/           # GitHub Actions: rebuilds legacy/ and deploys to GitHub Pages on every push to main
 .gitlab-ci.yml               # GitLab Pages deployment (no-op on GitHub)
-CLAUDE.md                    # Project conventions, schemas, build pipeline
+AGENTS.md                    # Entry point for coding agents (CLAUDE.md imports it)
 FORKING.md                   # Guide for teams reusing this app for their own dictionary
 ```
 
-See [CLAUDE.md](CLAUDE.md) for full schemas, build pipeline, and conventions.
+See [AGENTS.md](AGENTS.md) and [docs/](docs/) for schemas, build pipeline, and conventions.
 
 ## Documentation
 

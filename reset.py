@@ -121,7 +121,7 @@ def main():
         print(f"  - {label}")
     print()
     print("Kept as-is: config.json, config.local.json, units/unit_conversions.json,")
-    print("  units/recommended_units.json, docs/ (branding assets and generated files).")
+    print("  units/recommended_units.json, legacy/ (branding assets and generated files).")
     print()
 
     if not args.yes:
@@ -135,7 +135,7 @@ def main():
         print(f"  ✓ {label}")
 
     if args.no_build:
-        print("\nDone. Run `python3 build.py` to regenerate docs/data.json and docs/data_inline.js.")
+        print("\nDone. Run `python3 build.py` to regenerate legacy/data.json and legacy/data_inline.js.")
         return
 
     if not _has_commit():

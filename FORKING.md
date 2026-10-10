@@ -79,16 +79,16 @@ This block was called `github` before v1.2.6, back when the project only targete
 
 ### 1.3. Replace branding assets
 
-Replace these files in `docs/` with your own:
-- `docs/logo.png` — header logo (transparent PNG, ~64–128 px tall)
-- `docs/favicon.png` — favicon (square PNG)
-- `docs/data_dictionary.png` — README screenshot (optional)
+Replace these files in `legacy/` with your own:
+- `legacy/logo.png` — header logo (transparent PNG, ~64–128 px tall)
+- `legacy/favicon.png` — favicon (square PNG)
+- `legacy/data_dictionary.png` — README screenshot (optional)
 
 If you change the file names, update `branding.logo` / `branding.favicon` in `config.json`.
 
 ### 1.4. Replace the Documentation page
 
-The Documentation page (`#/documentation`, served from `docs/documentation.js`) is INDICATE-specific content (mission, partners, references). Edit `docs/documentation.js` to describe your own dictionary. Until you do, leave it as-is — it still renders, it just talks about INDICATE.
+The Documentation page (`#/documentation`, served from `legacy/documentation.js`) is INDICATE-specific content (mission, partners, references). Edit `legacy/documentation.js` to describe your own dictionary. Until you do, leave it as-is — it still renders, it just talks about INDICATE.
 
 ### 1.5. Wipe INDICATE content
 
@@ -98,7 +98,7 @@ python3 reset.py
 
 This wipes `concept_sets/`, `projects/` and `concept_sets_resolved/`, empties the content of `mapping_recommendations/mapping_recommendations.json` (its structure is preserved), and resets `id_counters.json` to `{1, 1}` and `concept_sets_versions.json` to `{}`.
 
-Kept as-is: `config.json`, `config.local.json`, `units/unit_conversions.json`, `units/recommended_units.json` (the unit tables are generic, so your fork starts with them) and `docs/`. After confirming, the script also runs `build.py`.
+Kept as-is: `config.json`, `config.local.json`, `units/unit_conversions.json`, `units/recommended_units.json` (the unit tables are generic, so your fork starts with them) and `legacy/`. After confirming, the script also runs `build.py`.
 
 Flags:
 - `--yes` — skip the confirmation prompt
@@ -187,7 +187,7 @@ git push
 
 `git add -A` rather than a hand-written list: `reset.py` touches six paths, and missing one leaves INDICATE content in your repo. Besides deleting `concept_sets/`, `projects/` and `concept_sets_resolved/`, it also empties `mapping_recommendations/mapping_recommendations.json` and resets `id_counters.json` **and `concept_sets_versions.json`** — that last one carries INDICATE's whole version index, and it is easy to leave behind.
 
-Nothing generated can slip in: `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/` and `config.local.json` are all gitignored, and CI rebuilds them on every push (see §4).
+Nothing generated can slip in: `legacy/data.json`, `legacy/data_inline.js`, `legacy/resolved_concept_ids.json`, `legacy/concept_sets_resolved/` and `config.local.json` are all gitignored, and CI rebuilds them on every push (see §4).
 
 If [§1.5](#15-wipe-indicate-content) skipped the build because the repository had no commit yet, this is the point where you can run it — `python3 build.py`, now that `HEAD` exists. It only matters for previewing locally; CI builds the published site either way.
 
@@ -225,7 +225,7 @@ python3 resolve.py --id 42    # single set
 python3 build.py
 ```
 
-After any change to `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, or `concept_sets_resolved/`, regenerate `docs/data.json` and `docs/data_inline.js` and commit them.
+After any change to `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, or `concept_sets_resolved/`, regenerate `legacy/data.json` and `legacy/data_inline.js` and commit them.
 
 ### Catch up on version snapshots
 
@@ -256,8 +256,8 @@ python3 update_from_upstream.py
 What it does:
 1. Adds (or updates) a git remote named `upstream` pointing at the URL in `config.json -> repository.upstream`.
 2. Runs `git fetch upstream <branch>`.
-3. Checks out a fixed list of code paths from `upstream/<branch>` (see `UPSTREAM_PATHS` in the script for the authoritative list): `build.py`, `resolve.py`, `snapshot.py`, `reset.py`, `update_from_upstream.py`, all of `docs/*.js`, `docs/*.html`, `docs/app.css`, `.claude/skills/`, `CLAUDE.md`, `FORKING.md`, `concept_set.example.json`, `config.local.example.json`, `.gitignore`, `.gitlab-ci.yml`, `.github/workflows/build-and-deploy.yml`.
-4. Leaves your content alone: `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, `concept_sets_resolved/`, `concept_sets_versions.json`, `id_counters.json`, `config.json`, `config.local.json`, `docs/logo.png`, `docs/favicon.png`, `docs/data_dictionary.png`. The generated files under `docs/` are untouched too, but they are gitignored anyway — rerun `python3 build.py` after the update.
+3. Checks out a fixed list of code paths from `upstream/<branch>` (see `UPSTREAM_PATHS` in the script for the authoritative list): `build.py`, `resolve.py`, `snapshot.py`, `reset.py`, `update_from_upstream.py`, all of `legacy/*.js`, `legacy/*.html`, `legacy/app.css`, `.claude/skills/`, `CLAUDE.md`, `AGENTS.md`, `docs/`, `FORKING.md`, `concept_set.example.json`, `config.local.example.json`, `.gitignore`, `.gitlab-ci.yml`, `.github/workflows/build-and-deploy.yml`.
+4. Leaves your content alone: `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, `concept_sets_resolved/`, `concept_sets_versions.json`, `id_counters.json`, `config.json`, `config.local.json`, `legacy/logo.png`, `legacy/favicon.png`, `legacy/data_dictionary.png`. The generated files under `legacy/` are untouched too, but they are gitignored anyway — rerun `python3 build.py` after the update.
 
 Flags:
 - `--dry-run` — show what would change without modifying anything
@@ -275,7 +275,7 @@ git commit -am "Update from upstream"
 git push
 ```
 
-If a code change conflicts with a local customization (e.g. you edited `docs/documentation.js` for your own dictionary), `git checkout upstream/main -- <path>` will overwrite your version. Resolve by re-applying your local edits on top, or by removing that path from the `UPSTREAM_PATHS` list in `update_from_upstream.py`.
+If a code change conflicts with a local customization (e.g. you edited `legacy/documentation.js` for your own dictionary), `git checkout upstream/main -- <path>` will overwrite your version. Resolve by re-applying your local edits on top, or by removing that path from the `UPSTREAM_PATHS` list in `update_from_upstream.py`.
 
 ### When NOT to use it
 
@@ -285,15 +285,15 @@ If a code change conflicts with a local customization (e.g. you edited `docs/doc
 
 ## 4. Deployment
 
-The static site lives in `docs/`, but **the data files it needs are not committed**. `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json` and `docs/concept_sets_resolved/` are gitignored and regenerated by `build.py`, so **CI must run the build before publishing**. Both shipped configurations do; if you write your own, it has to as well, otherwise the page loads and the app dies on `DATA is not defined` because `data_inline.js` 404s.
+The static site lives in `legacy/`, but **the data files it needs are not committed**. `legacy/data.json`, `legacy/data_inline.js`, `legacy/resolved_concept_ids.json` and `legacy/concept_sets_resolved/` are gitignored and regenerated by `build.py`, so **CI must run the build before publishing**. Both shipped configurations do; if you write your own, it has to as well, otherwise the page loads and the app dies on `DATA is not defined` because `data_inline.js` 404s.
 
 The build needs **Python 3 and git** (it reads the commits recorded in `concept_sets_versions.json` for the versions your projects pin), and **the full history** — a shallow clone cannot read past commits, so a pinned version would silently vanish from the published site.
 
 ### 4.1. GitHub Pages
 
-The repo ships `.github/workflows/build-and-deploy.yml`, which runs `build.py` and deploys `docs/` on every push to `main`.
+The repo ships `.github/workflows/build-and-deploy.yml`, which runs `build.py` and deploys `legacy/` on every push to `main`.
 
-In the GitHub repo: `Settings` → `Pages` → `Source: **GitHub Actions**` (not "Deploy from a branch" — that would publish `docs/` without building it). After the first successful run the site is published at:
+In the GitHub repo: `Settings` → `Pages` → `Source: **GitHub Actions**` (not "Deploy from a branch" — that would publish `legacy/` without building it). After the first successful run the site is published at:
 
 ```
 https://<your-org>.github.io/<your-repo>/
@@ -303,7 +303,7 @@ Custom domains are configured on the same settings page.
 
 ### 4.2. GitLab Pages
 
-The repo ships a `.gitlab-ci.yml` that runs `build.py` and publishes `docs/` on every push to the default branch. Nothing to configure beyond pushing — Pages is enabled by default for public projects, and the `pages` job runs as part of the standard pipeline.
+The repo ships a `.gitlab-ci.yml` that runs `build.py` and publishes `legacy/` on every push to the default branch. Nothing to configure beyond pushing — Pages is enabled by default for public projects, and the `pages` job runs as part of the standard pipeline.
 
 After the first successful pipeline, read the published URL from `Settings` → `Pages`. On gitlab.com it follows `https://<group>.gitlab.io/<project>/` (or `<username>` for personal namespaces), but **self-hosted instances differ** — Framagit, for example, generates a per-project subdomain such as `https://data-dictionary-2a8740.frama.io`. Don't assume the gitlab.com shape.
 

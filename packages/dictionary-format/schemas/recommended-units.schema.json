@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/recommended-units.schema.json",
+  "title": "Recommended units",
+  "description": "units/recommended_units.json: one recommended UCUM unit per concept (LOINC EXAMPLE_UCUM_UNITS for labs).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "conceptId",
+      "conceptName",
+      "conceptCode",
+      "vocabularyId",
+      "domainId",
+      "recommendedUnitConceptId",
+      "recommendedUnitName",
+      "recommendedUnitCode",
+      "recommendedUnitVocabularyId"
+    ],
+    "properties": {
+      "conceptId": { "type": "integer" },
+      "conceptName": { "type": "string" },
+      "conceptCode": { "type": "string" },
+      "vocabularyId": { "type": "string" },
+      "domainId": { "type": "string" },
+      "recommendedUnitConceptId": { "type": "integer" },
+      "recommendedUnitName": { "type": "string" },
+      "recommendedUnitCode": { "type": "string" },
+      "recommendedUnitVocabularyId": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}

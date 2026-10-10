@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/mapping-recommendations.schema.json",
+  "title": "Mapping recommendations",
+  "description": "mapping_recommendations/mapping_recommendations.json: multilingual Markdown ETL guidance, language-first.",
+  "type": "object",
+  "required": ["translations"],
+  "properties": {
+    "translations": {
+      "type": "object",
+      "propertyNames": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["content"],
+        "properties": { "content": { "type": ["string", "null"] } },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

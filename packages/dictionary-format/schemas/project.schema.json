@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/project.schema.json",
+  "title": "Project",
+  "description": "projects/{id}.json: translations plus groups of concept sets, each pinned to a version. The legacy flat shapes (conceptSets: [{id, version}] or conceptSetIds: [id]) are still read as a single default group.",
+  "type": "object",
+  "required": ["id", "translations"],
+  "anyOf": [
+    { "required": ["groups"] },
+    { "required": ["conceptSets"] },
+    { "required": ["conceptSetIds"] }
+  ],
+  "properties": {
+    "id": { "type": "integer", "minimum": 1 },
+    "translations": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/langKey" },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": { "type": ["string", "null"] },
+          "shortDescription": { "type": ["string", "null"] },
+          "longDescription": { "type": ["string", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "createdBy": { "type": ["string", "null"] },
+    "createdDate": { "$ref": "#/$defs/date" },
+    "modifiedDate": { "$ref": "#/$defs/date" },
+    "groups": { "type": "array", "items": { "$ref": "#/$defs/group" } },
+    "conceptSets": {
+      "description": "Legacy flat list (before groups).",
+      "type": "array",
+      "items": { "$ref": "#/$defs/pinnedConceptSet" }
+    },
+    "conceptSetIds": {
+      "description": "Oldest legacy shape: unpinned ids, read at their latest version.",
+      "type": "array",
+      "items": { "type": "integer", "minimum": 1 }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "langKey": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$" },
+    "date": { "type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "pinnedConceptSet": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "version": { "$ref": "#/$defs/semver" }
+      },
+      "additionalProperties": true
+    },
+    "group": {
+      "type": "object",
+      "required": ["id", "rule", "conceptSets"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "translations": {
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/langKey" },
+          "additionalProperties": {
+            "type": "object",
+            "properties": { "name": { "type": ["string", "null"] } },
+            "additionalProperties": true
+          }
+        },
+        "name": {
+          "description": "Legacy field-first group name (a string or {en, fr}); current files use translations.{lang}.name.",
+          "type": ["string", "object"]
+        },
+        "rule": { "enum": ["all_required", "at_least_one", "optional"] },
+        "conceptSets": { "type": "array", "items": { "$ref": "#/$defs/pinnedConceptSet" } }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/config.schema.json",
+  "title": "Instance configuration",
+  "description": "config.json: per-instance settings. Every key added for v2 (branding.appName, branding.colors, branding.darkColors, branding.font, access) is optional. The legacy `github` block (renamed `repository` in v1.2.6) is still accepted.",
+  "type": "object",
+  "required": ["title", "languages"],
+  "properties": {
+    "title": { "type": "string" },
+    "languages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/langKey" }
+    },
+    "defaultLanguage": { "$ref": "#/$defs/langKey" },
+    "repository": { "$ref": "#/$defs/repository" },
+    "github": { "$ref": "#/$defs/repository", "description": "Legacy name of `repository`." },
+    "organization": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "customVocabulary": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "codePrefix": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "branding": {
+      "type": "object",
+      "properties": {
+        "logo": { "type": ["string", "null"] },
+        "favicon": { "type": ["string", "null"] },
+        "logoAlt": { "type": ["string", "null"] },
+        "appName": { "type": "string" },
+        "colors": { "$ref": "#/$defs/colors" },
+        "darkColors": { "$ref": "#/$defs/colors" },
+        "font": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tabs": {
+      "type": "object",
+      "properties": {
+        "showProjects": { "type": "boolean" },
+        "showMappingRecommendations": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "access": {
+      "type": "object",
+      "properties": {
+        "anonymousRead": { "type": "boolean", "default": true }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "langKey": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$" },
+    "hexColor": { "type": "string", "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
+    "colors": {
+      "description": "Base colors injected into the CSS tokens. darkColors may be partial.",
+      "type": "object",
+      "properties": {
+        "primary": { "$ref": "#/$defs/hexColor" },
+        "secondary": { "$ref": "#/$defs/hexColor" },
+        "accent": { "$ref": "#/$defs/hexColor" }
+      },
+      "additionalProperties": true
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "repo": { "type": "string" },
+        "branch": { "type": "string" },
+        "upstream": { "type": "string" },
+        "upstreamBranch": { "type": "string" },
+        "forge": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

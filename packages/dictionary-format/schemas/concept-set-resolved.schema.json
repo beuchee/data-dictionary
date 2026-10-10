@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/concept-set-resolved.schema.json",
+  "title": "Resolved concept set",
+  "description": "concept_sets_resolved/{id}.json: the expanded concept list written by resolve.py (included minus excluded, with descendants and mapped concepts). Written WITHOUT a trailing newline (resolve.py's json.dump).",
+  "type": "object",
+  "required": ["conceptSetId", "vocabularyVersion", "resolvedConcepts"],
+  "properties": {
+    "conceptSetId": { "type": "integer", "minimum": 1 },
+    "vocabularyVersion": {
+      "description": "Vocabulary release used to resolve ({release, <vocabularyId>: <vocabulary_version>}), or null when unknown.",
+      "type": ["object", "null"],
+      "additionalProperties": { "type": ["string", "null"] }
+    },
+    "resolvedConcepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "conceptId",
+          "conceptName",
+          "vocabularyId",
+          "domainId",
+          "conceptClassId",
+          "conceptCode",
+          "standardConcept"
+        ],
+        "properties": {
+          "conceptId": { "type": "integer" },
+          "conceptName": { "type": "string" },
+          "vocabularyId": { "type": "string" },
+          "domainId": { "type": "string" },
+          "conceptClassId": { "type": "string" },
+          "conceptCode": { "type": "string" },
+          "standardConcept": {
+            "description": "'S', 'C', null (non-standard) or the legacy empty string.",
+            "enum": ["S", "C", null, ""]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

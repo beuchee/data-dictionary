@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/id-counters.schema.json",
+  "title": "Id counters",
+  "description": "id_counters.json: next free ids, monotonic, never reused. Written only by build.py (which bumps them when too low).",
+  "type": "object",
+  "required": ["nextConceptSetId", "nextProjectId"],
+  "properties": {
+    "nextConceptSetId": { "type": "integer", "minimum": 1 },
+    "nextProjectId": { "type": "integer", "minimum": 1 }
+  },
+  "additionalProperties": true
+}

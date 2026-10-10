@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/concept-sets-versions.schema.json",
+  "title": "Concept set versions index",
+  "description": "concept_sets_versions.json: {conceptSetId: {version: commitSha}}. Written only by snapshot.py, ids sorted numerically and versions sorted as strings.",
+  "type": "object",
+  "propertyNames": { "type": "string", "pattern": "^[1-9][0-9]*$" },
+  "additionalProperties": {
+    "type": "object",
+    "propertyNames": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$" }
+  }
+}

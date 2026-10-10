@@ -1,0 +1,3 @@
+{
+  "config.json": "Hand-formatted: `languages` is written inline ([\"en\", \"fr\"]) instead of one item per line. Rewriting it through the serializer changes only that line."
+}

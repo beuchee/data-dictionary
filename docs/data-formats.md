@@ -16,7 +16,11 @@ The JSON files at the repo root are the **source of truth** and must stay readab
 | `id_counters.json` | Next ids. Only `build.py` writes it (auto-corrects) |
 | `concept_sets_versions.json` | `{id: {version: commitSha}}`. Only `snapshot.py` writes it |
 
-On-disk format: 2-space indent, UTF-8 not escaped, trailing newline. A file read and rewritten unchanged must be byte-identical.
+On-disk format: 2-space indent, UTF-8 not escaped (`json.dumps(indent=2, ensure_ascii=False)`), trailing newline — except `concept_sets_resolved/*.json`, which `resolve.py` writes without one. A file read and rewritten unchanged must be byte-identical; `packages/dictionary-format` implements this in TS and Python and tests it on every content file.
+
+- Number lexemes are preserved: `units/unit_conversions.json` holds factors like `1.0` that plain `JSON.stringify` would rewrite as `1`. Never save content with bare `JSON.stringify`; use the format package's `serialize`.
+- `config.json` is hand-formatted (inline arrays) and listed as the only non-canonical file in `packages/dictionary-format/fixtures/non-canonical.json`.
+- Real files tolerate some legacy values the schemas accept: `standardConcept: ""`, `validStartDate`/`validEndDate` as `YYYYMMDD` or empty, reviews without `status`.
 
 ## Concept set schema
 

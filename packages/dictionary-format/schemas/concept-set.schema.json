@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/concept-set.schema.json",
+  "title": "Concept set",
+  "description": "concept_sets/{id}.json: an OHDSI concept set expression plus INDICATE metadata. Canonical field order: concept_set.example.json. Unknown fields are allowed (forks may add some) and must survive a read/write cycle.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "version",
+    "createdBy",
+    "createdDate",
+    "modifiedBy",
+    "modifiedDate",
+    "createdByTool",
+    "expression",
+    "tags",
+    "metadata"
+  ],
+  "properties": {
+    "id": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string", "description": "Mirror of metadata.translations.en.name." },
+    "description": { "type": ["string", "null"], "description": "Mirror of metadata.translations.en.shortDescription. Plain text." },
+    "version": { "$ref": "#/$defs/semver" },
+    "createdBy": { "type": ["string", "null"] },
+    "createdDate": { "$ref": "#/$defs/date" },
+    "modifiedBy": { "type": ["string", "null"] },
+    "modifiedDate": { "$ref": "#/$defs/date" },
+    "createdByTool": { "type": ["string", "null"] },
+    "expression": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/$defs/expressionItem" } }
+      },
+      "additionalProperties": true
+    },
+    "tags": { "type": "array" },
+    "metadata": { "$ref": "#/$defs/metadata" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "date": { "type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "omopDate": {
+      "description": "OMOP validity date as the tools wrote it: ISO (1970-01-01), compact (19700101, from ATLAS / older imports) or empty.",
+      "type": ["string", "null"],
+      "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{8})?$"
+    },
+    "langKey": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$" },
+    "nullableString": { "type": ["string", "null"] },
+    "reviewStatus": {
+      "enum": ["draft", "pending_review", "approved", "needs_revision", "deprecated"]
+    },
+    "standardConcept": {
+      "description": "'S' Standard, 'C' Classification, null Non-standard. '' (empty) is a legacy spelling of non-standard found in custom-vocabulary concepts.",
+      "enum": ["S", "C", null, ""]
+    },
+    "organizationRef": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "organization": {
+      "anyOf": [
+        {
+          "title": "Current shape {created, current}",
+          "type": "object",
+          "required": ["created"],
+          "properties": {
+            "created": { "$ref": "#/$defs/organizationRef" },
+            "current": { "$ref": "#/$defs/organizationRef" }
+          },
+          "additionalProperties": true
+        },
+        {
+          "title": "Legacy flat shape {name, url}, normalized to both created and current at read time",
+          "type": "object",
+          "required": ["name"],
+          "not": { "anyOf": [{ "required": ["created"] }, { "required": ["current"] }] },
+          "properties": {
+            "name": { "type": "string" },
+            "url": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "concept": {
+      "type": "object",
+      "required": [
+        "conceptId",
+        "conceptName",
+        "domainId",
+        "vocabularyId",
+        "conceptClassId",
+        "standardConcept",
+        "conceptCode"
+      ],
+      "properties": {
+        "conceptId": { "type": "integer" },
+        "conceptName": { "type": "string" },
+        "domainId": { "type": "string" },
+        "vocabularyId": { "type": "string" },
+        "conceptClassId": { "type": "string" },
+        "standardConcept": { "$ref": "#/$defs/standardConcept" },
+        "standardConceptCaption": { "$ref": "#/$defs/nullableString" },
+        "conceptCode": { "type": "string" },
+        "validStartDate": { "$ref": "#/$defs/omopDate" },
+        "validEndDate": { "$ref": "#/$defs/omopDate" },
+        "invalidReason": { "type": ["string", "null"] },
+        "invalidReasonCaption": { "$ref": "#/$defs/nullableString" }
+      },
+      "additionalProperties": true
+    },
+    "expressionItem": {
+      "type": "object",
+      "required": ["concept", "isExcluded", "includeDescendants", "includeMapped"],
+      "properties": {
+        "concept": { "$ref": "#/$defs/concept" },
+        "isExcluded": { "type": "boolean" },
+        "includeDescendants": { "type": "boolean" },
+        "includeMapped": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "name": { "$ref": "#/$defs/nullableString" },
+        "category": { "$ref": "#/$defs/nullableString" },
+        "subcategory": { "$ref": "#/$defs/nullableString" },
+        "shortDescription": { "$ref": "#/$defs/nullableString" },
+        "longDescription": { "$ref": "#/$defs/nullableString" }
+      },
+      "additionalProperties": true
+    },
+    "person": {
+      "type": "object",
+      "properties": {
+        "firstName": { "$ref": "#/$defs/nullableString" },
+        "lastName": { "$ref": "#/$defs/nullableString" },
+        "affiliation": { "$ref": "#/$defs/nullableString" },
+        "profession": { "$ref": "#/$defs/nullableString" },
+        "orcid": {
+          "type": ["string", "null"],
+          "pattern": "^([0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X])?$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "review": {
+      "type": "object",
+      "required": ["reviewer", "version"],
+      "properties": {
+        "reviewId": { "type": ["integer", "string"] },
+        "reviewer": { "$ref": "#/$defs/person" },
+        "reviewTimestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+        "status": { "$ref": "#/$defs/reviewStatus" },
+        "comments": { "$ref": "#/$defs/nullableString" },
+        "version": { "$ref": "#/$defs/semver" }
+      },
+      "additionalProperties": true
+    },
+    "versionEntry": {
+      "type": "object",
+      "required": ["version"],
+      "properties": {
+        "version": { "$ref": "#/$defs/semver" },
+        "date": { "$ref": "#/$defs/date" },
+        "author": { "$ref": "#/$defs/nullableString" },
+        "message": { "$ref": "#/$defs/nullableString" }
+      },
+      "additionalProperties": true
+    },
+    "origin": {
+      "description": "Provenance of this copy, written once at import then frozen. null for sets created here.",
+      "type": ["object", "null"],
+      "required": ["uniqueId", "repo", "version"],
+      "properties": {
+        "uniqueId": { "type": "string" },
+        "repo": { "type": "string" },
+        "version": { "$ref": "#/$defs/semver" },
+        "commit": { "type": ["string", "null"] },
+        "organization": {},
+        "importedDate": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "uniqueId",
+        "organization",
+        "reviewStatus",
+        "translations",
+        "createdByDetails",
+        "reviews",
+        "versions",
+        "distributionStats"
+      ],
+      "properties": {
+        "uniqueId": {
+          "description": "Lineage id (UUID), unchanged across versions and forks.",
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "organization": { "$ref": "#/$defs/organization" },
+        "sourceRepo": {
+          "description": "Optional for legacy sets: readers default it to this repo's URL.",
+          "type": ["string", "null"]
+        },
+        "reviewStatus": { "$ref": "#/$defs/reviewStatus" },
+        "origin": { "$ref": "#/$defs/origin" },
+        "translations": {
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/langKey" },
+          "additionalProperties": { "$ref": "#/$defs/translation" }
+        },
+        "createdByDetails": { "anyOf": [{ "$ref": "#/$defs/person" }, { "type": "null" }] },
+        "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
+        "versions": { "type": "array", "items": { "$ref": "#/$defs/versionEntry" } },
+        "distributionStats": { "type": ["object", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

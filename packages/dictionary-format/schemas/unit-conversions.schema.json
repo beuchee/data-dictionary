@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indicate-eu.github.io/data-dictionary/schemas/unit-conversions.schema.json",
+  "title": "Unit conversions",
+  "description": "units/unit_conversions.json: target = source * conversionFactor + offset (offset optional, affine conversions only). Number lexemes such as 1.0 must be preserved byte-for-byte.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "conceptId",
+      "conceptName",
+      "sourceUnitConceptId",
+      "sourceUnitCode",
+      "sourceUnitName",
+      "conversionFactor",
+      "targetUnitConceptId",
+      "targetUnitCode",
+      "targetUnitName"
+    ],
+    "properties": {
+      "conceptId": { "type": "integer" },
+      "conceptName": { "type": "string" },
+      "sourceUnitConceptId": { "type": "integer" },
+      "sourceUnitCode": { "type": "string" },
+      "sourceUnitName": { "type": "string" },
+      "conversionFactor": { "type": "number" },
+      "offset": { "type": "number" },
+      "targetUnitConceptId": { "type": "integer" },
+      "targetUnitCode": { "type": "string" },
+      "targetUnitName": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}

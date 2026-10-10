@@ -1,0 +1,49 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, v2]
+  pull_request:
+
+jobs:
+  web:
+    name: Web + format (TypeScript)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Format package
+        working-directory: packages/dictionary-format
+        run: npx tsc --noEmit && npx vitest run
+      - name: Web typecheck, lint, test
+        working-directory: apps/web
+        run: npx tsc -b && npx eslint . && npx vitest run
+      - name: Static build
+        working-directory: apps/web
+        run: npm run build:client
+
+  python:
+    name: API + format (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # Node is needed by the cross-implementation serializer test.
+      - run: npm ci
+      - name: Format package
+        run: uv run --python 3.12 --with pytest --with jsonschema --with-editable packages/dictionary-format/python pytest packages/dictionary-format/python/tests -q
+      - name: API lint and tests
+        working-directory: apps/api
+        run: |
+          uv venv --python 3.12
+          uv pip install -e ".[dev]"
+          .venv/bin/ruff check .
+          .venv/bin/python -m pytest -q

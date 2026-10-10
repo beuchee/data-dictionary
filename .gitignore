@@ -15,3 +15,15 @@ legacy/data.json
 legacy/data_inline.js
 legacy/resolved_concept_ids.json
 legacy/concept_sets_resolved/
+
+# v2 (apps/, packages/)
+node_modules/
+.venv/
+dist/
+*.egg-info/
+.turbo/
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite

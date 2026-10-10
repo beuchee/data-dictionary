@@ -1,0 +1,24 @@
+{
+  "name": "data-dictionary",
+  "private": true,
+  "license": "EUPL-1.2",
+  "workspaces": [
+    "apps/web",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:client": "cd apps/web && npm run dev:client",
+    "build:client": "cd apps/web && npm run build:client",
+    "dev:api": "node scripts/dev-api.mjs",
+    "dev:all": "node scripts/dev-all.mjs"
+  },
+  "packageManager": "npm@11.5.2",
+  "devDependencies": {
+    "turbo": "^2"
+  }
+}

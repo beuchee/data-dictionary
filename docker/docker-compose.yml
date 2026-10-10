@@ -1,0 +1,48 @@
+# Full-stack deployment (front + API behind nginx), SQLite in a named volume.
+# From the repo root:  docker compose -f docker/docker-compose.yml up --build
+#
+# Set DD_SECRET_KEY before `up` (JWT signing key):
+#   export DD_SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))")
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+      args:
+        # Truthy => isServerMode() true; "/" keeps API calls relative so nginx
+        # proxies them to the api service (backend URL never baked in).
+        VITE_API_URL: /
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    ports:
+      # Loopback only: the web container reaches the API over the compose
+      # network; publishing it on every interface would bypass nginx.
+      - "127.0.0.1:8000:8000"
+    environment:
+      - DD_DATA_DIR=/var/lib/data-dictionary
+      - DD_SECRET_KEY=${DD_SECRET_KEY:?set DD_SECRET_KEY before up}
+      - DD_CORS_ORIGINS=http://localhost:3000
+      - DD_DEBUG=false
+    volumes:
+      - dd-data:/var/lib/data-dictionary
+
+  # Uncomment for PostgreSQL (and set DD_DATABASE_URL=postgresql+asyncpg://…):
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_DB: data_dictionary
+  #     POSTGRES_USER: data_dictionary
+  #     POSTGRES_PASSWORD: data_dictionary
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+
+volumes:
+  dd-data:
+  # pgdata:

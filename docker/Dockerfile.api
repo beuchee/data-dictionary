@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1.7
+# Build context is the repo root (see docker-compose.yml).
+FROM python:3.12-slim
+
+# git powers the content repository sync (clone, commit, push).
+RUN apt-get update && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /usr/sbin/nologin dd
+
+WORKDIR /app
+COPY packages/dictionary-format/ /packages/dictionary-format/
+COPY apps/api/ ./
+RUN pip install --no-cache-dir /packages/dictionary-format/python \
+    && pip install --no-cache-dir -e .
+
+COPY docker/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
+RUN chmod +x /usr/local/bin/api-entrypoint.sh
+
+EXPOSE 8000
+ENTRYPOINT ["/usr/local/bin/api-entrypoint.sh"]

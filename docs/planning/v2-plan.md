@@ -264,6 +264,8 @@ La détection automatique propose un format, l'utilisateur confirme ; le sélect
 
 Chaque phase se termine par des tests verts et une démo utilisable.
 
+**État au 2026-10-10** : phase 0 en grande partie faite. Monorepo, `apps/api` (auth, setup, rôles, 88 tests), `apps/web` (shell, kit UI, thème dynamique, 116 tests), `packages/dictionary-format` (9 schémas, sérialiseur byte-identique TS + Python, 44 + 44 tests), Docker, CI. Reste : AuthGate et page de login côté web, lecture anonyme, `docs/architecture.md`.
+
 ---
 
 ## 9. Risques

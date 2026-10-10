@@ -1,0 +1,79 @@
+{
+  "common": {
+    "cancel": "Annuler",
+    "clear": "Effacer",
+    "close": "Fermer",
+    "columns": "Colonnes",
+    "copied": "Copié",
+    "copy": "Copier",
+    "filters": "Filtres",
+    "loading": "Chargement...",
+    "n_selected": "{{count}} sélectionné(s)",
+    "next": "Suivant",
+    "no_results": "Aucun résultat",
+    "previous": "Précédent",
+    "refine_search": "{{shown}} sur {{total}} affichés — affinez votre recherche",
+    "results": "résultats",
+    "save": "Enregistrer",
+    "search": "Rechercher...",
+    "select_all": "Tout sélectionner",
+    "select_none": "Aucun",
+    "sort_by": "Trier par",
+    "coming_soon": "Bientôt disponible"
+  },
+  "nav": {
+    "menu": "Menu",
+    "concept_sets": "Jeux de concepts",
+    "projects": "Projets",
+    "mapping": "Mapping",
+    "settings": "Paramètres",
+    "dev_tools": "Outils dév.",
+    "documentation": "Documentation"
+  },
+  "header": {
+    "language": "Langue",
+    "toggle_dark_mode": "Basculer le mode sombre",
+    "login": "Se connecter",
+    "user_menu": "Menu utilisateur",
+    "toggle_sidebar": "Afficher/masquer la barre latérale"
+  },
+  "boot": {
+    "loading": "Chargement…",
+    "loading_page": "Chargement de la page…",
+    "config_error_title": "Impossible de charger la configuration de l'instance",
+    "config_error_description": "config.json n'a pas pu être lu. Vérifiez qu'il est servi à côté de l'application et que c'est un JSON valide.",
+    "retry": "Réessayer"
+  },
+  "pages": {
+    "concept_sets": {
+      "title": "Jeux de concepts",
+      "description": "Jeux de concepts OHDSI gouvernés, relus et versionnés.",
+      "empty": "Le catalogue des jeux de concepts s'affichera ici."
+    },
+    "projects": {
+      "title": "Projets",
+      "description": "Jeux de concepts regroupés par étude ou cas d'usage, chacun épinglé à une version.",
+      "empty": "Les projets s'afficheront ici."
+    },
+    "mapping": {
+      "title": "Mapping",
+      "description": "Recommandations de mapping et couverture de vos mappings.",
+      "empty": "Les recommandations de mapping et la couverture s'afficheront ici."
+    },
+    "settings": {
+      "title": "Paramètres",
+      "description": "Unités, conversions d'unités et vocabulaires.",
+      "empty": "Les paramètres s'afficheront ici."
+    },
+    "dev_tools": {
+      "title": "Outils de développement",
+      "description": "Éditeur SQL et schéma des vocabulaires.",
+      "empty": "Les outils de développement s'afficheront ici."
+    },
+    "documentation": {
+      "title": "Documentation",
+      "description": "Comment parcourir, modifier et relire le dictionnaire.",
+      "empty": "La documentation s'affichera ici."
+    }
+  }
+}

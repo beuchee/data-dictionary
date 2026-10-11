@@ -1,3 +1,7 @@
 node_modules
 dist
 *.tsbuildinfo
+
+# Copied from node_modules by scripts/postinstall.mjs
+public/duckdb/
+public/coi-serviceworker.js

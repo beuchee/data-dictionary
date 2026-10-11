@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Title and favicon come from the instance config.json, applied at boot. -->
     <title>Data Dictionary</title>
+    <!-- Cross-origin isolation for DuckDB-WASM on static hosts; stripped from server and dev builds (vite.config.ts). -->
+    <script>window.coi = { coepCredentialless: () => true };</script>
+    <script src="/coi-serviceworker.js"></script>
   </head>
   <body>
     <div id="root"></div>

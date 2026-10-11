@@ -1,10 +1,11 @@
 from datetime import UTC, datetime
 
 import jwt
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core import login_throttle
 from app.core.database import get_db
 from app.core.deps import get_current_user, get_session_user
 from app.core.permissions import user_permissions
@@ -35,17 +36,39 @@ def _issue_tokens(user: User) -> TokenResponse:
     )
 
 
+def _client_address(http_request: Request) -> str:
+    # nginx sets X-Real-IP (docker/nginx.conf); see core/login_throttle.py.
+    forwarded = http_request.headers.get("x-real-ip", "").strip()
+    if forwarded:
+        return forwarded[:64]
+    return http_request.client.host if http_request.client else "unknown"
+
+
 @router.post("/login", response_model=TokenResponse)
-async def login(request: LoginRequest, db: AsyncSession = Depends(get_db)):
+async def login(request: LoginRequest, http_request: Request, db: AsyncSession = Depends(get_db)):
+    client = _client_address(http_request)
+    wait = login_throttle.retry_after(client, request.username)
+    if wait is not None:
+        raise HTTPException(
+            status.HTTP_429_TOO_MANY_REQUESTS,
+            {"code": "too_many_attempts", "message": "Too many failed sign-in attempts; try again later"},
+            headers={"Retry-After": str(wait)},
+        )
+
+    def failed(detail: str) -> HTTPException:
+        login_throttle.record_failure(client, request.username)
+        return HTTPException(status.HTTP_401_UNAUTHORIZED, detail)
+
     user = await db.scalar(select(User).where(User.username == request.username))
     if user is None or user.password_hash is None:
         burn_password_check(request.password)
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid username or password")
+        raise failed("Invalid username or password")
     if not verify_password(request.password, user.password_hash):
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid username or password")
+        raise failed("Invalid username or password")
     if not user.is_active:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Account is disabled")
 
+    login_throttle.record_success(client, request.username)
     user.last_login = datetime.now(UTC)
     await db.commit()
     return _issue_tokens(user)

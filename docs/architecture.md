@@ -127,6 +127,8 @@ An imported mapping (v2 plan §7) is a file turned into normalized rows `{source
 
 `main.tsx`: load the instance (`source.getInstance()`: the API in server mode, falling back to `config.json` when it does not answer; `config.json` in static mode) → `applyBranding` → `AppErrorBoundary` → `BrowserRouter` → `AuthGate` → `App`.
 
+`POST /auth/login` is throttled in memory (`core/login_throttle.py`): 10 failures of one (client address, username) pair within 15 minutes → 429 `too_many_attempts` with `Retry-After`, until the oldest failure leaves the window; a success clears the pair. The address is nginx's `X-Real-IP`, else the socket peer.
+
 `AuthGate` (server mode only): `/setup/status` → server unreachable screen, or first-run `SetupWizard` (admin account), or the app. Without a user, the app is shown when anonymous reading is allowed (`anonymousReadAllowed`: the API's answer, else `config.json`), otherwise `LoginPage`. `/login` (outside the shell) is the header's "Log in". `auth-store` keeps the JWT pair in `localStorage` (`dd-` keys, shared with `api-client`'s refresh-and-retry), revalidates with `/auth/me`, follows other tabs, and resets the catalog when the user changes. The header's `UserMenu` opens the profile (`PATCH /auth/me`) and password dialogs.
 
 ## Where to add…

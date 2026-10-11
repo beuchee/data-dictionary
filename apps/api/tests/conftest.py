@@ -7,7 +7,7 @@ from sqlalchemy.pool import StaticPool
 
 import app.models  # noqa: F401  -- populate Base.metadata
 from app.config import settings
-from app.core import crypto, security
+from app.core import crypto, login_throttle, security
 from app.core.database import get_db
 from app.core.permissions import seed_default_roles
 from app.core.security import hash_password
@@ -32,9 +32,11 @@ def _isolate_data_dir(tmp_path, monkeypatch):
     settings.__dict__.pop("data_path", None)
     # The encryption key lives in data_dir: each test gets its own.
     crypto.reset_keyring()
+    login_throttle.reset()
     yield
     settings.__dict__.pop("data_path", None)
     crypto.reset_keyring()
+    login_throttle.reset()
 
 
 @pytest_asyncio.fixture

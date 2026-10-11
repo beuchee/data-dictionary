@@ -96,3 +96,16 @@ def test_zip_bomb_guard(monkeypatch) -> None:
     with pytest.raises(MappingImportError) as e:
         expand_files([InputFile("a.zip", buf.getvalue())])
     assert e.value.code == "bad_zip"
+
+
+def test_xlsx_bomb_guard(monkeypatch) -> None:
+    """An XLSX is a ZIP too: its sheets' XML may inflate past the same cap."""
+    import app.services.mapping_import as mi
+
+    workbook = InputFile("workbook.xlsx", (ROOT / "inputs" / "generic" / "workbook.xlsx").read_bytes())
+    options = {"format": "generic", "sheet": "Mapping", "columns": {"targetConceptId": "Concept ID"}}
+    parse_mapping([workbook], options)
+    monkeypatch.setattr(mi, "MAX_UNZIPPED_BYTES", 1000)
+    with pytest.raises(MappingImportError) as e:
+        parse_mapping([workbook], options)
+    assert e.value.code == "bad_zip"

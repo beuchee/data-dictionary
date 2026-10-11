@@ -1,5 +1,12 @@
 {
   "title": "Mapping",
   "description": "Recommandations de mapping et couverture de vos mappings.",
-  "empty": "Les recommandations de mapping et la couverture s'afficheront ici."
+  "tab_recommendations": "Recommandations",
+  "tab_coverage": "Couverture",
+  "no_recommendations": "Aucune recommandation de mapping dans cette langue.",
+  "load_error": "Les recommandations de mapping n'ont pas pu être chargées.",
+  "on_this_page": "Sur cette page",
+  "coverage_title": "Couverture du mapping",
+  "coverage_description": "Importez un mapping existant (source_to_concept_map, Usagi, SSSOM, une liste de concept_id…) pour voir quels projets il couvre : un jeu de concepts est couvert dès que l'un de ses concepts, à la version épinglée par le projet, est mappé.",
+  "coverage_coming": "L'import d'un mapping arrivera dans une prochaine version de l'application."
 }

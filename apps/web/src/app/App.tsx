@@ -13,8 +13,9 @@ const lazyPage = <K extends string>(load: () => Promise<Record<K, React.Componen
   lazy(() => load().then((m) => ({ default: m[name] })))
 
 const ConceptSetsPage = lazyPage(() => import('@/pages/concept-sets-page'), 'ConceptSetsPage')
-const ProjectsPage = lazyPage(() => import('@/pages/projects-page'), 'ProjectsPage')
-const MappingPage = lazyPage(() => import('@/pages/mapping-page'), 'MappingPage')
+const ProjectsPage = lazyPage(() => import('@/features/projects/projects-page'), 'ProjectsPage')
+const ProjectDetailPage = lazyPage(() => import('@/features/projects/project-detail-page'), 'ProjectDetailPage')
+const MappingPage = lazyPage(() => import('@/features/mapping/mapping-page'), 'MappingPage')
 const SettingsPage = lazyPage(() => import('@/pages/settings-page'), 'SettingsPage')
 const DevToolsPage = lazyPage(() => import('@/pages/dev-tools-page'), 'DevToolsPage')
 const DocumentationPage = lazyPage(() => import('@/pages/documentation-page'), 'DocumentationPage')
@@ -71,6 +72,7 @@ function Shell() {
               <Route path="/" element={<Navigate to="/concept-sets" replace />} />
               <Route path="/concept-sets" element={<ConceptSetsPage />} />
               {showProjects && <Route path="/projects" element={<ProjectsPage />} />}
+              {showProjects && <Route path="/projects/:id" element={<ProjectDetailPage />} />}
               {showMapping && <Route path="/mapping" element={<MappingPage />} />}
               <Route path="/settings/:tab?" element={<SettingsPage />} />
               <Route path="/dev-tools" element={<DevToolsPage />} />

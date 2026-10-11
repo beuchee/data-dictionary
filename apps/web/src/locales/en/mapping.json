@@ -1,5 +1,12 @@
 {
   "title": "Mapping",
   "description": "Mapping recommendations and coverage of your mappings.",
-  "empty": "Mapping recommendations and coverage will appear here."
+  "tab_recommendations": "Recommendations",
+  "tab_coverage": "Coverage",
+  "no_recommendations": "No mapping recommendations in this language.",
+  "load_error": "The mapping recommendations could not be loaded.",
+  "on_this_page": "On this page",
+  "coverage_title": "Mapping coverage",
+  "coverage_description": "Import an existing mapping (source_to_concept_map, Usagi, SSSOM, a list of concept ids…) to see which projects it covers: a concept set counts as covered when one of its concepts, at the version the project pins, is mapped.",
+  "coverage_coming": "Importing a mapping arrives in a later version of the app."
 }

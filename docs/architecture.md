@@ -54,6 +54,23 @@ build.py ──► legacy/data.json ──► vite plugin: data/… ──► St
 - **Stores**: `catalog-store` wraps the source (`loadConceptSets()`, `loadConceptSet(id, version)`, `loadResolved(id, query)`, … each a `Resource` with `idle | loading | ready | error`), sharing in-flight calls and dropping responses that arrive after `reset()`. Components read stores; they never fetch.
 - **Static payload**: the vite `instance-config` plugin serves `legacy/data.json` as `data/data.json` and `legacy/concept_sets_resolved/{id}.json` as `data/concept_sets_resolved/{id}.json` in dev, and emits them in a static build (not in a server build). It warns when `legacy/data.json` is missing: run `python3 build.py`. `TODO(v2-cutover)`: move that output out of `legacy/`.
 
+## OMOP vocabulary
+
+Concept search, concept details, hierarchy and live resolution read the OHDSI vocabularies (an ATHENA export), held by the server or by the browser.
+
+| | Server | Static |
+|---|---|---|
+| Held in | `{DD_DATA_DIR}/vocabulary/library/<table>/vocab-<id>.parquet` (one partition per vocabulary, sorted on its owning id) + `shared.parquet` for domain / concept_class / relationship; `inventory.json` | DuckDB-WASM in the tab, copied to IndexedDB (`dd-vocabulary`) after an import and restored on the next visit |
+| Imported from | an upload (`PUT /vocabulary/uploads/{id}/files/{name}`, streamed) or a server folder under `DD_VOCABULARY_IMPORT_ROOTS`, as a background job | a folder picked by the user (`showDirectoryPicker`, `<input webkitdirectory>` fallback) |
+| `concept_ancestor` | full closure (`closure` mode) | direct parent-child rows only, walked with recursive CTEs (`edges` mode) |
+| `concept_relationship`, `concept_synonym` | full | only the rows of the dictionary's resolved concepts (`data/resolved_concept_ids.json`, from `build.py`), full when that file is missing (v1's rule) |
+
+- **Code**: `apps/api/app/services/vocabulary.py` (library, import, adapted from Linkr's `vocabulary_library.py`), `vocabulary_queries.py` (SQL builders), `resolver.py` (port of `resolve.py`), routes in `routes/vocabulary.py`. Web: `apps/web/src/lib/vocabulary/` (`sql.ts` and `resolver.ts`, twins of the Python ones; `api-source.ts`; `wasm-source.ts` + `wasm/` for DuckDB-WASM, lazy-loaded), UI in `src/features/vocabulary/`.
+- **One SQL, two engines**: `sql.ts` and `vocabulary_queries.py` emit byte-identical SQL (user text as `$n` parameters, ids inlined only once checked as safe integers). `apps/api/tests/fixtures/vocab/sql-golden.json` is checked by both suites, and the Python suite runs every golden query on both `concept_ancestor` layouts. The resolver is checked against `resolve-cases.json`, produced by the repo's `resolve.py` on the same tiny ATHENA fixture (`fixtures/vocab/athena/`). After changing a builder or the fixture: `cd apps/api && .venv/bin/python tests/fixtures/vocab/make_expected.py`, review the diff.
+- **Routes** (`/api/v1/vocabulary`): readers (`require_read("concept-sets:read")`): `GET /info`, `GET /concepts/search?q=&domain=&vocabulary=&conceptClass=&standard=S|C|N&validOnly=&limit=&offset=`, `GET /filter-options`, `GET /concepts/{id}`, `/concepts/{id}/related`, `/concepts/{id}/hierarchy?maxDepth=&limit=`, `/concepts/{id}/synonyms`, `POST /resolve` (`{conceptSetId?, expression: {items}}` → the `concept_sets_resolved/{id}.json` shape). Admin (`settings:manage`): `GET /status`, `POST /uploads`, `PUT /uploads/{id}/files/{name}`, `DELETE /uploads/{id}`, `POST /inspect`, `POST /import`, `GET /jobs`, `GET /jobs/{id}`, `DELETE /vocabularies/{id}`, `DELETE ""` (all). 503 when no vocabulary is loaded.
+- **In a page**: `getVocabularySource()` (`@/lib/vocabulary`) gives the mode's `VocabularySource` (`getInfo`, `searchConcepts`, `getFilterOptions`, `getConcept`, `getRelated`, `getHierarchy`, `getSynonyms`, `resolve`); a method rejects with `VocabularyUnavailableError` when nothing is loaded. For one concept, render `<ConceptDetailPanel conceptId={id} onNavigate={…} />` (`@/features/vocabulary`) in a container with a height: it shows details, related concepts, the hierarchy graph (vis-network, lazy) and synonyms, and its own empty state linking to Settings → Vocabularies.
+- **DuckDB-WASM assets**: `apps/web/scripts/postinstall.mjs` copies the bundles and `coi-serviceworker.js` to `apps/web/public/` (gitignored). The dev server sends COOP/COEP; a static build keeps the service worker; a server build drops both.
+
 ## Boot and auth
 
 `main.tsx`: load the instance (`source.getInstance()`: the API in server mode, falling back to `config.json` when it does not answer; `config.json` in static mode) → `applyBranding` → `AppErrorBoundary` → `BrowserRouter` → `AuthGate` → `App`.

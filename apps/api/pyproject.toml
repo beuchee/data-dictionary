@@ -27,6 +27,8 @@ dependencies = [
     "structlog>=24.0",
     # The OMOP vocabulary engine: ATHENA import to Parquet, concept queries, resolution.
     "duckdb>=1.1",
+    # Mapping import: XLSX files (services/mapping_import).
+    "openpyxl>=3.1",
     # The content-file contract (parse, validate, byte-exact serialize), shared
     # with the TS side. A path source in dev; the Docker image installs it first.
     "dictionary-format",

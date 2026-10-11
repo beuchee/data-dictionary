@@ -1,3 +1,4 @@
+# ruff: noqa: E501 -- fixture rows read best on one line each
 """Writes the mapping-import fixtures under inputs/, read by both the Python
 (tests/test_mapping_import.py) and the TS (apps/web/src/lib/mapping-import/
 parity.test.ts) suites through cases.json.

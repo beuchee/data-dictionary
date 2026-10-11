@@ -343,9 +343,11 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
+// A <div>, not shadcn's <main>: the shell (app/App.tsx) puts its own <main>
+// around the page, under the header, and a page has one main landmark.
+function SidebarInset({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <main
+    <div
       data-slot="sidebar-inset"
       className={cn(
         "bg-background relative flex w-full flex-1 flex-col",

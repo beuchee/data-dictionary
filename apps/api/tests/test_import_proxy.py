@@ -83,6 +83,31 @@ async def test_needs_the_propose_permission(client, db, upstream):
     ).status_code == 403
 
 
+async def test_the_checked_address_is_the_one_connected_to(client, db, monkeypatch):
+    """DNS rebinding: a host answering a public address to the check, then a
+    private one to the connection, must not reach the private one."""
+    answers = iter(["93.184.216.34"] + ["127.0.0.1"] * 10)
+
+    def rebinding(host, port, *args, **kwargs):
+        return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (next(answers), port))]
+
+    monkeypatch.setattr(import_proxy.socket, "getaddrinfo", rebinding)
+    seen = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        return httpx.Response(200, json={"ok": True})
+
+    monkeypatch.setattr(import_proxy, "transport", httpx.MockTransport(handler))
+    headers = await _editor(client, db)
+    r = await client.get(URL, params={"url": "https://rebind.example:8443/data.json"}, headers=headers)
+    assert r.status_code == 200, r.text
+    (request,) = seen
+    assert request.url.host == "93.184.216.34" and request.url.port == 8443
+    assert request.headers["host"] == "rebind.example:8443"
+    assert request.extensions["sni_hostname"] == "rebind.example"
+
+
 async def test_real_dns_refuses_loopback(client, db):
     headers = await _editor(client, db)
     r = await client.get(URL, params={"url": "http://localhost:8000/x.json"}, headers=headers)

@@ -1,0 +1,18 @@
+# Build context is the repo root; BuildKit reads this file for Dockerfile.web only.
+# Allowlist: the web workspace, the shared packages, the instance config and its
+# branding images. Content (concept_sets/…) is not part of the image.
+*
+!package.json
+!package-lock.json
+!apps/web/
+!packages/
+!config.json
+!legacy/logo.png
+!legacy/favicon.png
+!branding/
+!docker/nginx.conf
+**/node_modules
+**/.venv
+**/__pycache__
+apps/web/dist
+apps/web/public

@@ -87,6 +87,12 @@ def api_base(kind: str, remote_url: str) -> str:
     return f"{origin}/api/v4"
 
 
+def _hostname(host: str) -> str:
+    """`host` without the `:port` that `host_of` keeps."""
+    host = host.strip().lower()
+    return host.rsplit(":", 1)[0] if host.count(":") == 1 else host
+
+
 class ForgeError(RuntimeError):
     def __init__(self, message: str, status: int | None = None):
         super().__init__(message)
@@ -102,10 +108,19 @@ async def open_proposal(
     base: str,
     title: str,
     body: str,
+    token_host: str | None = None,
 ) -> str:
-    """Open the PR / MR and return its web URL."""
+    """Open the PR / MR and return its web URL. `token_host`: the git remote's
+    host (`git_credential_service.host_of`), the only host `token` may go to.
+    With an ssh remote, `remote_url` comes from config.json, which a config
+    commit can point anywhere."""
     if not token:
         raise ForgeError("no token to open the pull / merge request with")
+    if token_host is not None and _hostname(token_host) != (urlsplit(remote_url).hostname or "").lower():
+        raise ForgeError(
+            f"the repository URL in config.json is not on the git remote's host ({_hostname(token_host)}): "
+            "open the pull / merge request by hand"
+        )
     reject_internal_host(remote_url)
     path = project_path(remote_url)
     root = api_base(kind, remote_url)

@@ -292,3 +292,17 @@ async def test_token_sealed_for_one_user_does_not_open_for_another(db, seed_role
     db.add(GitCredential(user_id=bob.id, host="github.com", secret=cred.secret))
     await db.commit()
     assert await git_credential_service.token_for_url(db, bob, "https://github.com/x/y") is None
+
+
+async def test_an_api_token_cannot_link_an_identity(client, providers, db, seed_roles):
+    """A leaked API token must not let its holder attach their own forge
+    identity to the account, then sign in as it with a full session."""
+    await create_user(db, "alice", "editor")
+    session = await login(client, "alice")
+    r = await client.post(f"{API}/auth/api-tokens", headers=session, json={"name": "ci"})
+    token = {"Authorization": f"Bearer {r.json()['token']}"}
+
+    r = await client.get(f"{API}/auth/oauth/gitlab/start", headers=token)
+    assert r.status_code == 401
+    assert "set-cookie" not in r.headers
+    assert await db.scalar(select(UserIdentity)) is None

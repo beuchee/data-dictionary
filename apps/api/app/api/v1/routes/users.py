@@ -61,6 +61,18 @@ async def _target(db: AsyncSession, user_id: int) -> User:
     return user
 
 
+def _admin_only(message: str) -> HTTPException:
+    return HTTPException(status.HTTP_403_FORBIDDEN, {"code": "admin_only", "message": message})
+
+
+def _require_admin_for_admin_target(actor: User, target: User) -> None:
+    """`users:manage` granted to a non-admin role must not reach an admin
+    account: setting its password or deactivating it would take it over or
+    lock it out."""
+    if target.role == ADMIN_ROLE and actor.role != ADMIN_ROLE:
+        raise _admin_only("Only an administrator may change an administrator's account")
+
+
 @router.get("/users", response_model=list[AdminUser])
 async def list_users(_admin: User = Depends(_manage), db: AsyncSession = Depends(get_db)):
     users = list(await db.scalars(select(User).order_by(func.lower(User.username))))
@@ -80,6 +92,7 @@ async def update_user(
     admin may give or take the admin role (403), so `users:manage` granted to
     another role never escalates to admin. Unknown role: 422."""
     user = await _target(db, user_id)
+    _require_admin_for_admin_target(actor, user)
     changes = body.model_dump(exclude_unset=True)
     new_role = changes.get("role", user.role)
     new_active = changes.get("is_active", user.is_active)
@@ -93,10 +106,7 @@ async def update_user(
                 {"code": "unknown_role", "message": f"No role named {new_role!r}"},
             )
         if ADMIN_ROLE in (new_role, user.role) and actor.role != ADMIN_ROLE:
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN,
-                {"code": "admin_only", "message": "Only an administrator may give or take the admin role"},
-            )
+            raise _admin_only("Only an administrator may give or take the admin role")
     if not new_active and user.id == actor.id:
         raise _conflict("self_deactivation", "You cannot deactivate your own account")
 
@@ -117,12 +127,14 @@ async def update_user(
 async def reset_password(
     user_id: int,
     body: PasswordReset,
-    _admin: User = Depends(_manage),
+    actor: User = Depends(_manage),
     db: AsyncSession = Depends(get_db),
 ):
     """Set a temporary password (the admin tells the user, who changes it).
-    Ends the account's current sessions. 422 when the password policy refuses it."""
+    Ends the account's current sessions. 422 when the password policy refuses
+    it; 403 `admin_only` for an admin's account unless the caller is admin."""
     user = await _target(db, user_id)
+    _require_admin_for_admin_target(actor, user)
     if error := password_policy_error(body.password, user.username):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
     set_password(user, body.password)

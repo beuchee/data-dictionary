@@ -101,6 +101,20 @@ def test_stamp_existing_set_freezes_lineage_and_authorship():
     assert list(draft["metadata"]) == list(base["metadata"])
 
 
+def test_organization_created_survives_a_draft_that_drops_or_breaks_it():
+    base = read_json(REPO_ROOT / "concept_sets/1.json")
+    base["metadata"]["organization"] = {"created": {"name": "Origin Org", "url": "https://origin.org"}}
+    for broken in ("Forged", None, ["x"]):
+        draft = copy.deepcopy(base)
+        if broken is None:
+            draft["metadata"].pop("organization")
+        else:
+            draft["metadata"]["organization"] = broken
+        stamp_concept_set(draft, cs_id=1, base=base, submitter=ALICE, instance=INSTANCE, today="2026-10-11")
+        assert draft["metadata"]["organization"]["created"] == {"name": "Origin Org", "url": "https://origin.org"}
+        assert draft["metadata"]["organization"]["current"] == ORG
+
+
 def test_stamp_new_set_fills_the_skeleton_in_canonical_order():
     cs = {
         "expression": {"items": []},

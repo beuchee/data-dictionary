@@ -5,7 +5,8 @@ Wipes team-specific content (concept sets, projects, resolved sets, mapping
 recommendations text), resets ID counters and the concept_sets_versions.json
 index. Keeps reusable reference data (UCUM unit conversions, OMOP recommended
 units) and configuration files (config.json, config.local.json, branding
-assets).
+assets in branding/ and legacy/). The v2 app (apps/, packages/) reads the same
+content files, so the reset applies to both.
 
 Run from the repository root:
 
@@ -121,7 +122,8 @@ def main():
         print(f"  - {label}")
     print()
     print("Kept as-is: config.json, config.local.json, units/unit_conversions.json,")
-    print("  units/recommended_units.json, legacy/ (branding assets and generated files).")
+    print("  units/recommended_units.json, branding/, the application code (apps/, packages/),")
+    print("  legacy/ (v1's branding assets and generated files).")
     print()
 
     if not args.yes:

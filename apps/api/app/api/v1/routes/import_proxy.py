@@ -32,9 +32,11 @@ def _bad(code: str, message: str, http_status: int = status.HTTP_400_BAD_REQUEST
     return HTTPException(http_status, {"code": code, "message": message})
 
 
-def check_public_url(url: str) -> None:
+def check_public_url(url: str) -> str:
     """Blocking (DNS). Refuses non-http(s) URLs, credentials in the URL, and
-    hosts resolving to loopback / private / link-local / reserved addresses."""
+    hosts resolving to loopback / private / link-local / reserved addresses.
+    Returns the address to connect to: the request goes there, never through
+    a second lookup, which a rebinding DNS could answer differently."""
     parts = urlsplit(url)
     if parts.scheme not in ("http", "https") or not parts.hostname:
         raise _bad("invalid_url", "Only http(s) URLs with a host can be fetched")
@@ -57,14 +59,30 @@ def check_public_url(url: str) -> None:
             or ip.is_unspecified
         ):
             raise _bad("internal_host", "This host is not allowed (internal address)", status.HTTP_403_FORBIDDEN)
+    if not infos:
+        raise _bad("unreachable", f"{parts.hostname} does not resolve", status.HTTP_502_BAD_GATEWAY)
+    return str(infos[0][4][0])
+
+
+def _pinned(url: str, address: str) -> tuple[httpx.URL, dict, dict]:
+    """(URL to `address`, headers, extensions): the original host still goes
+    in `Host` and in TLS (SNI and certificate check)."""
+    original = httpx.URL(url)
+    host = original.host
+    headers = {"Accept": "application/json", "Host": original.netloc.decode("ascii")}
+    extensions = {"sni_hostname": host} if original.scheme == "https" else {}
+    return original.copy_with(host=address), headers, extensions
 
 
 async def fetch_json(url: str):
     async with httpx.AsyncClient(timeout=TIMEOUT, follow_redirects=False, transport=transport) as client:
         for _ in range(MAX_REDIRECTS + 1):
-            await asyncio.to_thread(check_public_url, url)
+            address = await asyncio.to_thread(check_public_url, url)
+            target, headers, extensions = _pinned(url, address)
             try:
-                async with client.stream("GET", url, headers={"Accept": "application/json"}) as response:
+                request = client.build_request("GET", target, headers=headers, extensions=extensions)
+                response = await client.send(request, stream=True)
+                try:
                     if response.is_redirect and "location" in response.headers:
                         url = urljoin(url, response.headers["location"])
                         continue
@@ -75,6 +93,8 @@ async def fetch_json(url: str):
                         body.extend(chunk)
                         if len(body) > MAX_BYTES:
                             raise _bad("too_large", "The document is too large", status.HTTP_502_BAD_GATEWAY)
+                finally:
+                    await response.aclose()
             except httpx.HTTPError as exc:
                 raise _bad("unreachable", type(exc).__name__, status.HTTP_502_BAD_GATEWAY) from None
             try:

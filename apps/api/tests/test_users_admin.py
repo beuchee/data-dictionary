@@ -3,6 +3,7 @@
 from sqlalchemy import select
 
 from app.models.git_credential import GitCredential
+from app.models.role import Role
 from app.models.user import User
 from app.models.user_identity import UserIdentity
 
@@ -202,3 +203,34 @@ async def test_cannot_unlink_someone_elses_identity(client, db):
     await create_user(db, "bob")
     headers = await login(client, "bob")
     assert (await client.delete(f"{API}/auth/identities/{other.id}", headers=headers)).status_code == 404
+
+
+async def _manager(db, client):
+    """A non-admin role holding users:manage (no default role does)."""
+    db.add(Role(name="manager", label={"en": "Manager"}, permissions=["users:manage"], is_system=False))
+    await db.commit()
+    await create_user(db, "manager", "manager")
+    return await login(client, "manager")
+
+
+async def test_users_manage_without_admin_never_reaches_an_admin_account(client, db):
+    root = await create_user(db, "root", "admin")
+    await create_user(db, "root2", "admin")
+    headers = await _manager(db, client)
+
+    # Taking over an admin by setting their password, or locking them out.
+    r = await client.post(f"{API}/users/{root.id}/reset-password", headers=headers, json={"password": NEW_PASSWORD})
+    assert r.status_code == 403, r.text
+    assert r.json()["detail"]["code"] == "admin_only"
+    r = await client.patch(f"{API}/users/{root.id}", headers=headers, json={"isActive": False})
+    assert r.status_code == 403, r.text
+    r = await client.patch(f"{API}/users/{root.id}", headers=headers, json={"role": "viewer"})
+    assert r.status_code == 403, r.text
+    await login(client, "root")
+
+    # Other accounts stay theirs to manage.
+    bob = await create_user(db, "bob", "viewer")
+    r = await client.post(f"{API}/users/{bob.id}/reset-password", headers=headers, json={"password": NEW_PASSWORD})
+    assert r.status_code == 200, r.text
+    r = await client.patch(f"{API}/users/{bob.id}", headers=headers, json={"isActive": False})
+    assert r.status_code == 200, r.text

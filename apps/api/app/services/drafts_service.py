@@ -214,10 +214,18 @@ def _default_message(spec: KindSpec, kind: str, target_id: int | None, content: 
     return f"Update {spec.label}"
 
 
+def _one_line(value: str) -> str:
+    """A profile field fit for a trailer: one line (a newline would start a
+    trailer of the user's choosing), no angle brackets (they delimit the email)."""
+    return " ".join(value.replace("<", " ").replace(">", " ").split())
+
+
 def _trailer(submitter: Submitter) -> str:
-    if submitter.email:
-        return f"Co-authored-by: {submitter.display_name} <{submitter.email}>"
-    return f"Submitted-by: {submitter.display_name} (@{submitter.username})"
+    name = _one_line(submitter.display_name) or _one_line(submitter.username)
+    email = _one_line(submitter.email or "").replace(" ", "")
+    if email:
+        return f"Co-authored-by: {name} <{email}>"
+    return f"Submitted-by: {name} (@{_one_line(submitter.username)})"
 
 
 def _prepare(
@@ -529,6 +537,7 @@ async def submit(
                 base=repo.branch,
                 title=plan.title,
                 body=body,
+                token_host=host,
             )
         except (forge.ForgeError, GitError) as exc:
             logger.warning("proposal_open_failed", branch=branch, error=str(exc))

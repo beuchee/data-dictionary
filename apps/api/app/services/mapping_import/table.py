@@ -2,6 +2,7 @@
 
 import io
 import math
+import zipfile
 from dataclasses import dataclass
 from datetime import date, datetime, time
 
@@ -73,6 +74,17 @@ def cell_text(value: object) -> str:
 def read_xlsx(data: bytes, sheet: str | None = None) -> tuple[list[list[str]], list[str]]:
     from openpyxl import load_workbook
 
+    from app.services import mapping_import
+
+    # An XLSX is a ZIP: the same cap on what it inflates to as for a ZIP upload
+    # (zipfile stops at each entry's declared size, so the sum bounds it).
+    try:
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            inflated = sum(i.file_size for i in z.infolist())
+    except (zipfile.BadZipFile, OSError, ValueError, EOFError):
+        raise MappingImportError("unsupported_file", "unreadable workbook") from None
+    if inflated > mapping_import.MAX_UNZIPPED_BYTES:
+        raise MappingImportError("bad_zip", "too large")
     try:
         wb = load_workbook(io.BytesIO(data), read_only=True, data_only=True)
     except Exception:

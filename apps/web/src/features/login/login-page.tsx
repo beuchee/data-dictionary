@@ -40,9 +40,11 @@ export function LoginPage({ setupJustCompleted, onContinueAnonymously, onSuccess
   const errorKey =
     loginError === 'invalid_credentials'
       ? 'auth.login.error'
-      : loginError === 'unreachable'
-        ? 'auth.login.server_unreachable'
-        : 'auth.login.server_error'
+      : loginError === 'too_many_attempts'
+        ? 'auth.login.too_many_attempts'
+        : loginError === 'unreachable'
+          ? 'auth.login.server_unreachable'
+          : 'auth.login.server_error'
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">

@@ -10,7 +10,7 @@ from dictionary_format import parse
 from app.main import app
 from app.services import forge
 from app.services.content_store import ContentStore, get_content_store
-from app.services.git_service import get_content_repo
+from app.services.git_service import ContentRepo, get_content_repo
 
 from conftest import API, create_user, login
 from git_fixtures import commit_all, git, make_remote, read, write
@@ -103,6 +103,21 @@ async def test_draft_creation_checks_role_and_shape(api, db):
     assert (await api.post(f"{API}/drafts", json=bad, headers=editor)).status_code == 422
     assert (await api.post(f"{API}/drafts", json={**body, "content": "x"}, headers=editor)).status_code == 422
     assert (await api.post(f"{API}/drafts", json={**body, "baseCommit": "--x"}, headers=editor)).status_code == 422
+
+
+async def test_draft_content_size_is_capped(api, db, monkeypatch):
+    """A draft is stored whole in the database: its size is bounded."""
+    from app.schemas import draft as draft_schema
+
+    monkeypatch.setattr(draft_schema, "MAX_CONTENT_BYTES", 10_000)
+    editor = await _user(db, api, "eve", "editor")
+    big = {"kind": "concept-set", "targetId": 1, "content": {"tags": ["x" * 20_000]}}
+    assert (await api.post(f"{API}/drafts", json=big, headers=editor)).status_code == 422
+    small = {"kind": "concept-set", "targetId": 1, "content": {"tags": ["x"]}}
+    r = await api.post(f"{API}/drafts", json=small, headers=editor)
+    assert r.status_code == 201
+    r = await api.put(f"{API}/drafts/{r.json()['id']}", json={"content": big["content"]}, headers=editor)
+    assert r.status_code == 422
 
 
 # --- direct commits -------------------------------------------------------------
@@ -330,6 +345,21 @@ async def test_new_concept_set_proposal_allocates_an_id_and_opens_a_pr(api, db, 
     assert payload["head"] == out["branch"] and payload["base"] == "main" and payload["title"] == "Add a set"
 
 
+async def test_profile_fields_cannot_forge_commit_trailers(api, db, remote):
+    """The profile is free text the user sets: a newline in it must not add
+    trailer lines (another co-author, a sign-off) to the commit message."""
+    headers = await _user(
+        db, api, "eve", "editor", first_name="Eve\nCo-authored-by: Linus <torvalds@example.org>", email="e@x>\nfoo"
+    )
+    cs = _cs(remote, 1)
+    cs["tags"] = ["x"]
+    out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 1, cs), "proposal")).json()
+    message = git(remote.bare, "log", "-1", "--format=%B", out["commitSha"])
+    trailers = [line for line in message.splitlines() if ":" in line and line.split(":")[0].endswith("-by")]
+    assert len(trailers) == 1, message
+    assert "\n" not in trailers[0] and trailers[0].startswith("Co-authored-by: Eve Co-authored-by")
+
+
 async def test_proposal_survives_a_forge_failure_with_a_manual_link(api, db, remote, monkeypatch):
     headers = await _user(db, api, "eve", "editor")
     monkeypatch.setattr(forge, "transport", httpx.MockTransport(lambda req: httpx.Response(422, json={"message": "x"})))
@@ -458,3 +488,29 @@ async def test_without_a_vocabulary_the_resolved_list_is_reported_stale(api, db,
     out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 2, cs), "commit")).json()
     assert out["resolved"] == "stale"
     assert remote.remote_file("main", "concept_sets_resolved/2.json") == before
+
+
+async def test_a_token_never_goes_to_a_forge_other_than_the_remote_host(api, db, remote, forge_calls, monkeypatch):
+    """With an ssh remote, the PR is opened on config.json `repository.url`,
+    which a config commit can change: the token must not follow it to another host."""
+    config = read(remote.work / "config.json")
+    config["repository"] = {"url": "https://attacker.example/indicate-eu/data-dictionary", "branch": "main"}
+    write(remote.work / "config.json", config)
+    commit_all(remote.work, "Point the repository elsewhere")
+    git(remote.work, "push", "-q", "origin", "main")
+
+    real_push = ContentRepo.push
+    monkeypatch.setattr(ContentRepo, "remote_url", lambda self: "git@github.com:indicate-eu/data-dictionary.git")
+    # The push itself still goes to the local bare remote.
+    monkeypatch.setattr(ContentRepo, "_network_url", lambda self, token: str(remote.bare))
+    monkeypatch.setattr(ContentRepo, "push", real_push)
+
+    headers = await _user(db, api, "eve", "editor")
+    cs = _cs(remote, 1)
+    cs["tags"] = ["x"]
+    r = await _submit(api, headers, await _draft(api, headers, "concept-set", 1, cs), "proposal")
+    assert r.status_code == 200, r.text
+    out = r.json()
+    assert out["branch"] in remote.remote_branches()
+    assert forge_calls == []
+    assert out["proposalError"]

@@ -48,7 +48,7 @@ interface TokenResponse {
   user: AuthUser
 }
 
-export type LoginError = 'invalid_credentials' | 'server_error' | 'unreachable'
+export type LoginError = 'invalid_credentials' | 'too_many_attempts' | 'server_error' | 'unreachable'
 
 interface AuthState {
   token: string | null
@@ -154,7 +154,9 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         body: JSON.stringify({ username, password }),
       })
       if (!res.ok) {
-        set({ loginError: res.status === 401 ? 'invalid_credentials' : 'server_error' })
+        const loginError =
+          res.status === 401 ? 'invalid_credentials' : res.status === 429 ? 'too_many_attempts' : 'server_error'
+        set({ loginError })
         return false
       }
       const data = (await res.json()) as TokenResponse

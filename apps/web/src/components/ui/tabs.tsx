@@ -1,4 +1,4 @@
-// from linkr@1310cf4a4 apps/web/src/components/ui/tabs.tsx
+// Adapted from linkr@1310cf4a4 apps/web/src/components/ui/tabs.tsx (horizontal lists scroll on small screens)
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Tabs as TabsPrimitive } from "radix-ui"
@@ -24,8 +24,11 @@ function Tabs({
   )
 }
 
+// Below `sm`, a horizontal list wider than the screen scrolls sideways instead of
+// being cut off; it starts at the left, as centred content that overflows cannot
+// be scrolled back to its start.
 const tabsListVariants = cva(
-  "rounded-lg p-[3px] group-data-[orientation=horizontal]/tabs:h-9 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
+  "rounded-lg p-[3px] group-data-[orientation=horizontal]/tabs:h-9 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col max-sm:group-data-[orientation=horizontal]/tabs:max-w-full max-sm:group-data-[orientation=horizontal]/tabs:justify-start max-sm:group-data-[orientation=horizontal]/tabs:overflow-x-auto max-sm:group-data-[orientation=horizontal]/tabs:overflow-y-hidden",
   {
     variants: {
       variant: {

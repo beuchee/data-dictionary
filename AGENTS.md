@@ -2,7 +2,7 @@
 
 Governed OHDSI concept sets (plus projects, units, mapping recommendations) stored as JSON in this repo, and the app to browse, edit and review them. What and why: [README.md](README.md).
 
-**Status: v2 in progress** on branch `v2`, a React + FastAPI rewrite modelled on Linkr (`../linkr`). The v1 static SPA lives in `legacy/` and is still the live site until v2 reaches parity. Plan and decisions: [docs/planning/v2-plan.md](docs/planning/v2-plan.md).
+**Status: v2** on branch `v2`, a React + FastAPI rewrite modelled on Linkr (`../linkr`), feature-complete; the cutover is pending. The v1 static SPA lives in `legacy/` and is still the live site until then: do not remove it nor change its deployment (`build-and-deploy.yml`, the `pages` job of `.gitlab-ci.yml`). Plan and decisions: [docs/planning/v2-plan.md](docs/planning/v2-plan.md).
 
 ## Where to read
 
@@ -14,23 +14,31 @@ Governed OHDSI concept sets (plus projects, units, mapping recommendations) stor
 - Content format contract (schemas, serializer, TS + Python) → [packages/dictionary-format/README.md](packages/dictionary-format/README.md)
 - Backend → [apps/api/README.md](apps/api/README.md)
 - v1 SPA (`legacy/`) → [docs/legacy-spa.md](docs/legacy-spa.md)
+- Deployment (Docker, `DD_*` variables, static hosting, cutover checklist) → [docs/deployment.md](docs/deployment.md)
 - v2 plan, decisions, open questions → [docs/planning/v2-plan.md](docs/planning/v2-plan.md)
 - Forking the dictionary → [FORKING.md](FORKING.md)
+- User documentation (shown in the app) → `apps/web/src/content/docs/{en,fr}/`
 
 ## Commands
 
 ```bash
 # v2 (apps/web on :3000, apps/api on :8000)
 npm install                                # from the repo root (npm workspaces)
-npm run dev:all                            # web + api together; dev:web / dev:api / dev:client (static mode)
-npm test                                   # TS suites (web + format)
-cd apps/api && .venv/bin/python -m pytest  # API tests (setup: see apps/api/README.md)
-docker compose -f docker/docker-compose.yml up --build
+npm run dev:all                            # web + api together (server mode); dev:web / dev:api
+npm run dev:client                         # web alone, static mode (needs python3 build.py first)
+npm run build:client                       # static build → apps/web/dist (BASE_PATH=/sub/path/ for Pages)
+docker compose -f docker/docker-compose.yml up --build   # needs DD_SECRET_KEY, see docs/deployment.md
+
+# Tests (CI: .github/workflows/tests.yml)
+npm test                                   # TS suites: web + format (vitest)
+cd apps/web && npx tsc -b && npx eslint .  # web typecheck + lint
+cd apps/api && .venv/bin/ruff check . && .venv/bin/python -m pytest -q   # API (setup: apps/api/README.md)
+uv run --python 3.12 --with pytest --with jsonschema --with-editable packages/dictionary-format/python pytest packages/dictionary-format/python/tests -q
 
 # Content pipeline
 python3 resolve.py --vocab <path>          # resolve concept sets → concept_sets_resolved/ (needs OMOP vocab)
 python3 resolve.py --vocab <path> --id 10  # resolve one set after editing its expression
-python3 build.py                           # snapshot + build legacy/data.json (no vocab needed)
+python3 build.py                           # snapshot + static payload in legacy/ (no vocab needed)
 python3 snapshot.py --backfill --dry-run   # find versions missing from the index
 ```
 

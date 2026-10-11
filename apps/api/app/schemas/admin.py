@@ -27,7 +27,22 @@ class AdminUser(CamelModel):
     created_at: datetime | None = None
     # A local password is one sign-in method; each identity is another.
     has_password: bool
+    must_change_password: bool = False
     identities: list[IdentitySummary] = []
+
+
+class UserCreate(CamelModel):
+    username: str = Field(max_length=255)
+    email: str | None = Field(default=None, max_length=255)
+    first_name: str | None = Field(default=None, max_length=255)
+    last_name: str | None = Field(default=None, max_length=255)
+    role: str = Field(min_length=1, max_length=50)
+    # None: the server generates one and returns it once (`temporaryPassword`).
+    password: str | None = None
+
+
+class UserCreated(AdminUser):
+    temporary_password: str | None = None
 
 
 class UserPatch(CamelModel):

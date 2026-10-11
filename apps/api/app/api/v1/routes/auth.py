@@ -107,6 +107,7 @@ async def _build_me(user: User, db: AsyncSession) -> MeResponse:
         email=user.email,
         role=user.role,
         is_active=user.is_active,
+        must_change_password=user.must_change_password,
         permissions=await user_permissions(db, user),
         first_name=user.first_name,
         last_name=user.last_name,
@@ -161,6 +162,7 @@ async def change_password(
     if error := password_policy_error(body.new_password, user.username):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
     set_password(user, body.new_password)
+    user.must_change_password = False
     await db.commit()
     return _issue_tokens(user)
 

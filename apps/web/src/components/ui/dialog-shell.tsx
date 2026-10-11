@@ -86,6 +86,12 @@ interface DialogShellProps {
   footerExtra?: ReactNode
   hideFooter?: boolean
   /**
+   * Drop the ✕ in the corner. For a dialog the user may not dismiss (a
+   * required step): the caller also ignores `onOpenChange(false)` (Esc, outside
+   * click) and gives another way out in `footerExtra`.
+   */
+  hideClose?: boolean
+  /**
    * Opt out of Enter-to-confirm, for a body where Enter means something else
    * (a code editor, a tag field that adds on Enter).
    */
@@ -118,6 +124,7 @@ export function DialogShell({
   dirtyTracked,
   footerExtra,
   hideFooter,
+  hideClose,
   noEnterSubmit,
   className,
   contentClassName,
@@ -182,7 +189,7 @@ export function DialogShell({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={cn(KIND_CLASS[kind], className)} onKeyDown={handleKeyDown}>
+      <DialogContent className={cn(KIND_CLASS[kind], className)} onKeyDown={handleKeyDown} showCloseButton={!hideClose}>
         <DialogHeader className={kind === 'workbench' ? 'shrink-0' : undefined}>
           <DialogTitle>{title}</DialogTitle>
           {description ? <DialogDescription>{description}</DialogDescription> : null}

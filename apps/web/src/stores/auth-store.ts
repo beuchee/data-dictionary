@@ -20,6 +20,8 @@ export interface AuthUser {
   email: string | null
   role: string
   is_active: boolean
+  /** An administrator chose the current password: a new one is required before going on. */
+  must_change_password?: boolean
   /** From GET /auth/me; absent right after login (lighter shape), so treat absence as "no". */
   permissions?: string[]
   // Profile (snake_case, as the auth API returns it). They feed a concept set's

@@ -234,3 +234,136 @@ async def test_users_manage_without_admin_never_reaches_an_admin_account(client,
     assert r.status_code == 200, r.text
     r = await client.patch(f"{API}/users/{bob.id}", headers=headers, json={"isActive": False})
     assert r.status_code == 200, r.text
+
+
+# --- account creation ---------------------------------------------------------
+
+
+async def test_create_user_with_a_chosen_password(client, db):
+    _, headers = await _admin(db, client)
+    r = await client.post(
+        f"{API}/users",
+        json={
+            "username": "  jane.doe ",
+            "email": "Jane@Example.org",
+            "firstName": "Jane",
+            "lastName": " ",
+            "role": "editor",
+            "password": NEW_PASSWORD,
+        },
+        headers=headers,
+    )
+    assert r.status_code == 201, r.text
+    body = r.json()
+    assert (body["username"], body["email"], body["firstName"], body["lastName"]) == (
+        "jane.doe",
+        "Jane@Example.org",
+        "Jane",
+        None,
+    )
+    assert (body["role"], body["isActive"], body["hasPassword"], body["mustChangePassword"]) == (
+        "editor",
+        True,
+        True,
+        True,
+    )
+    assert body["temporaryPassword"] is None
+
+    r = await client.post(f"{API}/auth/login", json={"username": "jane.doe", "password": NEW_PASSWORD})
+    assert r.status_code == 200
+    assert r.json()["user"]["must_change_password"] is True
+    me = await client.get(f"{API}/auth/me", headers={"Authorization": f"Bearer {r.json()['access_token']}"})
+    assert me.json()["must_change_password"] is True
+
+
+async def test_create_user_generates_a_temporary_password_once(client, db):
+    _, headers = await _admin(db, client)
+    r = await client.post(f"{API}/users", json={"username": "bob", "role": "viewer"}, headers=headers)
+    assert r.status_code == 201, r.text
+    temporary = r.json()["temporaryPassword"]
+    assert temporary and len(temporary) >= 16
+    r = await client.post(f"{API}/auth/login", json={"username": "bob", "password": temporary})
+    assert r.status_code == 200
+    # Never returned again.
+    listed = {u["username"]: u for u in (await client.get(f"{API}/users", headers=headers)).json()}
+    assert "temporaryPassword" not in listed["bob"]
+
+
+async def test_create_user_requires_users_manage(client, db):
+    await create_user(db, "root", "admin")
+    for role in ("viewer", "editor", "maintainer"):
+        await create_user(db, f"u-{role}", role)
+        headers = await login(client, f"u-{role}")
+        r = await client.post(f"{API}/users", json={"username": f"new-{role}", "role": "viewer"}, headers=headers)
+        assert r.status_code == 403
+    r = await client.post(f"{API}/users", json={"username": "anon", "role": "viewer"})
+    assert r.status_code in (401, 403)
+    assert await db.scalar(select(User).where(User.username.like("new-%"))) is None
+
+
+async def test_only_an_admin_may_create_an_admin(client, db):
+    _, admin_headers = await _admin(db, client)
+    role = await db.scalar(select(Role).where(Role.name == "maintainer"))
+    role.permissions = [*role.permissions, "users:manage"]
+    await db.commit()
+    await create_user(db, "mia", "maintainer")
+    headers = await login(client, "mia")
+    r = await client.post(f"{API}/users", json={"username": "evil", "role": "admin"}, headers=headers)
+    assert r.status_code == 403
+    assert r.json()["detail"]["code"] == "admin_only"
+    r = await client.post(f"{API}/users", json={"username": "fine", "role": "editor"}, headers=headers)
+    assert r.status_code == 201
+    r = await client.post(f"{API}/users", json={"username": "second-admin", "role": "admin"}, headers=admin_headers)
+    assert r.status_code == 201
+
+
+async def test_create_user_refuses_duplicates(client, db):
+    _, headers = await _admin(db, client)
+    bob = await create_user(db, "bob")
+    bob.email = "bob@example.org"
+    await db.commit()
+    r = await client.post(f"{API}/users", json={"username": "BOB", "role": "viewer"}, headers=headers)
+    assert r.status_code == 409
+    assert r.json()["detail"]["code"] == "username_taken"
+    r = await client.post(
+        f"{API}/users", json={"username": "robert", "email": "Bob@Example.org", "role": "viewer"}, headers=headers
+    )
+    assert r.status_code == 409
+    assert r.json()["detail"]["code"] == "email_taken"
+
+
+async def test_create_user_validates_username_role_and_password(client, db):
+    _, headers = await _admin(db, client)
+
+    async def post(**body):
+        return await client.post(f"{API}/users", json={"role": "viewer", **body}, headers=headers)
+
+    r = await post(username="jane doe")
+    assert (r.status_code, r.json()["detail"]["code"]) == (422, "username_invalid")
+    r = await post(username="ctl\x07x")
+    assert (r.status_code, r.json()["detail"]["code"]) == (422, "username_invalid")
+    r = await post(username="jane", role="superuser")
+    assert (r.status_code, r.json()["detail"]["code"]) == (422, "unknown_role")
+    r = await post(username="jane", password="short")
+    assert (r.status_code, r.json()["detail"]["code"]) == (422, "password_too_short")
+    r = await post(username="jane-doe-account", password="jane-doe-account")
+    assert (r.status_code, r.json()["detail"]["code"]) == (422, "password_is_username")
+    assert await db.scalar(select(User).where(User.username.like("jane%"))) is None
+
+
+async def test_must_change_password_is_cleared_by_a_change(client, db):
+    _, headers = await _admin(db, client)
+    bob = await create_user(db, "bob")
+    r = await client.post(f"{API}/users/{bob.id}/reset-password", json={"password": NEW_PASSWORD}, headers=headers)
+    assert r.json()["mustChangePassword"] is True
+    bob_headers = await login(client, "bob", NEW_PASSWORD)
+    assert (await client.get(f"{API}/auth/me", headers=bob_headers)).json()["must_change_password"] is True
+    r = await client.post(
+        f"{API}/auth/change-password",
+        json={"currentPassword": NEW_PASSWORD, "newPassword": "my-own-choice-at-last"},
+        headers=bob_headers,
+    )
+    assert r.status_code == 200, r.text
+    assert r.json()["user"]["must_change_password"] is False
+    fresh = {"Authorization": f"Bearer {r.json()['access_token']}"}
+    assert (await client.get(f"{API}/auth/me", headers=fresh)).json()["must_change_password"] is False

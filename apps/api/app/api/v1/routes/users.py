@@ -1,18 +1,33 @@
-"""Account administration (`users:manage`): list accounts, change a role,
-deactivate / reactivate, set a temporary password; and the read-only roles."""
+"""Account administration (`users:manage`): list and create accounts, change a
+role, deactivate / reactivate, set a temporary password; and the read-only roles."""
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.deps import require_permission
 from app.core.permissions import ADMIN_ROLE, ALL_PERMISSIONS, CATALOGUE
-from app.core.security import password_policy_error, set_password
+from app.core.security import (
+    generate_temporary_password,
+    password_policy_error,
+    set_password,
+    username_error,
+)
 from app.models.role import Role
 from app.models.user import User
 from app.models.user_identity import UserIdentity
-from app.schemas.admin import AdminUser, IdentitySummary, PasswordReset, RoleResponse, RolesResponse, UserPatch
+from app.schemas.admin import (
+    AdminUser,
+    IdentitySummary,
+    PasswordReset,
+    RoleResponse,
+    RolesResponse,
+    UserCreate,
+    UserCreated,
+    UserPatch,
+)
 
 router = APIRouter(tags=["users"])
 
@@ -45,6 +60,7 @@ def admin_user(user: User, identities: list[IdentitySummary]) -> AdminUser:
         last_login=user.last_login,
         created_at=user.created_at,
         has_password=user.password_hash is not None,
+        must_change_password=user.must_change_password,
         identities=identities,
     )
 
@@ -78,6 +94,57 @@ async def list_users(_admin: User = Depends(_manage), db: AsyncSession = Depends
     users = list(await db.scalars(select(User).order_by(func.lower(User.username))))
     identities = await _identities_by_user(db, [u.id for u in users])
     return [admin_user(u, identities.get(u.id, [])) for u in users]
+
+
+def _blank_to_none(value: str | None) -> str | None:
+    return (value or "").strip() or None
+
+
+@router.post("/users", response_model=UserCreated, status_code=status.HTTP_201_CREATED)
+async def create_user(body: UserCreate, actor: User = Depends(_manage), db: AsyncSession = Depends(get_db)):
+    """Create a local account. Without `password`, one is generated and returned
+    once (`temporaryPassword`). Either way the user must change it at first
+    sign-in. 422: invalid username (`username_invalid`), unknown role, password
+    policy; 409: `username_taken`, `email_taken` (both case-insensitive); 403
+    `admin_only` for an admin account created by a non-admin."""
+    username = body.username.strip()
+    if error := username_error(username):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
+    if await db.scalar(select(Role).where(Role.name == body.role)) is None:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
+            {"code": "unknown_role", "message": f"No role named {body.role!r}"},
+        )
+    if body.role == ADMIN_ROLE and actor.role != ADMIN_ROLE:
+        raise _admin_only("Only an administrator may create an administrator")
+    email = _blank_to_none(body.email)
+    if await db.scalar(select(User.id).where(func.lower(User.username) == username.lower())) is not None:
+        raise _conflict("username_taken", "An account already has this username")
+    if email and await db.scalar(select(User.id).where(func.lower(User.email) == email.lower())) is not None:
+        raise _conflict("email_taken", "An account already has this email")
+
+    generated = body.password is None
+    password = generate_temporary_password(username) if generated else body.password
+    if error := password_policy_error(password, username):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
+    user = User(
+        username=username,
+        email=email,
+        first_name=_blank_to_none(body.first_name),
+        last_name=_blank_to_none(body.last_name),
+        role=body.role,
+        must_change_password=True,
+    )
+    set_password(user, password)
+    db.add(user)
+    try:
+        await db.commit()
+    except IntegrityError:
+        await db.rollback()
+        raise _conflict("username_taken", "An account already has this username") from None
+    await db.refresh(user)
+    created = admin_user(user, [])
+    return UserCreated(**created.model_dump(), temporary_password=password if generated else None)
 
 
 @router.patch("/users/{user_id}", response_model=AdminUser)
@@ -131,13 +198,15 @@ async def reset_password(
     db: AsyncSession = Depends(get_db),
 ):
     """Set a temporary password (the admin tells the user, who changes it).
-    Ends the account's current sessions. 422 when the password policy refuses
-    it; 403 `admin_only` for an admin's account unless the caller is admin."""
+    Ends the account's current sessions, and the user must choose a new one at
+    the next sign-in. 422 when the password policy refuses it; 403 `admin_only`
+    for an admin's account unless the caller is admin."""
     user = await _target(db, user_id)
     _require_admin_for_admin_target(actor, user)
     if error := password_policy_error(body.password, user.username):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
     set_password(user, body.password)
+    user.must_change_password = True
     await db.commit()
     await db.refresh(user)
     identities = await _identities_by_user(db, [user.id])

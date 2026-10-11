@@ -3,7 +3,7 @@
 // dictionary's single global role per user.
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyRound, Loader2, MoreHorizontal, UserCheck, UserX } from 'lucide-react'
+import { KeyRound, Loader2, MoreHorizontal, UserCheck, UserPlus, UserX } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DataTable, type DataTableColumn } from '@/components/ui/data-table'
@@ -22,6 +22,7 @@ import { ApiError } from '@/lib/api-client'
 import { passwordErrorFromApi, type PasswordRuleError } from '@/lib/password-policy'
 import { useAuthStore } from '@/stores/auth-store'
 import { ConfirmDialog } from '@/features/drafts/confirm-dialog'
+import { CreateUserDialog } from './create-user-dialog'
 import { apiErrorCode, fullName, usersApi, type AdminUser, type RolesInfo } from './users-api'
 
 const KNOWN_ERRORS = ['last_admin', 'self_deactivation', 'admin_only', 'unknown_role']
@@ -36,6 +37,7 @@ export function UsersTab() {
   const [busyId, setBusyId] = useState<number | null>(null)
   const [deactivate, setDeactivate] = useState<AdminUser | null>(null)
   const [resetFor, setResetFor] = useState<AdminUser | null>(null)
+  const [creating, setCreating] = useState(false)
 
   const load = useCallback(async () => {
     try {
@@ -113,6 +115,7 @@ export function UsersTab() {
       cell: (u) => (
         <div className="flex flex-wrap gap-1">
           {u.hasPassword && <Badge variant="outline">{t('users.password')}</Badge>}
+          {u.hasPassword && u.mustChangePassword && <Badge variant="secondary">{t('users.must_change')}</Badge>}
           {u.identities.map((i) => (
             <Badge key={i.id} variant="secondary" title={i.username ?? i.email ?? undefined}>
               {t(`users.provider.${i.provider}`, { defaultValue: i.provider })}
@@ -182,7 +185,13 @@ export function UsersTab() {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <p className="text-xs text-muted-foreground">{t('users.description')}</p>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs text-muted-foreground">{t('users.description')}</p>
+          <Button onClick={() => setCreating(true)}>
+            <UserPlus size={14} />
+            {t('users.new_user')}
+          </Button>
+        </div>
         {actionError && <NoticeBanner tone="danger" title={actionError} onDismiss={() => setActionError(null)} />}
         <DataTable data={users} columns={columns} rowKey={(u) => u.id} pageSize={50} emptyMessage={t('users.empty')} />
       </div>
@@ -198,7 +207,18 @@ export function UsersTab() {
           setDeactivate(null)
         }}
       />
-      <ResetPasswordDialog user={resetFor} onClose={() => setResetFor(null)} />
+      <ResetPasswordDialog
+        user={resetFor}
+        onClose={() => setResetFor(null)}
+        onReset={(updated) => setUsers((list) => list?.map((u) => (u.id === updated.id ? updated : u)) ?? null)}
+      />
+      <CreateUserDialog
+        open={creating}
+        onOpenChange={setCreating}
+        roles={roles}
+        roleLabel={roleLabel}
+        onCreated={({ temporaryPassword: _shownOnce, ...user }) => setUsers((list) => [...(list ?? []), user])}
+      />
     </div>
   )
 }
@@ -249,9 +269,10 @@ function RolesMatrix({ roles, roleLabel }: RolesMatrixProps) {
 interface ResetPasswordDialogProps {
   user: AdminUser | null
   onClose: () => void
+  onReset: (user: AdminUser) => void
 }
 
-function ResetPasswordDialog({ user, onClose }: ResetPasswordDialogProps) {
+function ResetPasswordDialog({ user, onClose, onReset }: ResetPasswordDialogProps) {
   const { t } = useTranslation()
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -276,7 +297,7 @@ function ResetPasswordDialog({ user, onClose }: ResetPasswordDialogProps) {
     setBusy(true)
     setError(null)
     try {
-      await usersApi.resetPassword(user.id, password)
+      onReset(await usersApi.resetPassword(user.id, password))
       setDone(true)
     } catch (e) {
       let policy: PasswordRuleError | null = null

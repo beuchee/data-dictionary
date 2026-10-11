@@ -28,4 +28,7 @@ class User(Base, TimestampMixin):
     last_login: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     # Session tokens issued before it are refused (core/security.py).
     password_changed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Set when an administrator chose the password (account creation, reset);
+    # cleared when the user changes it. The web app blocks until then.
+    must_change_password: Mapped[bool] = mapped_column(default=False, server_default=expression.false())
     preferences: Mapped[dict] = mapped_column(JSONB_or_JSON, default=dict)

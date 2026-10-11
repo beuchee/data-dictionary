@@ -1,5 +1,6 @@
 import gzip
 import re
+import secrets
 from datetime import UTC, datetime, timedelta
 from functools import cache
 from pathlib import Path
@@ -87,6 +88,19 @@ def username_error(username: str) -> dict | None:
             "message": "3 to 64 characters: letters, digits, dot, underscore or hyphen.",
         }
     return None
+
+
+# No look-alike characters (0/O, 1/l/I): the password is read out or copied by hand.
+_TEMPORARY_ALPHABET = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+
+def generate_temporary_password(username: str) -> str:
+    """A random password the policy accepts (log2(56) ≈ 5.8 bits a character)."""
+    length = min(max(16, settings.password_min_length), PASSWORD_MAX_BYTES)
+    while True:
+        password = "".join(secrets.choice(_TEMPORARY_ALPHABET) for _ in range(length))
+        if password_policy_error(password, username) is None:
+            return password
 
 
 def set_password(user, password: str) -> None:

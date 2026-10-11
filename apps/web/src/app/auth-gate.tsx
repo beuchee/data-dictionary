@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import { Loader2 } from 'lucide-react'
+import { ChangePasswordDialog } from '@/features/account/change-password-dialog'
 import { LoginPage } from '@/features/login/login-page'
 import { OAuthCallbackPage } from '@/features/login/oauth-callback'
 import { ServerUnreachable } from '@/features/login/server-unreachable'
@@ -95,5 +96,11 @@ export function AuthGate({ children }: AuthGateProps) {
 
   if (!user && !anonymousRead) return <LoginPage setupJustCompleted={setupJustCompleted} />
 
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      {/* An administrator set the password: nothing goes on until the user picks their own. */}
+      {user?.must_change_password && <ChangePasswordDialog open required onOpenChange={() => undefined} />}
+    </>
+  )
 }

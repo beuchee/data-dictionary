@@ -20,6 +20,8 @@ class UserResponse(BaseModel):
     email: str | None
     role: str
     is_active: bool
+    # An administrator chose the current password: the web app asks for a new one.
+    must_change_password: bool = False
 
     model_config = {"from_attributes": True}
 
@@ -33,6 +35,7 @@ class MeResponse(BaseModel):
     email: str | None
     role: str
     is_active: bool
+    must_change_password: bool = False
     permissions: list[str]
     first_name: str | None = None
     last_name: str | None = None

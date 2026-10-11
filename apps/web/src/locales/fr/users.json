@@ -14,6 +14,7 @@
     "actions": "Actions"
   },
   "password": "Mot de passe",
+  "must_change": "À changer",
   "provider": {
     "github": "GitHub",
     "gitlab": "GitLab",
@@ -26,9 +27,21 @@
   "reactivate": "Réactiver",
   "deactivate_title": "Désactiver {{name}} ?",
   "deactivate_description": "Le compte ne peut plus se connecter et ses sessions et jetons d'API cessent de fonctionner. Ses brouillons sont conservés ; vous pourrez le réactiver.",
+  "new_user": "Nouvel utilisateur",
+  "create": {
+    "title": "Créer un utilisateur",
+    "description": "Un compte local, qui se connecte avec un identifiant et un mot de passe. L'utilisateur devra choisir un nouveau mot de passe à sa première connexion.",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "generate": "Générer un mot de passe temporaire",
+    "generate_hint": "Affiché une seule fois, après la création : copiez-le et transmettez-le à l'utilisateur.",
+    "submit": "Créer",
+    "done_generated": "{{name}} a été créé. Transmettez-lui ce mot de passe temporaire ; il n'est affiché qu'une fois.",
+    "done": "{{name}} a été créé. Transmettez-lui le mot de passe temporaire que vous avez choisi."
+  },
   "reset_password": "Définir un mot de passe temporaire",
   "reset_title": "Mot de passe temporaire pour {{name}}",
-  "reset_description": "Transmettez-le à l'utilisateur, qui le change depuis son menu. Ses sessions en cours prennent fin.",
+  "reset_description": "Transmettez-le à l'utilisateur, qui devra en choisir un nouveau à sa prochaine connexion. Ses sessions en cours prennent fin.",
   "reset_confirm": "Définir le mot de passe",
   "reset_done": "Le mot de passe de {{name}} a été remplacé.",
   "temporary_password": "Mot de passe temporaire",
@@ -42,6 +55,8 @@
     "last_admin": "C'est le dernier administrateur actif : promouvez d'abord un autre compte.",
     "self_deactivation": "Vous ne pouvez pas désactiver votre propre compte.",
     "admin_only": "Seul un administrateur peut attribuer ou retirer le rôle administrateur.",
-    "unknown_role": "Ce rôle n'existe pas."
+    "unknown_role": "Ce rôle n'existe pas.",
+    "username_taken": "Un compte porte déjà cet identifiant.",
+    "email_taken": "Un compte utilise déjà cette adresse e-mail."
   }
 }

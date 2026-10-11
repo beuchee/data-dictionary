@@ -96,6 +96,7 @@ async def test_login_me_refresh_logout(client):
         "email": None,
         "role": "admin",
         "is_active": True,
+        "must_change_password": False,
     }
 
     headers = {"Authorization": f"Bearer {tokens['access_token']}"}

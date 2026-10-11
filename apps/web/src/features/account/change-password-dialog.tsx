@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
 import { DialogShell } from '@/components/ui/dialog-shell'
 import { FormField } from '@/components/ui/form-field'
 import { NewPasswordFields, newPasswordReady } from '@/components/ui/new-password-fields'
@@ -11,12 +12,18 @@ import { useAuthStore } from '@/stores/auth-store'
 interface ChangePasswordDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  /**
+   * The password was set by an administrator: the dialog cannot be dismissed,
+   * only completed or left by logging out.
+   */
+  required?: boolean
 }
 
-export function ChangePasswordDialog({ open, onOpenChange }: ChangePasswordDialogProps) {
+export function ChangePasswordDialog({ open, onOpenChange, required }: ChangePasswordDialogProps) {
   const { t } = useTranslation()
   const username = useAuthStore((s) => s.user?.username ?? '')
   const changePassword = useAuthStore((s) => s.changePassword)
+  const logout = useAuthStore((s) => s.logout)
   const [current, setCurrent] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -58,9 +65,19 @@ export function ChangePasswordDialog({ open, onOpenChange }: ChangePasswordDialo
   return (
     <DialogShell
       open={open}
-      onOpenChange={handleOpenChange}
-      title={t('auth.password.title')}
-      description={t('auth.password.description')}
+      // Esc and outside clicks close nothing while a new password is required.
+      onOpenChange={required ? () => undefined : handleOpenChange}
+      title={t(required ? 'auth.password.required_title' : 'auth.password.title')}
+      description={t(required ? 'auth.password.required_description' : 'auth.password.description')}
+      hideClose={required}
+      hideCancel={required}
+      footerExtra={
+        required ? (
+          <Button variant="ghost" size="sm" onClick={logout} disabled={saving}>
+            {t('auth.menu.logout')}
+          </Button>
+        ) : undefined
+      }
       onConfirm={handleConfirm}
       confirmLabel={t('auth.password.submit')}
       confirmDisabled={!ready}

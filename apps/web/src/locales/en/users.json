@@ -14,6 +14,7 @@
     "actions": "Actions"
   },
   "password": "Password",
+  "must_change": "Must change it",
   "provider": {
     "github": "GitHub",
     "gitlab": "GitLab",
@@ -26,9 +27,21 @@
   "reactivate": "Reactivate",
   "deactivate_title": "Deactivate {{name}}?",
   "deactivate_description": "The account can no longer sign in and its sessions and API tokens stop working. Its drafts are kept; you can reactivate it later.",
+  "new_user": "New user",
+  "create": {
+    "title": "Create a user",
+    "description": "A local account, signing in with a username and password. The user must choose a new password at their first sign-in.",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "generate": "Generate a temporary password",
+    "generate_hint": "Shown once, after creation: copy it and give it to the user.",
+    "submit": "Create",
+    "done_generated": "{{name}} was created. Give them this temporary password; it is shown only once.",
+    "done": "{{name}} was created. Give them the temporary password you chose."
+  },
   "reset_password": "Set a temporary password",
   "reset_title": "Temporary password for {{name}}",
-  "reset_description": "Give it to the user, who changes it from their menu. Their current sessions end.",
+  "reset_description": "Give it to the user, who must choose a new one at their next sign-in. Their current sessions end.",
   "reset_confirm": "Set the password",
   "reset_done": "{{name}}'s password was replaced.",
   "temporary_password": "Temporary password",
@@ -42,6 +55,8 @@
     "last_admin": "This is the last active administrator: promote another account first.",
     "self_deactivation": "You cannot deactivate your own account.",
     "admin_only": "Only an administrator may give or take the admin role.",
-    "unknown_role": "This role does not exist."
+    "unknown_role": "This role does not exist.",
+    "username_taken": "An account already has this username.",
+    "email_taken": "An account already has this email."
   }
 }

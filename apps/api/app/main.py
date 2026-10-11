@@ -9,14 +9,20 @@ from sqlalchemy.exc import IntegrityError
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.api.v1.routes.auth import router as auth_router
+from app.api.v1.routes.concept_sets import router as concept_sets_router
 from app.api.v1.routes.health import router as health_router
+from app.api.v1.routes.instance import router as instance_router
+from app.api.v1.routes.mapping_recommendations import router as mapping_recommendations_router
+from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
+from app.api.v1.routes.units import router as units_router
 from app.config import INSECURE_SECRET_KEY, settings
 from app.core.database import async_session
 from app.core.logging import setup_logging
 from app.core.migrations import run_migrations
 from app.core.permissions import seed_default_roles
 from app.core.security_headers import SecurityHeadersMiddleware
+from app.services.content_store import ContentError
 
 logger = structlog.get_logger()
 
@@ -83,6 +89,12 @@ class _ErrorLoggingMiddleware(BaseHTTPMiddleware):
             return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
+@app.exception_handler(ContentError)
+async def _content_unavailable(request: Request, exc: ContentError):
+    logger.error("content_unavailable", path=request.url.path, error=str(exc))
+    return JSONResponse(status_code=503, content={"detail": "The content repository is unavailable"})
+
+
 app.add_middleware(_ErrorLoggingMiddleware)
 app.add_middleware(
     CORSMiddleware,
@@ -96,3 +108,8 @@ app.add_middleware(SecurityHeadersMiddleware)
 app.include_router(health_router, prefix="/api/v1")
 app.include_router(setup_router, prefix="/api/v1")
 app.include_router(auth_router, prefix="/api/v1")
+app.include_router(instance_router, prefix="/api/v1")
+app.include_router(concept_sets_router, prefix="/api/v1")
+app.include_router(projects_router, prefix="/api/v1")
+app.include_router(units_router, prefix="/api/v1")
+app.include_router(mapping_recommendations_router, prefix="/api/v1")

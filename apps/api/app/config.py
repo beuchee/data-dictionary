@@ -21,6 +21,11 @@ class Settings(BaseSettings):
     # Unset: a SQLite file inside data_dir, next to the other instance state.
     database_url: str | None = None
     data_dir: str = "~/.data-dictionary"
+    # Working copy of the content repository (concept_sets/, projects/, config.json…).
+    # Unset: the repo this API runs from in development (found by walking up from
+    # apps/api), else {data_dir}/content, which is where Docker keeps it.
+    # TODO(v2-phase-2): clone the configured repository there on first start.
+    content_dir: str | None = None
 
     secret_key: str = INSECURE_SECRET_KEY
     algorithm: str = "HS256"
@@ -48,6 +53,14 @@ class Settings(BaseSettings):
         path = Path(self.data_dir).expanduser().resolve()
         path.mkdir(parents=True, exist_ok=True)
         return path
+
+    @property
+    def content_path(self) -> Path:
+        if self.content_dir:
+            return Path(self.content_dir).expanduser().resolve()
+        from app.services.content_store import find_content_root
+
+        return find_content_root(Path(__file__).resolve().parent) or self.data_path / "content"
 
     @property
     def resolved_database_url(self) -> str:

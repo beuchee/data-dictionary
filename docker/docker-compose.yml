@@ -27,6 +27,10 @@ services:
       - "127.0.0.1:8000:8000"
     environment:
       - DD_DATA_DIR=/var/lib/data-dictionary
+      # Working copy of the content repository, read by /api/v1/concept-sets & co.
+      # TODO(v2-phase-2): the API clones the configured repository there on first
+      # start; until then, put a checkout of the content repo in the volume.
+      - DD_CONTENT_DIR=/var/lib/data-dictionary/content
       - DD_SECRET_KEY=${DD_SECRET_KEY:?set DD_SECRET_KEY before up}
       - DD_CORS_ORIGINS=http://localhost:3000
       - DD_DEBUG=false

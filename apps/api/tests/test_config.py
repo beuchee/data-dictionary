@@ -62,3 +62,13 @@ def test_a_password_minimum_under_eight_is_refused(monkeypatch):
     monkeypatch.setenv("DD_PASSWORD_MIN_LENGTH", "6")
     with pytest.raises(ValueError):
         Settings(_env_file=None)
+
+
+def test_content_dir_defaults_to_the_repo_the_api_runs_from(tmp_path):
+    from content_fixtures import REPO_ROOT
+
+    assert Settings(content_dir=None, data_dir=str(tmp_path)).content_path == REPO_ROOT
+
+
+def test_content_dir_can_be_set(tmp_path):
+    assert Settings(content_dir=str(tmp_path / "c")).content_path == (tmp_path / "c").resolve()

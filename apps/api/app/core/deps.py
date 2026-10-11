@@ -1,5 +1,6 @@
 import jwt
 from fastapi import Depends, HTTPException, status
+from fastapi.concurrency import run_in_threadpool
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -8,6 +9,7 @@ from app.core.permissions import ADMIN_ROLE, has_permission
 from app.core.security import decode_token, predates_password_change
 from app.models.user import User
 from app.services import api_token_service
+from app.services.content_store import ContentStore, get_content_store
 
 bearer_scheme = HTTPBearer()
 optional_bearer_scheme = HTTPBearer(auto_error=False)
@@ -81,6 +83,30 @@ def require_permission(permission: str):
     """Dependency factory: the current user, if their role grants `permission`."""
 
     async def _dep(user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> User:
+        if not await has_permission(db, user, permission):
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Insufficient permissions")
+        return user
+
+    return _dep
+
+
+def require_read(permission: str):
+    """Dependency factory for content read routes. Anyone may read while
+    `config.json` → `access.anonymousRead` is true (the default); otherwise the
+    caller must be logged in with `permission`. Returns the user, or None for an
+    anonymous reader."""
+
+    async def _dep(
+        credentials: HTTPAuthorizationCredentials | None = Depends(optional_bearer_scheme),
+        db: AsyncSession = Depends(get_db),
+        store: ContentStore = Depends(get_content_store),
+    ) -> User | None:
+        catalogue = await run_in_threadpool(store.catalogue)
+        if catalogue.anonymous_read:
+            return None
+        if credentials is None:
+            raise _unauthorized("Login required")
+        user = await get_current_user(credentials, db)
         if not await has_permission(db, user, permission):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Insufficient permissions")
         return user

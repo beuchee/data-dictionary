@@ -27,3 +27,6 @@ dist/
 !.env.example
 *.db
 *.sqlite
+
+# Agent worktrees
+.claude/worktrees/

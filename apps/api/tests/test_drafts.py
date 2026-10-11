@@ -105,6 +105,21 @@ async def test_draft_creation_checks_role_and_shape(api, db):
     assert (await api.post(f"{API}/drafts", json={**body, "baseCommit": "--x"}, headers=editor)).status_code == 422
 
 
+async def test_draft_content_size_is_capped(api, db, monkeypatch):
+    """A draft is stored whole in the database: its size is bounded."""
+    from app.schemas import draft as draft_schema
+
+    monkeypatch.setattr(draft_schema, "MAX_CONTENT_BYTES", 10_000)
+    editor = await _user(db, api, "eve", "editor")
+    big = {"kind": "concept-set", "targetId": 1, "content": {"tags": ["x" * 20_000]}}
+    assert (await api.post(f"{API}/drafts", json=big, headers=editor)).status_code == 422
+    small = {"kind": "concept-set", "targetId": 1, "content": {"tags": ["x"]}}
+    r = await api.post(f"{API}/drafts", json=small, headers=editor)
+    assert r.status_code == 201
+    r = await api.put(f"{API}/drafts/{r.json()['id']}", json={"content": big["content"]}, headers=editor)
+    assert r.status_code == 422
+
+
 # --- direct commits -------------------------------------------------------------
 
 

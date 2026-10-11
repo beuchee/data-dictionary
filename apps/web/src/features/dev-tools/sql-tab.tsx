@@ -14,6 +14,7 @@ import { useHasPermission } from '@/stores/auth-store'
 import { useVocabularyQuery } from '@/features/vocabulary/use-vocabulary-query'
 import { EXAMPLE_QUERIES } from './examples'
 import { resultCsv } from './results-csv'
+import type { PendingEdits } from '@/components/editor/code-editor'
 
 const CodeEditor = lazy(() => import('@/components/editor/code-editor').then((m) => ({ default: m.CodeEditor })))
 
@@ -55,6 +56,10 @@ export function SqlTab() {
   const [result, setResult] = useState<SqlResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const runId = useRef(0)
+  const pendingEdits = useRef<PendingEdits | null>(null)
+  // The editor hands its text over debounced: Run reads it from Monaco, else a
+  // click right after typing would run the previous query.
+  const editorText = useRef<(() => string) | null>(null)
 
   const run = async (text: string = sql) => {
     if (running || !text.trim()) return
@@ -144,7 +149,12 @@ export function SqlTab() {
             <Download size={14} />
             {t('dev_tools.export_csv')}
           </Button>
-          <Button onClick={() => void run()} disabled={running || !sql.trim()}>
+          <Button
+            onClick={() => {
+              pendingEdits.current?.flush()
+              void run(editorText.current?.() ?? sql)
+            }}
+            disabled={running || !sql.trim()}>
             {running ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />}
             {t('dev_tools.run')}
           </Button>
@@ -162,6 +172,10 @@ export function SqlTab() {
             onRun={(text) => {
               setSql(text)
               void run(text)
+            }}
+            pendingEditsRef={pendingEdits}
+            onMount={(editor) => {
+              editorText.current = () => editor.getValue()
             }}
             ariaLabel={t('dev_tools.editor_label')}
           />

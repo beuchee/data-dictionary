@@ -35,6 +35,7 @@ export {
   type PinnedConceptSetLookup,
 } from './project-csv'
 export { buildProjectJson } from './project-json'
+export { cloneContent, stampConceptSetEdit, withSourceRepo, type EditStamp } from './provenance'
 export {
   affineConversion,
   availableReferenceUnitIds,

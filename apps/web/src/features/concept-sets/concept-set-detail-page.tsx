@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams, useSearchParams } from 'react-router'
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router'
 import { BarChart3, ChevronRight, ClipboardCheck, History, List, Loader2, MessageSquareText, SearchX } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -15,6 +15,7 @@ import { isServerMode } from '@/lib/api-client'
 import { normalizeOrganization } from '@/lib/data/catalog'
 import { forgeName, repositoryConfig } from '@/lib/data/forge'
 import { findDraft } from '@/lib/drafts/overlay'
+import { isNewDraft } from '@/lib/drafts/paths'
 import { conceptSetKey, useCatalogStore } from '@/stores/catalog-store'
 import { useInstanceConfig } from '@/stores/config-store'
 import { useDraftsStore } from '@/stores/drafts-store'
@@ -222,6 +223,18 @@ function ConceptSetDetail({
   const liveItems =
     pastVersion || !(editing || draft) ? null : liveExpression(conceptSet.expression?.items, base?.expression?.items, base !== null)
   const published = [...new Set([...(versions ?? []).map((v) => v.version), ...(base?.metadata?.versions ?? []).map((v) => v.version)])]
+
+  // A set just created opens in edit mode (NewConceptSetButton navigates with `{edit: true}`).
+  // The flag is dropped from history once used, so Back / reload do not restart an edit.
+  const location = useLocation()
+  const navigate = useNavigate()
+  const startEditing = useConceptSetEditor((s) => s.start)
+  const editRequested = (location.state as { edit?: boolean } | null)?.edit === true
+  useEffect(() => {
+    if (!editRequested || !draft || pastVersion) return
+    startEditing(draft.content, { isNew: isNewDraft(draft) })
+    navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: null })
+  }, [editRequested, draft, pastVersion, startEditing, navigate, location.pathname, location.search])
 
   // Leaving the set (another id, another page) ends its edit session.
   useEffect(() => {

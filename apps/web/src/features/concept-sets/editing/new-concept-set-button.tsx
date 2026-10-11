@@ -22,7 +22,8 @@ interface NewConceptSetButtonProps {
 
 /**
  * "New concept set": its metadata, then an empty draft (version 1.0.0, status
- * draft) whose page opens for adding concepts. The id is provisional in server
+ * draft) whose page opens in edit mode on the expression editor, for adding
+ * concepts. The id is provisional in server
  * mode, where the server allocates the real one at submit.
  */
 export function NewConceptSetButton({ summaries }: NewConceptSetButtonProps) {
@@ -58,7 +59,7 @@ export function NewConceptSetButton({ summaries }: NewConceptSetButtonProps) {
       })
       await saveDraft({ kind: 'concept-set', targetId: null, content })
       setOpen(false)
-      navigate(`/concept-sets/${id}`)
+      navigate(`/concept-sets/${id}?view=expression`, { state: { edit: true } })
     } catch (e) {
       console.error('Could not create the concept set', e)
       setError(e instanceof Error ? e.message : String(e))

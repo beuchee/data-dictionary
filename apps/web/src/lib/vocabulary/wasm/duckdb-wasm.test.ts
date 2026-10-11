@@ -1,4 +1,5 @@
-import { readFileSync, readdirSync } from 'fs'
+import { mkdtempSync, readFileSync, readdirSync, rmSync } from 'fs'
+import { tmpdir } from 'os'
 import { createRequire } from 'module'
 import path from 'path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
@@ -8,6 +9,7 @@ import type { Row } from '../rows'
 import * as sql from '../sql'
 import {
   ATHENA_TABLES,
+  INDEXES,
   createTableSql,
   emptyTableSql,
   filterIdInserts,
@@ -42,7 +44,7 @@ interface Conn {
   close(): void
 }
 
-let db: { connect(): Conn; registerFileBuffer(n: string, b: Uint8Array): void; reset(): void } | null = null
+let db: { connect(): Conn; registerFileBuffer(n: string, b: Uint8Array): void } | null = null
 let conn: Conn
 
 const rows = (t: { toArray(): { toJSON(): Row }[] }): Row[] =>
@@ -62,7 +64,9 @@ function run(query: sql.SqlQuery): Row[] {
   }
 }
 
-beforeAll(async () => {
+type Db = { connect(): Conn; registerFileBuffer(n: string, b: Uint8Array): void }
+
+async function newDb(): Promise<Db> {
   const require = createRequire(import.meta.url)
   const duckdb = require('@duckdb/duckdb-wasm/dist/duckdb-node-blocking.cjs')
   const dist = path.dirname(require.resolve('@duckdb/duckdb-wasm/dist/duckdb-node-blocking.cjs'))
@@ -70,9 +74,14 @@ beforeAll(async () => {
     mvp: { mainModule: path.join(dist, 'duckdb-mvp.wasm'), mainWorker: path.join(dist, 'duckdb-node-mvp.worker.cjs') },
     eh: { mainModule: path.join(dist, 'duckdb-eh.wasm'), mainWorker: path.join(dist, 'duckdb-node-eh.worker.cjs') },
   }
-  db = await duckdb.createDuckDB(bundles, new duckdb.VoidLogger(), duckdb.NODE_RUNTIME)
-  await (db as unknown as { instantiate(): Promise<void> }).instantiate()
-  conn = db!.connect()
+  const created = await duckdb.createDuckDB(bundles, new duckdb.VoidLogger(), duckdb.NODE_RUNTIME)
+  await created.instantiate()
+  return created as Db
+}
+
+beforeAll(async () => {
+  db = await newDb()
+  conn = db.connect()
 
   const files = readdirSync(path.join(FIXTURE, 'athena')).map((name) => ({ name }))
   const picked = pickAthenaFiles(files)
@@ -91,6 +100,8 @@ beforeAll(async () => {
     const present = conn.query(`SELECT * FROM (SELECT * FROM ${reader}) LIMIT 0`).schema.fields.map((f) => f.name)
     conn.query(createTableSql(table, typedSelectSql(table, reader, present), true))
   }
+  for (const sql of INDEXES) conn.query(sql)
+  conn.query('DROP TABLE _filter_ids')
 }, 60_000)
 
 afterAll(() => {
@@ -138,5 +149,22 @@ describe('DuckDB-WASM', () => {
     const resolved = await resolveItems(c.items, sqlLookup(async (q) => run(q), 'edges'))
     expect(resolved).toEqual(c.resolvedConcepts)
     expect(stampVersion(versionFromRows(run(sql.vocabularyVersions())), resolved)).toEqual(c.vocabularyVersion)
+  })
+
+  it('survives an EXPORT / IMPORT DATABASE round trip (the IndexedDB copy)', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'dd-vocab-'))
+    try {
+      conn.query(`EXPORT DATABASE '${dir}' (FORMAT PARQUET)`)
+      const other = (await newDb()).connect()
+      other.query(`IMPORT DATABASE '${dir}'`)
+      for (const table of ATHENA_TABLES) {
+        const count = (c: Conn) => Number(rows(c.query(`SELECT COUNT(*) AS n FROM ${table}`))[0].n)
+        expect(count(other), table).toBe(count(conn))
+      }
+      expect(rows(other.query(sql.conceptById(112).sql))[0].concept_name).toBe("Ménière's disease")
+      other.close()
+    } finally {
+      rmSync(dir, { recursive: true, force: true })
+    }
   })
 })

@@ -19,6 +19,7 @@ describe('ATHENA files', () => {
     for (const name of ['DRUG_STRENGTH.csv', 'CONCEPT.csv.bak', 'readme.txt', 'CONCEPT', '.csv']) {
       expect(tableOfFile(name)).toBeNull()
     }
+    expect(tableOfFile('DRUG_STRENGTH.csv', ['drug_strength'])).toBe('drug_strength')
   })
 
   it('prefers Parquet over CSV for the same table', () => {

@@ -83,11 +83,19 @@ async function persist(meta: StoredVocabularyMeta): Promise<boolean> {
   try {
     const db = await getDuckDB()
     await query(`EXPORT DATABASE ${lit(EXPORT_DIR)} (FORMAT PARQUET)`)
+    // The names EXPORT DATABASE writes (as v1 listed them), plus whatever the glob finds.
+    const names = new Set([
+      `${EXPORT_DIR}/schema.sql`,
+      `${EXPORT_DIR}/load.sql`,
+      ...ATHENA_TABLES.map((t) => `${EXPORT_DIR}/${t}.parquet`),
+    ])
+    for (const f of await db.globFiles(`${EXPORT_DIR}/*`).catch(() => [])) names.add(f.fileName)
     const files = new Map<string, Uint8Array>()
-    for (const f of await db.globFiles(`${EXPORT_DIR}/*`)) {
-      files.set(f.fileName, await db.copyFileToBuffer(f.fileName))
+    for (const name of names) {
+      const bytes = await db.copyFileToBuffer(name).catch(() => null)
+      if (bytes?.byteLength) files.set(name, bytes)
     }
-    if (!files.size) return false
+    if (!files.has(`${EXPORT_DIR}/schema.sql`)) return false
     await storeVocabulary(files, meta)
     return true
   } catch (error) {
@@ -213,38 +221,4 @@ export async function removeBrowserVocabulary(): Promise<void> {
   await resetDuckDB()
   await clearVocabulary()
   changed()
-}
-
-// --- Folder picking ---------------------------------------------------------------
-
-interface DirectoryHandle {
-  name: string
-  values(): AsyncIterable<{ kind: 'file' | 'directory'; name: string; getFile?: () => Promise<File> } & Partial<DirectoryHandle>>
-}
-
-/** Whether the browser offers `showDirectoryPicker` (Chrome, Edge); else use an
- *  `<input webkitdirectory>`. */
-export function canPickDirectory(): boolean {
-  return typeof (window as unknown as { showDirectoryPicker?: unknown }).showDirectoryPicker === 'function'
-}
-
-/** Ask for a folder and list its files (two levels deep). Null when the user cancels. */
-export async function pickDirectoryFiles(): Promise<{ name: string; files: File[] } | null> {
-  const picker = (window as unknown as { showDirectoryPicker: (o?: object) => Promise<DirectoryHandle> }).showDirectoryPicker
-  let dir: DirectoryHandle
-  try {
-    dir = await picker({ mode: 'read' })
-  } catch (error) {
-    if (error instanceof DOMException && error.name === 'AbortError') return null
-    throw error
-  }
-  const files: File[] = []
-  const walk = async (handle: DirectoryHandle, depth: number) => {
-    for await (const entry of handle.values()) {
-      if (entry.kind === 'file' && entry.getFile) files.push(await entry.getFile())
-      else if (entry.kind === 'directory' && depth < 1 && entry.values) await walk(entry as DirectoryHandle, depth + 1)
-    }
-  }
-  await walk(dir, 0)
-  return { name: dir.name, files }
 }

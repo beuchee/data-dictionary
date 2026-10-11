@@ -51,22 +51,25 @@ export const FILTERED_TABLES = ['concept_relationship', 'concept_synonym']
 
 const DATA_FILE = /^(.+)\.(csv|tsv|txt|parquet|pq)$/i
 
-/** The table a file holds (`CONCEPT.csv` → `concept`), or null. */
-export function tableOfFile(name: string): string | null {
+/** Read by the server's import only (the browser does not keep it). */
+export const SERVER_ONLY_TABLES = ['drug_strength']
+
+/** The table a file holds (`CONCEPT.csv` → `concept`), or null; `extra` adds table names. */
+export function tableOfFile(name: string, extra: readonly string[] = []): string | null {
   const base = name.split(/[\\/]/).pop() ?? ''
   const match = DATA_FILE.exec(base)
   if (!match) return null
   const table = match[1].toLowerCase()
-  return table in TABLE_COLUMNS ? table : null
+  return table in TABLE_COLUMNS || extra.includes(table) ? table : null
 }
 
 export const isParquetName = (name: string) => /\.(parquet|pq)$/i.test(name)
 
 /** One file per table, Parquet preferred over CSV (v1's rule). */
-export function pickAthenaFiles<T extends { name: string }>(files: readonly T[]): Map<string, T> {
+export function pickAthenaFiles<T extends { name: string }>(files: readonly T[], extra: readonly string[] = []): Map<string, T> {
   const picked = new Map<string, T>()
   for (const f of files) {
-    const table = tableOfFile(f.name)
+    const table = tableOfFile(f.name, extra)
     if (!table) continue
     const current = picked.get(table)
     if (!current || (isParquetName(f.name) && !isParquetName(current.name))) picked.set(table, f)

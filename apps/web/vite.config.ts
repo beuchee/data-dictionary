@@ -3,7 +3,7 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import { existsSync, readFileSync, readdirSync } from 'fs'
+import { existsSync, readFileSync, readdirSync, rmSync } from 'fs'
 
 const REPO_ROOT = path.resolve(__dirname, '../..')
 const INSTANCE_CONFIG = path.join(REPO_ROOT, 'config.json')
@@ -121,9 +121,19 @@ function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
 // DuckDB-WASM. A server build never runs DuckDB-WASM, and there the worker would
 // intercept API calls (breaking uploads); the dev server sends the real headers
 // itself. So the script is kept only in a static build.
+// A server build also drops the DuckDB-WASM bundles (~70 MB) public/ would copy.
 function stripCoi(keep: boolean): Plugin {
+  let outDir = ''
   return {
     name: 'strip-coi-serviceworker',
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      if (keep || !outDir) return
+      rmSync(path.join(outDir, 'duckdb'), { recursive: true, force: true })
+      rmSync(path.join(outDir, 'coi-serviceworker.js'), { force: true })
+    },
     transformIndexHtml(html, ctx) {
       if (keep && !ctx.server) return html
       return html

@@ -5,6 +5,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
 import { Header } from '@/components/layout/header'
 import { PageLoading } from '@/components/layout/page-loading'
+import { SubmitResultDialog } from '@/features/drafts/submit-result-dialog'
 import { resolveLanguage } from '@/lib/i18n'
 import { useAppStore } from '@/stores/app-store'
 import { useInstanceConfig } from '@/stores/config-store'
@@ -87,6 +88,7 @@ function Shell() {
           </Suspense>
         </main>
       </SidebarInset>
+      <SubmitResultDialog />
     </SidebarProvider>
   )
 }

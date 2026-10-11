@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CheckCircle2, ExternalLink, GitCommitHorizontal, GitPullRequest, Loader2, RefreshCw } from 'lucide-react'
+import { GitCommitHorizontal, GitPullRequest, Loader2, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { CopyIconButton } from '@/components/ui/copy-icon-button'
 import { DialogShell } from '@/components/ui/dialog-shell'
 import { FormField } from '@/components/ui/form-field'
 import { NoticeBanner } from '@/components/ui/notice-banner'
@@ -20,6 +19,7 @@ import { userHasPermission, useAuthStore } from '@/stores/auth-store'
 import { useCatalogStore } from '@/stores/catalog-store'
 import { useConfigStore, useInstanceConfig } from '@/stores/config-store'
 import { getApiDraftStore, useDraftsStore } from '@/stores/drafts-store'
+import { useSubmitResultStore } from '@/stores/submit-result-store'
 import { ResolvedFileNotice } from '@/features/concept-sets/expression/resolved-file-notice'
 import { defaultToolTag } from '@/features/export/export-settings'
 import { defaultSubmitMessage } from './draft-content'
@@ -73,7 +73,7 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
   const [busy, setBusy] = useState(false)
   const [pulling, setPulling] = useState(false)
   const [error, setError] = useState<SubmitError | null>(null)
-  const [result, setResult] = useState<SubmitResult | null>(null)
+  const showResult = useSubmitResultStore((s) => s.show)
 
   // Reset when the dialog opens on a draft, not on every permission re-render.
   const openedOn = open && draft ? draft.id : null
@@ -84,7 +84,6 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
       setMessage(defaultSubmitMessage(draft, { reviewsOnly }))
       setMode(modes[0] ?? 'proposal')
       setError(null)
-      setResult(null)
     }
   }
 
@@ -95,7 +94,9 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
     try {
       const store = await getApiDraftStore()
       const done = await store.submit(draft.id, mode, message.trim())
-      setResult(done)
+      onOpenChange(false)
+      // The answer names the set's id for every concept-set submit; it is news only for a new set.
+      showResult(isNewDraft(draft) ? done : { ...done, conceptSetId: undefined })
       forget(draft.id)
       // A commit changed the content (and a new set got its real id): read it again.
       if (done.mode === 'commit') resetCatalog()
@@ -118,35 +119,6 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
     } finally {
       setPulling(false)
     }
-  }
-
-  if (result) {
-    return (
-      <DialogShell open={open} onOpenChange={onOpenChange} title={t('drafts.submit.done_title')}>
-        <div className="flex items-start gap-2 text-sm">
-          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-primary" />
-          <div className="min-w-0 space-y-2">
-            <p>{t(result.mode === 'commit' ? 'drafts.submit.done_commit' : 'drafts.submit.done_proposal')}</p>
-            {result.proposalUrl && (
-              <a href={result.proposalUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 break-all text-primary hover:underline">
-                {result.proposalUrl}
-                <ExternalLink size={12} aria-hidden />
-              </a>
-            )}
-            {result.commitSha && (
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                {t('drafts.submit.commit_sha')} <code className="font-mono">{result.commitSha.slice(0, 12)}</code>
-                <CopyIconButton text={result.commitSha} />
-              </p>
-            )}
-            {result.conceptSetId != null && <p className="text-xs text-muted-foreground">{t('drafts.submit.allocated_id', { id: result.conceptSetId })}</p>}
-            {result.resolved === 'updated' && <p className="text-xs text-muted-foreground">{t('expression.submit_resolved_updated')}</p>}
-            {result.resolved === 'stale' && <NoticeBanner tone="warning" title={t('expression.submit_resolved_stale')} />}
-            {result.proposalError && <NoticeBanner tone="warning" title={t('expression.submit_proposal_error')} description={result.proposalError} />}
-          </div>
-        </div>
-      </DialogShell>
-    )
   }
 
   return (

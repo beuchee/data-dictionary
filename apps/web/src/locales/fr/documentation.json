@@ -1,5 +1,13 @@
 {
   "title": "Documentation",
   "description": "Comment parcourir, modifier et relire le dictionnaire.",
-  "empty": "La documentation s'affichera ici."
+  "sections": "Sections de la documentation",
+  "on_this_page": "Sur cette page",
+  "pagination": "Sections précédente et suivante",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "missing_translation": "Cette section n'est pas disponible en {{language}}",
+  "missing_translation_hint": "Elle n'a pas encore été traduite. Changez la langue de l'interface pour la lire dans une autre langue.",
+  "load_error": "Cette section n'a pas pu être chargée",
+  "load_error_hint": "Vérifiez votre connexion, puis rechargez la page."
 }

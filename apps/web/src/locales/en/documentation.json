@@ -1,5 +1,13 @@
 {
   "title": "Documentation",
   "description": "How to browse, edit and review the dictionary.",
-  "empty": "The documentation will appear here."
+  "sections": "Documentation sections",
+  "on_this_page": "On this page",
+  "pagination": "Previous and next sections",
+  "previous": "Previous",
+  "next": "Next",
+  "missing_translation": "This section is not available in {{language}}",
+  "missing_translation_hint": "It has not been translated yet. Switch the interface language to read it in another language.",
+  "load_error": "This section could not be loaded",
+  "load_error_hint": "Check your connection, then reload the page."
 }

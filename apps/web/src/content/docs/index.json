@@ -1,0 +1,58 @@
+{
+  "groups": [
+    {
+      "id": "overview",
+      "title": { "en": "Overview", "fr": "Présentation" },
+      "sections": [
+        { "id": "introduction", "icon": "BookOpen", "title": { "en": "Introduction", "fr": "Introduction" } },
+        { "id": "getting-started", "icon": "Rocket", "title": { "en": "Getting Started", "fr": "Prise en main" } }
+      ]
+    },
+    {
+      "id": "data-dictionary",
+      "title": { "en": "Data Dictionary", "fr": "Dictionnaire de données" },
+      "sections": [
+        { "id": "what-are-concept-sets", "icon": "Library", "title": { "en": "What are Concept Sets?", "fr": "Les jeux de concepts" } },
+        { "id": "browsing", "icon": "Search", "title": { "en": "Browsing Concept Sets", "fr": "Parcourir les jeux de concepts" } },
+        { "id": "concept-set-details", "icon": "FileText", "title": { "en": "Concept Set Details", "fr": "Détails d’un jeu de concepts" } },
+        { "id": "editing-concept-sets", "icon": "Pencil", "title": { "en": "Editing Concept Sets", "fr": "Modifier un jeu de concepts" } },
+        { "id": "reviewing", "icon": "ClipboardCheck", "title": { "en": "Reviewing & {{forge.name}}", "fr": "Relecture & {{forge.name}}" } },
+        { "id": "exporting", "icon": "Download", "title": { "en": "Exporting", "fr": "Exporter" } },
+        { "id": "json-schema", "icon": "Braces", "title": { "en": "JSON Schema", "fr": "Schéma JSON" } },
+        { "id": "sources", "icon": "BookMarked", "title": { "en": "Sources", "fr": "Sources" } }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": { "en": "Projects", "fr": "Projets" },
+      "sections": [
+        { "id": "projects", "icon": "FolderKanban", "title": { "en": "Managing Projects", "fr": "Gérer les projets" } }
+      ]
+    },
+    {
+      "id": "concept-mapping",
+      "title": { "en": "Concept Mapping", "fr": "Alignement de concepts" },
+      "sections": [
+        { "id": "mapping-projects", "icon": "Waypoints", "title": { "en": "Mapping projects", "fr": "Projets de mapping" } },
+        { "id": "mapping-recommendations", "icon": "Lightbulb", "title": { "en": "Mapping recommendations", "fr": "Recommandations de mapping" } }
+      ]
+    },
+    {
+      "id": "settings",
+      "title": { "en": "Settings", "fr": "Paramètres" },
+      "sections": [
+        { "id": "dictionary-settings", "icon": "Settings", "title": { "en": "Dictionary Settings", "fr": "Paramètres du dictionnaire" } },
+        { "id": "dev-tools", "icon": "SquareTerminal", "title": { "en": "Dev Tools", "fr": "Outils de développement" } },
+        { "id": "local-data", "icon": "HardDrive", "title": { "en": "Local Data", "fr": "Données locales" } }
+      ]
+    },
+    {
+      "id": "forking-sharing",
+      "title": { "en": "Forking & Sharing", "fr": "Forker & Partager" },
+      "sections": [
+        { "id": "forking", "icon": "GitFork", "title": { "en": "Forking the dictionary", "fr": "Forker le dictionnaire" } },
+        { "id": "sharing-concept-sets", "icon": "Share2", "title": { "en": "Sharing concept sets", "fr": "Partager des jeux de concepts" } }
+      ]
+    }
+  ]
+}

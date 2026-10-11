@@ -13,6 +13,7 @@ apps/web/                  React 19 + Vite + Tailwind v4 + shadcn (copied from L
   src/lib/data/            DictionarySource: ApiSource | StaticSource
   src/stores/              zustand: config, auth, catalog, app (preferences)
   src/locales/{en,fr}/     one JSON per i18n namespace
+  src/content/docs/        user documentation: index.json + {en,fr}/<section>.md, {{placeholders}} from config.json
 apps/api/                  FastAPI + SQLAlchemy async + Alembic (copied from Linkr)
   app/services/content_store.py   reads the content working copy
   app/api/v1/routes/       health, setup, auth, instance, concept_sets, projects, units, mapping_recommendations
@@ -66,3 +67,4 @@ build.py ──► legacy/data.json ──► vite plugin: data/… ──► St
 - **content access in the web app**: a method on `DictionarySource` (`lib/data/types.ts`), implemented in both `api-source.ts` and `static-source.ts`, exposed by a store action.
 - **a page**: `src/pages/` or `src/features/<feature>/`, lazy route in `app/App.tsx`, nav entry in `components/layout/nav-items.ts`.
 - **an i18n namespace**: `src/locales/en/<name>.json` and `fr/<name>.json`; keys read `t('<name_in_snake_case>.key')`.
+- **a documentation section**: an entry in `src/content/docs/index.json` (id, lucide icon, en/fr titles) and `src/content/docs/{en,fr}/<id>.md` (one `# title`; instance values as `{{app.name}}`, `{{forge.name}}`, `{{repository.url}}`… listed in `features/documentation/doc-placeholders.ts`; links between sections as `?section=<id>`). `docs-content.test.ts` checks the index against the files.

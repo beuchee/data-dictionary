@@ -1,0 +1,21 @@
+{
+  "preview_empty": "L'aperçu s'affiche ici.",
+  "format": {
+    "bold": "Gras",
+    "italic": "Italique",
+    "strikethrough": "Barré",
+    "h1": "Titre 1",
+    "h2": "Titre 2",
+    "h3": "Titre 3",
+    "ul": "Liste à puces",
+    "ol": "Liste numérotée",
+    "checklist": "Liste de cases à cocher",
+    "code": "Code en ligne",
+    "codeblock": "Bloc de code",
+    "quote": "Citation",
+    "link": "Lien",
+    "image": "Image",
+    "hr": "Ligne horizontale",
+    "table": "Tableau"
+  }
+}

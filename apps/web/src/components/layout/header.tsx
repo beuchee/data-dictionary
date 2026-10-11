@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { DraftsIndicator } from '@/features/drafts/drafts-indicator'
 import { UI_LANGUAGES } from '@/lib/i18n'
 import { useAppStore } from '@/stores/app-store'
 import { useInstanceConfig } from '@/stores/config-store'
@@ -32,6 +33,7 @@ export function Header() {
       <h1 className="text-[13px] font-medium text-foreground">{active ? t(active.labelKey) : ''}</h1>
 
       <div className="flex items-center gap-0.5">
+        <DraftsIndicator />
         {languages.length > 1 && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

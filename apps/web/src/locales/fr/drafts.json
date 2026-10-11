@@ -1,0 +1,91 @@
+{
+  "kind": {
+    "concept-set": "Jeu de concepts",
+    "project": "Projet",
+    "recommended-units": "Unités recommandées",
+    "unit-conversions": "Conversions d'unités",
+    "mapping-recommendations": "Recommandations de mapping",
+    "config": "Configuration"
+  },
+  "badge": "Modifications locales",
+  "badge_server": "Brouillon",
+  "badge_hint": "Vous avez des modifications non soumises. Soumettez-les ou abandonnez le brouillon.",
+  "badge_hint_static": "Modifié dans ce navigateur uniquement. Proposez-le sur {{forge}} pour le partager, ou abandonnez les modifications.",
+  "submit_button": "Soumettre…",
+  "propose_button": "Proposer sur {{forge}}…",
+  "discard_button": "Abandonner le brouillon",
+  "save_failed": "Impossible d'enregistrer le brouillon",
+  "indicator": {
+    "button": "Brouillons",
+    "label": "{{count}} brouillons en attente",
+    "title": "Vos brouillons en attente",
+    "discard": "Abandonner ce brouillon"
+  },
+  "discard": {
+    "title": "Abandonner ce brouillon ?",
+    "description": "Vos modifications non soumises de « {{name}} » seront perdues.",
+    "confirm": "Abandonner"
+  },
+  "unsaved": {
+    "title": "Abandonner les modifications non enregistrées ?",
+    "description": "Vous êtes en cours d'édition et des modifications ne sont pas encore enregistrées. Les quitter maintenant les perd.",
+    "discard": "Abandonner les modifications"
+  },
+  "submit": {
+    "title": "Soumettre les modifications",
+    "mode": "Mode de soumission",
+    "mode_proposal": "Proposer",
+    "mode_proposal_hint": "Ouvre une pull / merge request que les mainteneurs relisent.",
+    "mode_commit": "Commiter directement",
+    "mode_commit_hint": "Écrit la modification sur la branche de contenu immédiatement (mainteneurs).",
+    "message": "Message de commit",
+    "confirm_proposal": "Ouvrir la proposition",
+    "confirm_commit": "Commiter",
+    "no_permission": "Votre compte ne peut pas soumettre ce type de modification.",
+    "done_title": "Soumis",
+    "done_proposal": "Votre proposition est ouverte. Les mainteneurs vont la relire.",
+    "done_commit": "Votre modification est enregistrée dans le dictionnaire.",
+    "commit_sha": "Commit",
+    "allocated_id": "Le nouveau jeu de concepts a reçu l'identifiant {{id}}.",
+    "pull": "Mettre à jour",
+    "error": {
+      "pull_required": "Le dépôt de contenu a avancé : il faut le mettre à jour avant de commiter.",
+      "conflict": "La soumission est en conflit avec le dépôt.",
+      "validation": "Le contenu n'est pas valide.",
+      "forbidden": "Votre compte n'est pas autorisé à soumettre ceci.",
+      "not_found": "Ce brouillon n'existe plus (déjà soumis ou abandonné ?).",
+      "unauthenticated": "Votre session a expiré : reconnectez-vous.",
+      "unreachable": "Le serveur est injoignable.",
+      "server": "Le serveur n'a pas pu soumettre la modification."
+    }
+  },
+  "propose": {
+    "title_create": "Créer ce fichier sur {{forge}}",
+    "title_update": "Mettre à jour ce fichier sur {{forge}}",
+    "open": "Ouvrir {{forge}}",
+    "step_create": "Ce fichier **n'existe pas encore dans le dépôt** : il sera **créé**.",
+    "step_create_prefilled": "{{forge}} ouvre une page de nouveau fichier avec le nom et le JSON **déjà remplis**.",
+    "step_too_large": "Le JSON est trop volumineux pour être prérempli : il sera **copié dans votre presse-papiers**.",
+    "step_create_paste": "{{forge}} ouvre une page de nouveau fichier avec le nom rempli : **collez** le JSON dans l'éditeur.",
+    "step_update": "Ce fichier **existe déjà dans le dépôt** : il sera **mis à jour**.",
+    "step_copied": "Le JSON sera **copié dans votre presse-papiers**.",
+    "step_open_existing": "{{forge}} ouvre le **fichier existant** dans son éditeur.",
+    "step_replace_all": "**Sélectionnez tout (Ctrl+A / Cmd+A)** dans l'éditeur et collez pour **remplacer tout le fichier** : n'ajoutez pas à la suite, sinon le JSON sera invalide.",
+    "step_commit": "Descendez, **commitez sur une nouvelle branche** et ouvrez la pull request.",
+    "step_commit_branch": "Puis **commitez sur une nouvelle branche** et ouvrez la pull request.",
+    "manual_title": "Copiez le fichier",
+    "manual_description": "Le presse-papiers n'est pas disponible ici : copiez vous-même ce contenu de {{path}} (il est sélectionné).",
+    "manual_open": "C'est copié, ouvrir {{forge}}",
+    "popup_blocked": "Votre navigateur a bloqué le nouvel onglet. Autorisez les fenêtres pop-up pour ce site et réessayez.",
+    "review_intro": "Votre revue est enregistrée **dans le fichier de ce jeu de concepts** : la proposer revient à mettre à jour ce fichier."
+  },
+  "profile": {
+    "title": "Votre nom",
+    "description": "Conservé dans ce navigateur uniquement, et inscrit dans ce que vous créez, versionnez et relisez.",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "affiliation": "Affiliation",
+    "profession": "Profession",
+    "orcid": "Identifiant ORCID"
+  }
+}

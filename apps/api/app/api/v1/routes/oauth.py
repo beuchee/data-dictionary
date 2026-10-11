@@ -18,7 +18,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user_optional
+from app.core.deps import get_session_user_optional
 from app.core.security import create_access_token, create_refresh_token
 from app.models.user import User
 from app.services import oauth_service
@@ -59,7 +59,7 @@ async def providers():
 async def start(
     provider: str,
     redirect: bool = Query(False),
-    user: User | None = Depends(get_current_user_optional),
+    user: User | None = Depends(get_session_user_optional),
 ):
     try:
         url, cookie = oauth_service.start(provider, user)

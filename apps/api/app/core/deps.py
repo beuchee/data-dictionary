@@ -73,6 +73,24 @@ async def get_current_user_optional(
         return None
 
 
+async def get_session_user_optional(
+    credentials: HTTPAuthorizationCredentials | None = Depends(optional_bearer_scheme),
+    db: AsyncSession = Depends(get_db),
+) -> User | None:
+    """The session user, or None without a valid session credential. An API
+    token is refused (401), not ignored: it must not be able to act on how the
+    account signs in (OAuth identity linking), nor silently fall back to an
+    anonymous flow."""
+    if credentials is None:
+        return None
+    if api_token_service.is_api_token(credentials.credentials):
+        raise _unauthorized("API tokens cannot be used here")
+    try:
+        return await get_session_user(credentials, db)
+    except HTTPException:
+        return None
+
+
 async def get_current_admin(user: User = Depends(get_current_user)) -> User:
     if user.role != ADMIN_ROLE:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")

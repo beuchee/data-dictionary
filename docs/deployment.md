@@ -40,6 +40,7 @@ The API serves the dictionary from a git working copy with its full history (pas
 
 - **Clone** (the compose default): with `DD_CONTENT_REPO_URL` set and `DD_CONTENT_DIR` holding no repository, the API clones it on start. https and ssh remotes only; hosts resolving to private, loopback or link-local addresses are refused, so an internal forge is not reachable as a remote. A private repository needs `DD_GIT_TOKEN`.
 - **Mount** a working copy from the host: add a volume (`- /srv/data-dictionary:/srv/content`), set `DD_CONTENT_DIR=/srv/content`, and `DD_CONTENT_REPO_URL=` (empty) to use the copy's own `origin`. The entrypoint runs the API as the owner of that directory (git refuses a repository owned by another user, and the API writes to it when it pulls or commits); a root-owned directory is refused by git on Linux.
+- **Local remote** (on-premises, no forge): the remote is a bare repository on the server's disk or in a Docker volume (`- /srv/dictionary.git:/srv/dictionary.git`, `DD_CONTENT_REPO_URL=/srv/dictionary.git` or `file:///srv/dictionary.git`). Refused unless `DD_GIT_ALLOW_LOCAL_REMOTES=true`: a local remote lets the server read its own disk, so it is an explicit opt-in. It accepts absolute paths and `file://` URLs only; https / ssh remotes keep the internal-address check, and other git transports stay refused. There is no forge to open a pull / merge request on: contributions go through direct commits (maintainers), and a proposal branch is pushed for someone to merge by hand.
 
 The server never edits the working copy by hand: a submitted draft becomes a commit built on the remote head and pushed, either to a `proposal/…` branch with a pull / merge request, or (maintainers) to the content branch. Changes merged on the forge reach the server when someone with the commit permission pulls (user menu → Repository → Pull), which also indexes new concept set versions.
 
@@ -57,6 +58,7 @@ All variables are read by `apps/api/app/config.py`. Template: `apps/api/.env.exa
 | `DD_CONTENT_REPO_URL` | the working copy's `origin` (compose: INDICATE's repo) | Remote to clone, pull from and push to (https or ssh). |
 | `DD_CONTENT_BRANCH` | `config.json` → `repository.branch`, else `main` | Content branch. |
 | `DD_GIT_TOKEN` | none | Service token (GitHub PAT, GitLab project or personal token): private repository, direct commits, proposals of users who did not sign in with the forge. Never logged nor returned. |
+| `DD_GIT_ALLOW_LOCAL_REMOTES` | `false` | Accept an absolute path or `file://` URL as the content remote (a bare repository on the server or a Docker volume, see above). Network remotes keep the internal-address check. |
 | `DD_GIT_AUTHOR_NAME` / `DD_GIT_AUTHOR_EMAIL` | `Data Dictionary` / `data-dictionary@localhost` | Committer of the server's commits (the author is the user). |
 | `DD_PUBLIC_URL` | `http://localhost:3000` | Public URL of the web app. OAuth redirect URIs are built from it only. |
 | `DD_CORS_ORIGINS` | `http://localhost:3000` | Allowed browser origins, comma-separated. Behind the bundled nginx the app and the API share one origin; set it to `DD_PUBLIC_URL`. |

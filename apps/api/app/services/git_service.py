@@ -129,16 +129,31 @@ def _classify_error(text: str) -> str:
     return "unknown"
 
 
-# Remotes are network repositories only: a local path or file:// would have the
-# server read its own disk, and ext:: runs a command. Tests flip this to use
-# local bare repositories as remotes.
+# Remotes are network repositories by default: a local path or file:// would
+# have the server read its own disk, and ext:: runs a command. An on-prem
+# deployment may opt in to local remotes (a bare repository on the server, a
+# Docker volume) with DD_GIT_ALLOW_LOCAL_REMOTES; tests flip this flag to use
+# local bare repositories. Either way, network remotes keep every check.
 _LOCAL_REMOTES_ALLOWED = False
 
 _SCP_LIKE = re.compile(r"[\w.+-]+@([\w.-]+):(?!//)\S+")
 
 
+def local_remotes_allowed() -> bool:
+    from app.config import settings
+
+    return _LOCAL_REMOTES_ALLOWED or settings.git_allow_local_remotes
+
+
+def _is_local_remote(url: str) -> bool:
+    """An absolute filesystem path or a file:// URL (nothing else git reads
+    from disk: no relative path, no `transport::address`)."""
+    scheme = urlsplit(url).scheme.lower()
+    return scheme == "file" or (scheme == "" and url.startswith("/"))
+
+
 def _require_network_remote(url: str) -> None:
-    if _LOCAL_REMOTES_ALLOWED:
+    if _is_local_remote(url) and local_remotes_allowed():
         return
     parts = urlsplit(url)
     if parts.scheme.lower() in ("https", "ssh"):
@@ -154,13 +169,14 @@ def _require_network_remote(url: str) -> None:
 
 
 def reject_internal_host(url: str) -> None:
-    """Refuse anything but an https/ssh remote, and an https remote whose host
-    resolves to a loopback / link-local / private / reserved address (SSRF to
-    the metadata endpoint, localhost, the internal network). Also guards the
-    forge API calls, which go to the same host."""
+    """Refuse anything but an https/ssh remote (or, opted in, a local path),
+    and an https remote whose host resolves to a loopback / link-local /
+    private / reserved address (SSRF to the metadata endpoint, localhost, the
+    internal network). Also guards the forge API calls, which go to the same
+    host."""
     _require_network_remote(url)
-    if _LOCAL_REMOTES_ALLOWED:
-        return
+    if _is_local_remote(url):
+        return  # allowed, or _require_network_remote would have raised
     parts = urlsplit(url)
     if parts.scheme not in ("http", "https"):
         return
@@ -247,7 +263,7 @@ def git_env() -> dict[str, str]:
         # Commits are built by the server: never ask a signing agent.
         "GIT_CONFIG_KEY_3": "commit.gpgSign",
         "GIT_CONFIG_VALUE_3": "false",
-        "GIT_ALLOW_PROTOCOL": "https:ssh:file" if _LOCAL_REMOTES_ALLOWED else "https:ssh",
+        "GIT_ALLOW_PROTOCOL": "https:ssh:file" if local_remotes_allowed() else "https:ssh",
     }
 
 

@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     # Service token (https remotes): clone/fetch of a private repo, direct commits,
     # and proposals of users who did not sign in with the forge. Never logged.
     git_token: str | None = None
+    # Accept an absolute path or file:// URL as the content remote (a bare
+    # repository on this server, a Docker volume). Off: https / ssh only.
+    # Network remotes keep the internal-address check either way.
+    git_allow_local_remotes: bool = False
     git_author_name: str = "Data Dictionary"
     git_author_email: str = "data-dictionary@localhost"
 

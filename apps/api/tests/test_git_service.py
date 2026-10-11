@@ -2,6 +2,7 @@
 
 import pytest
 
+from app.config import settings
 from app.services import git_service
 from app.services.git_service import Author, ContentRepo, GitError
 
@@ -61,6 +62,61 @@ def test_ssrf_guard_refuses_local_and_internal_remotes(url):
     with pytest.raises(GitError) as exc:
         git_service.reject_internal_host(url)
     assert exc.value.code == "network"
+
+
+@pytest.fixture
+def local_remotes_opt_in(monkeypatch):
+    """DD_GIT_ALLOW_LOCAL_REMOTES=true, the test-only flag off."""
+    monkeypatch.setattr(git_service, "_LOCAL_REMOTES_ALLOWED", False)
+    monkeypatch.setattr(settings, "git_allow_local_remotes", True)
+
+
+@pytest.mark.parametrize("url", ["/srv/repo", "file:///srv/repo", "FILE:///srv/repo"])
+def test_local_remotes_are_accepted_once_opted_in(url, local_remotes_opt_in):
+    git_service.reject_internal_host(url)
+    assert git_service.git_env()["GIT_ALLOW_PROTOCOL"] == "https:ssh:file"
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "srv/repo",
+        "./repo",
+        "ext::sh -c touch% /tmp/pwned",
+        "fd::17",
+        "http://github.com/o/r",
+        "https://127.0.0.1/o/r",
+        "https://localhost/o/r",
+        "https://169.254.169.254/latest",
+        "https://10.0.0.1/o/r",
+    ],
+)
+def test_opting_in_to_local_remotes_keeps_the_network_guard(url, local_remotes_opt_in):
+    with pytest.raises(GitError) as exc:
+        git_service.reject_internal_host(url)
+    assert exc.value.code == "network"
+
+
+def test_local_remotes_are_off_by_default():
+    assert settings.git_allow_local_remotes is False
+    assert git_service.local_remotes_allowed() is False
+
+
+@pytest.mark.parametrize("opted_in", [True, False])
+def test_clone_from_a_local_bare_repository(tmp_path, monkeypatch, opted_in):
+    remote = make_remote(tmp_path, monkeypatch)
+    monkeypatch.setattr(git_service, "_LOCAL_REMOTES_ALLOWED", False)
+    monkeypatch.setattr(settings, "git_allow_local_remotes", opted_in)
+    for i, url in enumerate((str(remote.bare), remote.bare.as_uri())):
+        committer = Author("DD", "dd@x.org")
+        repo = ContentRepo(tmp_path / f"clone-{i}", url=url, branch="main", token=None, committer=committer)
+        if opted_in:
+            repo.clone()
+            assert repo.fetch() == remote.remote_rev("main")
+        else:
+            with pytest.raises(GitError) as exc:
+                repo.clone()
+            assert exc.value.code == "network"
 
 
 def test_git_env_is_isolated():

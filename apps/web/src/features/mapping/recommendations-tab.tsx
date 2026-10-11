@@ -6,7 +6,10 @@ import { NoticeBanner } from '@/components/ui/notice-banner'
 import { SectionLabel } from '@/components/ui/section-label'
 import { MarkdownRenderer } from '@/components/editor/markdown-renderer'
 import { cn } from '@/lib/utils'
+import { findDraft } from '@/lib/drafts/overlay'
 import { useCatalogStore } from '@/stores/catalog-store'
+import { useDraftsStore } from '@/stores/drafts-store'
+import { RecommendationsEditor, RecommendationsToolbar } from './recommendations-editing'
 import { extractHeadings, headingSlug, visibleSections, type TocHeading } from './toc'
 
 interface HastNode {
@@ -54,12 +57,19 @@ export function RecommendationsTab() {
   const { t, i18n } = useTranslation()
   const recommendations = useCatalogStore((s) => s.mappingRecommendations)
   const loadMappingRecommendations = useCatalogStore((s) => s.loadMappingRecommendations)
-  const content = recommendations.data?.translations?.[i18n.language]?.content ?? ''
+  const drafts = useDraftsStore((s) => s.drafts)
+  const loadDrafts = useDraftsStore((s) => s.load)
+  const [editing, setEditing] = useState(false)
+  const draft = findDraft(drafts, 'mapping-recommendations', null)
+  // This user's draft over the repository's recommendations.
+  const shown = draft?.content ?? recommendations.data
+  const content = shown?.translations?.[i18n.language]?.content ?? ''
   const headings = useMemo(() => extractHeadings(content), [content])
 
   useEffect(() => {
     loadMappingRecommendations()
-  }, [loadMappingRecommendations])
+    void loadDrafts()
+  }, [loadMappingRecommendations, loadDrafts])
 
   if (recommendations.status === 'idle' || recommendations.status === 'loading') {
     return (
@@ -71,10 +81,19 @@ export function RecommendationsTab() {
   if (recommendations.status === 'error') {
     return <NoticeBanner tone="danger" title={t('mapping.load_error')} description={recommendations.error} />
   }
-  if (!content.trim()) {
-    return <EmptyState icon={FileText} title={t('mapping.no_recommendations')} className="mt-4" />
+  if (editing) {
+    return <RecommendationsEditor initial={shown ?? { translations: {} }} initialLang={i18n.language} onClose={() => setEditing(false)} />
   }
-  return <RecommendationsView content={content} headings={headings} />
+  return (
+    <>
+      <RecommendationsToolbar draft={draft} onEdit={() => setEditing(true)} />
+      {content.trim() ? (
+        <RecommendationsView content={content} headings={headings} />
+      ) : (
+        <EmptyState icon={FileText} title={t('mapping.no_recommendations')} className="mt-4" />
+      )}
+    </>
+  )
 }
 
 interface RecommendationsViewProps {

@@ -115,6 +115,12 @@ export interface DictionarySource {
   getRecommendedUnits(): Promise<RecommendedUnit[]>
   getUnitConversions(): Promise<UnitConversion[]>
   getMappingRecommendations(): Promise<MappingRecommendations | null>
+  /**
+   * The repository's next free ids (`id_counters.json`), which also cover deleted
+   * files; null when unknown. Only the static source has them: in server mode the
+   * server allocates ids at submit.
+   */
+  getNextIds?(): Promise<{ conceptSet: number | null; project: number | null }>
 }
 
 /** A resolved entry of the static payload: big lists are deferred to their own file. */

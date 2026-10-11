@@ -1,0 +1,91 @@
+{
+  "kind": {
+    "concept-set": "Concept set",
+    "project": "Project",
+    "recommended-units": "Recommended units",
+    "unit-conversions": "Unit conversions",
+    "mapping-recommendations": "Mapping recommendations",
+    "config": "Configuration"
+  },
+  "badge": "Local changes",
+  "badge_server": "Draft",
+  "badge_hint": "You have unsubmitted changes to this. Submit them, or discard the draft.",
+  "badge_hint_static": "Changed in this browser only. Propose it on {{forge}} to share it, or discard the changes.",
+  "submit_button": "Submit…",
+  "propose_button": "Propose on {{forge}}…",
+  "discard_button": "Discard draft",
+  "save_failed": "Could not save the draft",
+  "indicator": {
+    "button": "Drafts",
+    "label": "{{count}} pending drafts",
+    "title": "Your pending drafts",
+    "discard": "Discard this draft"
+  },
+  "discard": {
+    "title": "Discard this draft?",
+    "description": "Your unsubmitted changes to \"{{name}}\" will be lost.",
+    "confirm": "Discard"
+  },
+  "unsaved": {
+    "title": "Discard unsaved changes?",
+    "description": "You are editing and have changes that are not saved yet. Leaving now loses them.",
+    "discard": "Discard changes"
+  },
+  "submit": {
+    "title": "Submit changes",
+    "mode": "How to submit",
+    "mode_proposal": "Propose",
+    "mode_proposal_hint": "Opens a pull / merge request for the maintainers to review.",
+    "mode_commit": "Commit directly",
+    "mode_commit_hint": "Writes the change onto the content branch right away (maintainers).",
+    "message": "Commit message",
+    "confirm_proposal": "Open the proposal",
+    "confirm_commit": "Commit",
+    "no_permission": "Your account cannot submit this kind of change.",
+    "done_title": "Submitted",
+    "done_proposal": "Your proposal is open. The maintainers will review it.",
+    "done_commit": "Your change is committed to the dictionary.",
+    "commit_sha": "Commit",
+    "allocated_id": "The new concept set got id {{id}}.",
+    "pull": "Pull now",
+    "error": {
+      "pull_required": "The content repository moved on: it must be pulled before committing.",
+      "conflict": "The submission conflicts with the repository.",
+      "validation": "The content is not valid.",
+      "forbidden": "Your account is not allowed to submit this.",
+      "not_found": "This draft no longer exists (already submitted or discarded?).",
+      "unauthenticated": "Your session expired: log in again.",
+      "unreachable": "The server could not be reached.",
+      "server": "The server could not submit the change."
+    }
+  },
+  "propose": {
+    "title_create": "Create this file on {{forge}}",
+    "title_update": "Update this file on {{forge}}",
+    "open": "Open {{forge}}",
+    "step_create": "This file **does not exist in the repository yet**, so it will be **created**.",
+    "step_create_prefilled": "{{forge}} opens a new-file page with the file name and the JSON **already filled in**.",
+    "step_too_large": "The JSON is too large to prefill, so it will be **copied to your clipboard** instead.",
+    "step_create_paste": "{{forge}} opens a new-file page with the file name filled in: **paste** the JSON into the editor.",
+    "step_update": "This file **already exists in the repository**, so it will be **updated**.",
+    "step_copied": "The JSON will be **copied to your clipboard**.",
+    "step_open_existing": "{{forge}} opens the **existing file** in its editor.",
+    "step_replace_all": "**Select all (Ctrl+A / Cmd+A)** in the editor and paste to **replace the whole file**: do not append, or the JSON will be invalid.",
+    "step_commit": "Scroll down, **commit to a new branch**, and open the pull request.",
+    "step_commit_branch": "Then **commit to a new branch** and open the pull request.",
+    "manual_title": "Copy the file",
+    "manual_description": "The clipboard is not available here: copy this content of {{path}} yourself (it is selected).",
+    "manual_open": "I have copied it, open {{forge}}",
+    "popup_blocked": "Your browser blocked the new tab. Allow pop-ups for this site and try again.",
+    "review_intro": "Your review is saved **inside this concept set's file**, so proposing it means updating that file."
+  },
+  "profile": {
+    "title": "Your name",
+    "description": "Stored in this browser only, and written into what you create, version and review.",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "affiliation": "Affiliation",
+    "profession": "Profession",
+    "orcid": "ORCID iD"
+  }
+}

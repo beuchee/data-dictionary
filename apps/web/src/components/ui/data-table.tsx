@@ -1,4 +1,4 @@
-// from linkr@1310cf4a4 apps/web/src/components/ui/data-table.tsx
+// Adapted from linkr@1310cf4a4 apps/web/src/components/ui/data-table.tsx
 import { useState, useMemo, useRef, useEffect, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -843,8 +843,8 @@ export function DataTable<T>({ data, columns: cols, rowKey, emptyMessage, onRowC
         <div className="flex items-center gap-1">
           <span className="text-[10px] text-muted-foreground">
             {server
-              ? `${server.total.toLocaleString()} ${t('common.results').toLowerCase()}`
-              : `${filtered.length} / ${data.length} ${t('common.results').toLowerCase()}`}
+              ? `${server.total.toLocaleString()} ${t('common.results', { count: server.total })}`
+              : `${filtered.length} / ${data.length} ${t('common.results', { count: data.length })}`}
           </span>
           <ColumnVisibilityMenu
             // An unlabelled column is a control (actions, row checkbox), not data:

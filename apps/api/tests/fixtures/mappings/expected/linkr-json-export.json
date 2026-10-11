@@ -1,0 +1,41 @@
+{
+  "detect": {
+    "format": "linkr",
+    "options": {}
+  },
+  "result": {
+    "format": "linkr",
+    "rows": [
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "AA",
+        "sourceName": "first",
+        "equivalence": "skos:exactMatch",
+        "status": "unchecked",
+        "targetConceptId": 3000905
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "ZZ",
+        "sourceName": "last",
+        "sourceConceptId": 2000000010,
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "frequency": 42,
+        "targetConceptId": 3000905
+      }
+    ],
+    "stats": {
+      "totalRows": 2,
+      "mappedRows": 2,
+      "unmappedRows": 0,
+      "skippedRows": 0,
+      "uniqueTargets": 1
+    },
+    "warnings": [],
+    "defaultStatuses": [
+      "approved"
+    ],
+    "suggestedName": "Exported project"
+  }
+}

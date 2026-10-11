@@ -1,0 +1,40 @@
+{
+  "exportFormat": "linkr-concept-mapping",
+  "exportVersion": "1.0",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "project": {
+    "id": "p1",
+    "name": "Exported project"
+  },
+  "mappings": [
+    {
+      "sourceConceptName": "first",
+      "sourceVocabularyId": "LOINC",
+      "sourceDomainId": null,
+      "sourceConceptCode": "AA",
+      "sourceFrequency": null,
+      "targetConceptId": 3000905,
+      "targetConceptName": "Tidal volume",
+      "targetVocabularyId": "LOINC",
+      "equivalence": "skos:exactMatch",
+      "status": "unchecked",
+      "mappedBy": "Boris",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "sourceConceptName": "last",
+      "sourceVocabularyId": "LOINC",
+      "sourceDomainId": null,
+      "sourceConceptCode": "ZZ",
+      "sourceFrequency": 42,
+      "targetConceptId": 3000905,
+      "targetConceptName": "Tidal volume",
+      "targetVocabularyId": "LOINC",
+      "equivalence": "skos:exactMatch",
+      "status": "approved",
+      "mappedBy": "Boris",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "sourceConceptId": 2000000010
+    }
+  ]
+}

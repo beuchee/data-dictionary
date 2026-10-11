@@ -1,0 +1,77 @@
+{
+  "detect": {
+    "format": "usagi",
+    "options": {}
+  },
+  "result": {
+    "format": "usagi",
+    "rows": [
+      {
+        "sourceCode": "HR",
+        "sourceName": "Heart rate",
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "frequency": 1520,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceCode": "NA",
+        "sourceName": "Sodium, serum",
+        "equivalence": "skos:closeMatch",
+        "status": "unchecked",
+        "frequency": 88,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceCode": "VMODE",
+        "sourceName": "Mode \"VS-AI\"\nventilation",
+        "equivalence": "skos:broadMatch",
+        "status": "approved",
+        "frequency": 12,
+        "targetConceptId": 4230167
+      },
+      {
+        "sourceCode": "VMODE",
+        "sourceName": "Mode \"VS-AI\"\nventilation",
+        "equivalence": "skos:narrowMatch",
+        "status": "approved",
+        "frequency": 12,
+        "targetConceptId": 45878245
+      },
+      {
+        "sourceCode": "FREE",
+        "sourceName": "Free text",
+        "status": "approved",
+        "targetConceptId": 0
+      },
+      {
+        "sourceCode": "FLAG",
+        "sourceName": "Flagged one",
+        "equivalence": "skos:relatedMatch",
+        "status": "flagged",
+        "frequency": 3.5,
+        "targetConceptId": 3004249
+      }
+    ],
+    "stats": {
+      "totalRows": 7,
+      "mappedRows": 5,
+      "unmappedRows": 1,
+      "skippedRows": 1,
+      "uniqueTargets": 5
+    },
+    "warnings": [
+      {
+        "code": "invalid_target",
+        "count": 1,
+        "rows": [
+          7
+        ]
+      }
+    ],
+    "defaultStatuses": [
+      "approved"
+    ],
+    "suggestedName": null
+  }
+}

@@ -1,0 +1,10 @@
+sourceCode,sourceName,sourceFrequency,sourceAutoAssignedConceptIds,matchScore,mappingStatus,equivalence,statusSetBy,statusSetOn,conceptId,conceptName,domainId,mappingType,comment,createdBy,createdOn,assignedReviewer
+HR,Heart rate,1520,,0.98,APPROVED,EQUAL,Boris,1767225600000,3027018,Heart rate,Measurement,MAPS_TO,,Boris,1767225600000,
+NA,"Sodium, serum",88,,0.7,UNCHECKED,EQUIVALENT,,0,3019550,Sodium,Measurement,MAPS_TO,,Boris,0,
+VMODE,"Mode ""VS-AI""
+ventilation",12,,0,APPROVED,WIDER,Boris,0,4230167,Ventilation,Observation,MAPS_TO,,Boris,0,
+VMODE,"Mode ""VS-AI""
+ventilation",12,,0,APPROVED,NARROWER,Boris,0,45878245,Pressure support,Observation,MAPS_TO_VALUE,,Boris,0,
+FREE,Free text,<5,,0,APPROVED,UNMATCHED,Boris,0,0,,,,,Boris,0,
+FLAG,Flagged one,3.5,,0,FLAGGED,INEXACT,Boris,0,3004249,SBP,Measurement,MAPS_TO,,Boris,0,
+BIG,Too large,1,,0,APPROVED,EQUAL,,0,99999999999999999999,,,,,,0,

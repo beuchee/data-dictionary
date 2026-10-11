@@ -1,0 +1,97 @@
+{
+  "detect": {
+    "format": "linkr",
+    "options": {}
+  },
+  "result": {
+    "format": "linkr",
+    "rows": [
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "AA",
+        "sourceName": "first",
+        "equivalence": "skos:exactMatch",
+        "status": "unchecked",
+        "targetConceptId": 3000905
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "ZZ",
+        "sourceName": "last",
+        "sourceConceptId": 2000000010,
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "frequency": 42,
+        "targetConceptId": 3000905
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "IGN",
+        "sourceName": "ignored",
+        "equivalence": "skos:exactMatch",
+        "status": "ignored",
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "NUL",
+        "sourceName": "no target",
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "STR",
+        "sourceName": "string target",
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "frequency": 7,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "REJ",
+        "sourceName": "rejected",
+        "equivalence": "skos:broadMatch",
+        "status": "rejected",
+        "targetConceptId": 3004249
+      },
+      {
+        "sourceVocabularyId": "LOINC",
+        "sourceCode": "FLT",
+        "sourceName": "float target",
+        "equivalence": "skos:exactMatch",
+        "status": "approved",
+        "targetConceptId": 3019550
+      }
+    ],
+    "stats": {
+      "totalRows": 9,
+      "mappedRows": 5,
+      "unmappedRows": 2,
+      "skippedRows": 2,
+      "uniqueTargets": 4
+    },
+    "warnings": [
+      {
+        "code": "invalid_mapping",
+        "count": 1,
+        "rows": [
+          7
+        ]
+      },
+      {
+        "code": "invalid_target",
+        "count": 1,
+        "rows": [
+          9
+        ]
+      }
+    ],
+    "defaultStatuses": [
+      "approved"
+    ],
+    "suggestedName": "Adult ICU"
+  }
+}

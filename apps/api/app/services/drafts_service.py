@@ -529,6 +529,7 @@ async def submit(
                 base=repo.branch,
                 title=plan.title,
                 body=body,
+                token_host=host,
             )
         except (forge.ForgeError, GitError) as exc:
             logger.warning("proposal_open_failed", branch=branch, error=str(exc))

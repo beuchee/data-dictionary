@@ -10,7 +10,7 @@ from dictionary_format import parse
 from app.main import app
 from app.services import forge
 from app.services.content_store import ContentStore, get_content_store
-from app.services.git_service import get_content_repo
+from app.services.git_service import ContentRepo, get_content_repo
 
 from conftest import API, create_user, login
 from git_fixtures import commit_all, git, make_remote, read, write
@@ -458,3 +458,29 @@ async def test_without_a_vocabulary_the_resolved_list_is_reported_stale(api, db,
     out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 2, cs), "commit")).json()
     assert out["resolved"] == "stale"
     assert remote.remote_file("main", "concept_sets_resolved/2.json") == before
+
+
+async def test_a_token_never_goes_to_a_forge_other_than_the_remote_host(api, db, remote, forge_calls, monkeypatch):
+    """With an ssh remote, the PR is opened on config.json `repository.url`,
+    which a config commit can change: the token must not follow it to another host."""
+    config = read(remote.work / "config.json")
+    config["repository"] = {"url": "https://attacker.example/indicate-eu/data-dictionary", "branch": "main"}
+    write(remote.work / "config.json", config)
+    commit_all(remote.work, "Point the repository elsewhere")
+    git(remote.work, "push", "-q", "origin", "main")
+
+    real_push = ContentRepo.push
+    monkeypatch.setattr(ContentRepo, "remote_url", lambda self: "git@github.com:indicate-eu/data-dictionary.git")
+    # The push itself still goes to the local bare remote.
+    monkeypatch.setattr(ContentRepo, "_network_url", lambda self, token: str(remote.bare))
+    monkeypatch.setattr(ContentRepo, "push", real_push)
+
+    headers = await _user(db, api, "eve", "editor")
+    cs = _cs(remote, 1)
+    cs["tags"] = ["x"]
+    r = await _submit(api, headers, await _draft(api, headers, "concept-set", 1, cs), "proposal")
+    assert r.status_code == 200, r.text
+    out = r.json()
+    assert out["branch"] in remote.remote_branches()
+    assert forge_calls == []
+    assert out["proposalError"]

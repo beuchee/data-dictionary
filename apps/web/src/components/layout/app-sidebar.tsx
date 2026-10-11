@@ -54,7 +54,7 @@ export function AppSidebar() {
           )}
           <span className="truncate text-sm font-semibold text-sidebar-foreground">{name}</span>
         </Link>
-        <SidebarTrigger aria-label={t('header.toggle_sidebar')} />
+        <SidebarTrigger aria-label={t('layout.header.toggle_sidebar')} />
       </SidebarHeader>
 
       <SidebarContent>

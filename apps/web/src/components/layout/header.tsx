@@ -36,7 +36,7 @@ export function Header() {
         {languages.length > 1 && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1.5 text-xs" aria-label={t('header.language')}>
+              <Button variant="ghost" size="sm" className="gap-1.5 text-xs" aria-label={t('layout.header.language')}>
                 <Languages size={14} />
                 {current.toUpperCase()}
               </Button>
@@ -52,7 +52,7 @@ export function Header() {
           </DropdownMenu>
         )}
 
-        <Button variant="ghost" size="icon-sm" onClick={toggleDarkMode} aria-label={t('header.toggle_dark_mode')}>
+        <Button variant="ghost" size="icon-sm" onClick={toggleDarkMode} aria-label={t('layout.header.toggle_dark_mode')}>
           {darkMode ? <Sun size={15} /> : <Moon size={15} />}
         </Button>
 
@@ -61,10 +61,10 @@ export function Header() {
           {isServerMode() ? (
             <Button variant="outline" size="sm" className="gap-1.5 text-xs">
               <LogIn size={14} />
-              {t('header.login')}
+              {t('layout.header.login')}
             </Button>
           ) : (
-            <Avatar className="h-7 w-7" aria-label={t('header.user_menu')}>
+            <Avatar className="h-7 w-7" aria-label={t('layout.header.user_menu')}>
               <AvatarFallback className="bg-muted text-muted-foreground">
                 <User size={14} />
               </AvatarFallback>

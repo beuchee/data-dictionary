@@ -1,0 +1,16 @@
+{
+  "header": {
+    "language": "Language",
+    "toggle_dark_mode": "Toggle dark mode",
+    "login": "Log in",
+    "user_menu": "User menu",
+    "toggle_sidebar": "Toggle sidebar"
+  },
+  "boot": {
+    "loading": "Loading…",
+    "loading_page": "Loading page…",
+    "config_error_title": "Could not load the instance configuration",
+    "config_error_description": "config.json could not be read. Check that it is served next to the app and is valid JSON.",
+    "retry": "Retry"
+  }
+}

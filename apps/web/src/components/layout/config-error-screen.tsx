@@ -15,16 +15,16 @@ export function ConfigErrorScreen({ error }: ConfigErrorScreenProps) {
     <div className="flex h-full items-center justify-center bg-background p-6">
       <EmptyState
         icon={TriangleAlert}
-        title={t('boot.config_error_title')}
+        title={t('layout.boot.config_error_title')}
         description={
           <>
-            {t('boot.config_error_description')}
+            {t('layout.boot.config_error_description')}
             <code className="mt-2 block break-all text-[10px]">{detail}</code>
           </>
         }
         action={
           <Button variant="outline" onClick={() => window.location.reload()}>
-            {t('boot.retry')}
+            {t('layout.boot.retry')}
           </Button>
         }
       />

@@ -1,0 +1,22 @@
+{
+  "cancel": "Cancel",
+  "clear": "Clear",
+  "close": "Close",
+  "columns": "Columns",
+  "copied": "Copied",
+  "copy": "Copy",
+  "filters": "Filters",
+  "loading": "Loading...",
+  "n_selected": "{{count}} selected",
+  "next": "Next",
+  "no_results": "No results",
+  "previous": "Previous",
+  "refine_search": "Showing {{shown}} of {{total}} — refine your search",
+  "results": "results",
+  "save": "Save",
+  "search": "Search...",
+  "select_all": "Select all",
+  "select_none": "None",
+  "sort_by": "Sort by",
+  "coming_soon": "Coming soon"
+}

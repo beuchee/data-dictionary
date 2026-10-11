@@ -146,7 +146,7 @@ Copié depuis Linkr (dépendances limitées à `@/lib/utils` et aux fichiers voi
 - L'assistant de premier lancement couvre : compte admin → dépôt de contenu (URL, branche, token) → organisation → branding → contenu (partir du dépôt INDICATE, d'un dépôt vide, ou d'un fork). Il remplace `reset.py` pour un nouveau dictionnaire.
 
 ### Internationalisation
-- UI : i18next, `locales/en.json` + `fr.json` (règle Linkr : tout texte via `t()`).
+- UI : i18next, un fichier par espace de noms et par langue (`locales/{en,fr}/<namespace>.json`, pour que les fonctionnalités développées en parallèle ne se marchent pas dessus) ; règle Linkr : tout texte via `t()`.
 - Contenu : langues de `config.json` (`languages`), structure *language-first* inchangée, toujours **sans repli** d'une langue sur l'autre.
 
 ---

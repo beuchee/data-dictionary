@@ -1,0 +1,16 @@
+{
+  "header": {
+    "language": "Langue",
+    "toggle_dark_mode": "Basculer le mode sombre",
+    "login": "Se connecter",
+    "user_menu": "Menu utilisateur",
+    "toggle_sidebar": "Afficher/masquer la barre latérale"
+  },
+  "boot": {
+    "loading": "Chargement…",
+    "loading_page": "Chargement de la page…",
+    "config_error_title": "Impossible de charger la configuration de l'instance",
+    "config_error_description": "config.json n'a pas pu être lu. Vérifiez qu'il est servi à côté de l'application et que c'est un JSON valide.",
+    "retry": "Réessayer"
+  }
+}

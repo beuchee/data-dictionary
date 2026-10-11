@@ -4,7 +4,7 @@ How code is written in `apps/web` (and, where it applies, `apps/api`). Adapted f
 
 ## Universal rules
 
-- **i18n**: every user-facing string goes through `t('key')`, with the key in **both** `apps/web/src/locales/en.json` and `fr.json`. Keys are dotted and hierarchical (`pages.concept_sets.title`). Shared words live under `common.*`. This covers the UI only; dictionary *content* is multilingual in its own JSON, language-first, with no cross-language fallback.
+- **i18n**: every user-facing string goes through `t('key')`, with the key in **both** `apps/web/src/locales/en/<namespace>.json` and `fr/<namespace>.json`. One file per namespace (`common`, `nav`, `layout`, `auth`, `concept-sets`, `projects`, `mapping`, `settings`, `dev-tools`, `documentation`), so features edit separate files; a file's content sits under its name as the key prefix, kebab-case turned to snake_case (`concept-sets.json` → `t('concept_sets.title')`). Shared words live in `common`. A new namespace is a new file in both folders, nothing else (`lib/i18n.ts` globs them); `i18n.test.ts` fails when en and fr differ. This covers the UI only; dictionary *content* is multilingual in its own JSON, language-first, with no cross-language fallback.
 - **Path alias**: always `@/` for imports from `apps/web/src/` (`@/lib/utils`, `@/stores/app-store`). Never `../../`. `cn()` is at `@/lib/utils`.
 - **No new `any`**: type it. If an escape is unavoidable, `as unknown as T` with a one-line why; never `@ts-ignore`.
 - **No `console.log`** in committed code; `console.error` / `console.warn` for genuine errors.

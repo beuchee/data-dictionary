@@ -1,17 +1,39 @@
 // Adapted from linkr@1310cf4a4 apps/web/src/lib/i18n.ts
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import en from '@/locales/en.json'
-import fr from '@/locales/fr.json'
 
-/** UI languages with a locale file. Content languages come from config.json and may differ. */
+/** UI languages with a locale folder. Content languages come from config.json and may differ. */
 export const UI_LANGUAGES = ['en', 'fr'] as const
 
+type LocaleTree = Record<string, unknown>
+
+/** The i18n key prefix of a locale file: `locales/en/concept-sets.json` → `concept_sets`. */
+export function namespaceKey(fileName: string): string {
+  return fileName.replace(/\.json$/, '').replace(/-/g, '_')
+}
+
+/**
+ * The i18next resources from the locale files, keyed by their path
+ * (`…/locales/<lang>/<namespace>.json`). Each file is one namespace, merged into
+ * the single `translation` resource under its `namespaceKey`, so a key reads
+ * `t('concept_sets.title')` and separate features edit separate files.
+ */
+export function buildResources(modules: Record<string, LocaleTree>): Record<string, { translation: LocaleTree }> {
+  const resources: Record<string, { translation: LocaleTree }> = {}
+  for (const [filePath, content] of Object.entries(modules)) {
+    const m = /locales\/([^/]+)\/([^/]+\.json)$/.exec(filePath)
+    if (!m) continue
+    const [, lang, file] = m
+    resources[lang] ??= { translation: {} }
+    resources[lang].translation[namespaceKey(file)] = content
+  }
+  return resources
+}
+
+const localeModules = import.meta.glob<LocaleTree>('../locales/*/*.json', { eager: true, import: 'default' })
+
 i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: en },
-    fr: { translation: fr },
-  },
+  resources: buildResources(localeModules),
   lng: 'en',
   fallbackLng: 'en',
   showSupportNotice: false,

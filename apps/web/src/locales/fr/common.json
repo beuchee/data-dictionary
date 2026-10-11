@@ -1,0 +1,22 @@
+{
+  "cancel": "Annuler",
+  "clear": "Effacer",
+  "close": "Fermer",
+  "columns": "Colonnes",
+  "copied": "Copié",
+  "copy": "Copier",
+  "filters": "Filtres",
+  "loading": "Chargement...",
+  "n_selected": "{{count}} sélectionné(s)",
+  "next": "Suivant",
+  "no_results": "Aucun résultat",
+  "previous": "Précédent",
+  "refine_search": "{{shown}} sur {{total}} affichés — affinez votre recherche",
+  "results": "résultats",
+  "save": "Enregistrer",
+  "search": "Rechercher...",
+  "select_all": "Tout sélectionner",
+  "select_none": "Aucun",
+  "sort_by": "Trier par",
+  "coming_soon": "Bientôt disponible"
+}

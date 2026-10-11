@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 
 from app.config import settings
 from app.core.json_response import json_response
+from app.services import oauth_service
 from app.services.content_store import ContentStore, get_content_store
 
 router = APIRouter(prefix="/instance", tags=["instance"])
@@ -17,8 +18,8 @@ def instance_config(store: ContentStore = Depends(get_content_store)):
             "config": catalogue.config,
             "server": {
                 "appVersion": settings.app_version,
-                # TODO(v2-phase-2): add "github", "gitlab", "orcid" once OAuth lands.
-                "authProviders": ["local"],
+                # "local", then the enabled OAuth providers (github, gitlab, orcid).
+                "authProviders": ["local", *oauth_service.enabled_providers()],
                 "anonymousRead": catalogue.anonymous_read,
                 "versionHistory": store.history_available(),
                 "passwordMinLength": settings.password_min_length,

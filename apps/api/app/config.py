@@ -24,8 +24,36 @@ class Settings(BaseSettings):
     # Working copy of the content repository (concept_sets/, projects/, config.json…).
     # Unset: the repo this API runs from in development (found by walking up from
     # apps/api), else {data_dir}/content, which is where Docker keeps it.
-    # TODO(v2-phase-2): clone the configured repository there on first start.
     content_dir: str | None = None
+    # The content repository (services/git_service.py). With a URL, the API clones
+    # it (full history) into content_dir on first start, pulls from it and pushes
+    # its commits and proposal branches there. Unset: the working copy's `origin`.
+    content_repo_url: str | None = None
+    # Unset: config.json `repository.branch`, else "main".
+    content_branch: str | None = None
+    # Service token (https remotes): clone/fetch of a private repo, direct commits,
+    # and proposals of users who did not sign in with the forge. Never logged.
+    git_token: str | None = None
+    git_author_name: str = "Data Dictionary"
+    git_author_email: str = "data-dictionary@localhost"
+
+    # Public base URL of the web app, which serves the API under /api/v1 (nginx in
+    # Docker, the Vite proxy in development). Builds the OAuth redirect URIs.
+    public_url: str = "http://localhost:3000"
+    # OAuth sign-in providers, each enabled by its client id + secret.
+    oauth_github_client_id: str | None = None
+    oauth_github_client_secret: str | None = None
+    # `repo` instead of `public_repo` when the content repository is private.
+    oauth_github_scope: str = "read:user user:email public_repo"
+    oauth_gitlab_client_id: str | None = None
+    oauth_gitlab_client_secret: str | None = None
+    oauth_gitlab_base_url: str = "https://gitlab.com"
+    oauth_gitlab_scope: str = "read_user api"
+    oauth_orcid_client_id: str | None = None
+    oauth_orcid_client_secret: str | None = None
+    oauth_orcid_sandbox: bool = False
+    # Role given to an account created by an OAuth sign-in.
+    oauth_default_role: str = "viewer"
 
     secret_key: str = INSECURE_SECRET_KEY
     algorithm: str = "HS256"

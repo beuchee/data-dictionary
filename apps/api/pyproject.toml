@@ -25,6 +25,8 @@ dependencies = [
     "cryptography>=42",
     "python-multipart>=0.0.9",
     "structlog>=24.0",
+    # Forge APIs (pull / merge requests) and OAuth token exchanges.
+    "httpx>=0.27",
     # The content-file contract (parse, validate, byte-exact serialize), shared
     # with the TS side. A path source in dev; the Docker image installs it first.
     "dictionary-format",
@@ -52,7 +54,7 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 120
 target-version = "py312"
-extend-exclude = ["alembic/versions"]
+extend-exclude = ["alembic/versions", "tests/fixtures/reference_scripts"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
@@ -60,4 +62,4 @@ ignore = ["B008"]  # FastAPI's Depends() in argument defaults is the framework i
 
 [tool.ruff.lint.isort]
 known-first-party = ["app"]
-known-local-folder = ["conftest", "content_fixtures"]
+known-local-folder = ["conftest", "content_fixtures", "git_fixtures"]

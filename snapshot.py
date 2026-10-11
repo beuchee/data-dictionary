@@ -61,183 +61,51 @@ Backfill (--backfill):
 
   Cost: one `git log` per file plus one `git show` per touching commit -- seconds on a
   repo this size, but enough that it stays opt-in and is never called by build.py.
+
+Implementation: apps/api/app/services/versioning.py (standard library only), shared
+with the v2 API, which snapshots right after its own commits and backfills after
+pulling merged proposals. This script is its command line.
 """
 
 import argparse
-import glob
-import json
+import importlib.util
 import os
-import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CONCEPT_SETS_DIR = os.path.join(ROOT, "concept_sets")
-INDEX_PATH = os.path.join(ROOT, "concept_sets_versions.json")
+SERVICES_DIR = os.path.join(ROOT, "apps", "api", "app", "services")
 
 
-def load_index():
-    if not os.path.isfile(INDEX_PATH):
-        return {}
-    with open(INDEX_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+def load_service(name):
+    """Load apps/api/app/services/<name>.py on its own: it needs nothing but the
+    standard library, so CI runs it with a bare `python3`."""
+    if name in sys.modules:
+        return sys.modules[name]
+    path = os.path.join(SERVICES_DIR, f"{name}.py")
+    if not os.path.isfile(path):
+        sys.exit(f"Missing {os.path.relpath(path, ROOT)}: this script runs the implementation that lives there.")
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
-def save_index(index):
-    sorted_index = {
-        str(k): dict(sorted(v.items()))
-        for k, v in sorted(index.items(), key=lambda kv: int(kv[0]))
-    }
-    with open(INDEX_PATH, "w", encoding="utf-8") as f:
-        json.dump(sorted_index, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-
-
-def current_head_sha():
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "HEAD"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        return result.stdout.strip()
-    except FileNotFoundError:
-        sys.exit(
-            "git is not installed, but snapshot.py needs it to record the commit of each\n"
-            "concept set version. In CI, use an image that ships git (e.g. python:3.12-alpine\n"
-            "plus `apk add --no-cache git`)."
-        )
-    except subprocess.CalledProcessError as e:
-        stderr = e.stderr.strip()
-        # A fresh fork right after reset.py has no commit yet, so HEAD does not
-        # resolve. Say so plainly instead of echoing git's "ambiguous argument".
-        if "ambiguous argument 'HEAD'" in stderr or "unknown revision" in stderr:
-            sys.exit(
-                "This repository has no commits yet, so there is no HEAD to snapshot against.\n"
-                "Commit your files first, then run build.py again."
-            )
-        sys.exit(f"git rev-parse HEAD failed: {stderr}")
-
-
-def dirty_paths():
-    """Return the set of repo-relative paths with uncommitted (staged or unstaged) changes."""
-    result = subprocess.run(
-        ["git", "status", "--porcelain", "--", "concept_sets"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    paths = set()
-    for line in result.stdout.splitlines():
-        # Format: "XY path" (or "XY old -> new" for renames).
-        entry = line[3:]
-        if " -> " in entry:
-            entry = entry.split(" -> ", 1)[1]
-        paths.add(entry.strip().strip('"'))
-    return paths
-
-
-def all_historical_paths():
-    """Return every concept_sets/*.json path git has ever known, deleted ones included.
-
-    `git log --name-only --diff-filter=AMD` over the directory covers files that no
-    longer exist on disk: a project can still pin a version of a set that was later
-    removed, and the history is the only place left holding it.
-    """
-    result = subprocess.run(
-        ["git", "log", "--pretty=format:", "--name-only", "--diff-filter=AMD",
-         "--", "concept_sets"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    paths = set()
-    for line in result.stdout.splitlines():
-        line = line.strip().strip('"')
-        if line.startswith("concept_sets/") and line.endswith(".json"):
-            paths.add(line)
-    return sorted(paths)
-
-
-def commits_touching(path):
-    """Commits that touched `path`, oldest first."""
-    result = subprocess.run(
-        ["git", "log", "--format=%H", "--reverse", "--", path],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    return result.stdout.split()
-
-
-def read_at_commit(sha, path):
-    """Parse path's JSON as of `sha`, or None if absent/unreadable there.
-
-    A commit that deletes the file, or one where the JSON is malformed, simply has no
-    version to contribute -- the walk skips it rather than failing the whole backfill.
-    """
-    result = subprocess.run(
-        ["git", "show", f"{sha}:{path}"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0:
-        return None
-    try:
-        return json.loads(result.stdout)
-    except json.JSONDecodeError:
-        return None
-
-
-def first_commit_per_version(path):
-    """Map {version: first sha where the file carried it} across path's whole history.
-
-    Keyed by the id seen alongside, so a file whose id changed mid-history (should not
-    happen, but the index is keyed by id) still attributes each version correctly.
-    """
-    found = {}
-    for sha in commits_touching(path):
-        cs = read_at_commit(sha, path)
-        if not isinstance(cs, dict):
-            continue
-        cs_id = cs.get("id")
-        version = cs.get("version")
-        if cs_id is None or not version:
-            continue
-        key = (str(cs_id), version)
-        if key not in found:
-            found[key] = sha
-    return found
+versioning = load_service("versioning")
 
 
 def backfill(dry_run=False, show_divergences=False):
-    index = load_index()
+    try:
+        result = versioning.backfill(ROOT, write=not dry_run)
+    except versioning.VersioningError as e:
+        sys.exit(str(e))
 
-    paths = all_historical_paths()
-    if not paths:
+    if not result.scanned:
         print("No concept set history found — nothing to backfill.")
         return
+    print(f"Scanning the history of {result.scanned} concept set file(s)…")
 
-    print(f"Scanning the history of {len(paths)} concept set file(s)…")
-
-    new_entries = []
-    divergences = []
-
-    for path in paths:
-        for (key, version), sha in sorted(first_commit_per_version(path).items()):
-            recorded = index.get(key, {}).get(version)
-            if recorded is None:
-                index.setdefault(key, {})[version] = sha
-                new_entries.append((key, version, sha, path))
-            elif recorded != sha:
-                # Published sha wins — see the module docstring.
-                divergences.append((key, version, recorded, sha))
-
+    divergences = result.divergences
     if divergences:
         print()
         print(f"{len(divergences)} pair(s) already indexed at a different commit than the "
@@ -250,15 +118,15 @@ def backfill(dry_run=False, show_divergences=False):
         else:
             print("Re-run with --show-divergences to list them.")
 
-    if not new_entries:
+    if not result.added:
         print()
         print("No missing versions found. Index unchanged.")
         return
 
     print()
-    print(f"{'Would add' if dry_run else 'Added'} {len(new_entries)} missing "
+    print(f"{'Would add' if dry_run else 'Added'} {len(result.added)} missing "
           f"(id, version) pair(s):")
-    for key, version, sha, path in new_entries:
+    for key, version, sha, path in result.added:
         deleted = "" if os.path.isfile(os.path.join(ROOT, path)) else "  [deleted file]"
         print(f"  concept set {key} -> v{version} at {sha[:10]}{deleted}")
 
@@ -267,55 +135,27 @@ def backfill(dry_run=False, show_divergences=False):
         print("Dry run — concept_sets_versions.json was not modified.")
         return
 
-    save_index(index)
     print()
     print("Don't forget to commit concept_sets_versions.json.")
 
 
 def main():
-    index = load_index()
-    sha = current_head_sha()
-    dirty = dirty_paths()
+    try:
+        result = versioning.snapshot_head(ROOT)
+    except versioning.VersioningError as e:
+        sys.exit(str(e))
 
-    new_entries = []
-    warnings = []
-
-    for path in sorted(glob.glob(os.path.join(CONCEPT_SETS_DIR, "*.json"))):
-        with open(path, "r", encoding="utf-8") as f:
-            cs = json.load(f)
-        cs_id = cs.get("id")
-        version = cs.get("version")
-        if cs_id is None or not version:
-            warnings.append(f"  {os.path.basename(path)}: missing id or version, skipped")
-            continue
-
-        key = str(cs_id)
-        existing = index.get(key, {})
-        if version in existing:
-            continue
-
-        if os.path.relpath(path, ROOT).replace(os.sep, "/") in dirty:
-            warnings.append(
-                f"  concept_sets/{cs_id}.json: uncommitted changes — "
-                f"commit them before running snapshot.py (skipped v{version})"
-            )
-            continue
-
-        index.setdefault(key, {})[version] = sha
-        new_entries.append((cs_id, version))
-
-    if warnings:
+    if result.warnings:
         print("Warnings:")
-        for w in warnings:
+        for w in result.warnings:
             print(w)
 
-    if not new_entries:
+    if not result.added:
         print("No new versions to snapshot. Index unchanged.")
         return
 
-    save_index(index)
-    print(f"Snapshotted {len(new_entries)} new (id, version) pair(s) at {sha[:10]}:")
-    for cs_id, version in new_entries:
+    print(f"Snapshotted {len(result.added)} new (id, version) pair(s) at {result.sha[:10]}:")
+    for cs_id, version in result.added:
         print(f"  concept set {cs_id} -> v{version}")
     print()
     print("Don't forget to commit concept_sets_versions.json.")

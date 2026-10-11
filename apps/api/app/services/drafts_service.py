@@ -34,7 +34,7 @@ from app.config import settings
 from app.core.permissions import user_permissions
 from app.models.draft import Draft
 from app.models.user import User
-from app.services import forge, git_credential_service, oauth_service, versioning
+from app.services import branding_assets, forge, git_credential_service, oauth_service, versioning
 from app.services.content_store import ContentStore
 from app.services.git_service import Author, ContentRepo, GitError, strip_credentials
 from app.services.provenance import (
@@ -300,6 +300,12 @@ def _prepare(
         if not isinstance(content, dict):
             raise SubmitError(422, "invalid_content", "A project is a JSON object", errors=[])
         stamp_project(content, project_id=target_id, base=base_doc, submitter=submitter, today=today)
+    elif draft.kind == "config" and isinstance(content, dict):
+        # Branding images ride in the draft's `$assets` (services/branding_assets.py).
+        try:
+            files.update(branding_assets.apply_assets(content, base_doc, lambda p: repo.show(base, p)))
+        except branding_assets.AssetError as exc:
+            raise SubmitError(422, exc.code, str(exc), asset=exc.kind) from None
 
     result = validate(spec.format_kind, content)
     if not result.valid:

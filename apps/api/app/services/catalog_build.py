@@ -302,6 +302,8 @@ def write_outputs(root, out_dir, result: BuildResult, *, log: Log = _quiet) -> N
             if src.is_file():
                 shutil.copy2(src, deferred_dir / f"{cs_id}.json")
 
+    copy_branding(root, out_dir, log=log)
+
     with open(out_dir / "resolved_concept_ids.json", "w", encoding="utf-8") as f:
         json.dump(result.resolved_ids, f, separators=(",", ":"))
     log(f"  -> {out_dir.name}/resolved_concept_ids.json ({len(result.resolved_ids)} unique concept IDs)")
@@ -322,6 +324,28 @@ def write_outputs(root, out_dir, result: BuildResult, *, log: Log = _quiet) -> N
     )
     log(f"  -> {out_dir.name}/data.json ({os.path.getsize(out_dir / 'data.json'):,} bytes)")
     log(f"  -> {out_dir.name}/data_inline.js ({os.path.getsize(out_dir / 'data_inline.js'):,} bytes)")
+
+
+BRANDING_DIR = "branding"
+
+
+def copy_branding(root, out_dir, *, log: Log = _quiet) -> None:
+    """Mirror the repository's `branding/` images (uploaded from v2's Branding
+    settings) into `out_dir/branding/`, so the static site serves the paths
+    config.json names (`branding/logo.png`). Nothing when the folder is absent."""
+    src = Path(root) / BRANDING_DIR
+    dest = Path(out_dir) / BRANDING_DIR
+    if dest.is_dir():
+        shutil.rmtree(dest)
+    if not src.is_dir():
+        return
+    files = [p for p in sorted(src.iterdir()) if p.is_file() and not p.name.startswith(".")]
+    if not files:
+        return
+    dest.mkdir(parents=True, exist_ok=True)
+    for p in files:
+        shutil.copy2(p, dest / p.name)
+    log(f"  -> {out_dir.name}/{BRANDING_DIR}/ ({len(files)} branding file(s))")
 
 
 def build(root, out_dir, *, log: Log = _quiet, **kwargs) -> BuildResult:

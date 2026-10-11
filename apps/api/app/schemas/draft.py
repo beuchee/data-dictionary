@@ -4,6 +4,7 @@ from typing import Any, Literal
 from pydantic import Field, field_validator, model_validator
 
 from app.schemas.base import CamelModel
+from app.services import branding_assets
 
 DraftKind = Literal[
     "concept-set",
@@ -34,6 +35,11 @@ class DraftCreate(CamelModel):
     def _json_document(cls, value: Any) -> Any:
         if not isinstance(value, (dict, list)):
             raise ValueError("content must be a JSON object or array")
+        # A config draft's branding images: refused here already, not only at submit.
+        try:
+            branding_assets.validate_assets(value)
+        except branding_assets.AssetError as exc:
+            raise ValueError(f"{exc.code}: {exc}") from None
         return value
 
 
@@ -48,6 +54,11 @@ class DraftUpdate(CamelModel):
     def _json_document(cls, value: Any) -> Any:
         if not isinstance(value, (dict, list)):
             raise ValueError("content must be a JSON object or array")
+        # A config draft's branding images: refused here already, not only at submit.
+        try:
+            branding_assets.validate_assets(value)
+        except branding_assets.AssetError as exc:
+            raise ValueError(f"{exc.code}: {exc}") from None
         return value
 
 

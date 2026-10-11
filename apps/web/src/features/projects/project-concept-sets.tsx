@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { Library } from 'lucide-react'
+import { Library, RefreshCw } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { DataTable, type DataTableColumn } from '@/components/ui/data-table'
 import { EmptyState } from '@/components/ui/empty-state'
 import { TruncatedText } from '@/components/ui/truncated-text'
@@ -13,10 +14,14 @@ interface ProjectConceptSetsProps {
   project: Project
   summaries: ReadonlyMap<number, ConceptSetSummary>
   lang: string
+  /** Moves one outdated pin to the current version; absent = read-only. */
+  onUpdate?: (row: ProjectConceptSetRow) => void
+  /** Moves every outdated pin. */
+  onUpdateAll?: (rows: ProjectConceptSetRow[]) => void
 }
 
 /** The concept sets of a project, one table per group, each set at its pinned version. */
-export function ProjectConceptSets({ project, summaries, lang }: ProjectConceptSetsProps) {
+export function ProjectConceptSets({ project, summaries, lang, onUpdate, onUpdateAll }: ProjectConceptSetsProps) {
   const { t } = useTranslation()
   const sections = useMemo(() => projectSections(project, summaries, lang), [project, summaries, lang])
 
@@ -24,19 +29,54 @@ export function ProjectConceptSets({ project, summaries, lang }: ProjectConceptS
     return <EmptyState icon={Library} title={t('projects.no_concept_sets')} className="mt-4" />
   }
 
+  const outdated = sections.flatMap((s) => s.rows).filter((r) => r.versionStatus === 'outdated')
+
   return (
     <div className="flex flex-col gap-8">
+      {onUpdateAll && outdated.length > 0 && (
+        <div className="flex justify-end">
+          <Button variant="outline" onClick={() => onUpdateAll(outdated)}>
+            <RefreshCw size={14} />
+            {t('projects.update.update_all', { count: outdated.length })}
+          </Button>
+        </div>
+      )}
       {sections.map((section) => (
-        <GroupSection key={section.id} section={section} />
+        <GroupSection key={section.id} section={section} onUpdate={onUpdate} />
       ))}
     </div>
   )
 }
 
-function GroupSection({ section }: { section: ProjectGroupSection }) {
+function GroupSection({ section, onUpdate }: { section: ProjectGroupSection; onUpdate?: (row: ProjectConceptSetRow) => void }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const columns = useConceptSetColumns()
+  const base = useConceptSetColumns()
+  const columns: DataTableColumn<ProjectConceptSetRow>[] = onUpdate
+    ? [
+        ...base,
+        {
+          id: 'update',
+          header: '',
+          accessor: () => '',
+          sortable: false,
+          size: 90,
+          cell: (r) =>
+            r.versionStatus === 'outdated' ? (
+              <Button
+                variant="outline"
+                size="xs"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onUpdate(r)
+                }}
+              >
+                {t('projects.update.update')}
+              </Button>
+            ) : null,
+        },
+      ]
+    : base
   const title = section.isDefault && !section.name ? t('projects.default_group') : section.name
 
   return (

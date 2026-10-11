@@ -266,34 +266,4 @@ Chaque phase se termine par des tests verts et une démo utilisable.
 
 **État au 2026-10-10** : phase 0 en grande partie faite. Monorepo, `apps/api` (auth, setup, rôles, 88 tests), `apps/web` (shell, kit UI, thème dynamique, 116 tests), `packages/dictionary-format` (9 schémas, sérialiseur byte-identique TS + Python, 44 + 44 tests), Docker, CI. Reste : AuthGate et page de login côté web, lecture anonyme, `docs/architecture.md`.
 
----
-
-## 9. Risques
-
-- **Volume** : la v1 fait ~32k LOC de fonctionnalités accumulées ; la phase 1 doit rester étroite (lecture seule) pour livrer tôt.
-- **Divergence avec Linkr** : composants copiés qui évoluent séparément → traçabilité de l'origine, et à terme peut-être un package partagé.
-- **Concurrence d'écriture** : plusieurs utilisateurs sur le même clone → verrou par dépôt (déjà dans `git_service`), brouillons isolés, une PR par proposition.
-- **Gros fichiers** : un set de microbiologie fait 3,7 Mo → pagination serveur sur les concepts résolus, chargement différé en statique (comme aujourd'hui).
-- **Contributions v1 pendant la transition** : le contenu continue d'évoluer sur `main` ; fusionner `main` dans `v2` régulièrement (les renommages `docs/` → `legacy/` sont suivis par git). `snapshot.py --backfill` rattrape les versions manquées.
-- **Formats ATLAS / Usagi** : leurs en-têtes exacts varient selon les versions et ont été décrits de mémoire → les vérifier sur des fichiers réels avant d'écrire les parseurs.
-
----
-
-## 10. Décisions (2026-10-10)
-
-- Deux modes de déploiement, statique (WASM) et serveur, comme Linkr.
-- App et contenu dans le même dépôt.
-- Code de Linkr copié et relicencié en EUPL-1.2 (même auteur).
-- Écriture git : PR/MR par proposition ; commit direct sur la branche principale réservé aux mainteneurs.
-- Projets de mapping (édition) laissés à Linkr ; le dictionnaire garde l'évaluation de couverture, avec import multi-format.
-- Documentation utilisateur dans l'app.
-- `AGENTS.md` comme point d'entrée générique, `CLAUDE.md` l'importe ; doc développeur dans `docs/`, SPA v1 dans `legacy/`.
-- Déploiement comme Linkr : `docker compose` (web nginx + api) et `npm run dev:all` en développement. Hébergement de l'instance INDICATE décidé plus tard.
-- Login : comptes locaux + OAuth GitHub, GitLab et ORCID.
-- Lecture anonyme autorisée, paramétrable (`config.json` → `access.anonymousRead`).
-- Mappings importés : partagés dans l'instance, non versionnés.
-- (2026-10-11) Branding : seules `primary` et `secondary` sont personnalisables ; `accent` reste neutre (clé acceptée, ignorée).
-
-## 11. Points restant à trancher
-
-- **« Exports ATLAS » comme source de couverture** : reporté. ATLAS n'exporte pas de mapping ; à préciser plus tard (concept set ATLAS, rapports Achilles / Data Sources des concepts présents dans un CDM, autre). Le format est retiré du périmètre initial de § 7.
+**État au 2026-10-11** : phase 0 terminée, socle de la phase 1 posé. Accent non personnalisable (§ 10) ; i18n découpée par espace de noms ; `content_store` + routes de lecture `/api/v1` (catalogue rechargé sur changement, versions passées via git, lecture anonyme paramétrable) ; couche `DictionarySource` côté web (API ou payload statique de `build.py`, versions passées via l'endpoint raw du forge) + `catalog-store` ; login, assistant de premier lancement (compte admin), menu utilisateur (profil, mot de passe), `AppErrorBoundary` ; `docs/architecture.md`. Tests : API 157, web 195, format 44 + 44. Reste pour la phase 1 : index SQLite, pages liste / détail, exports. `repo_store` du § 3 s'appelle `content_store` (lecture seule pour l'instant).

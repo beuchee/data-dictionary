@@ -8,6 +8,7 @@ Governed OHDSI concept sets (plus projects, units, mapping recommendations) stor
 
 - **Data formats and content conventions (read before touching any JSON)** → [docs/data-formats.md](docs/data-formats.md)
 - Build pipeline, versioning, snapshots → [docs/build-pipeline.md](docs/build-pipeline.md)
+- **v2 architecture as built (modes, data flow, auth, where to add a route/page/namespace)** → [docs/architecture.md](docs/architecture.md)
 - **Code conventions (read before writing v2 code)** → [docs/conventions.md](docs/conventions.md)
 - **UI patterns (read before writing any UI)** → [docs/ui-patterns.md](docs/ui-patterns.md)
 - Content format contract (schemas, serializer, TS + Python) → [packages/dictionary-format/README.md](packages/dictionary-format/README.md)

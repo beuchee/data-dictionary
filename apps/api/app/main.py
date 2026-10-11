@@ -10,9 +10,12 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.api.v1.routes.auth import router as auth_router
 from app.api.v1.routes.concept_sets import router as concept_sets_router
+from app.api.v1.routes.drafts import router as drafts_router
+from app.api.v1.routes.git import router as git_router
 from app.api.v1.routes.health import router as health_router
 from app.api.v1.routes.instance import router as instance_router
 from app.api.v1.routes.mapping_recommendations import router as mapping_recommendations_router
+from app.api.v1.routes.oauth import router as oauth_router
 from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
 from app.api.v1.routes.units import router as units_router
@@ -23,6 +26,7 @@ from app.core.logging import setup_logging
 from app.core.migrations import run_migrations
 from app.core.permissions import seed_default_roles
 from app.core.security_headers import SecurityHeadersMiddleware
+from app.services import git_service
 from app.services.content_store import ContentError
 
 logger = structlog.get_logger()
@@ -61,6 +65,11 @@ async def lifespan(app: FastAPI):
     await asyncio.to_thread(run_migrations)
     async with async_session() as db:
         await seed_default_roles(db)
+    # The content repository: cloned on first start when DD_CONTENT_REPO_URL is set.
+    try:
+        await asyncio.to_thread(git_service.ensure_clone)
+    except git_service.GitError as exc:
+        logger.error("content_repo_clone_failed", code=exc.code, error=str(exc))
     yield
     logger.info("shutting_down_data_dictionary")
 
@@ -115,3 +124,6 @@ app.include_router(projects_router, prefix="/api/v1")
 app.include_router(units_router, prefix="/api/v1")
 app.include_router(mapping_recommendations_router, prefix="/api/v1")
 app.include_router(vocabulary_router, prefix="/api/v1")
+app.include_router(oauth_router, prefix="/api/v1")
+app.include_router(git_router, prefix="/api/v1")
+app.include_router(drafts_router, prefix="/api/v1")

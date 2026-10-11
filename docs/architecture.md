@@ -16,7 +16,13 @@ apps/web/                  React 19 + Vite + Tailwind v4 + shadcn (copied from L
   src/content/docs/        user documentation: index.json + {en,fr}/<section>.md, {{placeholders}} from config.json
 apps/api/                  FastAPI + SQLAlchemy async + Alembic (copied from Linkr)
   app/services/content_store.py   reads the content working copy
-  app/api/v1/routes/       health, setup, auth, instance, concept_sets, projects, units, mapping_recommendations
+  app/services/git_service.py     the content repo: clone, status, pull, off-tree commits, push
+  app/services/drafts_service.py  submit a draft (proposal / commit); provenance.py, forge.py
+  app/services/oauth_service.py   GitHub / GitLab / ORCID sign-in, forge tokens
+  app/services/versioning.py      version index (snapshot, backfill); stdlib only, run by snapshot.py
+  app/services/catalog_build.py   static payload (data.json…); stdlib only, run by build.py
+  app/api/v1/routes/       health, setup, auth, oauth, instance, concept_sets, projects, units,
+                           mapping_recommendations, drafts, git
 packages/dictionary-format/  JSON Schemas + byte-exact parse/serialize/validate, TS and Python
 concept_sets/ projects/ units/ …  the content (unchanged, shared with v1 and Linkr)
 legacy/                    v1 SPA; build.py writes the static payload here
@@ -30,7 +36,8 @@ legacy/                    v1 SPA; build.py writes the static payload here
 |---|---|---|
 | Content | API, from the content working copy | `data/data.json`, built by `python3 build.py` |
 | Past versions | API, `git cat-file` in the content dir | forge raw endpoint (GitHub / GitLab) at the indexed commit |
-| Login | local accounts (OAuth later); anonymous read per `access.anonymousRead` | none |
+| Login | local accounts + OAuth (GitHub, GitLab, ORCID); anonymous read per `access.anonymousRead` | none |
+| Writes | drafts → proposal (PR / MR) or commit (maintainers) | v1's "Propose" (copy + forge edit page) |
 
 ## Data flow
 
@@ -42,7 +49,7 @@ content dir ──► ContentStore ──► /api/v1 routes ──► ApiSource 
 build.py ──► legacy/data.json ──► vite plugin: data/… ──► StaticSource ─┘
 ```
 
-- **ContentStore** (`apps/api/app/services/content_store.py`). Root: `DD_CONTENT_DIR`; unset, the repo the API runs from (walk up to `concept_sets/` + `config.json`), else `{DD_DATA_DIR}/content` (Docker, cloning TODO). Parses and validates through `dictionary_format`; a file that fails to parse is skipped, one that fails validation is kept; both are logged (`catalogue.issues`). The catalogue reloads when a fingerprint of the content files' (name, mtime, size) changes, checked at most once a second. Resolved lists (67 MB) are parsed on demand, LRU of 16; their counts come from a byte count. Past versions: `concept_sets_versions.json` → sha → `git cat-file blob <sha>:./concept_sets/{id}.json`, sha and path validated, no shell, cached.
+- **ContentStore** (`apps/api/app/services/content_store.py`). Root: `DD_CONTENT_DIR`; unset, the repo the API runs from (walk up to `concept_sets/` + `config.json`), else `{DD_DATA_DIR}/content` (Docker; cloned from `DD_CONTENT_REPO_URL` at first start). Parses and validates through `dictionary_format`; a file that fails to parse is skipped, one that fails validation is kept; both are logged (`catalogue.issues`). The catalogue reloads when a fingerprint of the content files' (name, mtime, size) changes, checked at most once a second. Resolved lists (67 MB) are parsed on demand, LRU of 16; their counts come from a byte count. Past versions: `concept_sets_versions.json` → sha → `git cat-file blob <sha>:./concept_sets/{id}.json`, sha and path validated, no shell, cached.
 - **Routes** (all `GET`, under `/api/v1`, camelCase, compact JSON written by `core/json_response.py`):
   - `/instance/config` → `{config, server: {appVersion, authProviders, anonymousRead, versionHistory, passwordMinLength}}`, always public
   - `/concept-sets` → `ConceptSetSummary[]`; `/concept-sets/{id}?version=` → the file
@@ -71,6 +78,32 @@ Concept search, concept details, hierarchy and live resolution read the OHDSI vo
 - **Routes** (`/api/v1/vocabulary`): readers (`require_read("concept-sets:read")`): `GET /info`, `GET /concepts/search?q=&domain=&vocabulary=&conceptClass=&standard=S|C|N&validOnly=&limit=&offset=`, `GET /filter-options`, `GET /concepts/{id}`, `/concepts/{id}/related`, `/concepts/{id}/hierarchy?maxDepth=&limit=`, `/concepts/{id}/synonyms`, `POST /resolve` (`{conceptSetId?, expression: {items}}` → the `concept_sets_resolved/{id}.json` shape). Admin (`settings:manage`): `GET /status`, `POST /uploads`, `PUT /uploads/{id}/files/{name}`, `DELETE /uploads/{id}`, `POST /inspect`, `POST /import`, `GET /jobs`, `GET /jobs/{id}`, `DELETE /vocabularies/{id}`, `DELETE ""` (all). 503 when no vocabulary is loaded.
 - **In a page**: `getVocabularySource()` (`@/lib/vocabulary`) gives the mode's `VocabularySource` (`getInfo`, `searchConcepts`, `getFilterOptions`, `getConcept`, `getRelated`, `getHierarchy`, `getSynonyms`, `resolve`); a method rejects with `VocabularyUnavailableError` when nothing is loaded. For one concept, render `<ConceptDetailPanel conceptId={id} onNavigate={…} />` (`@/features/vocabulary`) in a container with a height: it shows details, related concepts, the hierarchy graph (vis-network, lazy) and synonyms, and its own empty state linking to Settings → Vocabularies.
 - **DuckDB-WASM assets**: `apps/web/scripts/postinstall.mjs` copies the bundles and `coi-serviceworker.js` to `apps/web/public/` (gitignored). The dev server sends COOP/COEP; a static build keeps the service worker; a server build drops both.
+## Write path and git
+
+Contract (routes, permissions, stamping, errors): [design/drafts-and-proposals.md](design/drafts-and-proposals.md).
+
+- **One working copy** of the content repository (`git_service.ContentRepo`): `DD_CONTENT_DIR`, remote `DD_CONTENT_REPO_URL` (else the copy's `origin`), branch `DD_CONTENT_BRANCH` (else config.json `repository.branch`, else `main`). Cloned in full at startup when the dir holds no repository (history is what serves past versions). Every git process runs with an isolated environment (no user / system gitconfig, no credential helper, no prompt, no redirects, https / ssh only); refs, shas and paths are validated before reaching argv; remotes resolving to internal addresses are refused (SSRF); the token goes into the URL of the one call that needs it, never into `.git/config`, and is scrubbed from errors. One asyncio lock per repository serializes git work, run in a worker thread.
+- **Submit** (`drafts_service.submit`): fetch → base = remote head → read the file there → stamp (`provenance.py`) → validate → `serialize` → a commit built off-tree (temporary index, `hash-object`, `commit-tree`) → push (`HEAD` of a `proposal/…` branch, or the content branch) → fast-forward the working copy (commits only) → open the PR / MR (`forge.py`: GitHub `POST /repos/{owner}/{repo}/pulls`, GitLab `POST /projects/{id}/merge_requests`, API host = the repository's, forge from config.json `repository.forge` or the host). A failure before the push leaves nothing behind.
+- **Versions**: a direct commit that changes a version gets a second commit indexing it; `POST /git/pull` fast-forwards and runs the additive backfill (`versioning.py`, the same code as `snapshot.py --backfill`).
+- **Static payload**: `catalog_build.py` is `build.py`'s implementation (the script loads it by path, standard library only, so CI needs nothing but `python3` and git); `tests/test_versioning_and_build.py` checks both scripts against frozen copies of the v1 scripts (`tests/fixtures/reference_scripts/`).
+
+## OAuth
+
+`GET /auth/oauth/{provider}/start` (`github`, `gitlab`, `orcid`; with the Bearer token of a signed-in user to *link* the identity) → `{authorizationUrl}` (`?redirect=true`: a 302) and an HttpOnly `SameSite=Lax` cookie sealing `{state, PKCE verifier, provider, linkUserId, exp}` (crypto.py, 10 min). The provider calls back `GET /auth/oauth/{provider}/callback`, which checks the cookie against `state`, exchanges the code (PKCE S256), then logs in the identity's account, links it to the signed-in one, or creates an account (`DD_OAUTH_DEFAULT_ROLE`, never admin; never matched by email), and redirects to the web app's `/auth/callback#access_token=…&refresh_token=…&provider=…[&linked=1]` (or `#error=<code>`). The web side reads the fragment, stores the pair like a password login, and clears it from the address bar. Redirect URIs come from `DD_PUBLIC_URL` only: register `{DD_PUBLIC_URL}/api/v1/auth/oauth/{provider}/callback` with each provider. Identities live in `user_identities` (provider, stable subject, username, email, profile). GitHub / GitLab tokens are stored per (user, host) in `git_credentials`, AES-GCM sealed to that pair, GitLab's refresh token too (renewed before a push); ORCID fills `users.orcid` and an empty name. `/instance/config` → `server.authProviders` lists `local` plus the enabled providers.
+
+## Environment (`DD_*`, see `apps/api/.env.example`)
+
+| Variable | Purpose |
+|---|---|
+| `DD_CONTENT_DIR` | content working copy |
+| `DD_CONTENT_REPO_URL`, `DD_CONTENT_BRANCH` | remote to clone / pull / push; branch (default: config.json `repository.branch`, else `main`) |
+| `DD_GIT_TOKEN` | service token: private fetch, direct commits, proposals of users without a forge sign-in |
+| `DD_GIT_AUTHOR_NAME`, `DD_GIT_AUTHOR_EMAIL` | committer of server commits (author = the user) |
+| `DD_PUBLIC_URL` | public base URL of the web app (API under `/api/v1`): OAuth redirect URIs |
+| `DD_OAUTH_GITHUB_CLIENT_ID/SECRET` (`_SCOPE`) | GitHub sign-in (default scope `read:user user:email public_repo`; `repo` for a private repo) |
+| `DD_OAUTH_GITLAB_CLIENT_ID/SECRET/BASE_URL` (`_SCOPE`) | GitLab sign-in, self-hosted base URL (default scope `read_user api`) |
+| `DD_OAUTH_ORCID_CLIENT_ID/SECRET`, `DD_OAUTH_ORCID_SANDBOX` | ORCID sign-in |
+| `DD_OAUTH_DEFAULT_ROLE` | role of accounts created by OAuth (default `viewer`) |
 
 ## Boot and auth
 
@@ -80,7 +113,7 @@ Concept search, concept details, hierarchy and live resolution read the OHDSI vo
 
 ## Where to add…
 
-- **an API route**: `apps/api/app/api/v1/routes/<name>.py` (kebab-case URL), include it in `app/main.py`, guard reads with `require_read(...)` and writes with `require_permission(...)`, read content through `get_content_store`, write it through `dictionary_format.serialize`. Tests in `apps/api/tests/` (`content_fixtures.build_content_dir` gives a small real content dir).
+- **an API route**: `apps/api/app/api/v1/routes/<name>.py` (kebab-case URL), include it in `app/main.py`, guard reads with `require_read(...)` and writes with `require_permission(...)`, read content through `get_content_store`, write content only through a draft submit (`drafts_service`), never by editing the working copy. Tests in `apps/api/tests/` (`content_fixtures.build_content_dir` gives a small real content dir; `git_fixtures.make_remote` a bare remote and a working clone of it).
 - **content access in the web app**: a method on `DictionarySource` (`lib/data/types.ts`), implemented in both `api-source.ts` and `static-source.ts`, exposed by a store action.
 - **a page**: `src/pages/` or `src/features/<feature>/`, lazy route in `app/App.tsx`, nav entry in `components/layout/nav-items.ts`.
 - **an i18n namespace**: `src/locales/en/<name>.json` and `fr/<name>.json`; keys read `t('<name_in_snake_case>.key')`.

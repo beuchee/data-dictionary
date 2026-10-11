@@ -33,6 +33,9 @@ UPSTREAM_PATHS = [
     "build.py",
     "resolve.py",
     "snapshot.py",
+    # build.py and snapshot.py run these (standard library only, shared with the v2 API).
+    "apps/api/app/services/catalog_build.py",
+    "apps/api/app/services/versioning.py",
     "reset.py",
     "update_from_upstream.py",
     "CLAUDE.md",

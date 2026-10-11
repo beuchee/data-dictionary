@@ -1,0 +1,99 @@
+{
+  "id": 105,
+  "name": "Tazobactam",
+  "description": null,
+  "version": "1.0.1",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-04-09",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1741122,
+          "conceptName": "tazobactam",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "37617",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "a8b6afb0-cfc6-40a0-928c-b5baeb546b4a",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Tazobactam",
+        "category": "Medications",
+        "subcategory": "Antimicrobials",
+        "shortDescription": null,
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Tazobactam",
+        "category": "Médicaments",
+        "subcategory": "Antimicrobiens",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Mathilde",
+          "lastName": "Bories",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Pharmacist",
+          "orcid": "0000-0001-9092-4298"
+        },
+        "reviewTimestamp": "2026-09-09T10:00:00.000Z",
+        "status": "approved",
+        "comments": "Ingredient and hierarchy reviewed; resolved list not reviewed exhaustively.",
+        "version": "1.0.1"
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0.1",
+        "date": "2026-04-09",
+        "author": "Boris Delange",
+        "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      }
+    ],
+    "distributionStats": null
+  }
+}

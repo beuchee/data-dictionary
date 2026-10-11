@@ -1,0 +1,122 @@
+{
+  "id": 310,
+  "name": "Inspiratory time (Ti)",
+  "description": "Inspiratory time (Ti) — duration of the inspiratory phase of a ventilator breath, in seconds.",
+  "version": "1.2.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4353947,
+          "conceptName": "Inspiratory time",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250819002",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3043415,
+          "conceptName": "Inspiratory breath [Time] --on ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "33435-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36304672,
+          "conceptName": "Inspiratory time setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76334-2",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "c8eddcb9-b6be-46b6-bee7-64299b90eb2b",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Inspiratory time (Ti)",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Inspiratory time (Ti) — duration of the inspiratory phase of a ventilator breath, in seconds.",
+        "longDescription": "## Definition & Clinical Context\n\nInspiratory time (Ti) is the duration of the inspiratory phase of a ventilator breath — the time during which gas is delivered to the patient. Together with expiratory time it sets the inspiratory:expiratory (I:E) ratio. In source data it is a single numeric value per patient-timestamp, set or measured by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in seconds (s).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for this duration. All are reported in seconds.\n\n- *4353947 / 250819002 — Inspiratory time (SNOMED)*\n- *3043415 / 33435-9 — Inspiratory breath [Time] --on ventilator (LOINC)*\n- *36304672 / 76334-2 — Inspiratory time setting Ventilator (LOINC)*\n\n**Note on units**: reported in **seconds** (`8555 / s — second`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when not otherwise qualified: *4353947 / 250819002 — Inspiratory time*.\n- **Setting vs measured**: map the set value to the LOINC 'setting' concept and the measured value to the measured concept; use the generic SNOMED concept when the source does not distinguish them.\n- This is one specific breath-phase duration; inspiratory time, expiratory time and inspiratory pause time are separate concept sets (separate variables).\n"
+      },
+      "fr": {
+        "name": "Temps inspiratoire (Ti)",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "Temps inspiratoire (Ti) — durée de la phase inspiratoire d’un cycle ventilatoire, en secondes.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.2.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Split the former \"Breath cycle timing\" set into one set per variable (one column each). This set is now Inspiratory time (SNOMED 250819002 + LOINC measured 33435-9 and setting 76334-2). Expiratory time -> set 363, Inspiratory pause time -> set 364."
+      }
+    ],
+    "distributionStats": null
+  }
+}

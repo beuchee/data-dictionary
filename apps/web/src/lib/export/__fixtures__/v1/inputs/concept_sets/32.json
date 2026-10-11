@@ -1,0 +1,84 @@
+{
+  "id": 32,
+  "name": "Ventilator-associated pneumonia",
+  "description": "Ventilator-associated pneumonia (VAP) — pneumonia developing during mechanical ventilation.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 259992,
+          "conceptName": "Ventilator associated pneumonia",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "429271009",
+          "validStartDate": "2008-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "d543c423-7ecd-43af-be43-646c0a6cf15f",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Ventilator-associated pneumonia",
+        "category": "Conditions",
+        "subcategory": "Hospitalization complications",
+        "shortDescription": "Ventilator-associated pneumonia (VAP) — pneumonia developing during mechanical ventilation.",
+        "longDescription": "## Definition & Clinical Context\n\nVentilator-associated pneumonia (VAP) is pneumonia that develops in a patient who has been mechanically ventilated (typically beyond 48 hours of intubation). It is a key hospitalisation complication in intensive care, associated with prolonged ventilation, longer ICU stay and increased mortality, and is widely tracked as a quality indicator.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *259992 / 429271009 — Ventilator associated pneumonia*. It captures the VAP diagnosis specifically.\n\n## Mapping Notes\n\n- VAP is distinct from community-acquired or non-ventilator hospital-acquired pneumonia; map only pneumonia identified as ventilator-associated."
+      },
+      "fr": {
+        "name": "Pneumonie acquise sous ventilation mécanique",
+        "category": "Pathologies",
+        "subcategory": "Complications de l'hospitalisation",
+        "shortDescription": "Pneumonie acquise sous ventilation (PAVM) — pneumonie survenant au cours de la ventilation mécanique.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Subcategory Hospitalization complications; added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

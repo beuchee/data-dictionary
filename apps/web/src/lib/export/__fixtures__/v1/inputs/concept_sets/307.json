@@ -1,0 +1,103 @@
+{
+  "id": 307,
+  "name": "Non-invasive ventilation",
+  "description": "Patient on non-invasive ventilation (via mask/interface, no tube); the act only — ventilation modes are separate.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-10",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4177224,
+          "conceptName": "Non-invasive ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "428311008",
+          "validStartDate": "2008-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40486624,
+          "conceptName": "Non-invasive positive pressure ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "447837008",
+          "validStartDate": "2011-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "032024da-9c52-4b4e-ad7f-97a505d68789",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Non-invasive ventilation",
+        "category": "Ventilation",
+        "subcategory": "Ventilation device",
+        "shortDescription": "Patient on non-invasive ventilation (via mask/interface, no tube); the act only — ventilation modes are separate.",
+        "longDescription": "## Definition & Clinical Context\n\nNon-invasive ventilation (NIV) is breathing support delivered through an external interface — a face or nasal mask, helmet, or similar — without an artificial airway inside the trachea. \"Non-invasive\" refers to that interface, as opposed to invasive ventilation, which is delivered through an endotracheal or tracheostomy tube. In source data this is a **procedure** record indicating that the patient was on non-invasive ventilation; there is no unit. It is recorded in intensive care, respiratory wards, and emergency settings.\n\n## Included Concepts\n\nThis set captures the act of non-invasive ventilation itself:\n\n- *4177224 / 428311008 — Non-invasive ventilation (SNOMED)*: the general concept; the default for \"patient on NIV\".\n- *40486624 / 447837008 — Non-invasive positive pressure ventilation (SNOMED)*: NIV delivering positive pressure (the usual form).\n\nThe **ventilation mode** used non-invasively (CPAP, bilevel/BiPAP, pressure support, spontaneous-timed, etc.) is a separate dimension — modes apply to invasive and non-invasive ventilation alike — and is captured in the ventilation-mode concept sets (in particular the spontaneous/support modes set), not here.\n\n## Mapping Notes\n\n- Map a record stating the patient was on non-invasive ventilation (via mask/interface) to *4177224 / 428311008 — Non-invasive ventilation*, or *40486624 / 447837008 — Non-invasive positive pressure ventilation* when positive-pressure NIV is specified.\n- **Mode is separate**: do not map a specific mode (CPAP, BiPAP/bilevel, pressure support, spontaneous-timed) to this set — those belong to the ventilation-mode concept sets. A patient can be on NIV *and* a specific mode at the same time; record each in its own set.\n- **Invasive vs non-invasive**: ventilation delivered through an endotracheal or tracheostomy tube is *invasive* and belongs to the Invasive mechanical ventilation concept set, not here.\n- **Weaning from NIV** is a distinct event (part of weaning) and is not the NIV act; it is not included in this set."
+      },
+      "fr": {
+        "name": "Ventilation non invasive",
+        "category": "Ventilation",
+        "subcategory": "Dispositif de ventilation",
+        "shortDescription": "Patient sous ventilation non invasive (par masque/interface, sans sonde) ; le geste seul — les modes ventilatoires sont à part.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Reduce to the non-invasive ventilation act only (4177224 NIV, 40486624 NIPPV). Moved the NIV ventilatory modes (CPAP, BiPAP/dual-pressure, spontaneous-timed S/T, spontaneous-with-support, nocturnal CPAP) to the Spontaneous/support ventilation-mode set 357. Removed Weaning from NIV (3655902) and CPAP to non-ventilated lung (40488414). Added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

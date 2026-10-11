@@ -1,0 +1,84 @@
+{
+  "id": 20,
+  "name": "Hepatic failure",
+  "description": "Hepatic failure — loss of the liver's synthetic and detoxifying function; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4245975,
+          "conceptName": "Hepatic failure",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "59927004",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "d9fab568-a8df-42f9-97d3-c35ec89bc67d",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Hepatic failure",
+        "category": "Conditions",
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Hepatic failure — loss of the liver's synthetic and detoxifying function; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nHepatic failure is the loss of the liver's synthetic and detoxifying function, presenting with jaundice, coagulopathy and hepatic encephalopathy. It may be acute (in a previously normal liver) or occur on a background of chronic liver disease (acute-on-chronic). In intensive care it is both a reason for admission and a severe comorbidity. Hepatic failure is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *4245975 / 59927004 — Hepatic failure* with all descendants included, capturing acute, chronic and acute-on-chronic hepatic failure and related decompensation states.\n\n## Mapping Notes\n\n- Cirrhosis (structural scarring) and hepatic failure (functional loss) are distinct variables with their own sets; a patient may map to both.\n- Hepatic encephalopathy is part of the hepatic-failure picture within this tree."
+      },
+      "fr": {
+        "name": "Insuffisance hépatique",
+        "category": "Pathologies",
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Insuffisance hépatique — perte des fonctions de synthèse et de détoxification du foie ; l'une des comorbidités chroniques d'APACHE IV.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Hepatic failure (59927004) with descendants; rename to 'Hepatic failure'; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

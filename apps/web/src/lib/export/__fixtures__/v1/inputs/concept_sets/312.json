@@ -1,0 +1,122 @@
+{
+  "id": 312,
+  "name": "End tidal carbon dioxide (PetCO2)",
+  "description": "End-tidal CO2 as a partial pressure (PetCO2), in mmHg/kPa. The % (fraction) form is a separate set.",
+  "version": "1.2.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4353938,
+          "conceptName": "End tidal carbon dioxide concentration",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250784008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3035357,
+          "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19891-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3035115,
+          "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19890-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "47d07797-8fb6-4aa8-8d72-536f388a35e5",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "End tidal carbon dioxide (PetCO2)",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "End-tidal CO2 as a partial pressure (PetCO2), in mmHg/kPa. The % (fraction) form is a separate set.",
+        "longDescription": "## Definition & Clinical Context\n\nEnd-tidal carbon dioxide (EtCO2) is the carbon dioxide in the gas a patient exhales at the very end of a breath, measured continuously by a capnograph on the breathing circuit. It is the standard non-invasive surrogate for arterial CO2 and is used to confirm tube placement, monitor ventilation, and detect changes in cardiac output. This set captures EtCO2 expressed as a **partial pressure (PetCO2)**, reported in **mmHg** (or kPa). In source data it is a single numeric value per patient-timestamp, recorded in intensive care, anaesthesia, and emergency settings for ventilated patients. (EtCO2 expressed as a volume fraction in % is a separate, non-inter-convertible measurement — see Mapping Notes.)\n\n## Included Concepts\n\n- *4353938 / 250784008 — End tidal carbon dioxide concentration (SNOMED)*: the generic end-tidal CO2 concept; the default, recommended in mmHg (the usual ICU representation).\n- *3035357 / 19891-1 — Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration (LOINC)*: measured PetCO2.\n- *3035115 / 19890-3 — Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration (LOINC)*: calculated PetCO2.\n\n**Note on units**: reported in **`8876 / mm[Hg] — millimeter mercury column`** (UCUM), the recommended unit, with a registered mmHg↔kPa conversion (1 mmHg = 0.133 kPa, 1 kPa = 7.50 mmHg).\n\n## Mapping Notes\n\n- Map a PetCO2 value (mmHg, or kPa converted with ×7.50) to one of these concepts. Use the generic *4353938 / 250784008 — End tidal carbon dioxide concentration* when the source does not specify measured vs calculated.\n- **Partial pressure vs fraction are not inter-convertible**: EtCO2 expressed as a volume fraction (%) belongs to the separate **End tidal carbon dioxide fraction** concept set. The two are not related by a fixed factor — PetCO2 (mmHg) is the fraction multiplied by the barometric pressure [1] — so they are kept as separate, unit-homogeneous sets.\n- **Not arterial CO2**: arterial CO2 partial pressure (PaCO2, from a blood gas) is a different measurement in its own concept set.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 19890-3 — Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration.\n    Available: <a href=\"https://loinc.org/19890-3/\" target=\"_blank\">https://loinc.org/19890-3/</a>"
+      },
+      "fr": {
+        "name": "CO2 télé-expiratoire (PetCO2)",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "CO2 télé-expiratoire en pression partielle (PetCO2), en mmHg/kPa. La forme en % (fraction) est un set distinct.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.2.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Split EtCO2 by unit family (units must be inter-convertible within a set). This set now holds only the partial-pressure (PetCO2, mmHg/kPa) concepts + the generic SNOMED concept; the volume-fraction (%) concepts moved to the new End tidal carbon dioxide fraction set (361). Renamed to \"End tidal carbon dioxide (PetCO2)\"."
+      }
+    ],
+    "distributionStats": null
+  }
+}

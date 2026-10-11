@@ -1,0 +1,213 @@
+{
+  "id": 315,
+  "name": "Lung compliance",
+  "description": "Lung (respiratory system) compliance — volume change per unit pressure, in mL/cmH2O (static and dynamic).",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4298264,
+          "conceptName": "Lung compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3863008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490581,
+          "conceptName": "Lung compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60826-5",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4090322,
+          "conceptName": "Static lung compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "251886005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490583,
+          "conceptName": "Compliance.static Lung",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60828-1",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4090654,
+          "conceptName": "Dynamic compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "251885009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4353624,
+          "conceptName": "Total dynamic compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250823005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490582,
+          "conceptName": "Dynamic lung compliance",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60827-3",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "1a70dd3a-4f50-42c4-8350-864da22a497f",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Lung compliance",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Lung (respiratory system) compliance — volume change per unit pressure, in mL/cmH2O (static and dynamic).",
+        "longDescription": "## Definition & Clinical Context\n\nLung (respiratory system) compliance is a measure of how easily the lungs distend — the change in lung volume per unit change in airway pressure. A low compliance means stiff lungs (e.g. in ARDS or fibrosis). In source data it is a single numeric value per patient-timestamp, derived by the ventilator or pulmonary-function equipment. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in millilitres per centimetre of water (mL/cmH2O).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for lung compliance, grouped by how it is measured.\n\n### Generic lung compliance (default)\n\n- *4298264 / 3863008 — Lung compliance (SNOMED)*: the general concept; the default when static vs dynamic is not specified.\n- *21490581 / 60826-5 — Lung compliance (LOINC)*.\n\n### Static compliance\n\nMeasured under no-flow conditions (e.g. during an inspiratory hold); reflects the elastic properties of the lung.\n\n- *4090322 / 251886005 — Static lung compliance (SNOMED)*.\n- *21490583 / 60828-1 — Compliance.static Lung (LOINC)*.\n\n### Dynamic compliance\n\nMeasured during active breathing (with flow); influenced by both elastic and airway-resistance properties.\n\n- *4090654 / 251885009 — Dynamic compliance (SNOMED)*.\n- *4353624 / 250823005 — Total dynamic compliance (SNOMED)*.\n- *21490582 / 60827-3 — Dynamic lung compliance (LOINC)*.\n\n**Note on units**: reported in **mL/cmH2O** (`720866 / ml/cm [H2O] — milliliter per centimeter of water`, UCUM), the recommended unit.\n\n## Excluded Concepts\n\n- *4090655 / 251888006 — Specific compliance (lung) (SNOMED)*: specific compliance is lung compliance normalised to lung volume, so it is expressed per cmH2O (not mL/cmH2O) and is not inter-convertible with the concepts above; it is therefore not part of this unit-homogeneous set.\n\n## Mapping Notes\n\n- **Default concept** when the source records a lung/respiratory-system compliance without specifying static vs dynamic: *4298264 / 3863008 — Lung compliance*.\n- **Static vs dynamic**: map to a static concept only when the value comes from a no-flow (inspiratory-hold) measurement, and to a dynamic concept when it is measured during active breathing. If not specified, use the generic concept.\n- **Specific compliance** (normalised to lung volume, different unit) is not part of this set.\n"
+      },
+      "fr": {
+        "name": "Compliance pulmonaire",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "Compliance pulmonaire (système respiratoire) — variation de volume par unité de pression, en mL/cmH2O (statique et dynamique).",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Maxim",
+          "lastName": "Moinat",
+          "affiliation": "Erasmus MC",
+          "profession": "Data Engineer",
+          "orcid": "0000-0001-8473-2433"
+        },
+        "reviewTimestamp": "2026-08-20T13:22:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Describe lung compliance; register mL/cmH2O recommended unit. Removed Specific compliance (4090655) — normalised to lung volume, a different (per-cmH2O) unit not inter-convertible with mL/cmH2O. Resolves to 7."
+      }
+    ],
+    "distributionStats": null
+  }
+}

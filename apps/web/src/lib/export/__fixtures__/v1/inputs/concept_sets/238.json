@@ -1,0 +1,90 @@
+{
+  "id": 238,
+  "name": "Gram-negative bacteria",
+  "description": null,
+  "version": "1.2.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4217941,
+          "conceptName": "Gram-negative bacterium",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "81325006",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "eb80346c-4df7-4e5d-877c-a34d91960611",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Gram-negative bacteria",
+        "category": "Microbiology",
+        "subcategory": "Bacteria",
+        "shortDescription": null,
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Gram-negative bacteria",
+        "category": "Microbiologie",
+        "subcategory": "Bactéries",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Removed deprecated SNOMED concept 618546 'Neisseria gonorrhoeae subspecies kochii' (invalid in OMOP, reclassified). Its replacement 4034609 'Neisseria kochii' was already present in the set, so resolution is unchanged."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED 'Gram-negative bacterium' concept (81325006) with descendants, replacing the flat list of ~8700 organisms. Captures the same organisms plus newer descendants; robust to future SNOMED additions. Renamed subcategory to Bacteria."
+      }
+    ],
+    "distributionStats": null
+  }
+}

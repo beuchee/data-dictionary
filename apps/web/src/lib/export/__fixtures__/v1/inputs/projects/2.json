@@ -1,0 +1,474 @@
+{
+  "id": 2,
+  "translations": {
+    "en": {
+      "name": "Early Detection of Organ Failure [Minimal]",
+      "shortDescription": "Focuses on developing and deploying machine learning models that predict organ failure using time series data for clinical evaluation.",
+      "longDescription": "[View on INDICATE website](https://indicate-europe.eu/use-cases/early-detection-of-organ-failure/)\n\n## Overview\n\nThis use case demonstrates the development and deployment of machine learning models predicting organ failure from ICU time series data. It focuses on **multi-organ failure prediction**, based on the premise that early prediction of reversible organ failure enables timely, planned interventions that improve health outcomes and clinical workflow.\n\n## Tasks\n\n- **T6.2.1** — Select organ systems based on data availability and outcome information from MIMIC-EU, utilizing procedures developed by experts from the ELSI framework task (WP3) and implemented in WP4 for federated analysis access.\n- **T6.2.2** — Establish a data adjudication committee providing guidance on quality control and harmonized annotation of health outcomes, including organ failure of kidneys, brain, liver, and cardiovascular systems, in collaboration with the Data Provider Support working group.\n- **T6.2.3** — Develop, test, and validate machine learning models predicting organ failure, accounting for regional differences, sex differences, and minorities.\n- **T6.2.4** — Design a clinical evaluation study for the machine learning systems.\n- **T6.2.5** — Deploy the machine learning systems for clinical evaluation at participating institutions.\n\n## Use Case Leader\n\n**Alexandre Mebazaa** — AP-HP, Assistance Publique – Hôpitaux de Paris"
+    },
+    "fr": {
+      "name": "Détection précoce de la défaillance d'organe [Minimal]",
+      "shortDescription": "Développement et déploiement de modèles d'apprentissage automatique pour prédire la défaillance d'organe à partir de données de séries temporelles en vue d'une évaluation clinique.",
+      "longDescription": "[Voir sur le site INDICATE](https://indicate-europe.eu/use-cases/early-detection-of-organ-failure/)\n\n## Présentation\n\nCe cas d'usage démontre le développement et le déploiement de modèles d'apprentissage automatique prédisant la défaillance d'organe à partir de données de séries temporelles de réanimation. Il se concentre sur la **prédiction de défaillance multi-organe**, partant du principe que la détection précoce de défaillances d'organe réversibles permet des interventions planifiées et rapides, améliorant les résultats de santé et le flux de travail clinique.\n\n## Tâches\n\n- **T6.2.1** — Sélectionner les systèmes d'organes en fonction de la disponibilité des données et des informations sur les résultats issus de MIMIC-EU, en utilisant les procédures développées par les experts du cadre ELSI (WP3) et implémentées dans le WP4 pour l'accès aux analyses fédérées.\n- **T6.2.2** — Établir un comité d'adjudication des données fournissant des orientations sur le contrôle qualité et l'annotation harmonisée des résultats de santé, incluant la défaillance des reins, du cerveau, du foie et du système cardiovasculaire, en collaboration avec le groupe de travail de support aux fournisseurs de données.\n- **T6.2.3** — Développer, tester et valider des modèles d'apprentissage automatique prédisant la défaillance d'organe, en tenant compte des différences régionales, des différences de sexe et des minorités.\n- **T6.2.4** — Concevoir une étude d'évaluation clinique pour les systèmes d'apprentissage automatique.\n- **T6.2.5** — Déployer les systèmes d'apprentissage automatique pour évaluation clinique dans les institutions participantes.\n\n## Responsable du cas d'usage\n\n**Alexandre Mebazaa** — AP-HP, Assistance Publique – Hôpitaux de Paris"
+    }
+  },
+  "createdBy": "Alexandre Mebazaa",
+  "createdDate": "2024-12-01",
+  "modifiedDate": "2026-08-13",
+  "groups": [
+    {
+      "id": "group-default",
+      "translations": {
+        "en": {
+          "name": "Default"
+        },
+        "fr": {
+          "name": "Par défaut"
+        }
+      },
+      "rule": "all_required",
+      "conceptSets": [
+        {
+          "id": 8,
+          "version": "1.1.0"
+        },
+        {
+          "id": 16,
+          "version": "1.1.0"
+        },
+        {
+          "id": 17,
+          "version": "1.1.0"
+        },
+        {
+          "id": 18,
+          "version": "1.1.0"
+        },
+        {
+          "id": 19,
+          "version": "1.1.0"
+        },
+        {
+          "id": 20,
+          "version": "1.1.0"
+        },
+        {
+          "id": 21,
+          "version": "1.1.0"
+        },
+        {
+          "id": 22,
+          "version": "1.1.0"
+        },
+        {
+          "id": 23,
+          "version": "1.1.0"
+        },
+        {
+          "id": 24,
+          "version": "1.1.0"
+        },
+        {
+          "id": 25,
+          "version": "1.1.0"
+        },
+        {
+          "id": 26,
+          "version": "1.1.0"
+        },
+        {
+          "id": 27,
+          "version": "1.1.0"
+        },
+        {
+          "id": 28,
+          "version": "1.1.0"
+        },
+        {
+          "id": 30,
+          "version": "1.1.0"
+        },
+        {
+          "id": 149,
+          "version": "1.1.0"
+        },
+        {
+          "id": 151,
+          "version": "1.2.0"
+        },
+        {
+          "id": 352,
+          "version": "1.1.0"
+        },
+        {
+          "id": 152,
+          "version": "1.2.0"
+        },
+        {
+          "id": 353,
+          "version": "1.1.0"
+        },
+        {
+          "id": 153,
+          "version": "1.1.0"
+        },
+        {
+          "id": 354,
+          "version": "1.0.0"
+        },
+        {
+          "id": 155,
+          "version": "1.1.0"
+        },
+        {
+          "id": 159,
+          "version": "1.1.0"
+        },
+        {
+          "id": 160,
+          "version": "1.2.1"
+        },
+        {
+          "id": 355,
+          "version": "1.1.1"
+        },
+        {
+          "id": 163,
+          "version": "1.1.0"
+        },
+        {
+          "id": 164,
+          "version": "1.1.0"
+        },
+        {
+          "id": 165,
+          "version": "1.1.0"
+        },
+        {
+          "id": 166,
+          "version": "1.1.0"
+        },
+        {
+          "id": 167,
+          "version": "1.2.0"
+        },
+        {
+          "id": 168,
+          "version": "1.1.1"
+        },
+        {
+          "id": 169,
+          "version": "1.1.0"
+        },
+        {
+          "id": 170,
+          "version": "1.1.2"
+        },
+        {
+          "id": 171,
+          "version": "1.1.0"
+        },
+        {
+          "id": 345,
+          "version": "1.0.0"
+        },
+        {
+          "id": 172,
+          "version": "1.1.0"
+        },
+        {
+          "id": 346,
+          "version": "1.0.0"
+        },
+        {
+          "id": 173,
+          "version": "1.1.0"
+        },
+        {
+          "id": 174,
+          "version": "1.1.0"
+        },
+        {
+          "id": 175,
+          "version": "1.1.0"
+        },
+        {
+          "id": 176,
+          "version": "1.1.1"
+        },
+        {
+          "id": 177,
+          "version": "1.1.0"
+        },
+        {
+          "id": 178,
+          "version": "1.1.0"
+        },
+        {
+          "id": 179,
+          "version": "1.1.0"
+        },
+        {
+          "id": 180,
+          "version": "1.1.1"
+        },
+        {
+          "id": 181,
+          "version": "1.1.0"
+        },
+        {
+          "id": 182,
+          "version": "1.1.1"
+        },
+        {
+          "id": 183,
+          "version": "1.1.1"
+        },
+        {
+          "id": 184,
+          "version": "1.1.1"
+        },
+        {
+          "id": 185,
+          "version": "1.2.0"
+        },
+        {
+          "id": 186,
+          "version": "1.1.0"
+        },
+        {
+          "id": 187,
+          "version": "1.1.1"
+        },
+        {
+          "id": 189,
+          "version": "1.1.1"
+        },
+        {
+          "id": 190,
+          "version": "1.1.0"
+        },
+        {
+          "id": 191,
+          "version": "1.1.0"
+        },
+        {
+          "id": 192,
+          "version": "1.1.0"
+        },
+        {
+          "id": 193,
+          "version": "1.1.0"
+        },
+        {
+          "id": 194,
+          "version": "1.1.0"
+        },
+        {
+          "id": 195,
+          "version": "1.1.0"
+        },
+        {
+          "id": 196,
+          "version": "1.1.0"
+        },
+        {
+          "id": 197,
+          "version": "1.1.0"
+        },
+        {
+          "id": 198,
+          "version": "1.1.0"
+        },
+        {
+          "id": 199,
+          "version": "1.1.0"
+        },
+        {
+          "id": 200,
+          "version": "1.1.0"
+        },
+        {
+          "id": 201,
+          "version": "1.1.1"
+        },
+        {
+          "id": 202,
+          "version": "1.1.1"
+        },
+        {
+          "id": 203,
+          "version": "1.1.0"
+        },
+        {
+          "id": 204,
+          "version": "1.1.0"
+        },
+        {
+          "id": 351,
+          "version": "1.0.0"
+        },
+        {
+          "id": 205,
+          "version": "1.1.0"
+        },
+        {
+          "id": 206,
+          "version": "1.1.0"
+        },
+        {
+          "id": 207,
+          "version": "1.1.0"
+        },
+        {
+          "id": 208,
+          "version": "1.1.0"
+        },
+        {
+          "id": 209,
+          "version": "1.1.0"
+        },
+        {
+          "id": 210,
+          "version": "1.1.0"
+        },
+        {
+          "id": 211,
+          "version": "1.1.0"
+        },
+        {
+          "id": 212,
+          "version": "1.1.0"
+        },
+        {
+          "id": 213,
+          "version": "1.1.0"
+        },
+        {
+          "id": 214,
+          "version": "1.1.0"
+        },
+        {
+          "id": 215,
+          "version": "1.1.0"
+        },
+        {
+          "id": 216,
+          "version": "1.1.0"
+        },
+        {
+          "id": 217,
+          "version": "1.1.0"
+        },
+        {
+          "id": 218,
+          "version": "1.1.0"
+        },
+        {
+          "id": 219,
+          "version": "1.1.0"
+        },
+        {
+          "id": 220,
+          "version": "1.1.0"
+        },
+        {
+          "id": 221,
+          "version": "1.1.0"
+        },
+        {
+          "id": 222,
+          "version": "1.1.0"
+        },
+        {
+          "id": 274,
+          "version": "1.1.0"
+        },
+        {
+          "id": 275,
+          "version": "1.1.1"
+        },
+        {
+          "id": 284,
+          "version": "1.1.0"
+        },
+        {
+          "id": 301,
+          "version": "1.1.0"
+        },
+        {
+          "id": 306,
+          "version": "1.1.0"
+        },
+        {
+          "id": 307,
+          "version": "1.1.0"
+        },
+        {
+          "id": 318,
+          "version": "1.1.1"
+        },
+        {
+          "id": 319,
+          "version": "1.0.1"
+        },
+        {
+          "id": 322,
+          "version": "1.1.1"
+        },
+        {
+          "id": 324,
+          "version": "1.0.1"
+        },
+        {
+          "id": 325,
+          "version": "1.1.1"
+        },
+        {
+          "id": 326,
+          "version": "1.0.1"
+        },
+        {
+          "id": 327,
+          "version": "1.0.2"
+        },
+        {
+          "id": 328,
+          "version": "1.0.1"
+        },
+        {
+          "id": 329,
+          "version": "1.0.1"
+        },
+        {
+          "id": 330,
+          "version": "1.1.3"
+        },
+        {
+          "id": 331,
+          "version": "1.1.2"
+        },
+        {
+          "id": 332,
+          "version": "1.1.0"
+        },
+        {
+          "id": 333,
+          "version": "1.1.2"
+        },
+        {
+          "id": 347,
+          "version": "1.0.0"
+        },
+        {
+          "id": 348,
+          "version": "1.0.0"
+        },
+        {
+          "id": 349,
+          "version": "1.0.0"
+        }
+      ]
+    }
+  ]
+}

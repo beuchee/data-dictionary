@@ -1,0 +1,84 @@
+{
+  "id": 306,
+  "name": "Invasive mechanical ventilation",
+  "description": "Patient on invasive mechanical ventilation (via endotracheal or tracheostomy tube); the act only — ventilation modes are separate.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-10",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 37158404,
+          "conceptName": "Invasive mechanical ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1258985005",
+          "validStartDate": "2022-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "786a4574-646f-43ef-be6d-45e824c95b70",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Invasive mechanical ventilation",
+        "category": "Ventilation",
+        "subcategory": "Ventilation device",
+        "shortDescription": "Patient on invasive mechanical ventilation (via endotracheal or tracheostomy tube); the act only — ventilation modes are separate.",
+        "longDescription": "## Definition & Clinical Context\n\nInvasive mechanical ventilation (IMV) is breathing support delivered by a ventilator through an artificial airway that enters the trachea directly — an endotracheal tube or a tracheostomy tube. \"Invasive\" refers to that airway (a tube inside the trachea), as opposed to non-invasive ventilation, which is delivered through a mask or similar interface over the face. In source data this is a **procedure** record indicating that the patient was on invasive ventilation; there is no unit. It is recorded in intensive care, anaesthesia, and emergency settings.\n\n## Included Concepts\n\nThis set captures the act of invasive mechanical ventilation itself, as a single concept:\n\n- *37158404 / 1258985005 — Invasive mechanical ventilation (SNOMED)*: the patient was mechanically ventilated through an endotracheal or tracheostomy tube.\n\nThe **ventilation mode** used (e.g. SIMV, assist-control, APRV, NAVA, high-frequency) is a separate dimension — modes apply to invasive and non-invasive ventilation alike — and is captured in the dedicated ventilation-mode concept sets, not here.\n\n## Mapping Notes\n\n- Map a record stating the patient was on invasive ventilation (via endotracheal or tracheostomy tube) to *37158404 / 1258985005 — Invasive mechanical ventilation*.\n- **Mode is separate**: do not map a specific ventilation mode (SIMV, assist-control, pressure-control, volume-control, APRV, NAVA, high-frequency jet, etc.) to this set — those belong to the ventilation-mode concept sets. A patient can be on invasive ventilation *and* a specific mode at the same time; record each in its own set.\n- **Invasive vs non-invasive**: ventilation delivered through a mask/interface (CPAP, BiPAP, non-invasive positive-pressure ventilation) is *not* invasive and belongs to the Non-invasive ventilation concept set.\n- **The airway device itself** (the endotracheal or tracheostomy tube) and the act of placing it (intubation) are captured in their own concept sets; this set is only the ventilation act."
+      },
+      "fr": {
+        "name": "Ventilation mécanique invasive",
+        "category": "Ventilation",
+        "subcategory": "Dispositif de ventilation",
+        "shortDescription": "Patient sous ventilation mécanique invasive (par sonde d’intubation ou de trachéotomie) ; le geste seul — les modes ventilatoires sont à part.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Reduce to the invasive mechanical ventilation act only (37158404). Removed ~18 ventilation-mode concepts (SIMV/ACV/APRV/NAVA/HFJV + variants — to be relocated to dedicated Ventilation mode sets), the non-invasive BiPAP titration (40491848, to NIV set 307), and the LOINC answer value (42530690). Added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

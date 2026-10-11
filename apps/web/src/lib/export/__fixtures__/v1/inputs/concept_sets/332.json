@@ -1,0 +1,612 @@
+{
+  "id": 332,
+  "name": "Respiratory rate (RR)",
+  "description": "Respiratory rate (RR) — breaths per minute (/min); the measured rate (any method, incl. on the ventilator) and the ventilator set rate.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1175625,
+          "conceptName": "Breath rate spontaneous",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76528-9",
+          "validStartDate": "2018-12-14",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3006396,
+          "conceptName": "Respiratory rate by Spirometry --at maximum voluntary ventilation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19841-6",
+          "validStartDate": "1999-01-25",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3010057,
+          "conceptName": "Respiratory rate --pre inhalation therapy",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9302-1",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3010647,
+          "conceptName": "Respiratory rate --resting",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9303-9",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3011032,
+          "conceptName": "Respiratory rate --post cardioversion",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9296-5",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3012933,
+          "conceptName": "Respiratory rate --pre conscious sedation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9301-3",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3013606,
+          "conceptName": "Respiratory rate --post bronchoscopy",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9295-7",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3014664,
+          "conceptName": "Respiratory rate --post conscious sedation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9297-3",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3019610,
+          "conceptName": "Respiratory rate --post inhalation therapy",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9298-1",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3021375,
+          "conceptName": "Respiratory rate --pre bronchoscopy",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9299-9",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3022705,
+          "conceptName": "Respiratory rate --at maximum voluntary ventilation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19842-4",
+          "validStartDate": "1999-01-25",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3024171,
+          "conceptName": "Respiratory rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9279-1",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3026416,
+          "conceptName": "Respiratory rate --pre cardioversion",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9300-5",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038563,
+          "conceptName": "Respiratory rate --post exercise",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40441-8",
+          "validStartDate": "2005-03-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4108446,
+          "conceptName": "Total breath rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250810003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4154772,
+          "conceptName": "Rate of spontaneous respiration",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "271625008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4313591,
+          "conceptName": "Respiratory rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "86290005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490845,
+          "conceptName": "Respiratory rate by Acoustic measurement",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76170-0",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490846,
+          "conceptName": "Respiratory rate by Airway flow measurement",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76171-8",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490847,
+          "conceptName": "Respiratory rate by Carbon dioxide measurement",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76172-6",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490867,
+          "conceptName": "Respiratory rate by Impedance.transthoracic",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76270-8",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303374,
+          "conceptName": "Respiratory rate by Non-airway pressure measurement",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76173-4",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36305182,
+          "conceptName": "Respiratory rate --W exercise",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "89274-5",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36305857,
+          "conceptName": "Respiratory rate --during anesthesia",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "89279-4",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42527123,
+          "conceptName": "Respiratory rate by Pulse oximetry.plethysmograph",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76174-2",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3007646,
+          "conceptName": "Breath rate spontaneous and mechanical --on ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19840-8",
+          "validStartDate": "1999-01-25",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3026892,
+          "conceptName": "Breath rate spontaneous --on ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19839-0",
+          "validStartDate": "1999-01-25",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3007469,
+          "conceptName": "Breath rate setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19834-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "2c6c6a19-9c65-4abf-b129-716bd4e2f837",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Respiratory rate (RR)",
+        "category": "Vital signs",
+        "subcategory": "Ventilatory",
+        "shortDescription": "Respiratory rate (RR) — breaths per minute (/min); the measured rate (any method, incl. on the ventilator) and the ventilator set rate.",
+        "longDescription": "## Definition & Clinical Context\n\nRespiratory rate (RR) is the number of breaths per minute — a core vital sign and ventilation parameter. In source data it is a single numeric value per patient-timestamp, measured by any means (bedside count, monitor impedance, capnography, pulse oximetry, the ventilator, etc.) or set on the ventilator. It is recorded across intensive care, anaesthesia, wards and emergency settings. It is reported in breaths per minute (UCUM unit /min). The measurement method and the set-vs-measured distinction are attributes of the value, not separate variables, so they are grouped in this single set.\n\n## Included Concepts\n\nThe set groups the SNOMED and LOINC respiratory-rate concepts (a single `respiratory_rate` variable). They are organised below by source/context for readability only — all are part of the same set, all in /min.\n\n### Generic respiratory rate (default)\n\n- *3024171 / 9279-1 — Respiratory rate (LOINC)* and *4313591 / 86290005 — Respiratory rate (SNOMED)*: the default.\n- *4108446 / 250810003 — Total breath rate (SNOMED)*: total respiratory rate, spontaneous and mechanical breaths combined.\n- *4154772 / 271625008 — Rate of spontaneous respiration (SNOMED)*: spontaneous breaths only.\n- *1175625 / 76528-9 — Breath rate spontaneous (LOINC)*: spontaneous breaths only, LOINC equivalent of the preceding concept.\n\n### Measured on the ventilator\n\n- *3007646 / 19840-8 — Breath rate spontaneous and mechanical --on ventilator (LOINC)*: total measured rate.\n- *3026892 / 19839-0 — Breath rate spontaneous --on ventilator (LOINC)*: spontaneous component.\n\n### Ventilator set rate\n\n- *3007469 / 19834-1 — Breath rate setting Ventilator (LOINC)*: the rate set on the ventilator.\n\n### By measurement method\n\n- *21490867 / 76270-8 — Respiratory rate by Impedance.transthoracic (LOINC)*: derived from chest-impedance monitoring, the usual bedside monitor method.\n- *42527123 / 76174-2 — Respiratory rate by Pulse oximetry.plethysmograph (LOINC)*: derived from the pulse-oximetry waveform.\n- *21490847 / 76172-6 — Respiratory rate by Carbon dioxide measurement (LOINC)*: derived from capnography.\n- *21490846 / 76171-8 — Respiratory rate by Airway flow measurement (LOINC)*: derived from airway flow, typically on a ventilator.\n- *21490845 / 76170-0 — Respiratory rate by Acoustic measurement (LOINC)*: derived from an acoustic sensor.\n- *36303374 / 76173-4 — Respiratory rate by Non-airway pressure measurement (LOINC)*: derived from a pressure sensor outside the airway.\n- *3006396 / 19841-6 — Respiratory rate by Spirometry --at maximum voluntary ventilation (LOINC)*: measured during a spirometry manoeuvre.\n\n### By context\n\n- *3010647 / 9303-9 — Respiratory rate --resting (LOINC)*: measured at rest.\n- *3038563 / 40441-8 — Respiratory rate --post exercise (LOINC)*: measured after exercise.\n- *36305182 / 89274-5 — Respiratory rate --W exercise (LOINC)*: measured during exercise.\n- *36305857 / 89279-4 — Respiratory rate --during anesthesia (LOINC)*: measured under anaesthesia.\n- *3022705 / 19842-4 — Respiratory rate --at maximum voluntary ventilation (LOINC)*: measured during a maximum voluntary ventilation manoeuvre.\n- Pre/post inhalation therapy, cardioversion, conscious sedation and bronchoscopy variants (LOINC), each following the same pattern.\n\n**Note on units**: reported in **/min** (`8541 / /min — per minute`, UCUM), the recommended unit (breaths per minute).\n\n## Mapping Notes\n\n- **Default concept** when the source records a respiratory rate without qualification: *3024171 / 9279-1 — Respiratory rate* (or SNOMED *4313591 / 86290005 — Respiratory rate*).\n- **Measurement method / context / setting are attributes, not separate variables**: map to a method/context/setting concept only when the source documents it; otherwise use the generic concept. The ventilator set rate maps to *3007469 / 19834-1 — Breath rate setting Ventilator*.\n- This single set replaces the former separate ventilation-parameters respiratory-rate set (now deprecated).\n"
+      },
+      "fr": {
+        "name": "Fréquence respiratoire (FR)",
+        "category": "Paramètres vitaux",
+        "subcategory": "Ventilatoire",
+        "shortDescription": "Fréquence respiratoire (FR) — cycles par minute (/min) ; la fréquence mesurée (toute méthode, y compris au ventilateur) et la fréquence réglée du ventilateur.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Maxim",
+          "lastName": "Moinat",
+          "affiliation": "Erasmus MC",
+          "profession": "Data Engineer",
+          "orcid": "0000-0001-8473-2433"
+        },
+        "reviewTimestamp": "2026-08-20T13:22:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Make this the single Respiratory rate set: absorb the ventilator breath-rate concepts from set 321 (spontaneous+mechanical 19840-8, spontaneous 19839-0, and the ventilator set rate 19834-1) — set 321 deprecated. Setting and measured are the same variable. Added (RR)/(FR) abbreviation and clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

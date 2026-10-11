@@ -1,0 +1,84 @@
+{
+  "id": 16,
+  "name": "Acquired immunodeficiency syndrome (AIDS)",
+  "description": "Acquired immunodeficiency syndrome (AIDS) — advanced HIV infection with profound immunosuppression.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4267414,
+          "conceptName": "AIDS",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "62479008",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "78474187-da81-4acb-b2a2-a4ee9f640a6a",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Acquired immunodeficiency syndrome (AIDS)",
+        "category": "Conditions",
+        "subcategory": "Immune",
+        "shortDescription": "Acquired immunodeficiency syndrome (AIDS) — advanced HIV infection with profound immunosuppression.",
+        "longDescription": "## Definition & Clinical Context\n\nAcquired immunodeficiency syndrome (AIDS) is the advanced stage of HIV infection, defined by profound immunosuppression and the occurrence of opportunistic infections or AIDS-defining illnesses. In intensive care it is relevant both as a cause of admission (opportunistic infection, severe immunosuppression) and as a comorbidity affecting prognosis. AIDS is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set captures the documented diagnosis of AIDS and AIDS-related conditions. It represents established AIDS, distinct from asymptomatic HIV infection.\n\n## Mapping Notes\n\n- Map a documented diagnosis of AIDS (or an AIDS-defining condition recorded as such) to this set.\n- Asymptomatic HIV infection without progression to AIDS is conceptually distinct; map it only if the intent is to capture AIDS specifically."
+      },
+      "fr": {
+        "name": "Syndrome d'immunodéficience acquise (SIDA)",
+        "category": "Pathologies",
+        "subcategory": "Immunitaire",
+        "shortDescription": "Syndrome d'immunodéficience acquise (SIDA) — infection VIH avancée avec immunodépression profonde.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor on the SNOMED concept AIDS (62479008) with descendants (replacing the flat list); reclassify subcategory to Immune; full name; added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

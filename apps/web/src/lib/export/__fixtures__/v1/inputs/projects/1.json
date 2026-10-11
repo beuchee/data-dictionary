@@ -1,0 +1,1434 @@
+{
+  "id": 1,
+  "translations": {
+    "en": {
+      "name": "MIMIC-EU [Minimal]",
+      "shortDescription": "Creates an Atlas of anonymized Acute Care cases to demonstrate the INDICATE platform's capability for aggregating ICU datasets and developing clinically relevant AI algorithms.",
+      "longDescription": "[View on INDICATE website](https://indicate-europe.eu/use-cases/mimic-eu/)\n\n## Overview\n\nThis use case aims to demonstrate the capabilities of the INDICATE platform for the aggregation of ICU datasets for secondary analysis and the development of clinically relevant AI algorithms by establishing an \"Atlas of anonymized Acute Care cases\" named **MIMIC-EU**.\n\n## Data Scope\n\nThe MIMIC-EU workgroup is coordinated by the Scientific Coordination Office (SCO) with contributions from experts in WPs 2, 3, 4 and 5. The data includes:\n\n- Multiparameter physiological signals\n- Laboratory test results\n- ICU procedures and medications\n- Imaging reports and caregiver notes\n- Clinical outcomes (ICU- and in-hospital mortality, organ failure, organ support, length of stay, etc.)\n\nMIMIC-EU can be further enriched with multi-modal data from additional sources, including clinical notes from local electronic health records, clinical images adhering to EUCAIM Standards, and data from pre-ICU and post-ICU admission as well as post-discharge information.\n\n## Approach\n\nDevelopment follows an iterative approach, starting with the onboarding of mature and leading data providers (UDUS, CHU-Rennes) and continuously onboarding more data providers thereafter. This serves scientific purposes while providing the backbone for the relevant deliverables and other use cases.\n\n## Tasks\n\n- **T6.1.1** — Establish the formal MIMIC-EU workgroup to collaborate with the Data Provider Support Office and the coordinators of the Define minimal datasets task (WP2) to define a minimal viable dataset, common data model, and anonymisation requirements.\n- **T6.1.2** — Draft template data access agreements and terms of use for data providers with the aid of experts from the ELSI framework task (WP3).\n- **T6.1.3** — Integrate the MIMIC-EU atlas with the centralised metadata catalogue as a predefined selection across the federated infrastructure for ICU data.\n- **T6.1.4** — Create a synthetic, fully anonymous dataset based on the full federated MIMIC-EU data for testing and validating data access requests.\n- **T6.1.5** — Implement a secure workspace based on the MVP templates from Core services and data federation network (WP4).\n- **T6.1.6** — Implement the security and quality policies and gates from WP4 to mitigate data protection risks and promote cyber security.\n- **T6.1.7** — Create a set of showcase analyses for promotion purposes.\n\n## Clinical Analyses\n\nThe showcase analyses will cover important clinical scenarios including hemodynamic monitoring in cardiogenic shock and sepsis, glucose metabolism in ICU patients, regional differences in treatment strategies and resource allocation, rare diseases, and treatment trajectories of elderly and cancer patients.\n\n## Use Case Leader\n\n**Christian Jung** — Heinrich-Heine-Universität Düsseldorf"
+    },
+    "fr": {
+      "name": "MIMIC-EU [Minimal]",
+      "shortDescription": "Création d'un Atlas de cas de soins aigus anonymisés pour démontrer la capacité de la plateforme INDICATE à agréger des jeux de données de réanimation et à développer des algorithmes d'IA cliniquement pertinents.",
+      "longDescription": "[Voir sur le site INDICATE](https://indicate-europe.eu/use-cases/mimic-eu/)\n\n## Présentation\n\nCe cas d'usage vise à démontrer les capacités de la plateforme INDICATE pour l'agrégation de jeux de données de réanimation en vue d'analyses secondaires et du développement d'algorithmes d'IA cliniquement pertinents, en établissant un « Atlas de cas de soins aigus anonymisés » nommé **MIMIC-EU**.\n\n## Périmètre des données\n\nLe groupe de travail MIMIC-EU est coordonné par le Bureau de Coordination Scientifique (SCO) avec les contributions d'experts des WPs 2, 3, 4 et 5. Les données incluent :\n\n- Signaux physiologiques multiparamétriques\n- Résultats d'examens de laboratoire\n- Procédures et médicaments de réanimation\n- Comptes rendus d'imagerie et notes des soignants\n- Résultats cliniques (mortalité en réanimation et hospitalière, défaillance d'organe, support d'organe, durée de séjour, etc.)\n\nMIMIC-EU peut être enrichi avec des données multimodales provenant de sources supplémentaires, incluant les notes cliniques des dossiers de santé électroniques locaux, les images cliniques conformes aux normes EUCAIM, et les données pré- et post-admission en réanimation ainsi que les informations post-sortie.\n\n## Approche\n\nLe développement suit une approche itérative, en commençant par l'intégration de fournisseurs de données matures et leaders (UDUS, CHU-Rennes), puis en intégrant continuellement d'autres fournisseurs par la suite.\n\n## Tâches\n\n- **T6.1.1** — Établir le groupe de travail formel MIMIC-EU pour collaborer avec le Bureau de support des fournisseurs de données et les coordinateurs de la tâche de définition des jeux de données minimaux (WP2) afin de définir un jeu de données minimal viable, un modèle de données commun et des exigences d'anonymisation.\n- **T6.1.2** — Rédiger des modèles d'accords d'accès aux données et de conditions d'utilisation pour les fournisseurs de données avec l'aide des experts du cadre ELSI (WP3).\n- **T6.1.3** — Intégrer l'atlas MIMIC-EU avec le catalogue de métadonnées centralisé en tant que sélection prédéfinie dans l'infrastructure fédérée pour les données de réanimation.\n- **T6.1.4** — Créer un jeu de données synthétique, entièrement anonyme, basé sur les données fédérées MIMIC-EU pour tester et valider les demandes d'accès aux données.\n- **T6.1.5** — Mettre en œuvre un espace de travail sécurisé basé sur les modèles MVP des services de base et du réseau de fédération de données (WP4).\n- **T6.1.6** — Mettre en œuvre les politiques et contrôles de sécurité et de qualité du WP4 pour atténuer les risques de protection des données et promouvoir la cybersécurité.\n- **T6.1.7** — Créer un ensemble d'analyses vitrines à des fins de promotion.\n\n## Analyses cliniques\n\nLes analyses vitrines couvriront des scénarios cliniques importants incluant le monitorage hémodynamique dans le choc cardiogénique et le sepsis, le métabolisme du glucose chez les patients de réanimation, les différences régionales dans les stratégies de traitement et l'allocation des ressources, les maladies rares, et les trajectoires de traitement des patients âgés et des patients atteints de cancer.\n\n## Responsable du cas d'usage\n\n**Christian Jung** — Heinrich-Heine-Universität Düsseldorf"
+    }
+  },
+  "createdBy": "Christian Jung",
+  "createdDate": "2024-12-01",
+  "modifiedDate": "2026-08-13",
+  "groups": [
+    {
+      "id": "group-default",
+      "translations": {
+        "en": {
+          "name": "Default"
+        },
+        "fr": {
+          "name": "Par défaut"
+        }
+      },
+      "rule": "all_required",
+      "conceptSets": [
+        {
+          "id": 1,
+          "version": "1.0.2"
+        },
+        {
+          "id": 2,
+          "version": "1.1.3"
+        },
+        {
+          "id": 3,
+          "version": "1.0.2"
+        },
+        {
+          "id": 4,
+          "version": "1.0.2"
+        },
+        {
+          "id": 5,
+          "version": "1.0.2"
+        },
+        {
+          "id": 6,
+          "version": "1.0.2"
+        },
+        {
+          "id": 7,
+          "version": "1.0.2"
+        },
+        {
+          "id": 8,
+          "version": "1.1.0"
+        },
+        {
+          "id": 9,
+          "version": "1.1.3"
+        },
+        {
+          "id": 10,
+          "version": "1.1.3"
+        },
+        {
+          "id": 11,
+          "version": "1.0.2"
+        },
+        {
+          "id": 12,
+          "version": "1.1.0"
+        },
+        {
+          "id": 13,
+          "version": "1.1.0"
+        },
+        {
+          "id": 14,
+          "version": "1.1.3"
+        },
+        {
+          "id": 15,
+          "version": "1.1.3"
+        },
+        {
+          "id": 16,
+          "version": "1.1.0"
+        },
+        {
+          "id": 17,
+          "version": "1.1.0"
+        },
+        {
+          "id": 18,
+          "version": "1.1.0"
+        },
+        {
+          "id": 19,
+          "version": "1.1.0"
+        },
+        {
+          "id": 20,
+          "version": "1.1.0"
+        },
+        {
+          "id": 21,
+          "version": "1.1.0"
+        },
+        {
+          "id": 22,
+          "version": "1.1.0"
+        },
+        {
+          "id": 23,
+          "version": "1.1.0"
+        },
+        {
+          "id": 24,
+          "version": "1.1.0"
+        },
+        {
+          "id": 25,
+          "version": "1.1.0"
+        },
+        {
+          "id": 26,
+          "version": "1.1.0"
+        },
+        {
+          "id": 27,
+          "version": "1.1.0"
+        },
+        {
+          "id": 28,
+          "version": "1.1.0"
+        },
+        {
+          "id": 29,
+          "version": "1.1.0"
+        },
+        {
+          "id": 30,
+          "version": "1.1.0"
+        },
+        {
+          "id": 31,
+          "version": "1.1.0"
+        },
+        {
+          "id": 32,
+          "version": "1.1.0"
+        },
+        {
+          "id": 33,
+          "version": "1.0.1"
+        },
+        {
+          "id": 34,
+          "version": "1.0.1"
+        },
+        {
+          "id": 35,
+          "version": "1.0.1"
+        },
+        {
+          "id": 36,
+          "version": "1.0.1"
+        },
+        {
+          "id": 37,
+          "version": "1.0.1"
+        },
+        {
+          "id": 38,
+          "version": "1.0.1"
+        },
+        {
+          "id": 39,
+          "version": "1.0.1"
+        },
+        {
+          "id": 40,
+          "version": "1.0.1"
+        },
+        {
+          "id": 41,
+          "version": "1.0.1"
+        },
+        {
+          "id": 42,
+          "version": "1.0.1"
+        },
+        {
+          "id": 43,
+          "version": "1.0.1"
+        },
+        {
+          "id": 44,
+          "version": "1.0.1"
+        },
+        {
+          "id": 45,
+          "version": "1.0.1"
+        },
+        {
+          "id": 46,
+          "version": "1.0.1"
+        },
+        {
+          "id": 47,
+          "version": "1.0.1"
+        },
+        {
+          "id": 48,
+          "version": "1.0.1"
+        },
+        {
+          "id": 49,
+          "version": "1.0.1"
+        },
+        {
+          "id": 50,
+          "version": "1.0.1"
+        },
+        {
+          "id": 51,
+          "version": "1.0.1"
+        },
+        {
+          "id": 52,
+          "version": "1.0.1"
+        },
+        {
+          "id": 53,
+          "version": "1.0.1"
+        },
+        {
+          "id": 54,
+          "version": "1.0.1"
+        },
+        {
+          "id": 55,
+          "version": "1.0.1"
+        },
+        {
+          "id": 56,
+          "version": "1.0.1"
+        },
+        {
+          "id": 57,
+          "version": "1.0.1"
+        },
+        {
+          "id": 58,
+          "version": "1.0.1"
+        },
+        {
+          "id": 59,
+          "version": "1.0.1"
+        },
+        {
+          "id": 60,
+          "version": "1.0.1"
+        },
+        {
+          "id": 61,
+          "version": "1.0.1"
+        },
+        {
+          "id": 62,
+          "version": "1.0.1"
+        },
+        {
+          "id": 63,
+          "version": "1.0.1"
+        },
+        {
+          "id": 64,
+          "version": "1.0.1"
+        },
+        {
+          "id": 66,
+          "version": "1.0.1"
+        },
+        {
+          "id": 67,
+          "version": "1.0.1"
+        },
+        {
+          "id": 69,
+          "version": "1.0.1"
+        },
+        {
+          "id": 70,
+          "version": "1.0.1"
+        },
+        {
+          "id": 71,
+          "version": "1.0.1"
+        },
+        {
+          "id": 72,
+          "version": "1.0.1"
+        },
+        {
+          "id": 73,
+          "version": "1.0.1"
+        },
+        {
+          "id": 74,
+          "version": "1.0.1"
+        },
+        {
+          "id": 75,
+          "version": "1.0.1"
+        },
+        {
+          "id": 76,
+          "version": "1.0.1"
+        },
+        {
+          "id": 77,
+          "version": "1.0.1"
+        },
+        {
+          "id": 78,
+          "version": "1.0.1"
+        },
+        {
+          "id": 79,
+          "version": "1.0.1"
+        },
+        {
+          "id": 80,
+          "version": "1.0.1"
+        },
+        {
+          "id": 81,
+          "version": "1.0.1"
+        },
+        {
+          "id": 82,
+          "version": "1.0.1"
+        },
+        {
+          "id": 83,
+          "version": "1.0.1"
+        },
+        {
+          "id": 84,
+          "version": "1.0.1"
+        },
+        {
+          "id": 85,
+          "version": "1.0.1"
+        },
+        {
+          "id": 86,
+          "version": "1.0.1"
+        },
+        {
+          "id": 87,
+          "version": "1.0.1"
+        },
+        {
+          "id": 88,
+          "version": "1.0.1"
+        },
+        {
+          "id": 89,
+          "version": "1.0.1"
+        },
+        {
+          "id": 90,
+          "version": "1.0.1"
+        },
+        {
+          "id": 91,
+          "version": "1.0.1"
+        },
+        {
+          "id": 92,
+          "version": "1.0.1"
+        },
+        {
+          "id": 93,
+          "version": "1.0.1"
+        },
+        {
+          "id": 94,
+          "version": "1.0.1"
+        },
+        {
+          "id": 95,
+          "version": "1.0.1"
+        },
+        {
+          "id": 96,
+          "version": "1.0.1"
+        },
+        {
+          "id": 97,
+          "version": "1.0.1"
+        },
+        {
+          "id": 98,
+          "version": "1.0.1"
+        },
+        {
+          "id": 99,
+          "version": "1.0.1"
+        },
+        {
+          "id": 101,
+          "version": "1.0.1"
+        },
+        {
+          "id": 102,
+          "version": "1.0.1"
+        },
+        {
+          "id": 103,
+          "version": "1.0.1"
+        },
+        {
+          "id": 105,
+          "version": "1.0.1"
+        },
+        {
+          "id": 106,
+          "version": "1.0.1"
+        },
+        {
+          "id": 107,
+          "version": "1.0.1"
+        },
+        {
+          "id": 108,
+          "version": "1.0.1"
+        },
+        {
+          "id": 109,
+          "version": "1.0.1"
+        },
+        {
+          "id": 110,
+          "version": "1.0.1"
+        },
+        {
+          "id": 111,
+          "version": "1.0.1"
+        },
+        {
+          "id": 112,
+          "version": "1.0.1"
+        },
+        {
+          "id": 113,
+          "version": "1.0.1"
+        },
+        {
+          "id": 114,
+          "version": "1.0.1"
+        },
+        {
+          "id": 115,
+          "version": "1.0.1"
+        },
+        {
+          "id": 116,
+          "version": "1.0.1"
+        },
+        {
+          "id": 117,
+          "version": "1.0.1"
+        },
+        {
+          "id": 118,
+          "version": "1.0.1"
+        },
+        {
+          "id": 119,
+          "version": "1.0.1"
+        },
+        {
+          "id": 120,
+          "version": "1.0.1"
+        },
+        {
+          "id": 121,
+          "version": "1.0.1"
+        },
+        {
+          "id": 123,
+          "version": "1.0.1"
+        },
+        {
+          "id": 124,
+          "version": "1.0.1"
+        },
+        {
+          "id": 125,
+          "version": "1.0.1"
+        },
+        {
+          "id": 126,
+          "version": "1.0.1"
+        },
+        {
+          "id": 127,
+          "version": "1.0.1"
+        },
+        {
+          "id": 128,
+          "version": "1.0.1"
+        },
+        {
+          "id": 129,
+          "version": "1.0.1"
+        },
+        {
+          "id": 130,
+          "version": "1.0.1"
+        },
+        {
+          "id": 131,
+          "version": "1.0.1"
+        },
+        {
+          "id": 132,
+          "version": "1.0.1"
+        },
+        {
+          "id": 133,
+          "version": "1.0.1"
+        },
+        {
+          "id": 134,
+          "version": "1.0.1"
+        },
+        {
+          "id": 135,
+          "version": "1.0.1"
+        },
+        {
+          "id": 136,
+          "version": "1.0.1"
+        },
+        {
+          "id": 137,
+          "version": "1.0.1"
+        },
+        {
+          "id": 138,
+          "version": "1.0.1"
+        },
+        {
+          "id": 139,
+          "version": "1.0.1"
+        },
+        {
+          "id": 140,
+          "version": "1.0.1"
+        },
+        {
+          "id": 141,
+          "version": "1.0.1"
+        },
+        {
+          "id": 142,
+          "version": "1.0.1"
+        },
+        {
+          "id": 143,
+          "version": "1.0.1"
+        },
+        {
+          "id": 144,
+          "version": "1.0.1"
+        },
+        {
+          "id": 145,
+          "version": "1.0.1"
+        },
+        {
+          "id": 146,
+          "version": "1.0.1"
+        },
+        {
+          "id": 147,
+          "version": "1.0.1"
+        },
+        {
+          "id": 149,
+          "version": "1.1.0"
+        },
+        {
+          "id": 151,
+          "version": "1.2.0"
+        },
+        {
+          "id": 352,
+          "version": "1.1.0"
+        },
+        {
+          "id": 152,
+          "version": "1.2.0"
+        },
+        {
+          "id": 353,
+          "version": "1.1.0"
+        },
+        {
+          "id": 153,
+          "version": "1.1.0"
+        },
+        {
+          "id": 354,
+          "version": "1.0.0"
+        },
+        {
+          "id": 155,
+          "version": "1.1.0"
+        },
+        {
+          "id": 159,
+          "version": "1.1.0"
+        },
+        {
+          "id": 160,
+          "version": "1.2.1"
+        },
+        {
+          "id": 355,
+          "version": "1.1.1"
+        },
+        {
+          "id": 163,
+          "version": "1.1.0"
+        },
+        {
+          "id": 164,
+          "version": "1.1.0"
+        },
+        {
+          "id": 165,
+          "version": "1.1.0"
+        },
+        {
+          "id": 166,
+          "version": "1.1.0"
+        },
+        {
+          "id": 167,
+          "version": "1.2.0"
+        },
+        {
+          "id": 168,
+          "version": "1.1.1"
+        },
+        {
+          "id": 169,
+          "version": "1.1.0"
+        },
+        {
+          "id": 170,
+          "version": "1.1.2"
+        },
+        {
+          "id": 171,
+          "version": "1.1.0"
+        },
+        {
+          "id": 345,
+          "version": "1.0.0"
+        },
+        {
+          "id": 172,
+          "version": "1.1.0"
+        },
+        {
+          "id": 346,
+          "version": "1.0.0"
+        },
+        {
+          "id": 173,
+          "version": "1.1.0"
+        },
+        {
+          "id": 174,
+          "version": "1.1.0"
+        },
+        {
+          "id": 175,
+          "version": "1.1.0"
+        },
+        {
+          "id": 176,
+          "version": "1.1.1"
+        },
+        {
+          "id": 177,
+          "version": "1.1.0"
+        },
+        {
+          "id": 178,
+          "version": "1.1.0"
+        },
+        {
+          "id": 179,
+          "version": "1.1.0"
+        },
+        {
+          "id": 180,
+          "version": "1.1.1"
+        },
+        {
+          "id": 181,
+          "version": "1.1.0"
+        },
+        {
+          "id": 182,
+          "version": "1.1.1"
+        },
+        {
+          "id": 183,
+          "version": "1.1.1"
+        },
+        {
+          "id": 184,
+          "version": "1.1.1"
+        },
+        {
+          "id": 185,
+          "version": "1.2.0"
+        },
+        {
+          "id": 186,
+          "version": "1.1.0"
+        },
+        {
+          "id": 187,
+          "version": "1.1.1"
+        },
+        {
+          "id": 188,
+          "version": "1.1.1"
+        },
+        {
+          "id": 189,
+          "version": "1.1.1"
+        },
+        {
+          "id": 190,
+          "version": "1.1.0"
+        },
+        {
+          "id": 191,
+          "version": "1.1.0"
+        },
+        {
+          "id": 192,
+          "version": "1.1.0"
+        },
+        {
+          "id": 193,
+          "version": "1.1.0"
+        },
+        {
+          "id": 194,
+          "version": "1.1.0"
+        },
+        {
+          "id": 195,
+          "version": "1.1.0"
+        },
+        {
+          "id": 196,
+          "version": "1.1.0"
+        },
+        {
+          "id": 197,
+          "version": "1.1.0"
+        },
+        {
+          "id": 198,
+          "version": "1.1.0"
+        },
+        {
+          "id": 199,
+          "version": "1.1.0"
+        },
+        {
+          "id": 200,
+          "version": "1.1.0"
+        },
+        {
+          "id": 201,
+          "version": "1.1.1"
+        },
+        {
+          "id": 202,
+          "version": "1.1.1"
+        },
+        {
+          "id": 203,
+          "version": "1.1.0"
+        },
+        {
+          "id": 204,
+          "version": "1.1.0"
+        },
+        {
+          "id": 351,
+          "version": "1.0.0"
+        },
+        {
+          "id": 205,
+          "version": "1.1.0"
+        },
+        {
+          "id": 206,
+          "version": "1.1.0"
+        },
+        {
+          "id": 207,
+          "version": "1.1.0"
+        },
+        {
+          "id": 208,
+          "version": "1.1.0"
+        },
+        {
+          "id": 209,
+          "version": "1.1.0"
+        },
+        {
+          "id": 210,
+          "version": "1.1.0"
+        },
+        {
+          "id": 211,
+          "version": "1.1.0"
+        },
+        {
+          "id": 212,
+          "version": "1.1.0"
+        },
+        {
+          "id": 213,
+          "version": "1.1.0"
+        },
+        {
+          "id": 214,
+          "version": "1.1.0"
+        },
+        {
+          "id": 215,
+          "version": "1.1.0"
+        },
+        {
+          "id": 216,
+          "version": "1.1.0"
+        },
+        {
+          "id": 217,
+          "version": "1.1.0"
+        },
+        {
+          "id": 218,
+          "version": "1.1.0"
+        },
+        {
+          "id": 219,
+          "version": "1.1.0"
+        },
+        {
+          "id": 220,
+          "version": "1.1.0"
+        },
+        {
+          "id": 221,
+          "version": "1.1.0"
+        },
+        {
+          "id": 222,
+          "version": "1.1.0"
+        },
+        {
+          "id": 223,
+          "version": "1.1.0"
+        },
+        {
+          "id": 224,
+          "version": "1.1.0"
+        },
+        {
+          "id": 225,
+          "version": "1.1.0"
+        },
+        {
+          "id": 226,
+          "version": "1.1.0"
+        },
+        {
+          "id": 227,
+          "version": "1.1.0"
+        },
+        {
+          "id": 228,
+          "version": "1.1.0"
+        },
+        {
+          "id": 230,
+          "version": "1.1.0"
+        },
+        {
+          "id": 231,
+          "version": "1.1.0"
+        },
+        {
+          "id": 232,
+          "version": "1.1.0"
+        },
+        {
+          "id": 233,
+          "version": "1.1.0"
+        },
+        {
+          "id": 234,
+          "version": "1.1.0"
+        },
+        {
+          "id": 235,
+          "version": "1.1.0"
+        },
+        {
+          "id": 236,
+          "version": "1.1.0"
+        },
+        {
+          "id": 237,
+          "version": "1.1.0"
+        },
+        {
+          "id": 238,
+          "version": "1.2.0"
+        },
+        {
+          "id": 239,
+          "version": "1.1.0"
+        },
+        {
+          "id": 240,
+          "version": "1.1.0"
+        },
+        {
+          "id": 241,
+          "version": "1.1.0"
+        },
+        {
+          "id": 242,
+          "version": "1.1.0"
+        },
+        {
+          "id": 243,
+          "version": "1.1.0"
+        },
+        {
+          "id": 244,
+          "version": "1.1.0"
+        },
+        {
+          "id": 365,
+          "version": "1.0.0"
+        },
+        {
+          "id": 366,
+          "version": "1.0.0"
+        },
+        {
+          "id": 246,
+          "version": "1.1.0"
+        },
+        {
+          "id": 247,
+          "version": "1.1.0"
+        },
+        {
+          "id": 248,
+          "version": "1.1.0"
+        },
+        {
+          "id": 249,
+          "version": "1.1.0"
+        },
+        {
+          "id": 250,
+          "version": "1.1.0"
+        },
+        {
+          "id": 251,
+          "version": "1.1.0"
+        },
+        {
+          "id": 252,
+          "version": "1.1.0"
+        },
+        {
+          "id": 253,
+          "version": "1.1.0"
+        },
+        {
+          "id": 255,
+          "version": "1.1.0"
+        },
+        {
+          "id": 256,
+          "version": "1.1.0"
+        },
+        {
+          "id": 257,
+          "version": "1.1.0"
+        },
+        {
+          "id": 258,
+          "version": "1.1.0"
+        },
+        {
+          "id": 259,
+          "version": "1.1.0"
+        },
+        {
+          "id": 260,
+          "version": "1.1.0"
+        },
+        {
+          "id": 261,
+          "version": "1.1.0"
+        },
+        {
+          "id": 262,
+          "version": "1.1.0"
+        },
+        {
+          "id": 263,
+          "version": "1.1.0"
+        },
+        {
+          "id": 264,
+          "version": "1.1.0"
+        },
+        {
+          "id": 265,
+          "version": "1.1.0"
+        },
+        {
+          "id": 267,
+          "version": "1.1.0"
+        },
+        {
+          "id": 268,
+          "version": "1.1.0"
+        },
+        {
+          "id": 269,
+          "version": "1.1.0"
+        },
+        {
+          "id": 270,
+          "version": "1.1.0"
+        },
+        {
+          "id": 272,
+          "version": "1.1.0"
+        },
+        {
+          "id": 273,
+          "version": "1.1.0"
+        },
+        {
+          "id": 274,
+          "version": "1.1.0"
+        },
+        {
+          "id": 275,
+          "version": "1.1.1"
+        },
+        {
+          "id": 278,
+          "version": "1.1.0"
+        },
+        {
+          "id": 279,
+          "version": "1.1.0"
+        },
+        {
+          "id": 284,
+          "version": "1.1.0"
+        },
+        {
+          "id": 285,
+          "version": "1.1.0"
+        },
+        {
+          "id": 286,
+          "version": "1.1.0"
+        },
+        {
+          "id": 287,
+          "version": "1.1.0"
+        },
+        {
+          "id": 288,
+          "version": "1.1.0"
+        },
+        {
+          "id": 289,
+          "version": "1.1.0"
+        },
+        {
+          "id": 290,
+          "version": "1.1.0"
+        },
+        {
+          "id": 291,
+          "version": "1.2.0"
+        },
+        {
+          "id": 292,
+          "version": "1.1.0"
+        },
+        {
+          "id": 293,
+          "version": "1.2.0"
+        },
+        {
+          "id": 294,
+          "version": "1.1.0"
+        },
+        {
+          "id": 295,
+          "version": "1.0.0"
+        },
+        {
+          "id": 296,
+          "version": "1.1.0"
+        },
+        {
+          "id": 297,
+          "version": "1.1.0"
+        },
+        {
+          "id": 298,
+          "version": "1.1.0"
+        },
+        {
+          "id": 299,
+          "version": "1.1.0"
+        },
+        {
+          "id": 300,
+          "version": "1.1.0"
+        },
+        {
+          "id": 301,
+          "version": "1.1.0"
+        },
+        {
+          "id": 302,
+          "version": "1.1.0"
+        },
+        {
+          "id": 303,
+          "version": "1.1.0"
+        },
+        {
+          "id": 304,
+          "version": "1.1.0"
+        },
+        {
+          "id": 305,
+          "version": "1.1.0"
+        },
+        {
+          "id": 306,
+          "version": "1.1.0"
+        },
+        {
+          "id": 307,
+          "version": "1.1.0"
+        },
+        {
+          "id": 308,
+          "version": "1.2.0"
+        },
+        {
+          "id": 309,
+          "version": "1.0.0"
+        },
+        {
+          "id": 310,
+          "version": "1.2.0"
+        },
+        {
+          "id": 311,
+          "version": "1.0.0"
+        },
+        {
+          "id": 312,
+          "version": "1.2.0"
+        },
+        {
+          "id": 313,
+          "version": "1.0.1"
+        },
+        {
+          "id": 314,
+          "version": "1.0.1"
+        },
+        {
+          "id": 315,
+          "version": "1.1.0"
+        },
+        {
+          "id": 316,
+          "version": "1.1.1"
+        },
+        {
+          "id": 317,
+          "version": "1.1.1"
+        },
+        {
+          "id": 318,
+          "version": "1.1.1"
+        },
+        {
+          "id": 319,
+          "version": "1.0.1"
+        },
+        {
+          "id": 320,
+          "version": "1.2.0"
+        },
+        {
+          "id": 322,
+          "version": "1.1.1"
+        },
+        {
+          "id": 324,
+          "version": "1.0.1"
+        },
+        {
+          "id": 325,
+          "version": "1.1.1"
+        },
+        {
+          "id": 326,
+          "version": "1.0.1"
+        },
+        {
+          "id": 327,
+          "version": "1.0.2"
+        },
+        {
+          "id": 328,
+          "version": "1.0.1"
+        },
+        {
+          "id": 329,
+          "version": "1.0.1"
+        },
+        {
+          "id": 330,
+          "version": "1.1.3"
+        },
+        {
+          "id": 331,
+          "version": "1.1.2"
+        },
+        {
+          "id": 332,
+          "version": "1.1.0"
+        },
+        {
+          "id": 333,
+          "version": "1.1.2"
+        },
+        {
+          "id": 335,
+          "version": "1.0.1"
+        },
+        {
+          "id": 337,
+          "version": "1.0.0"
+        },
+        {
+          "id": 338,
+          "version": "1.1.0"
+        },
+        {
+          "id": 347,
+          "version": "1.0.0"
+        },
+        {
+          "id": 348,
+          "version": "1.0.0"
+        },
+        {
+          "id": 349,
+          "version": "1.0.0"
+        },
+        {
+          "id": 350,
+          "version": "1.0.0"
+        },
+        {
+          "id": 339,
+          "version": "1.2.0"
+        },
+        {
+          "id": 341,
+          "version": "1.0.1"
+        },
+        {
+          "id": 342,
+          "version": "1.0.0"
+        },
+        {
+          "id": 343,
+          "version": "1.1.0"
+        },
+        {
+          "id": 344,
+          "version": "1.0.0"
+        },
+        {
+          "id": 356,
+          "version": "1.1.0"
+        },
+        {
+          "id": 361,
+          "version": "1.0.0"
+        },
+        {
+          "id": 362,
+          "version": "1.0.1"
+        },
+        {
+          "id": 363,
+          "version": "1.0.0"
+        },
+        {
+          "id": 364,
+          "version": "1.0.0"
+        },
+        {
+          "id": 367,
+          "version": "1.0.0"
+        },
+        {
+          "id": 368,
+          "version": "1.0.0"
+        },
+        {
+          "id": 369,
+          "version": "1.0.0"
+        },
+        {
+          "id": 370,
+          "version": "1.0.0"
+        },
+        {
+          "id": 371,
+          "version": "1.0.0"
+        },
+        {
+          "id": 372,
+          "version": "1.0.0"
+        },
+        {
+          "id": 373,
+          "version": "1.0.0"
+        },
+        {
+          "id": 374,
+          "version": "1.0.0"
+        },
+        {
+          "id": 375,
+          "version": "1.0.0"
+        },
+        {
+          "id": 376,
+          "version": "1.0.0"
+        },
+        {
+          "id": 377,
+          "version": "1.0.0"
+        },
+        {
+          "id": 378,
+          "version": "1.0.0"
+        },
+        {
+          "id": 379,
+          "version": "1.0.0"
+        },
+        {
+          "id": 380,
+          "version": "1.0.0"
+        },
+        {
+          "id": 381,
+          "version": "1.0.0"
+        },
+        {
+          "id": 382,
+          "version": "1.0.0"
+        },
+        {
+          "id": 383,
+          "version": "1.0.0"
+        }
+      ]
+    }
+  ]
+}

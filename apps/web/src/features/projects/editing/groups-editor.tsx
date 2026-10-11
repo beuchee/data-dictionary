@@ -132,13 +132,15 @@ export function GroupsEditor({ groups, onChange, summaries, lang, languages }: G
       ),
     },
   ]
+  // Half the page width from xl up (~480px at 1280px): name, group, pinned version
+  // and remove fit; the category stays one click away in the column menu.
   const projectColumns: DataTableColumn<Row>[] = [
-    ...common,
+    ...common.map((c) => (c.id === 'name' ? { ...c, size: 200 } : c.id === 'category' ? { ...c, hidden: true } : c)),
     {
       id: 'group',
       header: t('projects.edit.group'),
       accessor: (r) => r.groupId ?? '',
-      size: 150,
+      size: 130,
       cell: (r) => (
         <div onClick={(e) => e.stopPropagation()}>
           <Select value={r.groupId} onValueChange={(g) => onChange(moveConceptSets(groups, [r.id], g))}>

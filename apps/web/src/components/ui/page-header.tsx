@@ -1,4 +1,4 @@
-// from linkr@1310cf4a4 apps/web/src/components/ui/page-header.tsx
+// Adapted from linkr@1310cf4a4 apps/web/src/components/ui/page-header.tsx
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -21,14 +21,14 @@ export function PageHeader({ title, description, actions, above, className }: Pa
   return (
     <div className={className}>
       {above && <div className="mb-1">{above}</div>}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="min-w-0">
           <h1 className="text-2xl font-bold text-foreground">{title}</h1>
           {description ? (
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           ) : null}
         </div>
-        {actions ? <div className="flex shrink-0 items-center gap-1">{actions}</div> : null}
+        {actions ? <div className="flex flex-wrap items-center gap-1 sm:shrink-0">{actions}</div> : null}
       </div>
     </div>
   )

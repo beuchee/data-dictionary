@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { Check, Languages, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +23,7 @@ export function Header() {
   const darkMode = useAppStore((s) => s.darkMode)
   const toggleDarkMode = useAppStore((s) => s.toggleDarkMode)
   const setLanguage = useAppStore((s) => s.setLanguage)
+  const { isMobile } = useSidebar()
 
   const active = activeNavItem(pathname, [...mainNavItems(config), ...BOTTOM_NAV_ITEMS])
   // Content languages come from config.json; the UI can only switch to those it has a locale for.
@@ -30,7 +32,11 @@ export function Header() {
 
   return (
     <header className="flex h-12 shrink-0 items-center justify-between border-b bg-background px-4">
-      <h1 className="text-[13px] font-medium text-foreground">{active ? t(active.labelKey) : ''}</h1>
+      <div className="flex min-w-0 items-center gap-1">
+        {/* On a phone the sidebar is an off-canvas sheet: its own trigger is inside it. */}
+        {isMobile && <SidebarTrigger className="-ml-1.5" aria-label={t('layout.header.toggle_sidebar')} />}
+        <h1 className="truncate text-[13px] font-medium text-foreground">{active ? t(active.labelKey) : ''}</h1>
+      </div>
 
       <div className="flex items-center gap-0.5">
         <DraftsIndicator />

@@ -84,6 +84,17 @@ export interface ConceptSetVersions {
   versions: VersionInfo[]
 }
 
+/** A custom concept (id >= 2 100 000 000) used by the catalog, with the sets using it. */
+export interface CustomConceptUse {
+  conceptId: number
+  conceptName: string | null
+  domainId: string | null
+  vocabularyId: string | null
+  conceptClassId: string | null
+  conceptCode: string | null
+  conceptSetIds: number[]
+}
+
 /** What the server offers (`GET /instance/config` → `server`); null in static mode. */
 export interface ServerCapabilities {
   appVersion: string
@@ -120,6 +131,8 @@ export interface DictionarySource {
    * files; null when unknown. Only the static source has them: in server mode the
    * server allocates ids at submit.
    */
+  /** The custom concepts the catalog uses (`GET /concept-sets/custom-concepts`). */
+  listCustomConcepts(): Promise<CustomConceptUse[]>
   getNextIds?(): Promise<{ conceptSet: number | null; project: number | null }>
 }
 

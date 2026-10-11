@@ -147,12 +147,12 @@ export function RepositoryDialog({ open, onOpenChange }: RepositoryDialogProps) 
       )}
 
       {pulled && (
-        <NoticeBanner
-          tone={pulled.indexError ? 'warning' : 'progress'}
-          title={pulled.updated ? t('repository.pulled', { count: pulled.indexed.length }) : t('repository.nothing_pulled')}
-          description={pulled.indexError?.message}
-        />
+        <p className="flex items-center gap-2 text-xs">
+          <CheckCircle2 size={14} className="shrink-0 text-primary" />
+          {pulled.updated ? t('repository.pulled', { count: pulled.indexed.length }) : t('repository.nothing_pulled')}
+        </p>
       )}
+      {pulled?.indexError && <NoticeBanner tone="warning" title={t('repository.index_error')} description={pulled.indexError.message} />}
       {error && (
         <NoticeBanner
           tone="danger"

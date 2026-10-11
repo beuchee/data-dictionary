@@ -5,6 +5,7 @@ import type {
   ConceptSet,
   ConceptSetSummary,
   ConceptSetSummaryTranslation,
+  CustomConceptUse,
   ResolvedConcept,
   ResolvedConceptSet,
   ResolvedPage,
@@ -137,4 +138,33 @@ export function versionHistory(
         message: (meta.message as string | undefined) ?? null,
       }
     })
+}
+
+/** Custom concepts start here (resolve.py's rule). */
+const CUSTOM_CONCEPT_BASE = 2_100_000_000
+const CUSTOM_FIELDS = ['conceptName', 'domainId', 'vocabularyId', 'conceptClassId', 'conceptCode'] as const
+
+/**
+ * The custom concepts `conceptSets` use, one per id (its first definition, by
+ * set id), with the sets using it. Twin of `custom_concepts` in
+ * apps/api/app/api/v1/routes/concept_sets.py.
+ */
+export function customConcepts(conceptSets: readonly ConceptSet[]): CustomConceptUse[] {
+  const found = new Map<number, CustomConceptUse>()
+  for (const cs of [...conceptSets].sort((a, b) => a.id - b.id)) {
+    const items = isObject(cs.expression) && Array.isArray(cs.expression.items) ? cs.expression.items : []
+    for (const item of items) {
+      const concept = isObject(item) && isObject(item.concept) ? item.concept : null
+      const id = concept?.conceptId
+      if (typeof id !== 'number' || !Number.isInteger(id) || id < CUSTOM_CONCEPT_BASE) continue
+      let entry = found.get(id)
+      if (!entry) {
+        entry = { conceptId: id, conceptName: null, domainId: null, vocabularyId: null, conceptClassId: null, conceptCode: null, conceptSetIds: [] }
+        for (const k of CUSTOM_FIELDS) entry[k] = (concept?.[k] as string | null | undefined) ?? null
+        found.set(id, entry)
+      }
+      if (!entry.conceptSetIds.includes(cs.id)) entry.conceptSetIds.push(cs.id)
+    }
+  }
+  return [...found.values()].sort((a, b) => a.conceptId - b.conceptId)
 }

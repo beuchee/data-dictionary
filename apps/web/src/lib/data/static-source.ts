@@ -1,10 +1,11 @@
 import { loadStaticInstanceConfig } from '@/lib/config'
-import { conceptSetSummary, pageResolved, versionHistory } from './catalog'
+import { conceptSetSummary, customConcepts, pageResolved, versionHistory } from './catalog'
 import { repoRawBase, repositoryConfig } from './forge'
 import type {
   ConceptSet,
   ConceptSetSummary,
   ConceptSetVersions,
+  CustomConceptUse,
   DictionarySource,
   InstanceInfo,
   MappingRecommendations,
@@ -147,6 +148,10 @@ export class StaticSource implements DictionarySource {
         })
     }
     return this.summaries
+  }
+
+  async listCustomConcepts(): Promise<CustomConceptUse[]> {
+    return customConcepts((await this.load()).conceptSets ?? [])
   }
 
   async getConceptSet(id: number, version?: string): Promise<ConceptSet | null> {

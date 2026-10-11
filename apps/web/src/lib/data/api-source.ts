@@ -4,6 +4,7 @@ import type {
   ConceptSet,
   ConceptSetSummary,
   ConceptSetVersions,
+  CustomConceptUse,
   DictionarySource,
   InstanceInfo,
   MappingRecommendations,
@@ -50,6 +51,10 @@ export class ApiSource implements DictionarySource {
 
   listConceptSets(): Promise<ConceptSetSummary[]> {
     return apiRequest('/concept-sets')
+  }
+
+  listCustomConcepts(): Promise<CustomConceptUse[]> {
+    return apiRequest('/concept-sets/custom-concepts')
   }
 
   getConceptSet(id: number, version?: string): Promise<ConceptSet | null> {

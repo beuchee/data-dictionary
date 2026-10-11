@@ -28,7 +28,7 @@ export function PageHeader({ title, description, actions, above, className }: Pa
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           ) : null}
         </div>
-        {actions ? <div className="flex flex-wrap items-center gap-1 sm:shrink-0">{actions}</div> : null}
+        {actions ? <div className="flex flex-wrap items-center gap-1 sm:shrink-0 sm:flex-nowrap">{actions}</div> : null}
       </div>
     </div>
   )

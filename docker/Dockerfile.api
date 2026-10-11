@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
 WORKDIR /app
 COPY packages/dictionary-format/ /packages/dictionary-format/
 COPY apps/api/ ./
+# The postgres extra (asyncpg) is small: one image serves SQLite and PostgreSQL.
 RUN pip install --no-cache-dir /packages/dictionary-format/python \
-    && pip install --no-cache-dir -e .
+    && pip install --no-cache-dir -e ".[postgres]"
 
 COPY docker/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
 RUN chmod +x /usr/local/bin/api-entrypoint.sh

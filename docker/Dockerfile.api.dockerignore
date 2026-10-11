@@ -1,0 +1,14 @@
+# Build context is the repo root; BuildKit reads this file for Dockerfile.api only.
+# Allowlist: the API and the format package it depends on. The content repository
+# is cloned or mounted at runtime, never baked into the image.
+*
+!apps/api/
+!packages/dictionary-format/
+!docker/api-entrypoint.sh
+**/node_modules
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+apps/api/.env
+apps/api/tests

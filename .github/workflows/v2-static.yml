@@ -1,0 +1,100 @@
+name: v2 static site
+
+# Builds the v2 static site (static mode: no server, catalogue from data/data.json)
+# and uploads it as a workflow artifact. It does NOT deploy: the live GitHub Pages
+# site is still v1 (legacy/, build-and-deploy.yml) until the cutover. The deploy
+# job for the cutover is prepared, commented, at the end of this file; see
+# docs/deployment.md, "Cutover".
+
+on:
+  push:
+    branches: [v2]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v2-static-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # build.py reads past concept set versions with `git show <sha>:…`.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # GitHub Pages serves a project site under /<repo>/ and a user or
+      # organization site (<owner>.github.io) at the root. A repository variable
+      # BASE_PATH overrides both (a custom domain serves at the root: set "/").
+      - name: Base path
+        id: base
+        env:
+          OVERRIDE: ${{ vars.BASE_PATH }}
+          REPO: ${{ github.event.repository.name }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          if [ -n "$OVERRIDE" ]; then base="$OVERRIDE"
+          elif [ "$(echo "$REPO" | tr A-Z a-z)" = "$(echo "$OWNER" | tr A-Z a-z).github.io" ]; then base=/
+          else base="/$REPO/"
+          fi
+          echo "path=$base" >> "$GITHUB_OUTPUT"
+          echo "BASE_PATH=$base"
+
+      - name: Build the static payload (data.json, resolved lists)
+        run: python3 build.py
+
+      - run: npm ci
+
+      - name: Build the web app (static mode)
+        env:
+          BASE_PATH: ${{ steps.base.outputs.path }}
+        run: npm run build:client
+
+      # Pages has no SPA fallback: an unknown path serves 404.html, which boots
+      # the app on the requested route (the status stays 404).
+      - name: SPA fallback
+        run: cp apps/web/dist/index.html apps/web/dist/404.html
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v2-static-site
+          path: apps/web/dist
+          retention-days: 14
+
+  # ---------------------------------------------------------------------------
+  # Cutover (docs/deployment.md): uncomment, set `on.push.branches` to [main]
+  # (and remove the job of build-and-deploy.yml, or that file), then replace
+  # actions/upload-artifact above with:
+  #
+  #     - uses: actions/configure-pages@v5
+  #     - uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: apps/web/dist
+  #
+  # deploy:
+  #   needs: build
+  #   if: github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - id: deployment
+  #       uses: actions/deploy-pages@v4

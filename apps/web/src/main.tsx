@@ -9,6 +9,7 @@ import i18n, { resolveLanguage } from '@/lib/i18n'
 import '@/index.css'
 import { App } from '@/app/App'
 import { AuthGate } from '@/app/auth-gate'
+import { redirectLegacyHash } from '@/app/legacy-hash'
 import { AppErrorBoundary } from '@/components/layout/app-error-boundary'
 import { ConfigErrorScreen } from '@/components/layout/config-error-screen'
 import { isServerMode } from '@/lib/api-client'
@@ -32,6 +33,9 @@ async function loadInstance(): Promise<InstanceInfo> {
 }
 
 async function boot() {
+  // v1 links (`#/concept-sets?id=12…`) → v2 paths, before the router reads the URL.
+  const legacyLanguage = redirectLegacyHash()
+  if (legacyLanguage) useAppStore.getState().setLanguage(legacyLanguage)
   const root = createRoot(document.getElementById('root')!)
   document.documentElement.classList.toggle('dark', useAppStore.getState().darkMode)
 

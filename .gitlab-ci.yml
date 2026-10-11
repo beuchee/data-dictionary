@@ -36,3 +36,51 @@ pages:
       - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# --- v2 ----------------------------------------------------------------------
+# Builds the v2 static site (static mode) as a job artifact on the `v2` branch and
+# on merge requests, without publishing it: GitLab Pages keeps serving v1 (the
+# `pages` job above) until the cutover (docs/deployment.md, "Cutover").
+#
+# BASE_PATH comes from CI_PAGES_URL: /<project>/ on a classic <group>.gitlab.io
+# URL, / on a unique domain (the default for new projects on recent GitLab).
+# The node image ships python3 and git, which build.py needs.
+v2-static:
+  stage: build
+  image: node:22-bookworm
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - python3 build.py
+    - npm ci
+    - BASE_PATH="$(echo "${CI_PAGES_URL:-/}" | sed -E 's#^https?://[^/]+##; s#/*$#/#')"
+    - echo "BASE_PATH=$BASE_PATH"
+    - BASE_PATH="$BASE_PATH" npm run build:client
+    - cp apps/web/dist/index.html apps/web/dist/404.html
+  artifacts:
+    paths:
+      - apps/web/dist
+    expire_in: 2 weeks
+  rules:
+    - if: $CI_COMMIT_BRANCH == "v2"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# Cutover: delete the v1 `pages` job above and uncomment this one. It publishes
+# the v2 static site from the default branch.
+# pages:
+#   stage: deploy
+#   image: node:22-bookworm
+#   variables:
+#     GIT_DEPTH: 0
+#   script:
+#     - python3 build.py
+#     - npm ci
+#     - BASE_PATH="$(echo "${CI_PAGES_URL:-/}" | sed -E 's#^https?://[^/]+##; s#/*$#/#')"
+#     - BASE_PATH="$BASE_PATH" npm run build:client
+#     - cp apps/web/dist/index.html apps/web/dist/404.html
+#     - rm -rf public && mv apps/web/dist public
+#   artifacts:
+#     paths:
+#       - public
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

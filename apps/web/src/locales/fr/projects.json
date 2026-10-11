@@ -1,5 +1,63 @@
 {
   "title": "Projets",
   "description": "Jeux de concepts regroupés par étude ou cas d'usage, chacun épinglé à une version.",
-  "empty": "Les projets s'afficheront ici."
+  "search_placeholder": "Rechercher des projets...",
+  "sort_name": "Nom",
+  "sort_created": "Date de création",
+  "no_projects": "Aucun projet",
+  "no_projects_description": "Un projet regroupe les jeux de concepts dont une étude a besoin, chacun épinglé à une version.",
+  "no_results": "Aucun projet ne correspond à votre recherche.",
+  "load_error": "Les projets n'ont pas pu être chargés.",
+  "untitled": "Pas de nom dans cette langue",
+  "n_groups_one": "{{count}} groupe",
+  "n_groups_other": "{{count}} groupes",
+  "n_concept_sets_one": "{{count}} jeu de concepts",
+  "n_concept_sets_other": "{{count}} jeux de concepts",
+  "concept_sets_load_error": "Les jeux de concepts n'ont pas pu être chargés.",
+  "back": "Projets",
+  "not_found": "Projet introuvable",
+  "not_found_description": "Aucun projet n'a l'identifiant {{id}}.",
+  "tab_description": "Description",
+  "tab_concept_sets": "Jeux de concepts",
+  "no_description": "Ce projet n'a pas de description dans cette langue.",
+  "no_concept_sets": "Ce projet n'a pas encore de jeux de concepts.",
+  "default_group": "Par défaut",
+  "unnamed_group": "Groupe sans nom",
+  "group_empty": "Aucun jeu de concepts dans ce groupe.",
+  "rule": {
+    "all_required": "Tous requis",
+    "at_least_one": "Au moins un",
+    "optional": "Optionnel"
+  },
+  "rule_hint": {
+    "all_required": "Tous les jeux de concepts de ce groupe doivent être disponibles.",
+    "at_least_one": "Au moins un jeu de concepts de ce groupe doit être disponible.",
+    "optional": "Souhaitable : ne compte pas pour l'éligibilité."
+  },
+  "col": {
+    "id": "ID",
+    "name": "Nom",
+    "category": "Catégorie",
+    "subcategory": "Sous-catégorie",
+    "description": "Description",
+    "status": "Statut",
+    "pinned_version": "Version épinglée",
+    "current_version": "Version actuelle",
+    "version_status": "Version"
+  },
+  "version_status": {
+    "outdated": "Obsolète",
+    "up_to_date": "À jour",
+    "no_version": "Sans version"
+  },
+  "outdated_hint": "Une version plus récente ({{current}}) existe ; ce projet utilise la {{pinned}}.",
+  "review_status": {
+    "draft": "Brouillon",
+    "pending_review": "En attente de relecture",
+    "approved": "Approuvé",
+    "needs_revision": "À réviser",
+    "deprecated": "Déprécié"
+  },
+  "unknown_concept_set": "Jeu de concepts inconnu n° {{id}}",
+  "no_name": "Pas de nom dans cette langue"
 }

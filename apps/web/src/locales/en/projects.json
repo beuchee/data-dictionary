@@ -1,5 +1,63 @@
 {
   "title": "Projects",
   "description": "Concept sets grouped by study or use case, each pinned to a version.",
-  "empty": "Projects will appear here."
+  "search_placeholder": "Search projects...",
+  "sort_name": "Name",
+  "sort_created": "Creation date",
+  "no_projects": "No projects yet",
+  "no_projects_description": "Projects group the concept sets a study needs, each pinned to a version.",
+  "no_results": "No project matches your search.",
+  "load_error": "The projects could not be loaded.",
+  "untitled": "No name in this language",
+  "n_groups_one": "{{count}} group",
+  "n_groups_other": "{{count}} groups",
+  "n_concept_sets_one": "{{count}} concept set",
+  "n_concept_sets_other": "{{count}} concept sets",
+  "concept_sets_load_error": "The concept sets could not be loaded.",
+  "back": "Projects",
+  "not_found": "Project not found",
+  "not_found_description": "No project has the id {{id}}.",
+  "tab_description": "Description",
+  "tab_concept_sets": "Concept sets",
+  "no_description": "This project has no description in this language.",
+  "no_concept_sets": "This project has no concept sets yet.",
+  "default_group": "Default",
+  "unnamed_group": "Unnamed group",
+  "group_empty": "No concept set in this group.",
+  "rule": {
+    "all_required": "All required",
+    "at_least_one": "At least one",
+    "optional": "Optional"
+  },
+  "rule_hint": {
+    "all_required": "Every concept set of this group must be available.",
+    "at_least_one": "At least one concept set of this group must be available.",
+    "optional": "Nice to have: does not count towards eligibility."
+  },
+  "col": {
+    "id": "ID",
+    "name": "Name",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "description": "Description",
+    "status": "Status",
+    "pinned_version": "Pinned version",
+    "current_version": "Current version",
+    "version_status": "Version"
+  },
+  "version_status": {
+    "outdated": "Outdated",
+    "up_to_date": "Up to date",
+    "no_version": "No version"
+  },
+  "outdated_hint": "A newer version ({{current}}) exists; this project uses {{pinned}}.",
+  "review_status": {
+    "draft": "Draft",
+    "pending_review": "Pending review",
+    "approved": "Approved",
+    "needs_revision": "Needs revision",
+    "deprecated": "Deprecated"
+  },
+  "unknown_concept_set": "Unknown concept set #{{id}}",
+  "no_name": "No name in this language"
 }

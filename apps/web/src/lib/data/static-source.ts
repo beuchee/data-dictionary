@@ -198,4 +198,9 @@ export class StaticSource implements DictionarySource {
   async getMappingRecommendations(): Promise<MappingRecommendations | null> {
     return (await this.load()).mappingRecommendations ?? null
   }
+
+  async getNextIds(): Promise<{ conceptSet: number | null; project: number | null }> {
+    const payload = await this.load()
+    return { conceptSet: payload.nextConceptSetId ?? null, project: payload.nextProjectId ?? null }
+  }
 }

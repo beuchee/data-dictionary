@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { isServerMode } from '@/lib/api-client'
+import { getDictionarySource } from '@/lib/data'
 import { draftEntityId } from '@/lib/drafts/paths'
 import { nextLocalId } from '@/lib/drafts/overlay'
 import { useAuthStore } from '@/stores/auth-store'
@@ -64,6 +65,8 @@ interface DraftsState {
   unhide: (kind: CreatableKind, id: number) => void
   /** The id of a new concept set / project (provisional in server mode: the server allocates at submit). */
   allocateId: (kind: CreatableKind, usedIds: Iterable<number>, repoFloor?: number | null) => number
+  /** `allocateId` above the repository's counters too (`id_counters.json`, static mode). */
+  newId: (kind: CreatableKind, usedIds: Iterable<number>) => Promise<number>
   reset: () => void
 }
 
@@ -151,6 +154,17 @@ export const useDraftsStore = create<DraftsState>()(
           const id = nextLocalId([...usedIds, ...draftIds, ...get().hidden[kind]], repoFloor, get().localNextIds[kind])
           set({ localNextIds: { ...get().localNextIds, [kind]: id + 1 } })
           return id
+        },
+
+        newId: async (kind, usedIds) => {
+          let floors: { conceptSet: number | null; project: number | null } | undefined
+          try {
+            floors = await getDictionarySource().getNextIds?.()
+          } catch (error) {
+            console.warn('Could not read the repository id counters', error)
+          }
+          const floor = kind === 'concept-set' ? floors?.conceptSet : floors?.project
+          return get().allocateId(kind, usedIds, floor)
         },
 
         reset: () => {

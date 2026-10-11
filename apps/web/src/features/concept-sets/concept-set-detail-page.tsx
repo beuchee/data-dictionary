@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams, useSearchParams } from 'react-router'
-import { BarChart3, ChevronRight, ClipboardCheck, Code, History, List, Loader2, MessageSquareText, SearchX } from 'lucide-react'
+import { BarChart3, ChevronRight, ClipboardCheck, History, List, Loader2, MessageSquareText, SearchX } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
@@ -10,16 +10,29 @@ import { PageContainer, PageHeader } from '@/components/ui/page-header'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { conceptSetKey, useCatalogStore } from '@/stores/catalog-store'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { isServerMode } from '@/lib/api-client'
 import { normalizeOrganization } from '@/lib/data/catalog'
+import { forgeName, repositoryConfig } from '@/lib/data/forge'
+import { findDraft } from '@/lib/drafts/overlay'
+import { conceptSetKey, useCatalogStore } from '@/stores/catalog-store'
+import { useInstanceConfig } from '@/stores/config-store'
+import { useDraftsStore } from '@/stores/drafts-store'
+import { useUnsavedChangesGuard } from '@/features/drafts/unsaved-changes'
 import { StatusBadge } from './components/badges'
 import { CommentsTab } from './components/comments-tab'
 import { ConceptsTab, type ConceptsView } from './components/concepts-tab'
 import { JsonViewerDialog } from './components/json-viewer-dialog'
 import { ReviewsTab } from './components/reviews-tab'
 import { VersionHistoryDialog } from './components/version-history-dialog'
+import { AddReview } from './editing/add-review'
+import { CommentsEditor } from './editing/comments-editor'
+import { ConceptSetActions } from './editing/concept-set-actions'
+import { useConceptSetEditor, useEditorDirty } from './editing/editor-store'
+import { StatisticsEditor } from './editing/statistics-editor'
 import { isReachable, listPath, parseDetailTab, useContentLanguage, type DetailTab } from './lib/navigation'
-import type { ConceptSet, VersionInfo } from '@/lib/data'
+import type { ConceptSet, ConceptSetSummary, VersionInfo } from '@/lib/data'
+import type { DraftOf } from '@/lib/drafts/types'
 
 // recharts weighs ~100 kB gzipped: only fetched when the Statistics tab opens.
 const StatisticsTab = lazy(() => import('./components/statistics-tab').then((m) => ({ default: m.StatisticsTab })))
@@ -39,6 +52,12 @@ export function ConceptSetDetailPage() {
   const loadVersions = useCatalogStore((s) => s.loadConceptSetVersions)
   const resource = useCatalogStore((s) => (id === null ? undefined : s.conceptSetDetails[conceptSetKey(id, version)]))
   const versions = useCatalogStore((s) => (id === null ? undefined : s.conceptSetVersions[String(id)]))
+  const summaries = useCatalogStore((s) => s.conceptSets.data)
+  const loadConceptSets = useCatalogStore((s) => s.loadConceptSets)
+  const drafts = useDraftsStore((s) => s.drafts)
+  const draftsStatus = useDraftsStore((s) => s.status)
+  const loadDrafts = useDraftsStore((s) => s.load)
+  const draft = id === null ? undefined : findDraft(drafts, 'concept-set', id)
 
   useEffect(() => {
     if (id !== null) void loadConceptSet(id, version)
@@ -47,6 +66,11 @@ export function ConceptSetDetailPage() {
   useEffect(() => {
     if (id !== null) void loadVersions(id)
   }, [id, loadVersions])
+
+  useEffect(() => {
+    void loadDrafts()
+    void loadConceptSets()
+  }, [loadDrafts, loadConceptSets])
 
   const setParam = (key: string, value: string | null) => {
     const next = new URLSearchParams(searchParams)
@@ -65,7 +89,11 @@ export function ConceptSetDetailPage() {
     </nav>
   )
 
-  if (id === null || (resource?.status === 'ready' && !resource.data)) {
+  // A set created here exists only as its draft: the catalog does not know it.
+  const draftOnly = !version && !!draft && resource?.status === 'ready' && !resource.data
+  const draftsPending = draftsStatus === 'idle' || draftsStatus === 'loading'
+
+  if (id === null || (resource?.status === 'ready' && !resource.data && !draftOnly && !draftsPending)) {
     const unknownVersion = id !== null && version
     return (
       <PageContainer width="wide">
@@ -109,7 +137,7 @@ export function ConceptSetDetailPage() {
     )
   }
 
-  const conceptSet = resource?.data
+  const conceptSet = resource?.data ?? (draftOnly ? draft.content : null)
   if (!conceptSet) {
     return (
       <PageContainer width="wide">
@@ -133,6 +161,9 @@ export function ConceptSetDetailPage() {
       versions={versions?.data?.versions ?? null}
       versionsLoading={versions?.status === 'loading'}
       currentVersion={versions?.data?.currentVersion ?? null}
+      base={draftOnly ? null : (resource?.data ?? null)}
+      draft={draft}
+      summaries={summaries ?? []}
       tab={tab}
       view={view}
       breadcrumb={breadcrumb}
@@ -147,6 +178,11 @@ interface ConceptSetDetailProps {
   versions: VersionInfo[] | null
   versionsLoading: boolean
   currentVersion: string | null
+  /** The repository's version as loaded (null for a set that only exists as a draft). */
+  base: ConceptSet | null
+  /** This user's draft of the set, if any. */
+  draft: DraftOf<'concept-set'> | undefined
+  summaries: ConceptSetSummary[]
   tab: DetailTab
   view: ConceptsView
   breadcrumb: (current: string) => React.ReactNode
@@ -154,11 +190,14 @@ interface ConceptSetDetailProps {
 }
 
 function ConceptSetDetail({
-  conceptSet,
+  conceptSet: loaded,
   requestedVersion,
   versions,
   versionsLoading,
   currentVersion,
+  base,
+  draft,
+  summaries,
   tab,
   view,
   breadcrumb,
@@ -168,18 +207,34 @@ function ConceptSetDetail({
   const lang = useContentLanguage()
   const [historyOpen, setHistoryOpen] = useState(false)
   const [jsonOpen, setJsonOpen] = useState(false)
+  const pastVersion = requestedVersion !== undefined && currentVersion !== null && requestedVersion !== currentVersion
+  const editing = useConceptSetEditor((s) => s.id === loaded.id && s.working !== null)
+  const working = useConceptSetEditor((s) => s.working)
+  const stopEditing = useConceptSetEditor((s) => s.stop)
+  const dirty = useEditorDirty()
+  const { confirmIfDirty, dialog: unsavedDialog } = useUnsavedChangesGuard(editing && dirty, stopEditing)
+  // What the page shows: the working copy while editing, else this user's draft, else the repository's.
+  const conceptSet = pastVersion ? loaded : editing && working ? working : (draft?.content ?? loaded)
+  const published = [...new Set([...(versions ?? []).map((v) => v.version), ...(base?.metadata?.versions ?? []).map((v) => v.version)])]
+
+  // Leaving the set (another id, another page) ends its edit session.
+  useEffect(() => {
+    const id = loaded.id
+    return () => {
+      if (useConceptSetEditor.getState().id === id) useConceptSetEditor.getState().stop()
+    }
+  }, [loaded.id])
 
   const translations = conceptSet.metadata?.translations ?? {}
   const translation = Object.hasOwn(translations, lang) ? translations[lang] : undefined
   const name = translation?.name || ''
   const title = name || t('concept_sets.detail.untitled', { id: conceptSet.id })
   const organization = normalizeOrganization(conceptSet.metadata?.organization)
-  const pastVersion = requestedVersion !== undefined && currentVersion !== null && requestedVersion !== currentVersion
   const shownVersion = conceptSet.version
 
   const pickVersion = (v: VersionInfo) => {
-    setParam('version', v.isCurrent ? null : v.version)
     setHistoryOpen(false)
+    confirmIfDirty(() => setParam('version', v.isCurrent ? null : v.version))
   }
 
   const versionOptions = versions ?? [{ version: shownVersion, isCurrent: !pastVersion, commit: null, date: null, author: null, message: null }]
@@ -191,21 +246,26 @@ function ConceptSetDetail({
         title={<span className={name ? undefined : 'text-muted-foreground italic'}>{title}</span>}
         description={translation?.shortDescription || undefined}
         actions={
-          <>
-            {/* TODO(concept-sets-export): the Export menu (INDICATE JSON, ATLAS JSON, SQL) goes here.
-                TODO(concept-sets-edit): the Edit button goes here. */}
-            <Button variant="outline" onClick={() => setJsonOpen(true)}>
-              <Code size={14} />
-              {t('concept_sets.detail.view_json')}
-            </Button>
-          </>
+          <ConceptSetActions
+            shown={conceptSet}
+            base={base}
+            draft={draft}
+            pastVersion={pastVersion}
+            requestedVersion={requestedVersion}
+            lang={lang}
+            published={published}
+            summaries={summaries}
+            onViewJson={() => setJsonOpen(true)}
+            confirmIfDirty={confirmIfDirty}
+          />
         }
       />
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
         <StatusBadge status={conceptSet.metadata?.reviewStatus} />
+        {draft && !pastVersion && <DraftBadge />}
         <div className="flex items-center gap-1">
-          <Select value={shownVersion} onValueChange={(v) => {
+          <Select disabled={editing} value={shownVersion} onValueChange={(v) => {
             const picked = versionOptions.find((o) => o.version === v)
             if (picked) pickVersion(picked)
           }}>
@@ -285,6 +345,11 @@ function ConceptSetDetail({
           })}
         </TabsList>
         <TabsContent value="concepts" className="mt-4">
+          {/* TODO(vocabulary): in edit mode the expression editor (add concepts from the
+              vocabulary, exclude / descendants / mapped toggles with live resolution,
+              optimize) plugs in here, writing `expression.items` through
+              useConceptSetEditor().update. Until then the tab shows the working copy's
+              expression read-only, and the resolved list of the repository's version. */}
           <ConceptsTab
             conceptSet={conceptSet}
             version={pastVersion ? shownVersion : undefined}
@@ -293,14 +358,15 @@ function ConceptSetDetail({
           />
         </TabsContent>
         <TabsContent value="comments" className="mt-4">
-          <CommentsTab conceptSet={conceptSet} lang={lang} />
+          {editing ? <CommentsEditor initialLang={lang} /> : <CommentsTab conceptSet={conceptSet} lang={lang} />}
         </TabsContent>
         <TabsContent value="statistics" className="mt-4">
           <Suspense fallback={<Loader2 size={14} className="animate-spin text-muted-foreground" />}>
-            <StatisticsTab conceptSet={conceptSet} lang={lang} />
+            {editing ? <StatisticsEditor /> : <StatisticsTab conceptSet={conceptSet} lang={lang} />}
           </Suspense>
         </TabsContent>
         <TabsContent value="reviews" className="mt-4">
+          {!pastVersion && !editing && <AddReview conceptSet={conceptSet} base={base} draft={draft} />}
           <ReviewsTab conceptSet={conceptSet} />
         </TabsContent>
       </Tabs>
@@ -313,6 +379,25 @@ function ConceptSetDetail({
         onPick={pickVersion}
       />
       <JsonViewerDialog open={jsonOpen} onOpenChange={setJsonOpen} conceptSet={conceptSet} />
+      {unsavedDialog}
     </PageContainer>
+  )
+}
+
+/** "Local changes" (static) / "Draft" (server): the page shows this user's unsubmitted version. */
+function DraftBadge() {
+  const { t } = useTranslation()
+  const config = useInstanceConfig()
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Badge variant="outline" tabIndex={0} className="cursor-default border-primary/50 text-primary">
+          {isServerMode() ? t('drafts.badge_server') : t('drafts.badge')}
+        </Badge>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-xs">
+        {isServerMode() ? t('drafts.badge_hint') : t('drafts.badge_hint_static', { forge: forgeName(repositoryConfig(config)) })}
+      </TooltipContent>
+    </Tooltip>
   )
 }

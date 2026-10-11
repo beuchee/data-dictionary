@@ -34,9 +34,11 @@ export function MarkdownEditor({ value, onChange, height = '60vh', toolbarExtra,
   const [live, setLive] = useState(value)
   const previewRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  const [lastValue, setLastValue] = useState(value)
+  if (value !== lastValue) {
+    setLastValue(value)
     setLive(value)
-  }, [value])
+  }
 
   useEffect(() => {
     const preview = previewRef.current

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CheckCircle2, ExternalLink, GitCommitHorizontal, GitPullRequest, Loader2, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -74,15 +74,18 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
   const [error, setError] = useState<SubmitError | null>(null)
   const [result, setResult] = useState<SubmitResult | null>(null)
 
-  useEffect(() => {
-    if (!open || !draft) return
-    setMessage(defaultSubmitMessage(draft, { reviewsOnly }))
-    setMode(modes[0] ?? 'proposal')
-    setError(null)
-    setResult(null)
-    // Reset only when the dialog opens on a draft, not on every permission re-render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, draft?.id])
+  // Reset when the dialog opens on a draft, not on every permission re-render.
+  const openedOn = open && draft ? draft.id : null
+  const [lastOpened, setLastOpened] = useState<string | null>(null)
+  if (openedOn !== lastOpened) {
+    setLastOpened(openedOn)
+    if (draft && openedOn) {
+      setMessage(defaultSubmitMessage(draft, { reviewsOnly }))
+      setMode(modes[0] ?? 'proposal')
+      setError(null)
+      setResult(null)
+    }
+  }
 
   const submit = async () => {
     if (!draft || !message.trim() || !modes.includes(mode)) return
@@ -241,7 +244,7 @@ function ProposeDialog({ open, onOpenChange, draft, intro }: SubmitDialogProps) 
   const [manualCopy, setManualCopy] = useState(false)
   const [blocked, setBlocked] = useState(false)
 
-  const prepared = useMemo(() => {
+  const prepared = (() => {
     if (!draft || !open) return null
     const text = proposalText(draft, {
       toolTag: defaultToolTag(server?.appVersion),
@@ -253,14 +256,17 @@ function ProposeDialog({ open, onOpenChange, draft, intro }: SubmitDialogProps) 
     const isNew = isNewDraft(draft)
     const target = forgeFileUrl(repo, path, { isNew, content: text })
     return { text, path, isNew, target, steps: proposeSteps({ isNew, prefilled: target.prefilled }) }
-  }, [draft, open, server, name, repo])
+  })()
 
-  useEffect(() => {
+  // Reset when the dialog opens.
+  const [wasOpen, setWasOpen] = useState(false)
+  if (open !== wasOpen) {
+    setWasOpen(open)
     if (open) {
       setManualCopy(false)
       setBlocked(false)
     }
-  }, [open])
+  }
 
   const openForge = () => {
     if (!prepared) return

@@ -16,7 +16,7 @@ export const useLocalProfileStore = create<LocalProfileState>()(
         const next = { ...get().profile }
         for (const key of Object.keys(next) as (keyof typeof next)[]) {
           const value = changes[key]
-          if (typeof value === 'string') next[key] = value.trim()
+          if (typeof value === 'string') next[key] = value
         }
         set({ profile: next })
       },

@@ -31,3 +31,9 @@ export function parseDetailTab(raw: string | null): DetailTab {
 export function isReachable(v: { isCurrent: boolean; commit: string | null }): boolean {
   return v.isCurrent || v.commit !== null
 }
+
+/** This app's link to a set at a version, printed in SQL exports. */
+export function conceptSetPermalink(id: number, version: string | undefined): string {
+  const base = `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/?$/, '/')}`
+  return `${base}concept-sets/${id}${version ? `?version=${encodeURIComponent(version)}` : ''}`
+}

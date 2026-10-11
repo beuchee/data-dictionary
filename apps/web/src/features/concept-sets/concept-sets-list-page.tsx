@@ -1,7 +1,8 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
-import { Library, RotateCcw } from 'lucide-react'
+import { Download, Library, ListChecks, RotateCcw, Trash2 } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DataTable, type DataTableColumn } from '@/components/ui/data-table'
 import { DebouncedInput } from '@/components/ui/debounced-input'
@@ -12,10 +13,17 @@ import { PageContainer, PageHeader } from '@/components/ui/page-header'
 import { SearchInput } from '@/components/ui/search-input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FILTER_INPUT_CLASS } from '@/components/ui/table-primitives'
+import { isServerMode } from '@/lib/api-client'
+import { overlayConceptSetSummaries } from '@/lib/drafts/overlay'
+import { isNewDraft } from '@/lib/drafts/paths'
 import { cn } from '@/lib/utils'
 import { useCatalogStore } from '@/stores/catalog-store'
+import { useDraftsStore } from '@/stores/drafts-store'
+import { ConfirmDialog } from '@/features/drafts/confirm-dialog'
 import { REVIEW_STATUSES, type ReviewStatus } from '@data-dictionary/format'
 import { StatusBadge } from './components/badges'
+import { BulkExportDialog } from './editing/bulk-export-dialog'
+import { NewConceptSetButton } from './editing/new-concept-set-button'
 import {
   applyListFilters,
   categoryCounts,
@@ -38,17 +46,30 @@ export function ConceptSetsListPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const resource = useCatalogStore((s) => s.conceptSets)
   const loadConceptSets = useCatalogStore((s) => s.loadConceptSets)
+  const drafts = useDraftsStore((s) => s.drafts)
+  const hidden = useDraftsStore((s) => s.hidden['concept-set'])
+  const loadDrafts = useDraftsStore((s) => s.load)
+  const hide = useDraftsStore((s) => s.hide)
+  const discardDraft = useDraftsStore((s) => s.discard)
+  const [selecting, setSelecting] = useState(false)
+  const [selected, setSelected] = useState<Set<string | number>>(new Set())
+  const [exportOpen, setExportOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   useEffect(() => {
     void loadConceptSets()
-  }, [loadConceptSets])
+    void loadDrafts()
+  }, [loadConceptSets, loadDrafts])
 
   useEffect(() => {
     rememberListSearch(location.search)
   }, [location.search])
 
   const filters = useMemo(() => parseListFilters(searchParams), [searchParams])
-  const allRows = useMemo(() => (resource.data ?? []).map((s) => toRow(s, lang)), [resource.data, lang])
+  // This user's drafts over the catalog: edited sets show their draft, new ones are listed, locally deleted ones hidden.
+  const overlaid = useMemo(() => overlayConceptSetSummaries(resource.data ?? [], drafts, hidden), [resource.data, drafts, hidden])
+  const allRows = useMemo(() => overlaid.items.map((s) => toRow(s, lang)), [overlaid, lang])
+  const selectedIds = useMemo(() => new Set([...selected].map(Number)), [selected])
   const rows = useMemo(() => applyListFilters(allRows, filters), [allRows, filters])
   const categories = useMemo(() => categoryCounts(allRows), [allRows])
 
@@ -63,13 +84,67 @@ export function ConceptSetsListPage() {
     update({ categories: sortCategories(next) })
   }
 
-  const columns = useConceptSetColumns(allRows, filters, update)
+  const columns = useConceptSetColumns(allRows, filters, update, overlaid.draftIds)
+
+  // Static mode, as v1: a repository set is hidden in this browser, a set created here loses its draft.
+  const deleteSelected = async () => {
+    setDeleteOpen(false)
+    for (const id of selectedIds) {
+      const draft = drafts.find((d) => d.kind === 'concept-set' && (d.targetId ?? d.content.id) === id)
+      try {
+        if (draft) await discardDraft(draft.id)
+      } catch (e) {
+        console.error(`Could not discard the draft of concept set ${id}`, e)
+        continue
+      }
+      if (!draft || !isNewDraft(draft)) hide('concept-set', id)
+    }
+    setSelected(new Set())
+  }
 
   const loading = resource.status === 'idle' || (resource.status === 'loading' && !resource.data)
 
   return (
     <PageContainer width="wide">
-      <PageHeader title={t('concept_sets.title')} description={t('concept_sets.description')} />
+      <PageHeader
+        title={t('concept_sets.title')}
+        description={t('concept_sets.description')}
+        actions={
+          <>
+            {selecting && selected.size > 0 && !isServerMode() && (
+              <Button variant="outline" onClick={() => setDeleteOpen(true)}>
+                <Trash2 size={14} />
+                {t('concept_sets.list.delete_selected', { count: selected.size })}
+              </Button>
+            )}
+            <Button
+              variant={selecting ? 'secondary' : 'outline'}
+              aria-pressed={selecting}
+              onClick={() => {
+                setSelecting(!selecting)
+                setSelected(new Set())
+              }}
+            >
+              <ListChecks size={14} />
+              {selecting ? t('concept_sets.list.selecting', { count: selected.size }) : t('concept_sets.list.select')}
+            </Button>
+            <Button variant="outline" onClick={() => setExportOpen(true)} disabled={!resource.data}>
+              <Download size={14} />
+              {t('concept_sets.edit.export')}
+            </Button>
+            {resource.data && <NewConceptSetButton summaries={overlaid.items} />}
+          </>
+        }
+      />
+      <BulkExportDialog open={exportOpen} onOpenChange={setExportOpen} summaries={overlaid.items} selected={selectedIds} lang={lang} />
+      <ConfirmDialog
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        title={t('concept_sets.list.delete_title', { count: selected.size })}
+        description={t('concept_sets.list.delete_description')}
+        confirmLabel={t('concept_sets.edit.delete')}
+        onConfirm={() => void deleteSelected()}
+      />
 
       {resource.status === 'error' && (
         <NoticeBanner
@@ -134,7 +209,9 @@ export function ConceptSetsListPage() {
             data={rows}
             columns={columns}
             rowKey={(r) => r.id}
-            onRowClick={(r) => navigate(`/concept-sets/${r.id}`)}
+            onRowClick={selecting ? undefined : (r) => navigate(`/concept-sets/${r.id}`)}
+            selectedRowKeys={selecting ? selected : undefined}
+            onSelectedRowKeysChange={selecting ? setSelected : undefined}
             emptyMessage={t('concept_sets.list.no_match')}
             pageSize={50}
             viewKey="concept-sets-list"
@@ -149,6 +226,7 @@ function useConceptSetColumns(
   allRows: ConceptSetRow[],
   filters: ListFilters,
   update: (patch: Partial<ListFilters>) => void,
+  draftIds: ReadonlySet<number>,
 ): DataTableColumn<ConceptSetRow>[] {
   const { t } = useTranslation()
 
@@ -199,7 +277,16 @@ function useConceptSetColumns(
       header: t('concept_sets.columns.name'),
       accessor: (r) => r.name,
       size: 260,
-      cell: (r) => <span className="truncate font-medium">{r.name}</span>,
+      cell: (r) => (
+        <span className="flex min-w-0 items-center gap-1.5">
+          <span className="truncate font-medium">{r.name}</span>
+          {draftIds.has(r.id) && (
+            <Badge variant="outline" size="xs" className="shrink-0 border-primary/50 text-primary">
+              {isServerMode() ? t('drafts.badge_server') : t('drafts.badge')}
+            </Badge>
+          )}
+        </span>
+      ),
       tooltip: 'font-medium',
     },
     {

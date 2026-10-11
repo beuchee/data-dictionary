@@ -55,14 +55,14 @@ STCM_HEADER = (
     "target_vocabulary_id,valid_start_date,valid_end_date,invalid_reason,source_domain_id"
 )
 STCM_ROWS = [
-    'HR,2000000001,EHOP,Heart rate,3027018,LOINC,1970-01-01,2099-12-31,,Measurement',
+    "HR,2000000001,EHOP,Heart rate,3027018,LOINC,1970-01-01,2099-12-31,,Measurement",
     '"NA","2000000002","EHOP","Sodium [Moles/volume] in Serum, Plasma","3019550","LOINC",1970-01-01,2099-12-31,,Measurement',
     'TEMP,2000000003,EHOP,"Temp ""core""",0,,1970-01-01,2099-12-31,,Measurement',
-    'OLD,2000000004,EHOP,Deprecated code,3004249,LOINC,1970-01-01,2020-12-31,D,Measurement',
-    'SPO2,0,EHOP,Oxygen saturation,40762499,LOINC,1970-01-01,2099-12-31,,Measurement',
-    'BAD,2000000006,EHOP,Not an id,abc,LOINC,1970-01-01,2099-12-31,,Measurement',
-    ',,,,,,,,,',
-    'HUGE,2000000007,EHOP,Too large,9007199254740993,LOINC,1970-01-01,2099-12-31,,Measurement',
+    "OLD,2000000004,EHOP,Deprecated code,3004249,LOINC,1970-01-01,2020-12-31,D,Measurement",
+    "SPO2,0,EHOP,Oxygen saturation,40762499,LOINC,1970-01-01,2099-12-31,,Measurement",
+    "BAD,2000000006,EHOP,Not an id,abc,LOINC,1970-01-01,2099-12-31,,Measurement",
+    ",,,,,,,,,",
+    "HUGE,2000000007,EHOP,Too large,9007199254740993,LOINC,1970-01-01,2099-12-31,,Measurement",
 ]
 
 
@@ -73,7 +73,7 @@ def stcm() -> None:
         "﻿source_code;source_concept_id;source_vocabulary_id;source_code_description;target_concept_id;invalid_reason",
         "HR;2000000001;EHOP;Heart rate, bedside;3027018;",
         "PAS;2000000008;EHOP;Pression artérielle systolique;3004249;",
-        "NOTE;2000000009;EHOP;\"Multi\r\nline; quoted\";0;",
+        'NOTE;2000000009;EHOP;"Multi\r\nline; quoted";0;',
     ]
     write("stcm/stcm_semicolon_bom.csv", "\r\n".join(semicolon) + "\r\n")
     latin = "source_code,source_vocabulary_id,source_code_description,target_concept_id\nFC,EHOP,Fréquence cardiaque,3027018\n"
@@ -86,14 +86,57 @@ def stcm() -> None:
 # --- CONCEPT + CONCEPT_RELATIONSHIP (Linkr's C/CR export; ATHENA's tab layout in the ZIP) --
 
 CONCEPT_ROWS = [
-    ["concept_id", "concept_name", "domain_id", "vocabulary_id", "concept_class_id", "standard_concept",
-     "concept_code", "valid_start_date", "valid_end_date", "invalid_reason"],
-    ["2000000001", "Heart rate", "Measurement", "EHOP", "Clinical Observation", "", "HR", "1970-01-01", "2099-12-31", ""],
+    [
+        "concept_id",
+        "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "valid_start_date",
+        "valid_end_date",
+        "invalid_reason",
+    ],
+    [
+        "2000000001",
+        "Heart rate",
+        "Measurement",
+        "EHOP",
+        "Clinical Observation",
+        "",
+        "HR",
+        "1970-01-01",
+        "2099-12-31",
+        "",
+    ],
     ["2000000002", "Sodium, serum", "Measurement", "EHOP", "Lab Test", "", "NA", "1970-01-01", "2099-12-31", ""],
-    ["2000000003", "Ventilation mode", "Observation", "EHOP", "Observation", "", "VMODE", "1970-01-01", "2099-12-31", ""],
+    [
+        "2000000003",
+        "Ventilation mode",
+        "Observation",
+        "EHOP",
+        "Observation",
+        "",
+        "VMODE",
+        "1970-01-01",
+        "2099-12-31",
+        "",
+    ],
     ["2000000004", "Unmapped code", "Observation", "EHOP", "Observation", "", "FREE", "1970-01-01", "2099-12-31", ""],
     ["2000000005", "Retired code", "Observation", "EHOP", "Observation", "", "RET", "1970-01-01", "2020-12-31", "D"],
-    ["2000000006", "Only an invalid map", "Observation", "EHOP", "Observation", "", "INV", "1970-01-01", "2099-12-31", ""],
+    [
+        "2000000006",
+        "Only an invalid map",
+        "Observation",
+        "EHOP",
+        "Observation",
+        "",
+        "INV",
+        "1970-01-01",
+        "2099-12-31",
+        "",
+    ],
 ]
 RELATIONSHIP_ROWS = [
     ["concept_id_1", "concept_id_2", "relationship_id", "valid_start_date", "valid_end_date", "invalid_reason"],
@@ -172,13 +215,13 @@ USAGI_HEADER = (
     "statusSetBy,statusSetOn,conceptId,conceptName,domainId,mappingType,comment,createdBy,createdOn,assignedReviewer"
 )
 USAGI_ROWS = [
-    'HR,Heart rate,1520,,0.98,APPROVED,EQUAL,Boris,1767225600000,3027018,Heart rate,Measurement,MAPS_TO,,Boris,1767225600000,',
+    "HR,Heart rate,1520,,0.98,APPROVED,EQUAL,Boris,1767225600000,3027018,Heart rate,Measurement,MAPS_TO,,Boris,1767225600000,",
     'NA,"Sodium, serum",88,,0.7,UNCHECKED,EQUIVALENT,,0,3019550,Sodium,Measurement,MAPS_TO,,Boris,0,',
     'VMODE,"Mode ""VS-AI""\nventilation",12,,0,APPROVED,WIDER,Boris,0,4230167,Ventilation,Observation,MAPS_TO,,Boris,0,',
     'VMODE,"Mode ""VS-AI""\nventilation",12,,0,APPROVED,NARROWER,Boris,0,45878245,Pressure support,Observation,MAPS_TO_VALUE,,Boris,0,',
-    'FREE,Free text,<5,,0,APPROVED,UNMATCHED,Boris,0,0,,,,,Boris,0,',
-    'FLAG,Flagged one,3.5,,0,FLAGGED,INEXACT,Boris,0,3004249,SBP,Measurement,MAPS_TO,,Boris,0,',
-    'BIG,Too large,1,,0,APPROVED,EQUAL,,0,99999999999999999999,,,,,,0,',
+    "FREE,Free text,<5,,0,APPROVED,UNMATCHED,Boris,0,0,,,,,Boris,0,",
+    "FLAG,Flagged one,3.5,,0,FLAGGED,INEXACT,Boris,0,3004249,SBP,Measurement,MAPS_TO,,Boris,0,",
+    "BIG,Too large,1,,0,APPROVED,EQUAL,,0,99999999999999999999,,,,,,0,",
 ]
 
 

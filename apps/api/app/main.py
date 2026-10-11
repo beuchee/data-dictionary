@@ -13,6 +13,7 @@ from app.api.v1.routes.concept_sets import router as concept_sets_router
 from app.api.v1.routes.health import router as health_router
 from app.api.v1.routes.instance import router as instance_router
 from app.api.v1.routes.mapping_recommendations import router as mapping_recommendations_router
+from app.api.v1.routes.mappings import router as mappings_router
 from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
 from app.api.v1.routes.units import router as units_router
@@ -115,3 +116,4 @@ app.include_router(projects_router, prefix="/api/v1")
 app.include_router(units_router, prefix="/api/v1")
 app.include_router(mapping_recommendations_router, prefix="/api/v1")
 app.include_router(vocabulary_router, prefix="/api/v1")
+app.include_router(mappings_router, prefix="/api/v1")

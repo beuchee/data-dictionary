@@ -51,7 +51,7 @@ Concept sets are shared between separate dictionary repos (different organizatio
 - **`reviewStatus`** is exactly one of these snake_case slugs: `draft`, `pending_review`, `approved`, `needs_revision`, `deprecated`. Never the human label: a spaced value breaks the status filter and badge.
 - **Categories** come from `metadata.translations.{lang}.category` / `subcategory`. **Versioning** is semantic `version`. **Athena links**: `https://athena.ohdsi.org/search-terms/terms/{conceptId}`.
 - **IDs** are monotonic and never reused; increment `id_counters.json` when creating a file by hand (`build.py` corrects it if too low).
-- **Custom concepts** use the `customVocabulary` of `config.json` and ids from 2 000 000 000 upwards.
+- **Custom concepts** use the `customVocabulary` of `config.json` and ids from 2 100 000 000 upwards (v1 and `resolve.py` treat ids from that base as custom; a lower id would be looked up in the vocabulary).
 
 ## Recommended units (lab/biology)
 

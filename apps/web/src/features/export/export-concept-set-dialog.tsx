@@ -7,6 +7,7 @@ import { NoticeBanner } from '@/components/ui/notice-banner'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { conceptSetPermalink } from '@/features/concept-sets/lib/navigation'
 import { repositoryConfig, repositoryUrl } from '@/lib/data/forge'
 import {
   availableReferenceUnitIds,
@@ -68,12 +69,6 @@ const FORMATS: { id: ConceptSetExportFormat; labelKey: string; language: Preview
 ]
 
 // TODO(v2-routes): align with the concept set detail route once the page exists.
-function defaultPermalink(cs: ConceptSet): string {
-  const base = `${window.location.origin}${import.meta.env.BASE_URL}`
-  const version = cs.version ? `&version=${encodeURIComponent(cs.version)}` : ''
-  return `${base}concept-sets?id=${cs.id}${version}`
-}
-
 /**
  * Export of one concept set as INDICATE JSON (the repository file), ATLAS JSON
  * (expression only) or OMOP SQL (reference unit picker, unit conversions,
@@ -164,7 +159,7 @@ export function ExportConceptSetDialog({
       dropOtherUnits,
       unitLabels: unitLabelsFromOptions(unitOptions),
       lang: contentLang,
-      permalink: permalink ?? defaultPermalink(conceptSet),
+      permalink: permalink ?? conceptSetPermalink(conceptSet.id, conceptSet.version),
       toolTag: tag,
       date,
     })

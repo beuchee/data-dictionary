@@ -1,5 +1,153 @@
 {
   "title": "Concept sets",
   "description": "Governed OHDSI concept sets, reviewed and versioned.",
-  "empty": "The concept set catalog will appear here."
+  "retry": "Retry",
+  "status": {
+    "draft": "Draft",
+    "pending_review": "Pending review",
+    "approved": "Approved",
+    "needs_revision": "Needs revision",
+    "deprecated": "Deprecated"
+  },
+  "standard": {
+    "standard": "Standard",
+    "classification": "Classification",
+    "non_standard": "Non-standard"
+  },
+  "columns": {
+    "id": "ID",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "name": "Name",
+    "description": "Description",
+    "version": "Version",
+    "status": "Status",
+    "items": "Items",
+    "resolved": "Resolved",
+    "organization": "Organization",
+    "modified": "Modified"
+  },
+  "list": {
+    "search_placeholder": "Search concept sets by name or ID...",
+    "load_error": "The concept sets could not be loaded",
+    "empty_title": "No concept sets yet",
+    "empty_description": "This dictionary does not hold any concept set.",
+    "no_match": "No concept set matches these filters"
+  },
+  "tabs": {
+    "concepts": "Concepts",
+    "comments": "Comments",
+    "statistics": "Statistics",
+    "reviews": "Reviews"
+  },
+  "detail": {
+    "breadcrumb": "Breadcrumb",
+    "untitled": "Concept set #{{id}} (no name in this language)",
+    "not_found": "Concept set {{id}} does not exist",
+    "version_not_found": "Version {{version}} of this concept set cannot be found",
+    "back_to_list": "Back to the concept sets",
+    "load_error": "This concept set could not be loaded",
+    "view_json": "View JSON",
+    "view_current": "View the current version",
+    "organization": "Maintained by",
+    "created_by_org": "created by {{name}}",
+    "created": "Created by {{who}} on {{date}}",
+    "modified": "Modified by {{who}} on {{date}}",
+    "past_version_title": "You are viewing version {{version}}, which is not the current one",
+    "past_version_description": "The current version is {{current}}."
+  },
+  "versions": {
+    "title": "Version history",
+    "description": "Every published version of this concept set. Pick one to view it.",
+    "current": "current",
+    "shown": "shown",
+    "unavailable": "not snapshotted",
+    "date": "Date",
+    "author": "Author",
+    "message": "Message",
+    "commit": "Commit",
+    "empty": "No version recorded"
+  },
+  "json": {
+    "title": "Concept set {{id}}, version {{version}}"
+  },
+  "concepts": {
+    "view": "Concept view",
+    "resolved": "Resolved",
+    "expression": "Expression",
+    "exclude": "Exclude",
+    "descendants": "Descendants",
+    "mapped": "Mapped",
+    "yes": "Yes",
+    "expression_empty": "The expression holds no concept",
+    "resolved_search": "Search by ID, name, code or vocabulary...",
+    "resolved_error": "The resolved concepts could not be loaded",
+    "resolved_missing_title": "No resolved list",
+    "resolved_missing_description": "This concept set has not been resolved against the OHDSI vocabularies yet.",
+    "resolved_empty": "The resolved list is empty",
+    "resolved_no_match": "No resolved concept matches this search",
+    "vocabulary_release": "Vocabulary release: {{release}}"
+  },
+  "concept": {
+    "title": "Concept details",
+    "name": "Concept name",
+    "id": "Concept ID",
+    "vocabulary": "Vocabulary",
+    "code": "Concept code",
+    "domain": "Domain",
+    "class": "Concept class",
+    "standard": "Standard",
+    "validity": "Validity",
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "invalid_reason": "Invalid ({{reason}})",
+    "valid_dates": "Valid from / to",
+    "fhir": "FHIR resource",
+    "no_link": "No link available",
+    "no_link_custom": "No link available (custom concept)",
+    "open_athena": "Open in Athena",
+    "vocabulary_section": "Vocabulary"
+  },
+  "comments": {
+    "empty_title": "No comments in this language",
+    "empty_description": "The expert commentary of this concept set has not been written in this language yet."
+  },
+  "statistics": {
+    "empty_title": "No distribution statistics",
+    "empty_description": "No distribution statistics are available for this concept set.",
+    "profile": "Profile",
+    "profile_n": "Profile {{n}}",
+    "profile_empty": "This profile holds no statistics",
+    "typical_interval": "Typical interval:",
+    "missing_rate": "Missing rate:",
+    "numeric_summary": "Numeric summary",
+    "distribution": "Distribution",
+    "categories": "Categories",
+    "value": "Value",
+    "count": "Count",
+    "percent": "Percent",
+    "numeric": {
+      "min": "Min",
+      "p5": "P5",
+      "p25": "P25 (Q1)",
+      "median": "Median",
+      "mean": "Mean",
+      "p75": "P75 (Q3)",
+      "p95": "P95",
+      "max": "Max",
+      "sd": "SD",
+      "cv": "CV"
+    }
+  },
+  "reviews": {
+    "reviewer": "Reviewer",
+    "affiliation": "Affiliation",
+    "date": "Date",
+    "comments": "Comments",
+    "comment_only": "Comment",
+    "dialog_title": "Review by {{reviewer}}",
+    "no_comment": "No comment.",
+    "empty_title": "No reviews yet",
+    "empty_description": "Nobody has reviewed this concept set yet."
+  }
 }

@@ -13,6 +13,10 @@ const lazyPage = <K extends string>(load: () => Promise<Record<K, React.Componen
   lazy(() => load().then((m) => ({ default: m[name] })))
 
 const ConceptSetsPage = lazyPage(() => import('@/pages/concept-sets-page'), 'ConceptSetsPage')
+const ConceptSetDetailPage = lazyPage(
+  () => import('@/features/concept-sets/concept-set-detail-page'),
+  'ConceptSetDetailPage',
+)
 const ProjectsPage = lazyPage(() => import('@/features/projects/projects-page'), 'ProjectsPage')
 const ProjectDetailPage = lazyPage(() => import('@/features/projects/project-detail-page'), 'ProjectDetailPage')
 const MappingPage = lazyPage(() => import('@/features/mapping/mapping-page'), 'MappingPage')
@@ -71,6 +75,7 @@ function Shell() {
             <Routes>
               <Route path="/" element={<Navigate to="/concept-sets" replace />} />
               <Route path="/concept-sets" element={<ConceptSetsPage />} />
+              <Route path="/concept-sets/:id" element={<ConceptSetDetailPage />} />
               {showProjects && <Route path="/projects" element={<ProjectsPage />} />}
               {showProjects && <Route path="/projects/:id" element={<ProjectDetailPage />} />}
               {showMapping && <Route path="/mapping" element={<MappingPage />} />}

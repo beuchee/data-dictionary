@@ -382,6 +382,156 @@
       }
     },
     {
+      "builder": "conceptsByIds",
+      "input": {
+        "ids": [
+          300,
+          103,
+          120
+        ]
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE c.concept_id IN (103, 120, 300) ORDER BY c.concept_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantPairs",
+      "input": {
+        "ancestorIds": [
+          102,
+          110
+        ],
+        "mode": "closure"
+      },
+      "output": {
+        "sql": "SELECT DISTINCT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id FROM concept_ancestor ca WHERE ca.ancestor_concept_id IN (102, 110) AND ca.descendant_concept_id <> ca.ancestor_concept_id ORDER BY ancestor_id, descendant_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantPairs",
+      "input": {
+        "ancestorIds": [
+          102,
+          110
+        ],
+        "mode": "edges"
+      },
+      "output": {
+        "sql": "WITH RECURSIVE d(ancestor_id, descendant_id) AS (SELECT ca.ancestor_concept_id, ca.descendant_concept_id FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN (102, 110) UNION SELECT d.ancestor_id, ca.descendant_concept_id FROM concept_ancestor ca JOIN d ON ca.ancestor_concept_id = d.descendant_id WHERE ca.min_levels_of_separation = 1) SELECT DISTINCT ancestor_id, descendant_id FROM d WHERE descendant_id <> ancestor_id ORDER BY ancestor_id, descendant_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantPairs",
+      "input": {
+        "ancestorIds": [
+          101,
+          103
+        ],
+        "mode": "edges",
+        "withinIds": [
+          104,
+          106,
+          109,
+          111
+        ]
+      },
+      "output": {
+        "sql": "WITH RECURSIVE d(ancestor_id, descendant_id) AS (SELECT ca.ancestor_concept_id, ca.descendant_concept_id FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN (101, 103) UNION SELECT d.ancestor_id, ca.descendant_concept_id FROM concept_ancestor ca JOIN d ON ca.ancestor_concept_id = d.descendant_id WHERE ca.min_levels_of_separation = 1) SELECT DISTINCT ancestor_id, descendant_id FROM d WHERE descendant_id <> ancestor_id AND descendant_id IN (104, 106, 109, 111) ORDER BY ancestor_id, descendant_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantPairs",
+      "input": {
+        "ancestorIds": [
+          101,
+          103
+        ],
+        "mode": "closure",
+        "withinIds": [
+          104,
+          106,
+          109,
+          111
+        ]
+      },
+      "output": {
+        "sql": "SELECT DISTINCT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id FROM concept_ancestor ca WHERE ca.ancestor_concept_id IN (101, 103) AND ca.descendant_concept_id <> ca.ancestor_concept_id AND ca.descendant_concept_id IN (104, 106, 109, 111) ORDER BY ancestor_id, descendant_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "ancestorCandidates",
+      "input": {
+        "ids": [
+          104,
+          105,
+          107,
+          109
+        ],
+        "mode": "edges"
+      },
+      "output": {
+        "sql": "WITH RECURSIVE anc(ancestor_id, descendant_id, depth) AS (SELECT ca.ancestor_concept_id, ca.descendant_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id IN (104, 105, 107, 109) UNION SELECT ca.ancestor_concept_id, anc.descendant_id, anc.depth + 1 FROM concept_ancestor ca JOIN anc ON ca.descendant_concept_id = anc.ancestor_id WHERE ca.min_levels_of_separation = 1 AND anc.depth < 5) SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth FROM anc a JOIN concept c ON c.concept_id = a.ancestor_id WHERE a.ancestor_id NOT IN (104, 105, 107, 109) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT 30",
+        "params": []
+      }
+    },
+    {
+      "builder": "ancestorCandidates",
+      "input": {
+        "ids": [
+          104,
+          105,
+          107,
+          109
+        ],
+        "mode": "closure"
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth FROM (SELECT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id, ca.min_levels_of_separation AS depth FROM concept_ancestor ca WHERE ca.descendant_concept_id IN (104, 105, 107, 109) AND ca.min_levels_of_separation BETWEEN 1 AND 5) a JOIN concept c ON c.concept_id = a.ancestor_id WHERE a.ancestor_id NOT IN (104, 105, 107, 109) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT 30",
+        "params": []
+      }
+    },
+    {
+      "builder": "ancestorCandidates",
+      "input": {
+        "ids": [
+          300,
+          301,
+          302,
+          106
+        ],
+        "mode": "edges",
+        "maxDepth": 2,
+        "limit": 3
+      },
+      "output": {
+        "sql": "WITH RECURSIVE anc(ancestor_id, descendant_id, depth) AS (SELECT ca.ancestor_concept_id, ca.descendant_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id IN (106, 300, 301, 302) UNION SELECT ca.ancestor_concept_id, anc.descendant_id, anc.depth + 1 FROM concept_ancestor ca JOIN anc ON ca.descendant_concept_id = anc.ancestor_id WHERE ca.min_levels_of_separation = 1 AND anc.depth < 2) SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth FROM anc a JOIN concept c ON c.concept_id = a.ancestor_id WHERE a.ancestor_id NOT IN (106, 300, 301, 302) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT 3",
+        "params": []
+      }
+    },
+    {
+      "builder": "ancestorCandidates",
+      "input": {
+        "ids": [
+          300,
+          301,
+          302,
+          106
+        ],
+        "mode": "closure",
+        "maxDepth": 2,
+        "limit": 3
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth FROM (SELECT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id, ca.min_levels_of_separation AS depth FROM concept_ancestor ca WHERE ca.descendant_concept_id IN (106, 300, 301, 302) AND ca.min_levels_of_separation BETWEEN 1 AND 2) a JOIN concept c ON c.concept_id = a.ancestor_id WHERE a.ancestor_id NOT IN (106, 300, 301, 302) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT 3",
+        "params": []
+      }
+    },
+    {
       "builder": "vocabularyVersions",
       "input": {},
       "output": {
@@ -474,6 +624,32 @@
         "ids": [
           1e+300
         ]
+      }
+    },
+    {
+      "builder": "conceptsByIds",
+      "input": {
+        "ids": []
+      }
+    },
+    {
+      "builder": "descendantPairs",
+      "input": {
+        "ancestorIds": [
+          1
+        ],
+        "mode": "edges",
+        "withinIds": []
+      }
+    },
+    {
+      "builder": "ancestorCandidates",
+      "input": {
+        "ids": [
+          1
+        ],
+        "mode": "edges",
+        "maxDepth": "5; DROP TABLE concept"
       }
     },
     {

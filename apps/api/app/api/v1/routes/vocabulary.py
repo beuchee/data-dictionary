@@ -263,6 +263,69 @@ def resolve_expression(body: ResolveRequest, _user=Depends(_read)):
     return json_response(_run(run))
 
 
+# --- Expression editing (web: features/concept-sets/lib/optimize.ts) ------------------------
+
+IdList = Annotated[list[StrictConceptId], Field(max_length=10_000)]
+
+
+class IdsRequest(BaseModel):
+    ids: IdList
+
+
+class DescendantPairsRequest(BaseModel):
+    ancestorIds: Annotated[list[StrictConceptId], Field(max_length=1_000)]  # noqa: N815
+    withinIds: IdList | None = None  # noqa: N815
+
+
+class AncestorCandidatesRequest(BaseModel):
+    ids: IdList
+    maxDepth: int = Field(5, ge=1, le=q.ANCESTOR_CANDIDATE_MAX_DEPTH)  # noqa: N815
+    limit: int = Field(30, ge=1, le=q.ANCESTOR_CANDIDATE_MAX_LIMIT)
+
+
+@router.post("/concepts/batch")
+def get_concepts(body: IdsRequest, _user=Depends(_read)):
+    """Full rows of the concepts the vocabulary holds among `ids`, by id."""
+    if not body.ids:
+        return json_response([])
+    rows = _run(lambda cursor: _rows(cursor, q.concepts_by_ids(body.ids)))
+    return json_response([q.concept_from_row(r) for r in rows])
+
+
+@router.post("/descendant-pairs")
+def get_descendant_pairs(body: DescendantPairsRequest, _user=Depends(_read)):
+    """`[{ancestorId, descendantId}]`: every descendant of each ancestor (never
+    itself), kept to `withinIds` when given."""
+    if not body.ancestorIds or (body.withinIds is not None and not body.withinIds):
+        return json_response([])
+    rows = _run(lambda cursor: _rows(cursor, q.descendant_pairs(body.ancestorIds, MODE, body.withinIds)))
+    return json_response([{"ancestorId": int(r["ancestor_id"]), "descendantId": int(r["descendant_id"])} for r in rows])
+
+
+@router.post("/mapped-ids")
+def get_mapped_ids(body: IdsRequest, _user=Depends(_read)):
+    """What `ids` map to or from (`Maps to` / `Mapped from`)."""
+    if not body.ids:
+        return json_response([])
+    rows = _run(lambda cursor: _rows(cursor, q.mapped_ids(body.ids)))
+    return json_response(sorted(int(r["concept_id"]) for r in rows))
+
+
+@router.post("/ancestor-candidates")
+def get_ancestor_candidates(body: AncestorCandidatesRequest, _user=Depends(_read)):
+    """Valid ancestors shared by at least two of `ids`, with `coveredCount` and
+    `minDepth`, most covering first."""
+    if not body.ids:
+        return json_response([])
+    rows = _run(lambda cursor: _rows(cursor, q.ancestor_candidates(body.ids, MODE, body.maxDepth, body.limit)))
+    return json_response(
+        [
+            {**q.concept_from_row(r), "coveredCount": int(r["covered_count"]), "minDepth": int(r["min_depth"])}
+            for r in rows
+        ]
+    )
+
+
 # --- Administration ---------------------------------------------------------------------------
 
 

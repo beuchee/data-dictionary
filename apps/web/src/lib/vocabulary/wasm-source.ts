@@ -1,13 +1,16 @@
 import type { ExpressionItem } from '@data-dictionary/format'
 import { resolveItems, sqlLookup, stampVersion, versionFromRows } from './resolver'
-import { conceptFromRow, nodeFromRow, num, relatedFromRow, synonymFromRow, type Row } from './rows'
+import { candidateFromRow, conceptFromRow, nodeFromRow, num, relatedFromRow, synonymFromRow, type Row } from './rows'
 import * as sql from './sql'
 import {
   VocabularyUnavailableError,
+  type AncestorCandidate,
+  type AncestorCandidateQuery,
   type ConceptHierarchy,
   type ConceptSearchPage,
   type ConceptSearchQuery,
   type ConceptSynonym,
+  type DescendantPair,
   type FilterOptions,
   type HierarchyQuery,
   type OmopConcept,
@@ -113,6 +116,29 @@ export class WasmVocabularySource implements VocabularySource {
 
   async getSynonyms(conceptId: number): Promise<ConceptSynonym[]> {
     return (await this.run(sql.synonyms(conceptId))).map(synonymFromRow)
+  }
+
+  async getConcepts(ids: readonly number[]): Promise<OmopConcept[]> {
+    if (!ids.length) return []
+    return (await this.run(sql.conceptsByIds(ids))).map(conceptFromRow)
+  }
+
+  async getDescendantPairs(ancestorIds: readonly number[], withinIds: readonly number[] | null = null): Promise<DescendantPair[]> {
+    if (!ancestorIds.length || (withinIds && !withinIds.length)) return []
+    return (await this.run(sql.descendantPairs(ancestorIds, MODE, withinIds))).map((r) => ({
+      ancestorId: num(r.ancestor_id),
+      descendantId: num(r.descendant_id),
+    }))
+  }
+
+  async getMappedIds(ids: readonly number[]): Promise<number[]> {
+    if (!ids.length) return []
+    return (await this.run(sql.mappedIds(ids))).map((r) => num(r.concept_id))
+  }
+
+  async getAncestorCandidates(ids: readonly number[], query: AncestorCandidateQuery = {}): Promise<AncestorCandidate[]> {
+    if (!ids.length) return []
+    return (await this.run(sql.ancestorCandidates(ids, MODE, query.maxDepth ?? 5, query.limit ?? 30))).map(candidateFromRow)
   }
 
   async resolve(items: readonly ExpressionItem[], conceptSetId: number | null = null): Promise<ResolveResult> {

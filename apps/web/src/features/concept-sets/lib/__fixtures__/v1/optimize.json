@@ -1,0 +1,1368 @@
+[
+  {
+    "name": "empty expression",
+    "items": [],
+    "topDown": {
+      "items": [],
+      "changes": []
+    },
+    "result": {
+      "items": [],
+      "changes": []
+    },
+    "before": [],
+    "after": []
+  },
+  {
+    "name": "one item",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "before": [
+      103,
+      104,
+      105,
+      106
+    ],
+    "after": [
+      103,
+      104,
+      105,
+      106
+    ]
+  },
+  {
+    "name": "descendants already covered (top-down)",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 106,
+          "conceptName": "Concept 106"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 106",
+          "id": 106,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ]
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 106",
+          "id": 106,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      103,
+      104,
+      105,
+      106
+    ],
+    "after": [
+      103,
+      104,
+      105,
+      106
+    ]
+  },
+  {
+    "name": "covered on the excluded side",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 102,
+          "conceptName": "Concept 102"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 102,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 103,
+          "isExcluded": true,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 102,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 103,
+          "isExcluded": true,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      102,
+      107,
+      108,
+      109
+    ],
+    "after": [
+      102,
+      107,
+      108,
+      109
+    ]
+  },
+  {
+    "name": "a mapping child is kept under a non-mapping parent",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        }
+      ],
+      "changes": []
+    },
+    "before": [
+      103,
+      104,
+      105,
+      106,
+      200
+    ],
+    "after": [
+      103,
+      104,
+      105,
+      106,
+      200
+    ]
+  },
+  {
+    "name": "a mapping child goes under a mapping parent",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": true
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        }
+      ]
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": true
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 104",
+          "id": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        }
+      ]
+    },
+    "before": [
+      103,
+      104,
+      105,
+      106,
+      120,
+      200
+    ],
+    "after": [
+      103,
+      104,
+      105,
+      106,
+      120
+    ]
+  },
+  {
+    "name": "siblings without a gain (parent plus its own exclusion)",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 105,
+          "conceptName": "Concept 105"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 105,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 105,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "before": [
+      104,
+      105
+    ],
+    "after": [
+      104,
+      105
+    ]
+  },
+  {
+    "name": "three LOINC tests under their group",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 300,
+          "conceptName": "Concept 300"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 301,
+          "conceptName": "Concept 301"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 302,
+          "conceptName": "Concept 302"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 300",
+          "id": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 301",
+          "id": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 302",
+          "id": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      300,
+      301,
+      302
+    ],
+    "after": [
+      300,
+      301,
+      302
+    ]
+  },
+  {
+    "name": "three branches under one parent",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": "Concept 103"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 107,
+          "conceptName": "Concept 107"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 109,
+          "conceptName": "Concept 109"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 107,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 109,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 102,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 102,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 103",
+          "id": 103,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 107",
+          "id": 107,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 109",
+          "id": 109,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Heart disease",
+          "id": 102,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Heart disease",
+          "id": 102,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "after": [
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ]
+  },
+  {
+    "name": "both steps",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 107,
+          "conceptName": "Concept 107"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 108,
+          "conceptName": "Concept 108"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 300,
+          "conceptName": "Concept 300"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 301,
+          "conceptName": "Concept 301"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 302,
+          "conceptName": "Concept 302"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 107,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 108",
+          "id": 108,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 107,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 108",
+          "id": 108,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 300",
+          "id": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 301",
+          "id": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 302",
+          "id": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      107,
+      108,
+      300,
+      301,
+      302
+    ],
+    "after": [
+      107,
+      108,
+      300,
+      301,
+      302
+    ]
+  },
+  {
+    "name": "parent covering some, with an exclusion kept",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 300,
+          "conceptName": "Concept 300"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 301,
+          "conceptName": "Concept 301"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 302,
+          "conceptName": "Concept 302"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 105,
+          "conceptName": "Concept 105"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 105,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 105,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 300",
+          "id": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 301",
+          "id": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 302",
+          "id": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      300,
+      301,
+      302
+    ],
+    "after": [
+      300,
+      301,
+      302
+    ]
+  },
+  {
+    "name": "an unknown id is kept",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 999999,
+          "conceptName": "Concept 999999"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 300,
+          "conceptName": "Concept 300"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 301,
+          "conceptName": "Concept 301"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 302,
+          "conceptName": "Concept 302"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 999999,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 999999,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": [
+        {
+          "action": "removed",
+          "name": "Concept 300",
+          "id": 300,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 301",
+          "id": 301,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "removed",
+          "name": "Concept 302",
+          "id": 302,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": false,
+          "includeDescendants": true,
+          "includeMapped": false
+        },
+        {
+          "action": "added",
+          "name": "Vital signs",
+          "id": 310,
+          "isExcluded": true,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ]
+    },
+    "before": [
+      300,
+      301,
+      302,
+      999999
+    ],
+    "after": [
+      300,
+      301,
+      302,
+      999999
+    ]
+  },
+  {
+    "name": "drug products",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 401,
+          "conceptName": "Concept 401"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 402,
+          "conceptName": "Concept 402"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 401,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 402,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 401,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 402,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "before": [
+      401,
+      402
+    ],
+    "after": [
+      401,
+      402
+    ]
+  },
+  {
+    "name": "mapped items",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 200,
+          "conceptName": "Concept 200"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 201,
+          "conceptName": "Concept 201"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": "Concept 104"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 107,
+          "conceptName": "Concept 107"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "topDown": {
+      "items": [
+        {
+          "conceptId": 200,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        },
+        {
+          "conceptId": 201,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        },
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 107,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "result": {
+      "items": [
+        {
+          "conceptId": 200,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        },
+        {
+          "conceptId": 201,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": true
+        },
+        {
+          "conceptId": 104,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        },
+        {
+          "conceptId": 107,
+          "isExcluded": false,
+          "includeDescendants": false,
+          "includeMapped": false
+        }
+      ],
+      "changes": []
+    },
+    "before": [
+      104,
+      107,
+      200,
+      201
+    ],
+    "after": [
+      104,
+      107,
+      200,
+      201
+    ]
+  }
+]

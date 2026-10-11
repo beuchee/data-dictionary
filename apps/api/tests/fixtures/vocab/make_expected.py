@@ -124,6 +124,15 @@ GOLDEN_INPUTS = [
     ("descendantIds", {"ids": [102, 110], "mode": "edges"}),
     ("mappedIds", {"ids": [200, 104]}),
     ("resolvedDetails", {"ids": [300, 103]}),
+    ("conceptsByIds", {"ids": [300, 103, 120]}),
+    ("descendantPairs", {"ancestorIds": [102, 110], "mode": "closure"}),
+    ("descendantPairs", {"ancestorIds": [102, 110], "mode": "edges"}),
+    ("descendantPairs", {"ancestorIds": [101, 103], "mode": "edges", "withinIds": [104, 106, 109, 111]}),
+    ("descendantPairs", {"ancestorIds": [101, 103], "mode": "closure", "withinIds": [104, 106, 109, 111]}),
+    ("ancestorCandidates", {"ids": [104, 105, 107, 109], "mode": "edges"}),
+    ("ancestorCandidates", {"ids": [104, 105, 107, 109], "mode": "closure"}),
+    ("ancestorCandidates", {"ids": [300, 301, 302, 106], "mode": "edges", "maxDepth": 2, "limit": 3}),
+    ("ancestorCandidates", {"ids": [300, 301, 302, 106], "mode": "closure", "maxDepth": 2, "limit": 3}),
     ("vocabularyVersions", {}),
     ("filterOptions", {"column": "domain_id"}),
 ]
@@ -140,6 +149,9 @@ REJECTS = [
     ("descendantIds", {"ids": [1], "mode": "closure; DROP TABLE concept"}),
     ("hierarchyNodes", {"conceptId": 1, "mode": "tree"}),
     ("mappedIds", {"ids": [1e300]}),
+    ("conceptsByIds", {"ids": []}),
+    ("descendantPairs", {"ancestorIds": [1], "mode": "edges", "withinIds": []}),
+    ("ancestorCandidates", {"ids": [1], "mode": "edges", "maxDepth": "5; DROP TABLE concept"}),
     ("conceptSearch", {"standard": ["S", "X' OR '1'='1"]}),
     ("conceptSearch", {"limit": "10; DROP TABLE concept"}),
     ("filterOptions", {"column": "concept_name FROM concept; DROP TABLE concept; --"}),
@@ -171,6 +183,11 @@ def call(builder: str, args: dict):
         "descendantIds": lambda a: q.descendant_ids(a["ids"], a["mode"]),
         "mappedIds": lambda a: q.mapped_ids(a["ids"]),
         "resolvedDetails": lambda a: q.resolved_details(a["ids"]),
+        "conceptsByIds": lambda a: q.concepts_by_ids(a["ids"]),
+        "descendantPairs": lambda a: q.descendant_pairs(a["ancestorIds"], a["mode"], a.get("withinIds")),
+        "ancestorCandidates": lambda a: q.ancestor_candidates(
+            a["ids"], a["mode"], a.get("maxDepth", 5), a.get("limit", 30)
+        ),
         "vocabularyVersions": lambda a: q.vocabulary_versions(),
         "filterOptions": lambda a: q.filter_options(a["column"]),
     }

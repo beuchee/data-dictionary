@@ -24,6 +24,10 @@ const BUILDERS: Record<string, (a: Input) => unknown> = {
   descendantIds: (a) => sql.descendantIds(a.ids as unknown[], a.mode as sql.HierarchyMode),
   mappedIds: (a) => sql.mappedIds(a.ids as unknown[]),
   resolvedDetails: (a) => sql.resolvedDetails(a.ids as unknown[]),
+  conceptsByIds: (a) => sql.conceptsByIds(a.ids as unknown[]),
+  descendantPairs: (a) =>
+    sql.descendantPairs(a.ancestorIds as unknown[], a.mode as sql.HierarchyMode, (a.withinIds as unknown[] | undefined) ?? null),
+  ancestorCandidates: (a) => sql.ancestorCandidates(a.ids as unknown[], a.mode as sql.HierarchyMode, a.maxDepth ?? 5, a.limit ?? 30),
   vocabularyVersions: () => sql.vocabularyVersions(),
   filterOptions: (a) => sql.filterOptions(a.column),
 }

@@ -304,3 +304,37 @@ async def test_resolve_route_matches_resolve_py(loaded, case):
 async def test_resolve_refuses_non_integer_ids(loaded, concept_id):
     body = {"expression": {"items": [{"concept": {"conceptId": concept_id}, "includeDescendants": True}]}}
     assert (await loaded.post(f"{V}/resolve", json=body)).status_code == 422
+
+
+# --- Expression editing ---------------------------------------------------------------------------
+
+
+async def test_expression_editing_lookups(loaded):
+    r = await loaded.post(f"{V}/concepts/batch", json={"ids": [300, 103, 999999]})
+    assert r.status_code == 200
+    assert [c["conceptId"] for c in r.json()] == [103, 300]
+    assert r.json()[0]["validStartDate"]
+
+    r = await loaded.post(f"{V}/descendant-pairs", json={"ancestorIds": [103], "withinIds": [104, 106, 300]})
+    assert r.json() == [{"ancestorId": 103, "descendantId": 104}, {"ancestorId": 103, "descendantId": 106}]
+    r = await loaded.post(f"{V}/descendant-pairs", json={"ancestorIds": [107]})
+    assert r.json() == [{"ancestorId": 107, "descendantId": 108}]
+
+    assert (await loaded.post(f"{V}/mapped-ids", json={"ids": [200]})).json() == [104]
+
+    r = await loaded.post(f"{V}/ancestor-candidates", json={"ids": [300, 301, 302]})
+    assert [(c["conceptId"], c["coveredCount"], c["minDepth"]) for c in r.json()] == [(310, 3, 1)]
+
+    for path, body in (
+        ("/concepts/batch", {"ids": []}),
+        ("/descendant-pairs", {"ancestorIds": [103], "withinIds": []}),
+        ("/mapped-ids", {"ids": []}),
+        ("/ancestor-candidates", {"ids": []}),
+    ):
+        assert (await loaded.post(f"{V}{path}", json=body)).json() == []
+
+
+@pytest.mark.parametrize("bad", ["1", 1.5, -1, True])
+async def test_expression_editing_lookups_refuse_non_integer_ids(loaded, bad):
+    assert (await loaded.post(f"{V}/concepts/batch", json={"ids": [bad]})).status_code == 422
+    assert (await loaded.post(f"{V}/ancestor-candidates", json={"ids": [1, bad]})).status_code == 422

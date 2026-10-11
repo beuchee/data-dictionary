@@ -309,6 +309,91 @@ export function resolvedDetails(ids: Iterable<unknown>): SqlQuery {
   }
 }
 
+// --- Expression optimization (features/concept-sets/lib/optimize.ts) -----------------
+
+export const ANCESTOR_CANDIDATE_MAX_DEPTH = 10
+export const ANCESTOR_CANDIDATE_MAX_LIMIT = 200
+
+/** Full rows of the given concepts, by id. */
+export function conceptsByIds(ids: Iterable<unknown>): SqlQuery {
+  return { sql: `SELECT ${CONCEPT_COLUMNS} FROM concept c WHERE c.concept_id IN (${idList(ids)}) ORDER BY c.concept_id`, params: [] }
+}
+
+/**
+ * (ancestor, descendant) pairs: every descendant of each of `ancestorIds`
+ * (never itself), kept to `withinIds` when given.
+ */
+export function descendantPairs(ancestorIds: Iterable<unknown>, mode: HierarchyMode, withinIds: Iterable<unknown> | null = null): SqlQuery {
+  const list = idList(ancestorIds)
+  const within = withinIds === null ? null : idList(withinIds)
+  if (mode === 'closure') {
+    return {
+      sql:
+        'SELECT DISTINCT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id ' +
+        `FROM concept_ancestor ca WHERE ca.ancestor_concept_id IN (${list}) ` +
+        'AND ca.descendant_concept_id <> ca.ancestor_concept_id' +
+        (within ? ` AND ca.descendant_concept_id IN (${within})` : '') +
+        ' ORDER BY ancestor_id, descendant_id',
+      params: [],
+    }
+  }
+  if (mode === 'edges') {
+    // UNION carries the root ancestor down; it dedupes, so a multi-parent DAG terminates.
+    return {
+      sql:
+        'WITH RECURSIVE d(ancestor_id, descendant_id) AS (' +
+        'SELECT ca.ancestor_concept_id, ca.descendant_concept_id FROM concept_ancestor ca ' +
+        `WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN (${list}) ` +
+        'UNION SELECT d.ancestor_id, ca.descendant_concept_id FROM concept_ancestor ca ' +
+        'JOIN d ON ca.ancestor_concept_id = d.descendant_id WHERE ca.min_levels_of_separation = 1) ' +
+        'SELECT DISTINCT ancestor_id, descendant_id FROM d WHERE descendant_id <> ancestor_id' +
+        (within ? ` AND descendant_id IN (${within})` : '') +
+        ' ORDER BY ancestor_id, descendant_id',
+      params: [],
+    }
+  }
+  throw new QueryError(`Unknown hierarchy mode: ${String(mode)}`)
+}
+
+/**
+ * Valid ancestors (up to `maxDepth` steps) shared by at least two of `ids`,
+ * themselves outside `ids`: how many of `ids` each covers and how close it
+ * is, most covering first, then nearest, then by id (v1's bottom-up optimizer).
+ */
+export function ancestorCandidates(ids: Iterable<unknown>, mode: HierarchyMode, maxDepth: unknown = 5, limit: unknown = 30): SqlQuery {
+  const list = idList(ids)
+  const depth = clamp(maxDepth, 1, ANCESTOR_CANDIDATE_MAX_DEPTH)
+  const n = clamp(limit, 1, ANCESTOR_CANDIDATE_MAX_LIMIT)
+  let prefix = ''
+  let source: string
+  if (mode === 'closure') {
+    source =
+      '(SELECT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id, ' +
+      'ca.min_levels_of_separation AS depth FROM concept_ancestor ca ' +
+      `WHERE ca.descendant_concept_id IN (${list}) AND ca.min_levels_of_separation BETWEEN 1 AND ${depth}) a`
+  } else if (mode === 'edges') {
+    prefix =
+      'WITH RECURSIVE anc(ancestor_id, descendant_id, depth) AS (' +
+      'SELECT ca.ancestor_concept_id, ca.descendant_concept_id, 1 FROM concept_ancestor ca ' +
+      `WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id IN (${list}) ` +
+      'UNION SELECT ca.ancestor_concept_id, anc.descendant_id, anc.depth + 1 FROM concept_ancestor ca ' +
+      'JOIN anc ON ca.descendant_concept_id = anc.ancestor_id ' +
+      `WHERE ca.min_levels_of_separation = 1 AND anc.depth < ${depth}) `
+    source = 'anc a'
+  } else {
+    throw new QueryError(`Unknown hierarchy mode: ${String(mode)}`)
+  }
+  return {
+    sql:
+      `${prefix}SELECT ${CONCEPT_COLUMNS}, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth ` +
+      `FROM ${source} JOIN concept c ON c.concept_id = a.ancestor_id ` +
+      `WHERE a.ancestor_id NOT IN (${list}) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') ` +
+      'GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 ' +
+      `ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT ${n}`,
+    params: [],
+  }
+}
+
 // --- Library metadata --------------------------------------------------------------------
 
 export function vocabularyVersions(): SqlQuery {

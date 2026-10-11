@@ -1,7 +1,7 @@
 /** Query rows (snake_case, as DuckDB returns them) → the API's camelCase shapes.
  *  Twin of `concept_from_row` in apps/api/app/services/vocabulary_queries.py. */
 import type { StandardConcept } from '@data-dictionary/format'
-import type { ConceptSynonym, HierarchyNode, OmopConcept, RelatedConcept } from './types'
+import type { AncestorCandidate, ConceptSynonym, HierarchyNode, OmopConcept, RelatedConcept } from './types'
 
 export type Row = Record<string, unknown>
 
@@ -47,4 +47,8 @@ export function synonymFromRow(r: Row): ConceptSynonym {
 
 export function nodeFromRow(r: Row): HierarchyNode {
   return { ...conceptFromRow(r), hierarchyLevel: num(r.hierarchy_level) }
+}
+
+export function candidateFromRow(r: Row): AncestorCandidate {
+  return { ...conceptFromRow(r), coveredCount: num(r.covered_count), minDepth: num(r.min_depth) }
 }

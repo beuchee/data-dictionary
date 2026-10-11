@@ -2,10 +2,13 @@ import type { ExpressionItem } from '@data-dictionary/format'
 import { ApiError, apiRequest } from '@/lib/api-client'
 import {
   VocabularyUnavailableError,
+  type AncestorCandidate,
+  type AncestorCandidateQuery,
   type ConceptHierarchy,
   type ConceptSearchPage,
   type ConceptSearchQuery,
   type ConceptSynonym,
+  type DescendantPair,
   type FilterOptions,
   type HierarchyQuery,
   type OmopConcept,
@@ -85,6 +88,31 @@ export class ApiVocabularySource implements VocabularySource {
 
   getSynonyms(conceptId: number): Promise<ConceptSynonym[]> {
     return call(apiRequest(`${V}/concepts/${conceptId}/synonyms`))
+  }
+
+  async getConcepts(ids: readonly number[]): Promise<OmopConcept[]> {
+    if (!ids.length) return []
+    return call(apiRequest(`${V}/concepts/batch`, { method: 'POST', body: JSON.stringify({ ids }) }))
+  }
+
+  async getDescendantPairs(ancestorIds: readonly number[], withinIds: readonly number[] | null = null): Promise<DescendantPair[]> {
+    if (!ancestorIds.length || (withinIds && !withinIds.length)) return []
+    return call(apiRequest(`${V}/descendant-pairs`, { method: 'POST', body: JSON.stringify({ ancestorIds, withinIds }) }))
+  }
+
+  async getMappedIds(ids: readonly number[]): Promise<number[]> {
+    if (!ids.length) return []
+    return call(apiRequest(`${V}/mapped-ids`, { method: 'POST', body: JSON.stringify({ ids }) }))
+  }
+
+  async getAncestorCandidates(ids: readonly number[], query: AncestorCandidateQuery = {}): Promise<AncestorCandidate[]> {
+    if (!ids.length) return []
+    return call(
+      apiRequest(`${V}/ancestor-candidates`, {
+        method: 'POST',
+        body: JSON.stringify({ ids, maxDepth: query.maxDepth ?? 5, limit: query.limit ?? 30 }),
+      }),
+    )
   }
 
   resolve(items: readonly ExpressionItem[], conceptSetId: number | null = null): Promise<ResolveResult> {

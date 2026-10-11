@@ -69,6 +69,26 @@ export interface FilterOptions {
   conceptClasses: string[]
 }
 
+/** An ancestor shared by several concepts (`getAncestorCandidates`). */
+export interface AncestorCandidate extends OmopConcept {
+  /** How many of the asked concepts it is an ancestor of. */
+  coveredCount: number
+  /** Steps to the nearest of them. */
+  minDepth: number
+}
+
+export interface DescendantPair {
+  ancestorId: number
+  descendantId: number
+}
+
+export interface AncestorCandidateQuery {
+  /** Steps up, 1–10. Default 5. */
+  maxDepth?: number
+  /** Candidates kept, best first. Default 30. */
+  limit?: number
+}
+
 /** `{release, <vocabularyId>: <version>}`, as stamped into resolved files. */
 export type VocabularyVersion = Record<string, string | null>
 
@@ -110,6 +130,14 @@ export interface VocabularySource {
   /** null when the vocabulary does not hold the concept. */
   getHierarchy(conceptId: number, query?: HierarchyQuery): Promise<ConceptHierarchy | null>
   getSynonyms(conceptId: number): Promise<ConceptSynonym[]>
+  /** Full rows of the concepts the vocabulary holds among `ids`, by id. */
+  getConcepts(ids: readonly number[]): Promise<OmopConcept[]>
+  /** Every descendant (never itself) of each of `ancestorIds`, kept to `withinIds` when given. */
+  getDescendantPairs(ancestorIds: readonly number[], withinIds?: readonly number[] | null): Promise<DescendantPair[]>
+  /** What `ids` map to or from (`Maps to` / `Mapped from`), as the resolver's `includeMapped`. */
+  getMappedIds(ids: readonly number[]): Promise<number[]>
+  /** Valid ancestors shared by at least two of `ids` (the optimizer's bottom-up step). */
+  getAncestorCandidates(ids: readonly number[], query?: AncestorCandidateQuery): Promise<AncestorCandidate[]>
   /** resolve.py's algorithm, live. */
   resolve(items: readonly ExpressionItem[], conceptSetId?: number | null): Promise<ResolveResult>
 }

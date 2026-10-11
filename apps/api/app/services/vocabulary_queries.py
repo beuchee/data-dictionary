@@ -303,6 +303,94 @@ def resolved_details(ids: Iterable[Any]) -> Query:
     )
 
 
+# --- Expression optimization (web: features/concept-sets/lib/optimize.ts) -----------
+
+ANCESTOR_CANDIDATE_MAX_DEPTH = 10
+ANCESTOR_CANDIDATE_MAX_LIMIT = 200
+
+
+def _required_ids(ids: Iterable[Any]) -> str:
+    id_list = _id_list(ids)
+    if not id_list:
+        raise QueryError("No concept ids")
+    return id_list
+
+
+def concepts_by_ids(ids: Iterable[Any]) -> Query:
+    """Full rows of the given concepts, by id."""
+    return (
+        f"SELECT {CONCEPT_COLUMNS} FROM concept c WHERE c.concept_id IN ({_required_ids(ids)}) ORDER BY c.concept_id",
+        [],
+    )
+
+
+def descendant_pairs(ancestor_ids: Iterable[Any], mode: HierarchyMode, within_ids: Iterable[Any] | None = None) -> Query:
+    """(ancestor, descendant) pairs: every descendant of each of `ancestor_ids`
+    (never itself), kept to `within_ids` when given."""
+    id_list = _required_ids(ancestor_ids)
+    within = None if within_ids is None else _required_ids(within_ids)
+    if mode == "closure":
+        return (
+            "SELECT DISTINCT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id "
+            f"FROM concept_ancestor ca WHERE ca.ancestor_concept_id IN ({id_list}) "
+            "AND ca.descendant_concept_id <> ca.ancestor_concept_id"
+            + (f" AND ca.descendant_concept_id IN ({within})" if within else "")
+            + " ORDER BY ancestor_id, descendant_id",
+            [],
+        )
+    if mode == "edges":
+        # UNION carries the root ancestor down; it dedupes, so a multi-parent DAG terminates.
+        return (
+            "WITH RECURSIVE d(ancestor_id, descendant_id) AS ("
+            "SELECT ca.ancestor_concept_id, ca.descendant_concept_id FROM concept_ancestor ca "
+            f"WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN ({id_list}) "
+            "UNION SELECT d.ancestor_id, ca.descendant_concept_id FROM concept_ancestor ca "
+            "JOIN d ON ca.ancestor_concept_id = d.descendant_id WHERE ca.min_levels_of_separation = 1) "
+            "SELECT DISTINCT ancestor_id, descendant_id FROM d WHERE descendant_id <> ancestor_id"
+            + (f" AND descendant_id IN ({within})" if within else "")
+            + " ORDER BY ancestor_id, descendant_id",
+            [],
+        )
+    raise QueryError(f"Unknown hierarchy mode: {mode!r}")
+
+
+def ancestor_candidates(ids: Iterable[Any], mode: HierarchyMode, max_depth: Any = 5, limit: Any = 30) -> Query:
+    """Valid ancestors (up to `max_depth` steps) shared by at least two of
+    `ids`, themselves outside `ids`: how many of `ids` each covers and how
+    close it is, most covering first, then nearest, then by id (v1's bottom-up
+    optimizer)."""
+    id_list = _required_ids(ids)
+    depth = _clamp(max_depth, 1, ANCESTOR_CANDIDATE_MAX_DEPTH)
+    n = _clamp(limit, 1, ANCESTOR_CANDIDATE_MAX_LIMIT)
+    prefix = ""
+    if mode == "closure":
+        source = (
+            "(SELECT ca.ancestor_concept_id AS ancestor_id, ca.descendant_concept_id AS descendant_id, "
+            "ca.min_levels_of_separation AS depth FROM concept_ancestor ca "
+            f"WHERE ca.descendant_concept_id IN ({id_list}) AND ca.min_levels_of_separation BETWEEN 1 AND {depth}) a"
+        )
+    elif mode == "edges":
+        prefix = (
+            "WITH RECURSIVE anc(ancestor_id, descendant_id, depth) AS ("
+            "SELECT ca.ancestor_concept_id, ca.descendant_concept_id, 1 FROM concept_ancestor ca "
+            f"WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id IN ({id_list}) "
+            "UNION SELECT ca.ancestor_concept_id, anc.descendant_id, anc.depth + 1 FROM concept_ancestor ca "
+            "JOIN anc ON ca.descendant_concept_id = anc.ancestor_id "
+            f"WHERE ca.min_levels_of_separation = 1 AND anc.depth < {depth}) "
+        )
+        source = "anc a"
+    else:
+        raise QueryError(f"Unknown hierarchy mode: {mode!r}")
+    return (
+        f"{prefix}SELECT {CONCEPT_COLUMNS}, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth "
+        f"FROM {source} JOIN concept c ON c.concept_id = a.ancestor_id "
+        f"WHERE a.ancestor_id NOT IN ({id_list}) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') "
+        "GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 "
+        f"ORDER BY covered_count DESC, min_depth, c.concept_id LIMIT {n}",
+        [],
+    )
+
+
 # --- Library metadata ----------------------------------------------------------------
 
 

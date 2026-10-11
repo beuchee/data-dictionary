@@ -1,20 +1,23 @@
 """First-run setup, then the session lifecycle: login, me, refresh, logout."""
 
+import asyncio
 from datetime import UTC, datetime, timedelta
 
 import jwt
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import settings
+from app.main import app
+from app.models.base import Base
 from app.models.user import User
 
-from conftest import API, TEST_PASSWORD, create_user, login
+from conftest import API, TEST_PASSWORD, create_user, login, override_db
 
 
 async def _initialize(client, username: str = "admin", password: str = TEST_PASSWORD, **extra):
-    return await client.post(
-        f"{API}/setup/initialize", json={"username": username, "password": password, **extra}
-    )
+    return await client.post(f"{API}/setup/initialize", json={"username": username, "password": password, **extra})
 
 
 async def test_setup_creates_the_first_admin_then_closes(client):
@@ -35,6 +38,25 @@ async def test_setup_creates_the_first_admin_then_closes(client):
     assert r.status_code == 401
 
 
+async def test_concurrent_setups_make_one_admin(tmp_path):
+    """First-run submissions racing (a file database, one connection each, as
+    in production): one admin, the others refused."""
+    engine = create_async_engine(f"sqlite+aiosqlite:///{tmp_path / 'race.db'}")
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+    override_db(app, maker)
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+            results = await asyncio.gather(*(_initialize(client, username=f"admin{i}") for i in range(5)))
+        assert sorted(r.status_code for r in results) == [200, 400, 400, 400, 400]
+        async with maker() as db:
+            assert len(list(await db.scalars(select(User)))) == 1
+    finally:
+        app.dependency_overrides.clear()
+        await engine.dispose()
+
+
 async def test_setup_is_refused_once_any_user_exists(client, db):
     await create_user(db, "someone", role="viewer")
     assert (await _initialize(client)).status_code == 400
@@ -53,8 +75,13 @@ async def test_login_me_refresh_logout(client):
     assert r.status_code == 200
     tokens = r.json()
     assert tokens["token_type"] == "bearer"
-    assert tokens["user"] == {"id": tokens["user"]["id"], "username": "admin", "email": None,
-                              "role": "admin", "is_active": True}
+    assert tokens["user"] == {
+        "id": tokens["user"]["id"],
+        "username": "admin",
+        "email": None,
+        "role": "admin",
+        "is_active": True,
+    }
 
     headers = {"Authorization": f"Bearer {tokens['access_token']}"}
     me = (await client.get(f"{API}/auth/me", headers=headers)).json()
@@ -100,8 +127,7 @@ async def test_me_requires_a_token(client):
 
 async def test_a_refresh_token_is_not_an_access_token_and_vice_versa(client, db):
     await create_user(db, "alice")
-    tokens = (await client.post(f"{API}/auth/login",
-                                json={"username": "alice", "password": TEST_PASSWORD})).json()
+    tokens = (await client.post(f"{API}/auth/login", json={"username": "alice", "password": TEST_PASSWORD})).json()
     as_access = {"Authorization": f"Bearer {tokens['refresh_token']}"}
     assert (await client.get(f"{API}/auth/me", headers=as_access)).status_code == 401
     r = await client.post(f"{API}/auth/refresh", json={"refresh_token": tokens["access_token"]})
@@ -124,8 +150,14 @@ async def test_forged_and_expired_tokens_are_refused(client, db):
 async def test_the_role_comes_from_the_database_not_the_token(client, db):
     user = await create_user(db, "alice", role="viewer")
     now = datetime.now(UTC)
-    claims = {"sub": str(user.id), "username": "alice", "role": "admin", "type": "access",
-              "iat": now, "exp": now + timedelta(hours=1)}
+    claims = {
+        "sub": str(user.id),
+        "username": "alice",
+        "role": "admin",
+        "type": "access",
+        "iat": now,
+        "exp": now + timedelta(hours=1),
+    }
     token = jwt.encode(claims, settings.secret_key, algorithm=settings.algorithm)
     me = (await client.get(f"{API}/auth/me", headers={"Authorization": f"Bearer {token}"})).json()
     assert me["role"] == "viewer"
@@ -135,14 +167,25 @@ async def test_the_role_comes_from_the_database_not_the_token(client, db):
 async def test_profile_update(client, db):
     await create_user(db, "alice")
     headers = await login(client, "alice")
-    r = await client.patch(f"{API}/auth/me", headers=headers, json={
-        "firstName": "Alice", "lastName": "Martin", "affiliation": "  CHU Rennes ",
-        "profession": "Intensive Care Physician", "orcid": "https://orcid.org/0000-0002-1825-0097",
-    })
+    r = await client.patch(
+        f"{API}/auth/me",
+        headers=headers,
+        json={
+            "firstName": "Alice",
+            "lastName": "Martin",
+            "affiliation": "  CHU Rennes ",
+            "profession": "Intensive Care Physician",
+            "orcid": "https://orcid.org/0000-0002-1825-0097",
+        },
+    )
     assert r.status_code == 200, r.text
     me = r.json()
     assert (me["first_name"], me["last_name"], me["affiliation"], me["orcid"]) == (
-        "Alice", "Martin", "CHU Rennes", "0000-0002-1825-0097")
+        "Alice",
+        "Martin",
+        "CHU Rennes",
+        "0000-0002-1825-0097",
+    )
 
     # Clearing a field with an empty string stores null.
     r = await client.patch(f"{API}/auth/me", headers=headers, json={"affiliation": ""})
@@ -163,8 +206,9 @@ async def test_profile_update_rejects_a_bad_orcid(client, db):
 async def test_profile_update_cannot_change_role_or_username(client, db):
     await create_user(db, "alice", role="viewer")
     headers = await login(client, "alice")
-    r = await client.patch(f"{API}/auth/me", headers=headers,
-                           json={"role": "admin", "username": "root", "isActive": False})
+    r = await client.patch(
+        f"{API}/auth/me", headers=headers, json={"role": "admin", "username": "root", "isActive": False}
+    )
     assert r.status_code == 200
     user = await db.scalar(select(User).where(User.id == r.json()["id"]))
     await db.refresh(user)

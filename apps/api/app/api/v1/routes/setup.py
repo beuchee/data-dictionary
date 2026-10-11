@@ -1,3 +1,6 @@
+import asyncio
+import weakref
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,9 +28,24 @@ async def setup_status(db: AsyncSession = Depends(get_db)):
     )
 
 
+# One check-then-insert at a time: concurrent first-run submissions would all
+# see no user and each create an admin. One API process (docker/api-entrypoint.sh);
+# a lock per event loop, as an asyncio.Lock is bound to the loop it waits on.
+_setup_locks: "weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, asyncio.Lock]" = weakref.WeakKeyDictionary()
+
+
+def _setup_lock() -> asyncio.Lock:
+    loop = asyncio.get_running_loop()
+    lock = _setup_locks.get(loop)
+    if lock is None:
+        lock = _setup_locks[loop] = asyncio.Lock()
+    return lock
+
+
 @router.post("/initialize", response_model=UserResponse)
 async def setup_initialize(request: SetupRequest, db: AsyncSession = Depends(get_db)):
     """Create the first admin. Refused as soon as any user exists."""
+    # Before any hashing: once set up, this public route costs nothing.
     if await _user_count(db) > 0:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Setup already completed")
     username = request.username.strip()
@@ -35,15 +53,19 @@ async def setup_initialize(request: SetupRequest, db: AsyncSession = Depends(get
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "The username must not be blank")
     if error := password_policy_error(request.password, username):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
-    user = User(
-        username=username,
-        email=request.email,
-        first_name=request.first_name,
-        last_name=request.last_name,
-        password_hash=hash_password(request.password),
-        role=ADMIN_ROLE,
-    )
-    db.add(user)
-    await db.commit()
+    password_hash = hash_password(request.password)
+    async with _setup_lock():
+        if await _user_count(db) > 0:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Setup already completed")
+        user = User(
+            username=username,
+            email=request.email,
+            first_name=request.first_name,
+            last_name=request.last_name,
+            password_hash=password_hash,
+            role=ADMIN_ROLE,
+        )
+        db.add(user)
+        await db.commit()
     await db.refresh(user)
     return user

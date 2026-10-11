@@ -11,6 +11,7 @@ import {
   isServerMode,
   setStoredTokens,
 } from '@/lib/api-client'
+import { jwtSubject } from '@/lib/jwt'
 import { setPasswordMinLength } from '@/lib/password-policy'
 
 export interface AuthUser {
@@ -234,3 +235,22 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     get().setTokens(data.access_token, data.refresh_token, { ...get().user, ...data.user })
   },
 }))
+
+// Another tab logging out (or failing to refresh) removes the shared tokens, and one
+// logging in as someone else replaces them: follow it, so this tab never keeps
+// showing one account while its requests carry another's token. A refresh of the
+// same user's token changes nothing visible.
+if (typeof window !== 'undefined' && isServerMode()) {
+  window.addEventListener('storage', (event) => {
+    if (event.key !== ACCESS_TOKEN_KEY && event.key !== null) return
+    const stored = loadStoredAuth()
+    const { token } = useAuthStore.getState()
+    if (stored.token === null) {
+      if (token !== null) useAuthStore.setState({ token: null, refreshToken: null, user: null })
+    } else if (jwtSubject(stored.token) !== jwtSubject(token)) {
+      useAuthStore.setState(stored)
+    } else {
+      useAuthStore.setState({ token: stored.token, refreshToken: stored.refreshToken })
+    }
+  })
+}

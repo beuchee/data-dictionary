@@ -8,7 +8,7 @@ Three independent Python scripts. `build.py` does **not** re-resolve; it reads t
 
 Generated and gitignored, never hand-edited: `legacy/data.json`, `legacy/data_inline.js`, `legacy/resolved_concept_ids.json`, `legacy/concept_sets_resolved/`.
 
-Pushing to `main` triggers `.github/workflows/build-and-deploy.yml` (and `.gitlab-ci.yml` on GitLab), which runs `build.py` and deploys `legacy/`. Running `build.py` locally is only for previewing.
+Pushing to `main` triggers `.github/workflows/build-and-deploy.yml` (and `.gitlab-ci.yml` on GitLab), which runs `build.py` and deploys `legacy/`. Running `build.py` locally is only for previewing. The v2 static site is built from the same payload (`npm run build:client` emits it as `data/`); its CI builds an artifact without deploying it until the cutover: [deployment.md](deployment.md#static-mode-github-pages-gitlab-pages-any-static-host).
 
 ## Versioned concept sets in projects
 

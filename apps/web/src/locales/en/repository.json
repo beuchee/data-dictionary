@@ -1,0 +1,22 @@
+{
+  "menu": "Repository",
+  "title": "Content repository",
+  "loading": "Reading the repository…",
+  "behind_one": "The remote has {{count}} commit this server does not have yet (merged proposals?).",
+  "behind_other": "The remote has {{count}} commits this server does not have yet (merged proposals?).",
+  "diverged_one": "The server's copy and the remote have diverged ({{count}} commit behind): an administrator must reconcile them.",
+  "diverged_other": "The server's copy and the remote have diverged ({{count}} commits behind): an administrator must reconcile them.",
+  "dirty": "The server's working copy has uncommitted changes: commits are refused until it is clean.",
+  "up_to_date": "Up to date with the remote.",
+  "branch": "Branch",
+  "expected": "content branch: {{branch}}",
+  "head": "Server HEAD",
+  "remote_head": "Remote head",
+  "ahead_behind": "Ahead / behind",
+  "not_fetched": "not fetched yet",
+  "fetch": "Fetch",
+  "pull": "Pull",
+  "pulled_one": "Pulled. {{count}} concept set version indexed.",
+  "pulled_other": "Pulled. {{count}} concept set versions indexed.",
+  "nothing_pulled": "Nothing new to pull."
+}

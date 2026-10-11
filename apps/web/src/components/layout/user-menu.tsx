@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
-import { KeyRound, LogIn, LogOut, UserPen } from 'lucide-react'
+import { GitBranch, KeyRound, LogIn, LogOut, UserPen } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,8 +14,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ChangePasswordDialog } from '@/features/account/change-password-dialog'
 import { ProfileDialog } from '@/features/account/profile-dialog'
+import { RepositoryDialog } from '@/features/repository/repository-dialog'
 import { isServerMode } from '@/lib/api-client'
-import { displayName, initials, useAuthStore } from '@/stores/auth-store'
+import { PULL_PERMISSION } from '@/lib/drafts/permissions'
+import { displayName, initials, useAuthStore, userHasPermission } from '@/stores/auth-store'
 
 /** Server mode: "Log in" for an anonymous reader, else the account menu. Static mode has no accounts. */
 export function UserMenu() {
@@ -26,6 +28,7 @@ export function UserMenu() {
   const logout = useAuthStore((s) => s.logout)
   const [profileOpen, setProfileOpen] = useState(false)
   const [passwordOpen, setPasswordOpen] = useState(false)
+  const [repositoryOpen, setRepositoryOpen] = useState(false)
 
   if (!isServerMode()) return null
 
@@ -66,6 +69,12 @@ export function UserMenu() {
             <KeyRound size={14} />
             {t('auth.menu.change_password')}
           </DropdownMenuItem>
+          {userHasPermission(user, PULL_PERMISSION) && (
+            <DropdownMenuItem onClick={() => setRepositoryOpen(true)}>
+              <GitBranch size={14} />
+              {t('repository.menu')}
+            </DropdownMenuItem>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logout}>
             <LogOut size={14} />
@@ -75,6 +84,7 @@ export function UserMenu() {
       </DropdownMenu>
       <ProfileDialog open={profileOpen} onOpenChange={setProfileOpen} />
       <ChangePasswordDialog open={passwordOpen} onOpenChange={setPasswordOpen} />
+      {repositoryOpen && <RepositoryDialog open={repositoryOpen} onOpenChange={setRepositoryOpen} />}
     </>
   )
 }

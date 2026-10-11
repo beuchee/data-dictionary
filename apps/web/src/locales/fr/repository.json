@@ -1,0 +1,22 @@
+{
+  "menu": "Dépôt",
+  "title": "Dépôt de contenu",
+  "loading": "Lecture du dépôt…",
+  "behind_one": "Le dépôt distant a {{count}} commit que ce serveur n'a pas encore (propositions fusionnées ?).",
+  "behind_other": "Le dépôt distant a {{count}} commits que ce serveur n'a pas encore (propositions fusionnées ?).",
+  "diverged_one": "La copie du serveur et le dépôt distant ont divergé ({{count}} commit de retard) : un administrateur doit les réconcilier.",
+  "diverged_other": "La copie du serveur et le dépôt distant ont divergé ({{count}} commits de retard) : un administrateur doit les réconcilier.",
+  "dirty": "La copie de travail du serveur a des modifications non commitées : les commits sont refusés tant qu'elle n'est pas propre.",
+  "up_to_date": "À jour avec le dépôt distant.",
+  "branch": "Branche",
+  "expected": "branche de contenu : {{branch}}",
+  "head": "HEAD du serveur",
+  "remote_head": "Tête distante",
+  "ahead_behind": "En avance / en retard",
+  "not_fetched": "pas encore récupéré",
+  "fetch": "Récupérer",
+  "pull": "Mettre à jour",
+  "pulled_one": "Mis à jour. {{count}} version de jeu de concepts indexée.",
+  "pulled_other": "Mis à jour. {{count}} versions de jeux de concepts indexées.",
+  "nothing_pulled": "Rien de nouveau à récupérer."
+}

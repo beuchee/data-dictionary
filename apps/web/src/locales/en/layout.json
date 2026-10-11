@@ -2,8 +2,6 @@
   "header": {
     "language": "Language",
     "toggle_dark_mode": "Toggle dark mode",
-    "login": "Log in",
-    "user_menu": "User menu",
     "toggle_sidebar": "Toggle sidebar"
   },
   "boot": {
@@ -11,6 +9,12 @@
     "loading_page": "Loading page…",
     "config_error_title": "Could not load the instance configuration",
     "config_error_description": "config.json could not be read. Check that it is served next to the app and is valid JSON.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "error_title": "Something went wrong",
+    "error_description": "The app hit an unexpected error. Reloading usually fixes it; if not, clear the data this browser keeps for the app.",
+    "reload": "Reload",
+    "clear_and_reload": "Clear local data and reload",
+    "clear_confirm_title": "Clear local data?",
+    "clear_confirm_description": "Your display preferences are reset and you are signed out. Nothing on the server is touched."
   }
 }

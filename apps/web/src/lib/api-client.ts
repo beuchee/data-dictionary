@@ -5,9 +5,9 @@
  * API client for server mode: fetch with JWT auth headers and automatic token refresh.
  */
 
-const ACCESS_TOKEN_KEY = 'dd-access-token'
-const REFRESH_TOKEN_KEY = 'dd-refresh-token'
-const AUTH_USER_KEY = 'dd-auth-user'
+export const ACCESS_TOKEN_KEY = 'dd-access-token'
+export const REFRESH_TOKEN_KEY = 'dd-refresh-token'
+export const AUTH_USER_KEY = 'dd-auth-user'
 
 let refreshPromise: Promise<boolean> | null = null
 

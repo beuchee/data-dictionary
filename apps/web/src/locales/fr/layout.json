@@ -2,8 +2,6 @@
   "header": {
     "language": "Langue",
     "toggle_dark_mode": "Basculer le mode sombre",
-    "login": "Se connecter",
-    "user_menu": "Menu utilisateur",
     "toggle_sidebar": "Afficher/masquer la barre latérale"
   },
   "boot": {
@@ -11,6 +9,12 @@
     "loading_page": "Chargement de la page…",
     "config_error_title": "Impossible de charger la configuration de l'instance",
     "config_error_description": "config.json n'a pas pu être lu. Vérifiez qu'il est servi à côté de l'application et que c'est un JSON valide.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "error_title": "Une erreur est survenue",
+    "error_description": "L'application a rencontré une erreur inattendue. Recharger la page suffit en général ; sinon, effacez les données que ce navigateur garde pour l'application.",
+    "reload": "Recharger",
+    "clear_and_reload": "Effacer les données locales et recharger",
+    "clear_confirm_title": "Effacer les données locales ?",
+    "clear_confirm_description": "Vos préférences d'affichage sont réinitialisées et vous êtes déconnecté. Rien n'est modifié sur le serveur."
   }
 }

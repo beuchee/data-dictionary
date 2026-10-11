@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
-import { Check, Languages, LogIn, Moon, Sun, User } from 'lucide-react'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Check, Languages, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -9,11 +8,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { isServerMode } from '@/lib/api-client'
 import { UI_LANGUAGES } from '@/lib/i18n'
 import { useAppStore } from '@/stores/app-store'
 import { useInstanceConfig } from '@/stores/config-store'
 import { BOTTOM_NAV_ITEMS, activeNavItem, mainNavItems } from './nav-items'
+import { UserMenu } from './user-menu'
 
 export function Header() {
   const { t, i18n } = useTranslation()
@@ -56,20 +55,8 @@ export function Header() {
           {darkMode ? <Sun size={15} /> : <Moon size={15} />}
         </Button>
 
-        {/* TODO(v2-auth): user menu (profile, logout) once the API has auth. */}
         <div className="ml-1">
-          {isServerMode() ? (
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-              <LogIn size={14} />
-              {t('layout.header.login')}
-            </Button>
-          ) : (
-            <Avatar className="h-7 w-7" aria-label={t('layout.header.user_menu')}>
-              <AvatarFallback className="bg-muted text-muted-foreground">
-                <User size={14} />
-              </AvatarFallback>
-            </Avatar>
-          )}
+          <UserMenu />
         </div>
       </div>
     </header>

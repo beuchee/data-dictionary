@@ -8,10 +8,13 @@ import '@fontsource/inter/700.css'
 import i18n, { resolveLanguage } from '@/lib/i18n'
 import '@/index.css'
 import { App } from '@/app/App'
+import { AuthGate } from '@/app/auth-gate'
+import { AppErrorBoundary } from '@/components/layout/app-error-boundary'
 import { ConfigErrorScreen } from '@/components/layout/config-error-screen'
 import { isServerMode } from '@/lib/api-client'
 import { loadStaticInstanceConfig } from '@/lib/config'
 import { getDictionarySource, type InstanceInfo } from '@/lib/data'
+import { setPasswordMinLength } from '@/lib/password-policy'
 import { applyBranding } from '@/lib/theme'
 import { useAppStore } from '@/stores/app-store'
 import { useConfigStore } from '@/stores/config-store'
@@ -37,6 +40,7 @@ async function boot() {
     const { config } = instance
     applyBranding(config)
     useConfigStore.getState().setInstance(instance)
+    if (instance.server) setPasswordMinLength(instance.server.passwordMinLength)
     await i18n.changeLanguage(
       resolveLanguage(useAppStore.getState().language, config.languages, config.defaultLanguage),
     )
@@ -48,9 +52,13 @@ async function boot() {
 
   root.render(
     <StrictMode>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <App />
-      </BrowserRouter>
+      <AppErrorBoundary>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <AuthGate>
+            <App />
+          </AuthGate>
+        </BrowserRouter>
+      </AppErrorBoundary>
     </StrictMode>,
   )
 }

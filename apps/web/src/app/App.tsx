@@ -18,13 +18,13 @@ const MappingPage = lazyPage(() => import('@/pages/mapping-page'), 'MappingPage'
 const SettingsPage = lazyPage(() => import('@/pages/settings-page'), 'SettingsPage')
 const DevToolsPage = lazyPage(() => import('@/pages/dev-tools-page'), 'DevToolsPage')
 const DocumentationPage = lazyPage(() => import('@/pages/documentation-page'), 'DocumentationPage')
+const LoginRoute = lazyPage(() => import('@/features/login/login-route'), 'LoginRoute')
 
 export function App() {
   const { i18n } = useTranslation()
   const config = useInstanceConfig()
   const darkMode = useAppStore((s) => s.darkMode)
   const storedLanguage = useAppStore((s) => s.language)
-  const location = useLocation()
   const language = resolveLanguage(storedLanguage, config.languages, config.defaultLanguage)
 
   useEffect(() => {
@@ -36,6 +36,25 @@ export function App() {
     document.documentElement.lang = language
   }, [language, i18n])
 
+  return (
+    <Routes>
+      {/* Full screen, outside the shell. */}
+      <Route
+        path="/login"
+        element={
+          <Suspense fallback={<PageLoading />}>
+            <LoginRoute />
+          </Suspense>
+        }
+      />
+      <Route path="*" element={<Shell />} />
+    </Routes>
+  )
+}
+
+function Shell() {
+  const config = useInstanceConfig()
+  const location = useLocation()
   const showProjects = config.tabs?.showProjects !== false
   const showMapping = config.tabs?.showMappingRecommendations !== false
 

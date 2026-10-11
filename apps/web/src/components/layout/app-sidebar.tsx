@@ -15,7 +15,7 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { appName, assetUrl } from '@/lib/config'
+import { appName, brandingImageUrl } from '@/lib/config'
 import { useInstanceConfig } from '@/stores/config-store'
 import { BOTTOM_NAV_ITEMS, activeNavItem, mainNavItems, type NavItem } from './nav-items'
 
@@ -25,7 +25,7 @@ export function AppSidebar() {
   const config = useInstanceConfig()
   const items = mainNavItems(config)
   const active = activeNavItem(pathname, [...items, ...BOTTOM_NAV_ITEMS])
-  const logo = assetUrl(config.branding?.logo)
+  const logo = brandingImageUrl(config, 'logo')
   const name = appName(config)
 
   const renderItem = (item: NavItem) => {

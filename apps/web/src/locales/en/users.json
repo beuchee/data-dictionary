@@ -1,0 +1,47 @@
+{
+  "tab_title": "Users",
+  "description": "Accounts of this instance. Each holds one role; the admin role holds every permission.",
+  "load_error": "Could not load the users",
+  "empty": "No users",
+  "col": {
+    "username": "Username",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "identities": "Sign-in",
+    "status": "Status",
+    "last_login": "Last login",
+    "actions": "Actions"
+  },
+  "password": "Password",
+  "provider": {
+    "github": "GitHub",
+    "gitlab": "GitLab",
+    "orcid": "ORCID"
+  },
+  "active": "Active",
+  "inactive": "Deactivated",
+  "never": "Never",
+  "deactivate": "Deactivate",
+  "reactivate": "Reactivate",
+  "deactivate_title": "Deactivate {{name}}?",
+  "deactivate_description": "The account can no longer sign in and its sessions and API tokens stop working. Its drafts are kept; you can reactivate it later.",
+  "reset_password": "Set a temporary password",
+  "reset_title": "Temporary password for {{name}}",
+  "reset_description": "Give it to the user, who changes it from their menu. Their current sessions end.",
+  "reset_confirm": "Set the password",
+  "reset_done": "{{name}}'s password was replaced.",
+  "temporary_password": "Temporary password",
+  "temporary_password_confirm": "Confirm",
+  "roles_title": "Roles",
+  "roles_description": "The five built-in roles, each including the one before it.",
+  "permission": "Permission",
+  "granted": "Granted",
+  "error": {
+    "generic": "The change was refused.",
+    "last_admin": "This is the last active administrator: promote another account first.",
+    "self_deactivation": "You cannot deactivate your own account.",
+    "admin_only": "Only an administrator may give or take the admin role.",
+    "unknown_role": "This role does not exist."
+  }
+}

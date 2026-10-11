@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
-import { KeyRound, LogIn, LogOut, UserPen } from 'lucide-react'
+import { KeyRound, KeySquare, Link2, LogIn, LogOut, UserPen } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,7 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ApiTokensDialog } from '@/features/account/api-tokens-dialog'
 import { ChangePasswordDialog } from '@/features/account/change-password-dialog'
+import { LinkedAccountsDialog } from '@/features/account/linked-accounts-dialog'
 import { ProfileDialog } from '@/features/account/profile-dialog'
 import { isServerMode } from '@/lib/api-client'
 import { displayName, initials, useAuthStore } from '@/stores/auth-store'
@@ -26,6 +28,8 @@ export function UserMenu() {
   const logout = useAuthStore((s) => s.logout)
   const [profileOpen, setProfileOpen] = useState(false)
   const [passwordOpen, setPasswordOpen] = useState(false)
+  const [tokensOpen, setTokensOpen] = useState(false)
+  const [linkedOpen, setLinkedOpen] = useState(false)
 
   if (!isServerMode()) return null
 
@@ -66,6 +70,14 @@ export function UserMenu() {
             <KeyRound size={14} />
             {t('auth.menu.change_password')}
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setLinkedOpen(true)}>
+            <Link2 size={14} />
+            {t('account.menu.linked')}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTokensOpen(true)}>
+            <KeySquare size={14} />
+            {t('account.menu.api_tokens')}
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logout}>
             <LogOut size={14} />
@@ -75,6 +87,8 @@ export function UserMenu() {
       </DropdownMenu>
       <ProfileDialog open={profileOpen} onOpenChange={setProfileOpen} />
       <ChangePasswordDialog open={passwordOpen} onOpenChange={setPasswordOpen} />
+      <LinkedAccountsDialog open={linkedOpen} onOpenChange={setLinkedOpen} />
+      <ApiTokensDialog open={tokensOpen} onOpenChange={setTokensOpen} />
     </>
   )
 }

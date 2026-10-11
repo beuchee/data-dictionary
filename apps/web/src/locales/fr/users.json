@@ -1,0 +1,47 @@
+{
+  "tab_title": "Utilisateurs",
+  "description": "Les comptes de cette instance. Chacun a un rôle ; le rôle administrateur a toutes les permissions.",
+  "load_error": "Impossible de charger les utilisateurs",
+  "empty": "Aucun utilisateur",
+  "col": {
+    "username": "Identifiant",
+    "name": "Nom",
+    "email": "E-mail",
+    "role": "Rôle",
+    "identities": "Connexion",
+    "status": "Statut",
+    "last_login": "Dernière connexion",
+    "actions": "Actions"
+  },
+  "password": "Mot de passe",
+  "provider": {
+    "github": "GitHub",
+    "gitlab": "GitLab",
+    "orcid": "ORCID"
+  },
+  "active": "Actif",
+  "inactive": "Désactivé",
+  "never": "Jamais",
+  "deactivate": "Désactiver",
+  "reactivate": "Réactiver",
+  "deactivate_title": "Désactiver {{name}} ?",
+  "deactivate_description": "Le compte ne peut plus se connecter et ses sessions et jetons d'API cessent de fonctionner. Ses brouillons sont conservés ; vous pourrez le réactiver.",
+  "reset_password": "Définir un mot de passe temporaire",
+  "reset_title": "Mot de passe temporaire pour {{name}}",
+  "reset_description": "Transmettez-le à l'utilisateur, qui le change depuis son menu. Ses sessions en cours prennent fin.",
+  "reset_confirm": "Définir le mot de passe",
+  "reset_done": "Le mot de passe de {{name}} a été remplacé.",
+  "temporary_password": "Mot de passe temporaire",
+  "temporary_password_confirm": "Confirmation",
+  "roles_title": "Rôles",
+  "roles_description": "Les cinq rôles intégrés, chacun comprenant le précédent.",
+  "permission": "Permission",
+  "granted": "Accordée",
+  "error": {
+    "generic": "La modification a été refusée.",
+    "last_admin": "C'est le dernier administrateur actif : promouvez d'abord un autre compte.",
+    "self_deactivation": "Vous ne pouvez pas désactiver votre propre compte.",
+    "admin_only": "Seul un administrateur peut attribuer ou retirer le rôle administrateur.",
+    "unknown_role": "Ce rôle n'existe pas."
+  }
+}

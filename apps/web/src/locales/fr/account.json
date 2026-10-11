@@ -1,0 +1,43 @@
+{
+  "menu": {
+    "api_tokens": "Jetons d'API",
+    "linked": "Comptes liés"
+  },
+  "tokens": {
+    "title": "Jetons d'API",
+    "description": "Jetons personnels pour les scripts et outils (Authorization: Bearer ddt_…). Ils agissent avec votre rôle ; ils ne peuvent ni gérer les jetons ni changer votre mot de passe.",
+    "name": "Nom",
+    "name_placeholder": "ex. script ETL",
+    "expiry": "Expiration",
+    "expiry_30": "Dans 30 jours",
+    "expiry_90": "Dans 90 jours",
+    "expiry_365": "Dans un an",
+    "expiry_never": "Jamais",
+    "create": "Créer",
+    "created_title": "Copiez ce jeton maintenant : il ne sera plus affiché.",
+    "empty": "Aucun jeton d'API",
+    "dates": "Créé le {{created}} · dernière utilisation {{used}} · expire {{expires}}",
+    "state_revoked": "Révoqué",
+    "state_expired": "Expiré",
+    "revoke": "Révoquer",
+    "revoke_title": "Révoquer « {{name}} » ?",
+    "revoke_description": "Les scripts qui utilisent ce jeton cessent aussitôt de fonctionner.",
+    "load_error": "Impossible de charger vos jetons d'API.",
+    "create_error": "Impossible de créer le jeton.",
+    "revoke_error": "Impossible de révoquer le jeton."
+  },
+  "linked": {
+    "title": "Comptes liés",
+    "description": "Vos moyens de connexion. Un compte GitHub ou GitLab lié ouvre aussi vos propositions sous votre nom.",
+    "set": "Défini",
+    "not_set": "Non défini",
+    "link": "Lier {{provider}}",
+    "unlink": "Délier",
+    "unlink_title": "Délier {{provider}} ?",
+    "unlink_description": "Vous ne pourrez plus vous connecter avec, et vos propositions passeront par le compte de l'instance.",
+    "last_method": "C'est votre seul moyen de connexion : définissez un mot de passe ou liez un autre compte d'abord.",
+    "load_error": "Impossible de charger vos comptes liés.",
+    "link_error": "Impossible de lancer la liaison : le fournisseur n'est peut-être pas configuré.",
+    "unlink_error": "Impossible de délier ce compte."
+  }
+}

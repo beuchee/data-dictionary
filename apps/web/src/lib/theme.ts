@@ -1,4 +1,4 @@
-import { appName, assetUrl, type InstanceConfig } from '@/lib/config'
+import { appName, brandingImageUrl, type InstanceConfig } from '@/lib/config'
 
 export interface Rgb {
   /** 0–255 per channel; may fall outside that range for a color out of the sRGB gamut. */
@@ -253,7 +253,7 @@ export function applyBranding(config: InstanceConfig, doc: Document = document):
 
   doc.title = appName(config)
 
-  const favicon = assetUrl(config.branding?.favicon)
+  const favicon = brandingImageUrl(config, 'favicon')
   if (favicon) {
     let link = doc.querySelector<HTMLLinkElement>('link[rel~="icon"]')
     if (!link) {

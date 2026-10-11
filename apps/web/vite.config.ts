@@ -7,9 +7,12 @@ import { existsSync, readFileSync, readdirSync, rmSync } from 'fs'
 
 const REPO_ROOT = path.resolve(__dirname, '../..')
 const INSTANCE_CONFIG = path.join(REPO_ROOT, 'config.json')
-// TODO(v2-cutover): move the branding images out of legacy/ (v1 keeps them there) to a
-// location both builds can read, then drop this indirection.
-const BRANDING_DIR = path.join(REPO_ROOT, 'legacy')
+// Branding images: v1's live in legacy/ (`logo.png`); those uploaded from v2's
+// Branding settings live in branding/ at the repo root (`branding/logo.png`, a
+// path config.json names as is; build.py copies the folder next to v1's pages).
+// TODO(v2-cutover): move v1's images to branding/ and drop the legacy/ lookup.
+const LEGACY_BRANDING_DIR = path.join(REPO_ROOT, 'legacy')
+const BRANDING_PREFIX = 'branding/'
 // TODO(v2-cutover): build.py writes the static payload into legacy/ for v1. Move its
 // output to a v2 location and drop this indirection; the app reads it as data/.
 const STATIC_PAYLOAD = path.join(REPO_ROOT, 'legacy', 'data.json')
@@ -31,23 +34,26 @@ const CONTENT_TYPES: Record<string, string> = {
   '.gif': 'image/gif',
 }
 
-/** A branding path from config.json, kept only if it stays inside BRANDING_DIR. */
-function safeBrandingFile(name: unknown): string | null {
+/** A branding path from config.json → `[rel, file]`, kept only if the file exists inside its folder. */
+function safeBrandingFile(name: unknown): [string, string] | null {
   if (typeof name !== 'string' || !name.trim()) return null
   const rel = name.replace(/^\/+/, '')
-  const abs = path.resolve(BRANDING_DIR, rel)
-  if (!abs.startsWith(BRANDING_DIR + path.sep)) return null
-  return existsSync(abs) ? rel : null
+  const dir = rel.startsWith(BRANDING_PREFIX) ? path.join(REPO_ROOT, 'branding') : LEGACY_BRANDING_DIR
+  const abs = path.resolve(rel.startsWith(BRANDING_PREFIX) ? REPO_ROOT : LEGACY_BRANDING_DIR, rel)
+  if (!abs.startsWith(dir + path.sep)) return null
+  return existsSync(abs) ? [rel, abs] : null
 }
 
-function brandingFiles(): string[] {
+function brandingFiles(): Map<string, string> {
   try {
     const config = JSON.parse(readFileSync(INSTANCE_CONFIG, 'utf-8'))
-    return [config?.branding?.logo, config?.branding?.favicon]
-      .map(safeBrandingFile)
-      .filter((f): f is string => f !== null)
+    return new Map(
+      [config?.branding?.logo, config?.branding?.favicon]
+        .map(safeBrandingFile)
+        .filter((f): f is [string, string] => f !== null),
+    )
   } catch {
-    return []
+    return new Map()
   }
 }
 
@@ -77,10 +83,7 @@ function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
         const urlPath = decodeURIComponent((req.url ?? '').split('?')[0])
         if (!urlPath.startsWith(`${basePrefix}/`)) return next()
         const rel = urlPath.slice(basePrefix.length + 1)
-        let file: string | null = null
-        if (rel === 'config.json') file = INSTANCE_CONFIG
-        else if (brandingFiles().includes(rel)) file = path.join(BRANDING_DIR, rel)
-        else file = staticDataFile(rel)
+        const file = rel === 'config.json' ? INSTANCE_CONFIG : (brandingFiles().get(rel) ?? staticDataFile(rel))
         if (!file || !existsSync(file)) return next()
         const ext = path.extname(file).toLowerCase()
         res.setHeader('Content-Type', ext === '.json' ? 'application/json' : (CONTENT_TYPES[ext] ?? 'application/octet-stream'))
@@ -90,8 +93,8 @@ function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
     },
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'config.json', source: readFileSync(INSTANCE_CONFIG) })
-      for (const rel of brandingFiles()) {
-        this.emitFile({ type: 'asset', fileName: rel, source: readFileSync(path.join(BRANDING_DIR, rel)) })
+      for (const [rel, file] of brandingFiles()) {
+        this.emitFile({ type: 'asset', fileName: rel, source: readFileSync(file) })
       }
       // A server build reads the content through the API: the payload would be dead weight.
       if (!staticMode) return

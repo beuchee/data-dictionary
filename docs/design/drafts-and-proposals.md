@@ -13,7 +13,9 @@ A **draft** is a full replacement of one content file, held in the database (nev
 | `recommended-units` | `units/recommended_units.json` | `null` |
 | `unit-conversions` | `units/unit_conversions.json` | `null` |
 | `mapping-recommendations` | `mapping_recommendations/mapping_recommendations.json` | `null` |
-| `config` | `config.json` (branding files: not yet) | `null` |
+| `config` | `config.json`, plus `branding/logo.<ext>` / `branding/favicon.<ext>` from `$assets` | `null` |
+
+A `config` draft may carry branding images under the reserved top-level key `"$assets": {"logo"?: {filename, base64}, "favicon"?: …}` (base64 or a `data:` URL). The API refuses a malformed or unsafe image when the draft is saved (422) and again at submit (422 `invalid_asset`, `unsupported_asset_type`, `asset_too_large`, `unsafe_svg`); at submit the key is removed, the images are written to `branding/` in the same commit, and `branding.<kind>` points at them (docs/data-formats.md § Branding images).
 
 Routes (`/api/v1`, camelCase):
 

@@ -92,6 +92,7 @@ Props: `onConfirm`, `confirmLabel`, `confirmDisabled`, `busy`, `destructive`, `f
 | `Input` / `Textarea` / `Select` / `Checkbox` / `Switch` | Never a raw `<input>`. |
 | `PasswordInput` | Any secret input (reveal toggle). |
 | `ColorPickerPopover` | Color selection. |
+| `FileDropZone` | The dashed "choose or drop a file" area (fixed height). |
 | `CopyIconButton` + `copyText` (`lib/clipboard`) | Every clipboard write; never `navigator.clipboard` directly (undefined over plain HTTP). |
 
 **Tooltips** are the Radix `Tooltip` (`components/ui/tooltip.tsx`); style it as little as possible. The native `title=` attribute is not a tooltip.

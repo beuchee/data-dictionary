@@ -1,0 +1,37 @@
+{
+  "subtitle": "Set up your dictionary",
+  "steps": "Setup steps",
+  "load_error": "Could not load config.json",
+  "save_error": "Could not commit the configuration",
+  "skip": "Skip for now",
+  "back": "Back",
+  "next": "Next",
+  "finish": "Save and finish",
+  "organization": {
+    "label": "Organization",
+    "title": "Your organization",
+    "description": "Stamped as the owner of the concept sets edited here. You can change it later in Settings → Branding."
+  },
+  "branding": {
+    "label": "Branding",
+    "title": "Name and colors",
+    "description": "How the dictionary presents itself. Only the primary and secondary colors are customisable; the rest follows from them.",
+    "logo": "Logo (optional)"
+  },
+  "access": {
+    "label": "Access",
+    "title": "Who can read",
+    "description": "Editing always needs an account; reading can be open to anyone."
+  },
+  "repository": {
+    "label": "Repository",
+    "title": "Content repository",
+    "description": "The git repository holding the dictionary's JSON files. Your answers are committed to it as config.json.",
+    "remote": "Remote",
+    "branch": "Branch",
+    "head": "Commit",
+    "none": "None (local only)",
+    "unavailable": "The content repository could not be read.",
+    "env": "It is set in the server's environment, not here: DD_CONTENT_REPO_URL (cloned at first start), DD_CONTENT_BRANCH, and DD_GIT_TOKEN for pushing. Change them and restart the server."
+  }
+}

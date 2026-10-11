@@ -1,0 +1,80 @@
+{
+  "tab_title": "Personnalisation",
+  "load_error": "Impossible de charger config.json",
+  "save": "Enregistrer le brouillon",
+  "reset": "Réinitialiser",
+  "read_only": "Votre rôle ne permet pas de modifier la personnalisation.",
+  "identity": {
+    "title": "Nom et images",
+    "description": "Comment le dictionnaire se présente dans l'en-tête, l'onglet du navigateur et la page de connexion.",
+    "instance_title": "Titre",
+    "instance_title_hint": "Le titre du dictionnaire (`title` de config.json), utilisé aussi par la v1.",
+    "app_name": "Nom de l'application",
+    "app_name_hint": "Affiché dans l'en-tête et l'onglet du navigateur à la place du titre. Facultatif.",
+    "logo_alt": "Texte alternatif du logo"
+  },
+  "images": {
+    "logo": "Logo",
+    "favicon": "Favicon",
+    "none": "Aucun",
+    "drop": "Choisir ou déposer une image",
+    "hint": "PNG, JPEG, GIF, WebP, ICO ou SVG, jusqu'à {{max}} Ko",
+    "remove_upload": "Annuler l'envoi de {{name}}",
+    "static_mode": "Les images s'envoient depuis une instance serveur ; ici, ajoutez-les au dossier branding/ du dépôt.",
+    "error": {
+      "too_large": "L'image dépasse {{max}} Ko.",
+      "unsupported_type": "Ce n'est pas une image PNG, JPEG, GIF, WebP, ICO ou SVG.",
+      "empty": "Le fichier est vide.",
+      "read": "Impossible de lire le fichier."
+    }
+  },
+  "colors": {
+    "title": "Couleurs",
+    "description": "Couleurs primaire et secondaire. La couleur du texte posé dessus et les variantes du mode sombre sont dérivées automatiquement et vérifiées selon WCAG AA.",
+    "primary": "Primaire",
+    "secondary": "Secondaire",
+    "default": "Par défaut",
+    "invalid": "Couleur hexadécimale invalide",
+    "contrast": "Contraste {{light}} : 1 · sombre {{dark}} : 1 (AA ≥ {{min}})",
+    "light": "Clair",
+    "dark": "Sombre",
+    "sample_primary": "Bouton principal",
+    "sample_secondary": "Secondaire",
+    "sample_link": "Un lien",
+    "sample_focus": "Anneau de focus"
+  },
+  "languages": {
+    "title": "Langues",
+    "description": "Les langues du contenu (traductions des jeux de concepts, projets…). Aucune langue ne sert de repli à une autre.",
+    "add": "Ajouter",
+    "add_placeholder": "de, pt-BR…",
+    "remove": "Retirer {{code}}",
+    "default": "Langue par défaut"
+  },
+  "organization": {
+    "title": "Organisation et vocabulaire personnalisé",
+    "description": "L'organisation inscrite comme propriétaire des jeux de concepts modifiés, et le vocabulaire des concepts personnalisés.",
+    "name": "Nom de l'organisation",
+    "url": "URL de l'organisation"
+  },
+  "vocabulary": {
+    "id": "Identifiant du vocabulaire personnalisé",
+    "prefix": "Préfixe des codes de concept",
+    "hint": "Les concepts personnalisés reçoivent des identifiants à partir de 2 000 000 000, dans ce vocabulaire."
+  },
+  "display": {
+    "title": "Pages et accès",
+    "show_projects": "Afficher la page Projets",
+    "show_mapping": "Afficher la page Recommandations de mapping",
+    "anonymous_read": "Consultable sans connexion",
+    "anonymous_read_hint": "Mode serveur : tout le monde peut parcourir le dictionnaire ; modifier demande toujours un compte."
+  },
+  "error": {
+    "title_required": "Le titre est obligatoire.",
+    "languages_required": "Gardez au moins une langue.",
+    "invalid_language": "Un code de langue n'est pas valide (en, fr, pt-BR…).",
+    "invalid_primary": "La couleur primaire n'est pas une couleur hexadécimale (#1f6feb).",
+    "invalid_secondary": "La couleur secondaire n'est pas une couleur hexadécimale (#6e40c9).",
+    "invalid_organization_url": "L'URL de l'organisation doit commencer par http:// ou https://."
+  }
+}

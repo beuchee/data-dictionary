@@ -1,0 +1,30 @@
+concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concept	concept_code	valid_start_date	valid_end_date	invalid_reason
+0	No matching concept	Metadata	None	Undefined		No matching concept	19700101	20991231	
+100	Clinical finding	Condition	SNOMED	Clinical Finding	S	404684003	19700101	20991231	
+101	Disorder of cardiovascular system	Condition	SNOMED	Disorder	S	49601007	19700101	20991231	
+102	Heart disease	Condition	SNOMED	Disorder	S	56265001	19700101	20991231	
+103	Myocardial infarction	Condition	SNOMED	Disorder	S	22298006	19700101	20991231	
+104	Acute myocardial infarction	Condition	SNOMED	Disorder	S	57054005	19700101	20991231	
+105	Old myocardial infarction	Condition	SNOMED	Disorder	S	1755008	19700101	20991231	
+106	Acute anterior myocardial infarction	Condition	SNOMED	Disorder	S	54329005	19700101	20991231	
+107	Heart failure	Condition	SNOMED	Disorder	S	84114007	19700101	20991231	
+108	Congestive heart failure	Condition	SNOMED	Disorder	S	42343007	19700101	20991231	
+109	Hypertensive heart disease	Condition	SNOMED	Disorder	S	64715009	19700101	20991231	
+110	Hypertensive disorder	Condition	SNOMED	Disorder	S	38341003	19700101	20991231	
+111	Essential hypertension	Condition	SNOMED	Disorder	S	59621000	19700101	20991231	
+112	Ménière's disease	Condition	SNOMED	Disorder	S	13445001	19700101	20991231	
+120	Myocardial infarction, old concept	Condition	SNOMED	Disorder		1000120	19700101	20200101	U
+200	Acute myocardial infarction	Condition	ICD10	3-char nonbill code		I21	19700101	20991231	
+201	Heart failure	Condition	ICD10	3-char nonbill code		I50	19700101	20991231	
+202	Essential (primary) hypertension	Condition	ICD10	3-char billing code		I10	19700101	20991231	
+300	Heart rate	Measurement	LOINC	Clinical Observation	S	8867-4	19700101	20991231	
+301	Heart rate --resting	Measurement	LOINC	Clinical Observation	S	40443-4	19700101	20991231	
+302	Body temperature	Measurement	LOINC	Clinical Observation	S	8310-5	19700101	20991231	
+310	Vital signs	Measurement	LOINC	LOINC Group	C	LG41810-1	19700101	20991231	
+400	aspirin	Drug	RxNorm	Ingredient	S	1191	19700101	20991231	
+401	aspirin 81 MG Oral Tablet	Drug	RxNorm	Clinical Drug	S	243670	19700101	20991231	
+402	aspirin 325 MG Oral Tablet	Drug	RxNorm	Clinical Drug	S	198467	19700101	20991231	
+500	millimeter mercury column	Unit	UCUM	Unit	S	mm[Hg]	19700101	20991231	
+600	Heart structure	Spec Anatomic Site	SNOMED	Body Structure	S	80891009	19700101	20991231	
+4180186	English language	Observation	SNOMED	Qualifier Value	S	297496003	19700101	20991231	
+4180190	French language	Observation	SNOMED	Qualifier Value	S	297500009	19700101	20991231	

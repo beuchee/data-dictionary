@@ -1,0 +1,9 @@
+relationship_id	relationship_name	is_hierarchical	defines_ancestry	reverse_relationship_id	relationship_concept_id
+Is a	Is a	1	1	Subsumes	44818821
+Subsumes	Subsumes	1	0	Is a	44818723
+Maps to	Non-standard to Standard map (OMOP)	0	0	Mapped from	44818977
+Mapped from	Standard to Non-standard map (OMOP)	0	0	Maps to	44818978
+Concept replaced by	Concept replaced by (LOINC)	0	0	Concept replaces	44818720
+Concept replaces	Concept replaces (LOINC)	0	0	Concept replaced by	44818721
+Has finding site	Has finding site (SNOMED)	0	0	Finding site of	44818800
+Finding site of	Finding site of (SNOMED)	0	0	Has finding site	44818801

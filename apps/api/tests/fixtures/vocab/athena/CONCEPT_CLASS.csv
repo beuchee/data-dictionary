@@ -1,0 +1,13 @@
+concept_class_id	concept_class_name	concept_class_concept_id
+3-char billing code	3-char billing code	2000
+3-char nonbill code	3-char nonbill code	2001
+Body Structure	Body Structure	2002
+Clinical Drug	Clinical Drug	2003
+Clinical Finding	Clinical Finding	2004
+Clinical Observation	Clinical Observation	2005
+Disorder	Disorder	2006
+Ingredient	Ingredient	2007
+LOINC Group	LOINC Group	2008
+Qualifier Value	Qualifier Value	2009
+Undefined	Undefined	2010
+Unit	Unit	2011

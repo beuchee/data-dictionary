@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "concept": {
+        "CONCEPT_ID": 1592988,
+        "CONCEPT_NAME": "betrixaban",
+        "DOMAIN_ID": "Drug",
+        "VOCABULARY_ID": "RxNorm",
+        "CONCEPT_CLASS_ID": "Ingredient",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "1927851",
+        "VALID_START_DATE": "20170807",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": false,
+      "includeDescendants": true,
+      "includeMapped": false
+    }
+  ]
+}

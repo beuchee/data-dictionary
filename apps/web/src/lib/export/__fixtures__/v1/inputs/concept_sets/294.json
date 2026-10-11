@@ -1,0 +1,255 @@
+{
+  "id": 294,
+  "name": "Mobilization",
+  "description": "Patient mobilization — getting the patient moving (in/out of bed, standing, walking, with or without assistance); the act, not joint/organ mobilization.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 46272565,
+          "conceptName": "Progressive mobility",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "710950005",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 46271859,
+          "conceptName": "Promotion of physical mobility",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "710122006",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 46271857,
+          "conceptName": "Promotion of walking using mobility aid",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "710120003",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 46272439,
+          "conceptName": "Assistance with mobility",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "710803000",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37016972,
+          "conceptName": "Assistance with mobility in bed",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "713138001",
+          "validStartDate": "2016-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 46272440,
+          "conceptName": "Assistance with walking using device",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "710804006",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1242274,
+          "conceptName": "Assistance with getting out of bed",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "12101000202101",
+          "validStartDate": "2024-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4040262,
+          "conceptName": "Walking with patient - mobilization",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "229595009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4158838,
+          "conceptName": "Ambulation therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "370871008",
+          "validStartDate": "2002-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4204159,
+          "conceptName": "Walking practice",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "308931006",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "d8e2c0cd-388f-4b0b-8314-c564924efd66",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Mobilization",
+        "category": "Procedures",
+        "subcategory": "Patient position",
+        "shortDescription": "Patient mobilization — getting the patient moving (in/out of bed, standing, walking, with or without assistance); the act, not joint/organ mobilization.",
+        "longDescription": "## Definition & Clinical Context\n\nMobilization here means **patient mobilization** — the physiotherapy/nursing activity of getting a critically ill patient moving: assisting with movement in bed, sitting up, getting out of bed, standing, and walking. Early mobilization is a core ICU rehabilitation intervention that counters the deconditioning of prolonged bed rest. In source data this is a **procedure** record indicating that the patient was mobilized; there is no unit. It is recorded in intensive care and rehabilitation. It is the counterpart of the *Order not to mobilize* concept set.\n\n## Included Concepts\n\nThe set lists the SNOMED procedures for patient mobilization and ambulation (curated — SNOMED has no single anchor for patient mobilization, and the broad 'mobilization' hierarchy mixes in joint and surgical mobilizations that are out of scope).\n\n- *46272565 / 710950005 — Progressive mobility (SNOMED)*: progressive (staged) patient mobilization — the core ICU early-mobility concept.\n- *46271859 / 710122006 — Promotion of physical mobility (SNOMED)*.\n- *46272439 / 710803000 — Assistance with mobility (SNOMED)* and *37016972 / 713138001 — Assistance with mobility in bed (SNOMED)*.\n- *1242274 / 12101000202101 — Assistance with getting out of bed (SNOMED)*.\n- *46272440 / 710804006 — Assistance with walking using device (SNOMED)* and *46271857 / 710120003 — Promotion of walking using mobility aid (SNOMED)*.\n- *4040262 / 229595009 — Walking with patient - mobilization (SNOMED)*, *4204159 / 308931006 — Walking practice (SNOMED)*, *4158838 / 370871008 — Ambulation therapy (SNOMED)*.\n\n## Mapping Notes\n\n- Map records of the patient being mobilized / ambulated (in bed, out of bed, walking, with or without assistance/aids) to the matching concept here; use *46272565 / 710950005 — Progressive mobility* as the general early-mobility concept when not otherwise specified.\n- **Patient mobilization, not joint/organ mobilization**: manual-therapy joint mobilizations (e.g. 'accessory mobilization of the shoulder') and surgical organ mobilizations (e.g. 'mobilization of intestine') are *not* part of this set — they were removed.\n- **Counterpart of 'Order not to mobilize'**: this set is the act of mobilizing; the order not to mobilize (bed rest directive) is a separate concept set.\n"
+      },
+      "fr": {
+        "name": "Mobilisation",
+        "category": "Actes",
+        "subcategory": "Position du patient",
+        "shortDescription": "Mobilisation du patient — mise en mouvement (au lit, hors du lit, debout, marche, avec ou sans aide) ; l’acte, non la mobilisation articulaire/chirurgicale.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rescope to patient mobilization (early-mobility/ambulation acts): replaced the ~140-concept SNOMED \"mobilization\" tree (which mixed manual-therapy joint mobilizations and surgical organ mobilizations) with a curated list of patient-mobilization procedures (Progressive mobility, Promotion of physical mobility, Assistance with mobility/in bed/getting out of bed/walking, Walking with patient, Walking practice, Ambulation therapy). Counterpart of set 295. Added description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

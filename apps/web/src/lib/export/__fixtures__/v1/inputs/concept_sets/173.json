@@ -1,0 +1,75 @@
+{
+  "id": 173,
+  "name": "Alkaline phosphatase in blood",
+  "description": null,
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-04",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 40652549,
+          "conceptName": "Alkaline phosphatase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG5665-7",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "3afbfb3b-754c-4267-92e4-d14320ff7bb9",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Alkaline phosphatase (ALP) in blood",
+        "category": "Laboratory tests",
+        "subcategory": "Liver test",
+        "longDescription": "## Definition & Clinical Context\n\nAlkaline phosphatase (ALP) is a hydrolase enzyme that catalyses the removal of phosphate groups from various molecules. It is present throughout body tissues but is concentrated in the liver, bile ducts, kidney, bone, and placenta [1]. Elevated activity in blood is most often seen in cholestatic liver disease (bile duct obstruction) and in conditions with increased bone turnover (growth in children, Paget's disease, bone metastases); it is also physiologically increased in pregnancy [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser on serum or plasma. It is collected in routine biochemistry as part of a liver panel. Results are reported as catalytic activity concentration; NPU recognises both **U/L** (the conventional unit, used by virtually all clinical labs) and **µkat/L** (the SI unit) [2]. The IFCC reference measurement procedure for alkaline phosphatase at 37 °C, listed by JCTLM, gives the conversion factor `1 U/L = 0.01667 µkat/L` [3].\n\n**Note on isoenzymes.** ALP exists as several tissue-specific isoenzymes (liver, bone, intestinal, placental). This concept set covers the **total** ALP activity assayed in routine biochemistry — not the individual isoenzymes, which have their own LOINC concepts and are out of scope.\n\n## Included Concepts\n\nThe set contains three LOINC \"Lab Test\" concepts, all measuring total alkaline phosphatase catalytic activity in blood, differing only by specimen specification.\n\n- *3035995 / 6768-6 — Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma (LOINC)*: the most widely used LOINC code for ALP, returned by routine biochemistry analysers.\n- *3001110 / 1783-0 — Alkaline phosphatase [Enzymatic activity/volume] in Blood (LOINC)*: used when the source reports ALP on whole blood without specifying serum/plasma.\n- *46235077 / 77141-0 — Alkaline phosphatase [Enzymatic activity/volume] in Serum, Plasma or Blood (LOINC)*: generic concept used when the matrix is not differentiated between serum/plasma and whole blood (e.g. aggregated multi-source feeds).\n\n**Note on units.** Recommended unit follows LOINC: **`[U]/L`** (concept 8645). The notations `U/L` and `IU/L` are used interchangeably in clinical practice and represent the same value mathematically — no conversion is needed between them.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC group for total alkaline phosphatase catalytic activity in blood/serum/plasma and pulling in all its descendants. This naturally excludes:\n\n- **ALP isoenzymes**: liver-, bone-, intestinal-, placental-, renal-, regan-specific concepts (e.g. `1779-8 — Alkaline phosphatase.liver`, `1777-2 — Alkaline phosphatase.bone`). These are separate measurands.\n- **Isoenzyme ratios** like `Alkaline phosphatase.liver/Alkaline phosphatase.total` (`15015-1`) — out of scope.\n- **Heat stability tests** (`32351-9`, `32352-7`) — historical method-specific tests.\n- **Other specimens** such as cord blood (`55971-6`), body fluids, urine, dialysis fluid — out of scope for a \"blood\" concept set.\n- **Macromolecular ALP** (`100737-6`) — qualitative test for macro-ALP complexes.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"ALP\", \"alkaline phosphatase\", \"PAL\" or similar without further specification (typical of routine biochemistry analysers): `3035995 / 6768-6 — Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma`. By far the most common specimen for this assay.\n- **Whole blood without matrix tag**: if the source explicitly says \"blood\" (not serum/plasma), map to `3001110 / 1783-0 — Alkaline phosphatase [Enzymatic activity/volume] in Blood`. If the source aggregates results from both biochemistry and other workflows without a matrix tag, use `46235077 / 77141-0 — Alkaline phosphatase [Enzymatic activity/volume] in Serum, Plasma or Blood` as a generic fallback.\n- **Do not confuse with**: ALP isoenzymes (liver, bone, intestinal, etc.), isoenzyme ratios, or ALP in non-blood specimens — all belong to other concept sets.\n- **Method is not part of the mapping target**: when the source records the assay method (kinetic colorimetric, IFCC reference at 37 °C, etc.), preserve it in the measurement source value — it does not change the target concept.\n- **Unit naming**: source systems may report `U/L` or `IU/L`. Both correspond to the same physical quantity. Map them all to the recommended unit `[U]/L` (concept 8645). Values reported in `µkat/L` should be converted using `1 U/L = 0.01667 µkat/L` (i.e. multiply µkat/L by ~60 to get U/L) [3].\n\n## References\n\n[1] Regenstrief Institute. LOINC code 6768-6 — Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma (Part description for \"Alkaline phosphatase\").\n    Available: <a href=\"https://loinc.org/6768-6/\" target=\"_blank\">https://loinc.org/6768-6/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n\n[3] Joint Committee for Traceability in Laboratory Medicine (JCTLM). Database of higher-order reference measurement procedures, reference materials and reference measurement services. BIPM/IFCC/ILAC.\n    Available: <a href=\"https://www.jctlmdb.org/#/app/home\" target=\"_blank\">https://www.jctlmdb.org/#/app/home</a>\n"
+      },
+      "fr": {
+        "name": "Phosphatase alcaline (PAL) sanguine",
+        "category": "Biologie",
+        "subcategory": "Bilan hépatique",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

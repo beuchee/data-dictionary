@@ -1,0 +1,84 @@
+{
+  "id": 29,
+  "name": "Dependence on home ventilator",
+  "description": "Dependence on home ventilator — chronic reliance on home mechanical ventilation.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 46273524,
+          "conceptName": "Dependence on home ventilator",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Clinical Finding",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60631000119109",
+          "validStartDate": "2015-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "997f2988-dac4-48b5-9213-1b99cf52b1c2",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Dependence on home ventilator",
+        "category": "Conditions",
+        "subcategory": "Respiratory support",
+        "shortDescription": "Dependence on home ventilator — chronic reliance on home mechanical ventilation.",
+        "longDescription": "## Definition & Clinical Context\n\nDependence on a home ventilator indicates that a patient chronically relies on mechanical ventilation provided at home (for example for chronic respiratory failure or a neuromuscular disorder). In intensive care this baseline status is important for interpreting respiratory support, weaning targets and prognosis.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *46273524 / 60631000119109 — Dependence on home ventilator*. It captures the patient's chronic ventilator-dependent status, not an acute episode of mechanical ventilation.\n\n## Mapping Notes\n\n- This is a baseline dependence/status, distinct from receiving mechanical ventilation during the current ICU stay (a procedure captured elsewhere)."
+      },
+      "fr": {
+        "name": "Dépendance à la ventilation à domicile",
+        "category": "Pathologies",
+        "subcategory": "Support respiratoire",
+        "shortDescription": "Dépendance à un ventilateur à domicile — recours chronique à la ventilation mécanique à domicile.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Subcategory Respiratory support; added clinical description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

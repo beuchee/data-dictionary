@@ -1,0 +1,181 @@
+{
+  "id": 325,
+  "name": "Central venous pressure",
+  "description": "Central venous pressure (CVP) — blood pressure in the superior vena cava / right atrium, measured via a central venous catheter; includes mean, systolic and diastolic CVP.",
+  "version": "1.1.1",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-08-13",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3000333,
+          "conceptName": "Central venous pressure (CVP) Mean",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8591-0",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4323687,
+          "conceptName": "Central venous pressure",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71420008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490675,
+          "conceptName": "Central venous pressure (CVP)",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60985-9",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490676,
+          "conceptName": "Central venous pressure (CVP) Diastolic",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60986-7",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490677,
+          "conceptName": "Central venous pressure (CVP) Systolic",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60987-5",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "a6b3d24a-1254-415a-8d02-c3bafd509c16",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Central venous pressure",
+        "category": "Vital signs",
+        "subcategory": "Haemodynamics",
+        "shortDescription": "Central venous pressure (CVP) — blood pressure in the superior vena cava / right atrium, measured via a central venous catheter; includes mean, systolic and diastolic CVP.",
+        "longDescription": "## Definition & Clinical Context\n\nCentral venous pressure (CVP) is the blood pressure in the large central veins close to the right atrium (typically the superior vena cava), reflecting the pressure of blood returning to the heart. It is measured by connecting a pressure transducer to a central venous catheter (a catheter whose tip sits in a central vein) and reading the resulting pressure trace. Measuring it produces a numeric pressure value, reported in millimetres of mercury (mmHg) or, in some units, centimetres of water (cmH2O) — 1 mmHg ≈ 1.36 cmH2O. CVP is a continuous haemodynamic parameter monitored almost exclusively in the intensive care unit and operating room, where a central line is already in place.\n\nThis concept set captures **numeric CVP values**: the standard (mean) CVP plus the systolic and diastolic components of the CVP waveform. It does not include the act of inserting the catheter, CVP waveform morphology, or qualitative findings (e.g., \"raised CVP\").\n\n## Included Concepts\n\nThis concept set contains 5 standard concepts (4 LOINC + 1 SNOMED). The default concept for an unqualified CVP value is *21490675 / 60985-9 — Central venous pressure (CVP) (LOINC)* or its SNOMED equivalent *4323687 / 71420008 — Central venous pressure (SNOMED)*.\n\n### Generic central venous pressure\n\n- *21490675 / 60985-9 — Central venous pressure (CVP) (LOINC)*: The generic CVP value, with no systolic/diastolic qualifier. In practice a single \"CVP\" number reported by a bedside monitor is the mean pressure and maps here.\n\n- *4323687 / 71420008 — Central venous pressure (SNOMED)*: The SNOMED equivalent of the generic CVP value. Use either this or the LOINC generic concept depending on which vocabulary the source system aligns to.\n\n### Waveform components\n\nThese are used only when the source explicitly distinguishes a phase of the CVP waveform. A single monitor-displayed \"CVP\" value is not one of these — it is the mean.\n\n- *3000333 / 8591-0 — Central venous pressure (CVP) Mean (LOINC)*: The mean CVP, explicitly labelled as the mean (as opposed to the generic CVP code). Maps here when the source distinguishes \"mean CVP\" from systolic/diastolic components.\n\n- *21490677 / 60987-5 — Central venous pressure (CVP) Systolic (LOINC)*: The peak (systolic) pressure of the CVP waveform.\n\n- *21490676 / 60986-7 — Central venous pressure (CVP) Diastolic (LOINC)*: The trough (diastolic) pressure of the CVP waveform.\n\n**Note on units.** CVP is reported in mmHg or cmH2O depending on the unit's local convention; preserve the source unit and do not assume one over the other.\n\n## Excluded Concepts\n\n- *4182861 / 54654001 — Measurement of central venous pressure (SNOMED, Procedure)*: Removed from the set. This is the procedure (the act of measuring CVP), not the resulting value, and it is a non-standard concept that maps to the SNOMED observable *4323687 / 71420008 — Central venous pressure* already included here. Catheter insertion and CVP monitoring procedures are out of scope for this measurement set.\n\n## Mapping Notes\n\n- *Default concept*: When the source records a single \"CVP\" value with no systolic/diastolic qualifier, map to Central venous pressure (CVP) (21490675 / 60985-9 — Central venous pressure (CVP), LOINC), or its SNOMED equivalent (4323687 / 71420008 — Central venous pressure) if the source is SNOMED-aligned. A monitor-displayed CVP number is the mean pressure.\n\n- *Mean vs. generic*: Only use Central venous pressure (CVP) Mean (3000333 / 8591-0 — Central venous pressure (CVP) Mean, LOINC) when the source explicitly labels the value \"mean CVP\" alongside separate systolic/diastolic readings. Otherwise use the generic CVP concept.\n\n- *Waveform components*: Map to the systolic (21490677 / 60987-5 — Central venous pressure (CVP) Systolic, LOINC) or diastolic (21490676 / 60986-7 — Central venous pressure (CVP) Diastolic, LOINC) concepts only when the source separately records those phases of the CVP waveform, which is uncommon.\n\n- *Common source labels*: \"CVP\", \"PVC\" (pression veineuse centrale), \"Central venous pressure\", \"RA pressure (via CVC)\" → Central venous pressure (CVP) (21490675 / 60985-9 — Central venous pressure (CVP), LOINC).\n"
+      },
+      "fr": {
+        "name": "Pression veineuse centrale",
+        "category": "Paramètres vitaux",
+        "subcategory": "Hémodynamique",
+        "shortDescription": "Pression veineuse centrale (PVC) — pression sanguine dans la veine cave supérieure / l'oreillette droite, mesurée via un cathéter veineux central ; inclut la PVC moyenne, systolique et diastolique.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Maxim",
+          "lastName": "Moinat",
+          "affiliation": "Erasmus MC",
+          "profession": "Data Engineer",
+          "orcid": "0000-0001-8473-2433"
+        },
+        "reviewTimestamp": "2026-08-20T13:22:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Remove the non-standard SNOMED procedure \"Measurement of central venous pressure\" (54654001, the act, maps to the observable 71420008 already in the set). Keep the 5 numeric CVP measurements (generic + mean/systolic/diastolic LOINC + SNOMED observable). Added clinical description and moved to pending review."
+      },
+      {
+        "version": "1.1.1",
+        "date": "2026-08-13",
+        "author": "Boris Delange",
+        "message": "Move the units note from Mapping Notes to Included Concepts, where 94 of the dictionary's 102 unit notes already live. Text unchanged; the recommended unit is a property of the listed concepts rather than a mapping instruction."
+      }
+    ],
+    "distributionStats": null
+  }
+}

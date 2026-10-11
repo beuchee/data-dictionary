@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "concept": {
+        "CONCEPT_ID": 40487536,
+        "CONCEPT_NAME": "Intubation of respiratory tract",
+        "DOMAIN_ID": "Procedure",
+        "VOCABULARY_ID": "SNOMED",
+        "CONCEPT_CLASS_ID": "Procedure",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "447996002",
+        "VALID_START_DATE": "20110731",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": false,
+      "includeDescendants": true,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 4337047,
+        "CONCEPT_NAME": "Insertion of tracheostomy tube",
+        "DOMAIN_ID": "Procedure",
+        "VOCABULARY_ID": "SNOMED",
+        "CONCEPT_CLASS_ID": "Procedure",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "232685002",
+        "VALID_START_DATE": "20020131",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": true,
+      "includeDescendants": true,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 4337618,
+        "CONCEPT_NAME": "Cricothyroidotomy tube insertion",
+        "DOMAIN_ID": "Procedure",
+        "VOCABULARY_ID": "SNOMED",
+        "CONCEPT_CLASS_ID": "Procedure",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "232683009",
+        "VALID_START_DATE": "20020131",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": true,
+      "includeDescendants": true,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 4337048,
+        "CONCEPT_NAME": "Insertion of tracheal T-tube",
+        "DOMAIN_ID": "Procedure",
+        "VOCABULARY_ID": "SNOMED",
+        "CONCEPT_CLASS_ID": "Procedure",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "232686001",
+        "VALID_START_DATE": "20020131",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": true,
+      "includeDescendants": true,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 37206251,
+        "CONCEPT_NAME": "Scalpel bougie cricothyroidotomy",
+        "DOMAIN_ID": "Procedure",
+        "VOCABULARY_ID": "SNOMED",
+        "CONCEPT_CLASS_ID": "Procedure",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "785906002",
+        "VALID_START_DATE": "20190731",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": true,
+      "includeDescendants": false,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 36309319,
+        "CONCEPT_NAME": "Unplanned intubation",
+        "DOMAIN_ID": "Meas Value",
+        "VOCABULARY_ID": "LOINC",
+        "CONCEPT_CLASS_ID": "Answer",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "LA20580-9",
+        "VALID_START_DATE": "19700101",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": false,
+      "includeDescendants": false,
+      "includeMapped": false
+    },
+    {
+      "concept": {
+        "CONCEPT_ID": 36660691,
+        "CONCEPT_NAME": "Difficult intubation",
+        "DOMAIN_ID": "Observation",
+        "VOCABULARY_ID": "LOINC",
+        "CONCEPT_CLASS_ID": "Clinical Observation",
+        "STANDARD_CONCEPT": "S",
+        "STANDARD_CONCEPT_CAPTION": "Standard",
+        "CONCEPT_CODE": "95050-1",
+        "VALID_START_DATE": "20200617",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": false,
+      "includeDescendants": false,
+      "includeMapped": false
+    }
+  ]
+}

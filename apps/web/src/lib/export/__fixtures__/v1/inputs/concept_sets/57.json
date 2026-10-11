@@ -1,0 +1,99 @@
+{
+  "id": 57,
+  "name": "Rivaroxaban",
+  "description": null,
+  "version": "1.0.1",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-04-09",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 40241331,
+          "conceptName": "rivaroxaban",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1114195",
+          "validStartDate": "2011-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "47e3f3c8-a928-42f8-8d0a-361552a1721c",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Rivaroxaban",
+        "category": "Medications",
+        "subcategory": "Anticoagulants",
+        "shortDescription": null,
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Rivaroxaban",
+        "category": "Médicaments",
+        "subcategory": "Anticoagulants",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Mathilde",
+          "lastName": "Bories",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Pharmacist",
+          "orcid": "0000-0001-9092-4298"
+        },
+        "reviewTimestamp": "2026-09-09T10:00:00.000Z",
+        "status": "approved",
+        "comments": "Ingredient and hierarchy reviewed; resolved list not reviewed exhaustively.",
+        "version": "1.0.1"
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0.1",
+        "date": "2026-04-09",
+        "author": "Boris Delange",
+        "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      }
+    ],
+    "distributionStats": null
+  }
+}

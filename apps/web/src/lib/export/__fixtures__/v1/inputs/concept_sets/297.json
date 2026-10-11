@@ -1,0 +1,84 @@
+{
+  "id": 297,
+  "name": "Plasmapheresis",
+  "description": "Plasmapheresis / therapeutic plasma exchange (TPE) — extracorporeal removal (and replacement) of plasma.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4049372,
+          "conceptName": "Plasmapheresis",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "20720000",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "38a3ba9a-f4e6-410e-8c1e-1903bf42e3c0",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Plasmapheresis",
+        "category": "Procedures",
+        "subcategory": "Plasmapheresis",
+        "shortDescription": "Plasmapheresis / therapeutic plasma exchange (TPE) — extracorporeal removal (and replacement) of plasma.",
+        "longDescription": "## Definition & Clinical Context\n\nPlasmapheresis is an extracorporeal procedure in which blood is separated and the plasma is removed (and replaced with a substitute fluid or returned after treatment), used to remove circulating antibodies, immune complexes or toxins — e.g. in autoimmune and certain neurological or haematological conditions. Therapeutic plasma exchange (TPE) is the form in which the removed plasma is replaced. In source data this is a **procedure** record; there is no unit. It is recorded in intensive care, nephrology and haematology.\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure *Plasmapheresis* with its descendants.\n\n- *4049372 / 20720000 — Plasmapheresis (SNOMED)*: the general concept; the default.\n- *4076662 / 225067007 — Therapeutic plasma exchange (SNOMED)*: plasmapheresis with replacement of the removed plasma (TPE).\n- *4055766 / 19647005 — Therapeutic plasmapheresis using plasma as the major replacement fluid (SNOMED)*.\n\n## Mapping Notes\n\n- **Default concept** when the source records plasmapheresis or plasma exchange without detail: *4049372 / 20720000 — Plasmapheresis*. Map to *4076662 / 225067007 — Therapeutic plasma exchange* when the source specifies plasma exchange (TPE).\n- **Not other apheresis / RRT**: cytapheresis and renal replacement therapy (haemodialysis/haemofiltration) are different extracorporeal procedures in their own concept sets.\n"
+      },
+      "fr": {
+        "name": "Plasmaphérèse",
+        "category": "Actes",
+        "subcategory": "Plasmaphérèse",
+        "shortDescription": "Plasmaphérèse / échange plasmatique thérapeutique (EP) — retrait (et remplacement) extracorporel du plasma.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor on Plasmapheresis (4049372) with descendants (therapeutic plasma exchange, therapeutic plasmapheresis). Fixed FR name to \"Plasmaphérèse\". Added description."
+      }
+    ],
+    "distributionStats": null
+  }
+}

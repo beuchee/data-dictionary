@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "concept": {
+        "CONCEPT_ID": 2100000000,
+        "CONCEPT_NAME": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+        "DOMAIN_ID": "Measurement",
+        "VOCABULARY_ID": "INDICATE",
+        "CONCEPT_CLASS_ID": "Observable Entity",
+        "STANDARD_CONCEPT": "",
+        "STANDARD_CONCEPT_CAPTION": "Non-Standard",
+        "CONCEPT_CODE": "3D-CAM",
+        "VALID_START_DATE": "20260313",
+        "VALID_END_DATE": "20991231",
+        "INVALID_REASON": "V",
+        "INVALID_REASON_CAPTION": "Valid"
+      },
+      "isExcluded": false,
+      "includeDescendants": false,
+      "includeMapped": false
+    }
+  ]
+}

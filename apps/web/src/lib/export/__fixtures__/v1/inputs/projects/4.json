@@ -1,0 +1,570 @@
+{
+  "id": 4,
+  "translations": {
+    "en": {
+      "name": "Prediction of Neonatal and Pediatric Sepsis [Minimal]",
+      "shortDescription": "Validates the federated infrastructure for pediatric data access, specifically focusing on sepsis prediction in neonatal and pediatric populations.",
+      "longDescription": "[View on INDICATE website](https://indicate-europe.eu/use-cases/prediction-of-neonatal-and-pediatric-sepsis/)\n\n## Overview\n\nThis use case validates and demonstrates the utilisation of the federated infrastructure for the special case of **data access to paediatric patient data**.\n\n## Challenge\n\nThe additional complexity lies in the legal requirements of data protection for underage data subjects across EU Member States. Current interpretation of data protection rules often results in paediatric patient data not being shared at all, stifling innovation. Paradoxically, data sharing for research and innovation in paediatrics is vital, because populations of paediatric patients tend to be too small at individual institutions to enable research and in particular training and evaluation of machine learning models.\n\n## Clinical Focus\n\nThe focus targets **sepsis in neonatal and paediatric intensive care units**, as sepsis remains the most common cause of neonatal (less than 28 days old) and children's death. The use case will validate a promising, recently described early detection algorithm that combines patient characteristics and bedside monitor data to generate a risk score for sepsis. Without large-scale validation, implementing and adopting such an algorithm would not be possible.\n\n## Tasks\n\n- **T6.4.1** — External validation of the early detection algorithm developed by Van Laere et al. Assessment of algorithm functionality in different neonatal populations through external validation across multiple European hospital datasets.\n- **T6.4.2** — Refine the model to local settings. Even if external validation results appear positive, assessment of detection model performance after retraining using all patient data as training dataset will increase generalisability for application in different populations.\n- **T6.4.3** — Set up a continuous federated evaluation and retraining pipeline. After early sepsis detection models are implemented, continuous evaluation of model performance is necessary to guarantee effectiveness and patient safety.\n\n## Use Case Leader\n\n**Rob Taal** — Erasmus MC"
+    },
+    "fr": {
+      "name": "Prédiction du sepsis néonatal et pédiatrique [Minimal]",
+      "shortDescription": "Validation de l'infrastructure fédérée pour l'accès aux données pédiatriques, avec un focus sur la prédiction du sepsis dans les populations néonatales et pédiatriques.",
+      "longDescription": "[Voir sur le site INDICATE](https://indicate-europe.eu/use-cases/prediction-of-neonatal-and-pediatric-sepsis/)\n\n## Présentation\n\nCe cas d'usage valide et démontre l'utilisation de l'infrastructure fédérée pour le cas particulier de l'**accès aux données des patients pédiatriques**.\n\n## Enjeu\n\nLa complexité supplémentaire réside dans les exigences légales de protection des données pour les sujets mineurs dans les États membres de l'UE. L'interprétation actuelle des règles de protection des données aboutit souvent à l'absence totale de partage des données pédiatriques, ce qui freine l'innovation. Paradoxalement, le partage de données pour la recherche et l'innovation en pédiatrie est vital, car les populations de patients pédiatriques tendent à être trop petites dans les institutions individuelles pour permettre la recherche et en particulier l'entraînement et l'évaluation de modèles d'apprentissage automatique.\n\n## Objectif clinique\n\nL'objectif cible le **sepsis dans les unités de soins intensifs néonatals et pédiatriques**, le sepsis restant la cause la plus fréquente de mortalité néonatale (moins de 28 jours) et pédiatrique. Ce cas d'usage validera un algorithme prometteur de détection précoce récemment décrit, qui combine les caractéristiques des patients et les données de monitoring au chevet pour générer un score de risque de sepsis. Sans validation à grande échelle, l'implémentation et l'adoption d'un tel algorithme ne seraient pas possibles.\n\n## Tâches\n\n- **T6.4.1** — Validation externe de l'algorithme de détection précoce développé par Van Laere et al. Évaluation de la fonctionnalité de l'algorithme dans différentes populations néonatales via une validation externe sur plusieurs jeux de données hospitaliers européens.\n- **T6.4.2** — Raffinement du modèle aux contextes locaux. Même si les résultats de validation externe semblent positifs, l'évaluation des performances du modèle après réentraînement sur l'ensemble des données patients augmentera la généralisabilité pour l'application dans différentes populations.\n- **T6.4.3** — Mise en place d'un pipeline continu d'évaluation et de réentraînement fédéré. Après l'implémentation des modèles de détection précoce du sepsis, une évaluation continue des performances est nécessaire pour garantir l'efficacité et la sécurité des patients.\n\n## Responsable du cas d'usage\n\n**Rob Taal** — Erasmus MC"
+    }
+  },
+  "createdBy": "Rob Taal",
+  "createdDate": "2024-12-01",
+  "modifiedDate": "2026-08-13",
+  "groups": [
+    {
+      "id": "group-default",
+      "translations": {
+        "en": {
+          "name": "Default"
+        },
+        "fr": {
+          "name": "Par défaut"
+        }
+      },
+      "rule": "all_required",
+      "conceptSets": [
+        {
+          "id": 8,
+          "version": "1.1.0"
+        },
+        {
+          "id": 12,
+          "version": "1.1.0"
+        },
+        {
+          "id": 31,
+          "version": "1.1.0"
+        },
+        {
+          "id": 63,
+          "version": "1.0.1"
+        },
+        {
+          "id": 64,
+          "version": "1.0.1"
+        },
+        {
+          "id": 66,
+          "version": "1.0.1"
+        },
+        {
+          "id": 67,
+          "version": "1.0.1"
+        },
+        {
+          "id": 69,
+          "version": "1.0.1"
+        },
+        {
+          "id": 70,
+          "version": "1.0.1"
+        },
+        {
+          "id": 71,
+          "version": "1.0.1"
+        },
+        {
+          "id": 72,
+          "version": "1.0.1"
+        },
+        {
+          "id": 73,
+          "version": "1.0.1"
+        },
+        {
+          "id": 74,
+          "version": "1.0.1"
+        },
+        {
+          "id": 75,
+          "version": "1.0.1"
+        },
+        {
+          "id": 76,
+          "version": "1.0.1"
+        },
+        {
+          "id": 77,
+          "version": "1.0.1"
+        },
+        {
+          "id": 78,
+          "version": "1.0.1"
+        },
+        {
+          "id": 79,
+          "version": "1.0.1"
+        },
+        {
+          "id": 80,
+          "version": "1.0.1"
+        },
+        {
+          "id": 81,
+          "version": "1.0.1"
+        },
+        {
+          "id": 82,
+          "version": "1.0.1"
+        },
+        {
+          "id": 83,
+          "version": "1.0.1"
+        },
+        {
+          "id": 84,
+          "version": "1.0.1"
+        },
+        {
+          "id": 85,
+          "version": "1.0.1"
+        },
+        {
+          "id": 86,
+          "version": "1.0.1"
+        },
+        {
+          "id": 87,
+          "version": "1.0.1"
+        },
+        {
+          "id": 88,
+          "version": "1.0.1"
+        },
+        {
+          "id": 89,
+          "version": "1.0.1"
+        },
+        {
+          "id": 90,
+          "version": "1.0.1"
+        },
+        {
+          "id": 91,
+          "version": "1.0.1"
+        },
+        {
+          "id": 92,
+          "version": "1.0.1"
+        },
+        {
+          "id": 93,
+          "version": "1.0.1"
+        },
+        {
+          "id": 94,
+          "version": "1.0.1"
+        },
+        {
+          "id": 95,
+          "version": "1.0.1"
+        },
+        {
+          "id": 96,
+          "version": "1.0.1"
+        },
+        {
+          "id": 97,
+          "version": "1.0.1"
+        },
+        {
+          "id": 98,
+          "version": "1.0.1"
+        },
+        {
+          "id": 99,
+          "version": "1.0.1"
+        },
+        {
+          "id": 101,
+          "version": "1.0.1"
+        },
+        {
+          "id": 102,
+          "version": "1.0.1"
+        },
+        {
+          "id": 103,
+          "version": "1.0.1"
+        },
+        {
+          "id": 105,
+          "version": "1.0.1"
+        },
+        {
+          "id": 106,
+          "version": "1.0.1"
+        },
+        {
+          "id": 107,
+          "version": "1.0.1"
+        },
+        {
+          "id": 108,
+          "version": "1.0.1"
+        },
+        {
+          "id": 109,
+          "version": "1.0.1"
+        },
+        {
+          "id": 110,
+          "version": "1.0.1"
+        },
+        {
+          "id": 111,
+          "version": "1.0.1"
+        },
+        {
+          "id": 112,
+          "version": "1.0.1"
+        },
+        {
+          "id": 116,
+          "version": "1.0.1"
+        },
+        {
+          "id": 118,
+          "version": "1.0.1"
+        },
+        {
+          "id": 140,
+          "version": "1.0.1"
+        },
+        {
+          "id": 141,
+          "version": "1.0.1"
+        },
+        {
+          "id": 142,
+          "version": "1.0.1"
+        },
+        {
+          "id": 143,
+          "version": "1.0.1"
+        },
+        {
+          "id": 144,
+          "version": "1.0.1"
+        },
+        {
+          "id": 145,
+          "version": "1.0.1"
+        },
+        {
+          "id": 146,
+          "version": "1.0.1"
+        },
+        {
+          "id": 147,
+          "version": "1.0.1"
+        },
+        {
+          "id": 152,
+          "version": "1.2.0"
+        },
+        {
+          "id": 168,
+          "version": "1.1.1"
+        },
+        {
+          "id": 169,
+          "version": "1.1.0"
+        },
+        {
+          "id": 170,
+          "version": "1.1.2"
+        },
+        {
+          "id": 183,
+          "version": "1.1.1"
+        },
+        {
+          "id": 199,
+          "version": "1.1.0"
+        },
+        {
+          "id": 207,
+          "version": "1.1.0"
+        },
+        {
+          "id": 208,
+          "version": "1.1.0"
+        },
+        {
+          "id": 223,
+          "version": "1.1.0"
+        },
+        {
+          "id": 224,
+          "version": "1.1.0"
+        },
+        {
+          "id": 225,
+          "version": "1.1.0"
+        },
+        {
+          "id": 226,
+          "version": "1.1.0"
+        },
+        {
+          "id": 227,
+          "version": "1.1.0"
+        },
+        {
+          "id": 228,
+          "version": "1.1.0"
+        },
+        {
+          "id": 230,
+          "version": "1.1.0"
+        },
+        {
+          "id": 231,
+          "version": "1.1.0"
+        },
+        {
+          "id": 232,
+          "version": "1.1.0"
+        },
+        {
+          "id": 233,
+          "version": "1.1.0"
+        },
+        {
+          "id": 234,
+          "version": "1.1.0"
+        },
+        {
+          "id": 235,
+          "version": "1.1.0"
+        },
+        {
+          "id": 236,
+          "version": "1.1.0"
+        },
+        {
+          "id": 237,
+          "version": "1.1.0"
+        },
+        {
+          "id": 238,
+          "version": "1.2.0"
+        },
+        {
+          "id": 239,
+          "version": "1.1.0"
+        },
+        {
+          "id": 240,
+          "version": "1.1.0"
+        },
+        {
+          "id": 241,
+          "version": "1.1.0"
+        },
+        {
+          "id": 242,
+          "version": "1.1.0"
+        },
+        {
+          "id": 243,
+          "version": "1.1.0"
+        },
+        {
+          "id": 244,
+          "version": "1.1.0"
+        },
+        {
+          "id": 365,
+          "version": "1.0.0"
+        },
+        {
+          "id": 366,
+          "version": "1.0.0"
+        },
+        {
+          "id": 246,
+          "version": "1.1.0"
+        },
+        {
+          "id": 247,
+          "version": "1.1.0"
+        },
+        {
+          "id": 248,
+          "version": "1.1.0"
+        },
+        {
+          "id": 249,
+          "version": "1.1.0"
+        },
+        {
+          "id": 250,
+          "version": "1.1.0"
+        },
+        {
+          "id": 251,
+          "version": "1.1.0"
+        },
+        {
+          "id": 252,
+          "version": "1.1.0"
+        },
+        {
+          "id": 253,
+          "version": "1.1.0"
+        },
+        {
+          "id": 255,
+          "version": "1.1.0"
+        },
+        {
+          "id": 256,
+          "version": "1.1.0"
+        },
+        {
+          "id": 257,
+          "version": "1.1.0"
+        },
+        {
+          "id": 258,
+          "version": "1.1.0"
+        },
+        {
+          "id": 259,
+          "version": "1.1.0"
+        },
+        {
+          "id": 260,
+          "version": "1.1.0"
+        },
+        {
+          "id": 261,
+          "version": "1.1.0"
+        },
+        {
+          "id": 262,
+          "version": "1.1.0"
+        },
+        {
+          "id": 263,
+          "version": "1.1.0"
+        },
+        {
+          "id": 264,
+          "version": "1.1.0"
+        },
+        {
+          "id": 265,
+          "version": "1.1.0"
+        },
+        {
+          "id": 267,
+          "version": "1.1.0"
+        },
+        {
+          "id": 268,
+          "version": "1.1.0"
+        },
+        {
+          "id": 269,
+          "version": "1.1.0"
+        },
+        {
+          "id": 270,
+          "version": "1.1.0"
+        },
+        {
+          "id": 272,
+          "version": "1.1.0"
+        },
+        {
+          "id": 273,
+          "version": "1.1.0"
+        },
+        {
+          "id": 274,
+          "version": "1.1.0"
+        },
+        {
+          "id": 275,
+          "version": "1.1.1"
+        },
+        {
+          "id": 278,
+          "version": "1.1.0"
+        },
+        {
+          "id": 279,
+          "version": "1.1.0"
+        },
+        {
+          "id": 301,
+          "version": "1.1.0"
+        },
+        {
+          "id": 306,
+          "version": "1.1.0"
+        },
+        {
+          "id": 307,
+          "version": "1.1.0"
+        },
+        {
+          "id": 325,
+          "version": "1.1.1"
+        },
+        {
+          "id": 326,
+          "version": "1.0.1"
+        },
+        {
+          "id": 327,
+          "version": "1.0.2"
+        },
+        {
+          "id": 328,
+          "version": "1.0.1"
+        },
+        {
+          "id": 329,
+          "version": "1.0.1"
+        },
+        {
+          "id": 330,
+          "version": "1.1.3"
+        },
+        {
+          "id": 332,
+          "version": "1.1.0"
+        },
+        {
+          "id": 333,
+          "version": "1.1.2"
+        },
+        {
+          "id": 347,
+          "version": "1.0.0"
+        },
+        {
+          "id": 348,
+          "version": "1.0.0"
+        },
+        {
+          "id": 349,
+          "version": "1.0.0"
+        },
+        {
+          "id": 350,
+          "version": "1.0.0"
+        }
+      ]
+    }
+  ]
+}

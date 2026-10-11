@@ -1,0 +1,96 @@
+{
+  "id": 163,
+  "name": "Arterial blood specimen",
+  "description": null,
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4047496,
+          "conceptName": "Arterial blood specimen",
+          "domainId": "Specimen",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Specimen",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "122552005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 45766301,
+          "conceptName": "Arterial cord blood specimen",
+          "domainId": "Specimen",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Specimen",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "703430008",
+          "validStartDate": "2014-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "982bc9ad-4f2c-4aaa-9c02-aecee4dffdbd",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Arterial blood specimen",
+        "category": "Laboratory tests",
+        "subcategory": "Blood specimen type",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nArterial blood specimen is a sample of blood obtained by puncture or catheterisation of a systemic artery (radial, femoral, brachial). It is used primarily for blood gas analysis (PaO2, PaCO2, pH, SaO2, lactate) and reflects the oxygen and carbon-dioxide status of blood after gas exchange in the lungs and before tissue extraction. Arterial sampling is more painful and carries a higher risk of complications than venous sampling, so it is reserved for clinical questions where the arterial-venous difference matters.\n\n**OMOP CDM usage.** This concept set targets the `SPECIMEN.specimen_concept_id` field. See the [Mapping Recommendations](#/mapping-recommendations) — *Lab Mapping → Specimen* section for how MEASUREMENT and SPECIMEN are linked in CDM v5.4.\n\n## Included Concepts\n\nThe set is anchored on the SNOMED Specimen concept `Arterial blood specimen`, expanded to include all its descendants. The set resolves to one specimen:\n\n- *4047496 / 122552005 — Arterial blood specimen (SNOMED)*\n\n## Excluded Concepts\n\nThe following SNOMED Specimen descendant is deliberately excluded by name:\n\n- *45766301 / 703430008 — Arterial cord blood specimen*: cord blood is physiologically distinct from post-natal arterial blood (placental circulation, oxygenation pattern).\n\n## Mapping Notes\n\n- **Default mapping** when the source data records a sample collected from an artery (radial line, femoral puncture, arterial blood gas): `4047496 / 122552005 — Arterial blood specimen`.\n- **Source records umbilical / cord sampling**: do **not** map. Out of scope.\n- **Source records a venous or capillary sample**: use the appropriate venous / peripheral / whole blood specimen concept set.\n"
+      },
+      "fr": {
+        "name": "Prélèvement sanguin artériel",
+        "category": "Biologie",
+        "subcategory": "Type de prélèvement sanguin",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

@@ -1,0 +1,767 @@
+{
+  "generatedFrom": "legacy/ (v1 1.2.6)",
+  "date": "2026-01-15",
+  "siteBase": "https://indicate-eu.github.io/data-dictionary/",
+  "toolTag": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
+  "repoUrl": "https://github.com/indicate-eu/data-dictionary",
+  "sql": [
+    {
+      "conceptSetId": 17,
+      "why": "condition set",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/17-en-default.sql"
+    },
+    {
+      "conceptSetId": 17,
+      "why": "condition set",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/17-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 37,
+      "why": "drug set",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/37-en-default.sql"
+    },
+    {
+      "conceptSetId": 37,
+      "why": "drug set",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/37-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 149,
+      "why": "a reference unit with no conversion registered",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/149-en-default.sql"
+    },
+    {
+      "conceptSetId": 149,
+      "why": "a reference unit with no conversion registered",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/149-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 149,
+      "why": "a reference unit with no conversion registered",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/149-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-en-default.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8840,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-en-unit-8840.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8840,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-en-unit-8840-drop.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "fr",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-fr-default.sql"
+    },
+    {
+      "conceptSetId": 155,
+      "why": "ionized calcium: mmol/L vs mg/dL, Classification concepts in the resolved list",
+      "lang": "fr",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8840,
+          "label": "mg/dL"
+        },
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/155-fr-default-drop.sql"
+    },
+    {
+      "conceptSetId": 163,
+      "why": "domain without CDM table only (Specimen)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/163-en-default.sql"
+    },
+    {
+      "conceptSetId": 163,
+      "why": "domain without CDM table only (Specimen)",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/163-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 184,
+      "why": "affine offset conversions",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8554,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8554,
+          "label": "%"
+        },
+        {
+          "unitId": 9579,
+          "label": "mmol/mol"
+        }
+      ],
+      "file": "sql/184-en-default.sql"
+    },
+    {
+      "conceptSetId": 184,
+      "why": "affine offset conversions",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 9579,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8554,
+          "label": "%"
+        },
+        {
+          "unitId": 9579,
+          "label": "mmol/mol"
+        }
+      ],
+      "file": "sql/184-en-unit-9579.sql"
+    },
+    {
+      "conceptSetId": 184,
+      "why": "affine offset conversions",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8554,
+          "label": "%"
+        },
+        {
+          "unitId": 9579,
+          "label": "mmol/mol"
+        }
+      ],
+      "file": "sql/184-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 184,
+      "why": "affine offset conversions",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8554,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8554,
+          "label": "%"
+        },
+        {
+          "unitId": 9579,
+          "label": "mmol/mol"
+        }
+      ],
+      "file": "sql/184-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 184,
+      "why": "affine offset conversions",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 9579,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8554,
+          "label": "%"
+        },
+        {
+          "unitId": 9579,
+          "label": "mmol/mol"
+        }
+      ],
+      "file": "sql/184-en-unit-9579-drop.sql"
+    },
+    {
+      "conceptSetId": 305,
+      "why": "mixed: Procedure + Observation + a domain without CDM table (Meas Value)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/305-en-default.sql"
+    },
+    {
+      "conceptSetId": 305,
+      "why": "mixed: Procedure + Observation + a domain without CDM table (Meas Value)",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/305-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 318,
+      "why": "multi-domain: Measurement + Observation",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 44777590,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 720858,
+          "label": "millibar"
+        },
+        {
+          "unitId": 44777590,
+          "label": "cm[H2O]"
+        }
+      ],
+      "file": "sql/318-en-default.sql"
+    },
+    {
+      "conceptSetId": 318,
+      "why": "multi-domain: Measurement + Observation",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 720858,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 720858,
+          "label": "millibar"
+        },
+        {
+          "unitId": 44777590,
+          "label": "cm[H2O]"
+        }
+      ],
+      "file": "sql/318-en-unit-720858.sql"
+    },
+    {
+      "conceptSetId": 318,
+      "why": "multi-domain: Measurement + Observation",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 720858,
+          "label": "millibar"
+        },
+        {
+          "unitId": 44777590,
+          "label": "cm[H2O]"
+        }
+      ],
+      "file": "sql/318-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 318,
+      "why": "multi-domain: Measurement + Observation",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 44777590,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 720858,
+          "label": "millibar"
+        },
+        {
+          "unitId": 44777590,
+          "label": "cm[H2O]"
+        }
+      ],
+      "file": "sql/318-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 318,
+      "why": "multi-domain: Measurement + Observation",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 720858,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 720858,
+          "label": "millibar"
+        },
+        {
+          "unitId": 44777590,
+          "label": "cm[H2O]"
+        }
+      ],
+      "file": "sql/318-en-unit-720858-drop.sql"
+    },
+    {
+      "conceptSetId": 330,
+      "why": "body temperature: affine offsets (Celsius/Fahrenheit)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 586323,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 9289,
+          "label": "degree Fahrenheit"
+        },
+        {
+          "unitId": 586323,
+          "label": "Cel"
+        }
+      ],
+      "file": "sql/330-en-default.sql"
+    },
+    {
+      "conceptSetId": 330,
+      "why": "body temperature: affine offsets (Celsius/Fahrenheit)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 9289,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 9289,
+          "label": "degree Fahrenheit"
+        },
+        {
+          "unitId": 586323,
+          "label": "Cel"
+        }
+      ],
+      "file": "sql/330-en-unit-9289.sql"
+    },
+    {
+      "conceptSetId": 330,
+      "why": "body temperature: affine offsets (Celsius/Fahrenheit)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 9289,
+          "label": "degree Fahrenheit"
+        },
+        {
+          "unitId": 586323,
+          "label": "Cel"
+        }
+      ],
+      "file": "sql/330-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 330,
+      "why": "body temperature: affine offsets (Celsius/Fahrenheit)",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 586323,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 9289,
+          "label": "degree Fahrenheit"
+        },
+        {
+          "unitId": 586323,
+          "label": "Cel"
+        }
+      ],
+      "file": "sql/330-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 330,
+      "why": "body temperature: affine offsets (Celsius/Fahrenheit)",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 9289,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 9289,
+          "label": "degree Fahrenheit"
+        },
+        {
+          "unitId": 586323,
+          "label": "Cel"
+        }
+      ],
+      "file": "sql/330-en-unit-9289-drop.sql"
+    },
+    {
+      "conceptSetId": 99998,
+      "why": "synthetic: contradictory factors for one source unit (per-concept CASE)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/99998-en-default.sql"
+    },
+    {
+      "conceptSetId": 99998,
+      "why": "synthetic: contradictory factors for one source unit (per-concept CASE)",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": false,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/99998-en-no-unit.sql"
+    },
+    {
+      "conceptSetId": 99998,
+      "why": "synthetic: contradictory factors for one source unit (per-concept CASE)",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": 8753,
+      "isDefault": true,
+      "unitOptions": [
+        {
+          "unitId": 8753,
+          "label": "mmol/L"
+        }
+      ],
+      "file": "sql/99998-en-default-drop.sql"
+    },
+    {
+      "conceptSetId": 99999,
+      "why": "synthetic: no resolved concepts",
+      "lang": "en",
+      "dropOtherUnits": false,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/99999-en-default.sql"
+    },
+    {
+      "conceptSetId": 99999,
+      "why": "synthetic: no resolved concepts",
+      "lang": "en",
+      "dropOtherUnits": true,
+      "referenceUnitId": null,
+      "isDefault": true,
+      "unitOptions": [],
+      "file": "sql/99999-en-default-drop.sql"
+    }
+  ],
+  "atlas": [
+    {
+      "conceptSetId": 1,
+      "file": "atlas/1.json"
+    },
+    {
+      "conceptSetId": 155,
+      "file": "atlas/155.json"
+    },
+    {
+      "conceptSetId": 171,
+      "file": "atlas/171.json"
+    },
+    {
+      "conceptSetId": 172,
+      "file": "atlas/172.json"
+    },
+    {
+      "conceptSetId": 305,
+      "file": "atlas/305.json"
+    },
+    {
+      "conceptSetId": 37,
+      "file": "atlas/37.json"
+    },
+    {
+      "conceptSetId": 99999,
+      "file": "atlas/99999.json"
+    }
+  ],
+  "indicate": [
+    {
+      "conceptSetId": 1,
+      "modifiedBy": null,
+      "file": "indicate/1.json"
+    },
+    {
+      "conceptSetId": 1,
+      "modifiedBy": "Ada Lovelace",
+      "file": "indicate/1-profile.json"
+    },
+    {
+      "conceptSetId": 155,
+      "modifiedBy": null,
+      "file": "indicate/155.json"
+    },
+    {
+      "conceptSetId": 155,
+      "modifiedBy": "Ada Lovelace",
+      "file": "indicate/155-profile.json"
+    },
+    {
+      "conceptSetId": 330,
+      "modifiedBy": null,
+      "file": "indicate/330.json"
+    },
+    {
+      "conceptSetId": 330,
+      "modifiedBy": "Ada Lovelace",
+      "file": "indicate/330-profile.json"
+    },
+    {
+      "conceptSetId": 99999,
+      "modifiedBy": null,
+      "file": "indicate/99999.json"
+    },
+    {
+      "conceptSetId": 99999,
+      "modifiedBy": "Ada Lovelace",
+      "file": "indicate/99999-profile.json"
+    }
+  ],
+  "projectCsv": [
+    {
+      "projectId": 1,
+      "lang": "en",
+      "filename": "MIMIC_EU__Minimal__concepts.csv",
+      "file": "project-csv/1-en.csv"
+    },
+    {
+      "projectId": 2,
+      "lang": "en",
+      "filename": "Early_Detection_of_Organ_Failure__Minimal__concepts.csv",
+      "file": "project-csv/2-en.csv"
+    },
+    {
+      "projectId": 3,
+      "lang": "en",
+      "filename": "Virtual_Digital_Twin_of_Mechanical_Ventilation__Minimal__concepts.csv",
+      "file": "project-csv/3-en.csv"
+    },
+    {
+      "projectId": 4,
+      "lang": "en",
+      "filename": "Prediction_of_Neonatal_and_Pediatric_Sepsis__Minimal__concepts.csv",
+      "file": "project-csv/4-en.csv"
+    },
+    {
+      "projectId": 5,
+      "lang": "en",
+      "filename": "Quality_Benchmarking_Dashboards__Minimal__concepts.csv",
+      "file": "project-csv/5-en.csv"
+    },
+    {
+      "projectId": 5,
+      "lang": "fr",
+      "filename": "Tableaux_de_bord_de_benchmarking_qualit___Minimal__concepts.csv",
+      "file": "project-csv/5-fr.csv"
+    },
+    {
+      "projectId": 6,
+      "lang": "en",
+      "filename": "Grand_Rounds_Workspace__Minimal__concepts.csv",
+      "file": "project-csv/6-en.csv"
+    }
+  ],
+  "pinned": [
+    {
+      "id": 300,
+      "version": "1.1.0"
+    },
+    {
+      "id": 317,
+      "version": "1.1.1"
+    },
+    {
+      "id": 318,
+      "version": "1.1.1"
+    },
+    {
+      "id": 327,
+      "version": "1.0.2"
+    },
+    {
+      "id": 330,
+      "version": "1.1.3"
+    },
+    {
+      "id": 331,
+      "version": "1.1.2"
+    },
+    {
+      "id": 333,
+      "version": "1.1.2"
+    },
+    {
+      "id": 362,
+      "version": "1.0.1"
+    }
+  ]
+}

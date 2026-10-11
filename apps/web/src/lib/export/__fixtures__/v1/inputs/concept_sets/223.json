@@ -1,0 +1,84 @@
+{
+  "id": 223,
+  "name": "Winkia neuii (ex Actinomyces neuii)",
+  "description": "Winkia neuii (formerly Actinomyces neuii) — Gram-positive bacterium reclassified into the genus Winkia in 2018.",
+  "version": "1.1.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-02-12",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 45769893,
+          "conceptName": "Winkia neuii",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "877802991000087109",
+          "validStartDate": "20140731",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "bf821b9b-5db9-4bdb-853d-6b1ff331cb71",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Winkia neuii (ex Actinomyces neuii)",
+        "category": "Microbiology",
+        "subcategory": "Bacteria",
+        "shortDescription": "Winkia neuii (formerly Actinomyces neuii) — Gram-positive bacterium reclassified into the genus Winkia in 2018",
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Winkia neuii (ex Actinomyces neuii)",
+        "category": "Microbiologie",
+        "subcategory": "Bactéries",
+        "shortDescription": "Winkia neuii (anciennement Actinomyces neuii) — bactérie à Gram positif reclassée dans le genre Winkia en 2018",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
+    "distributionStats": null
+  }
+}

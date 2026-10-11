@@ -234,7 +234,10 @@ def stamp_concept_set(
                 set_ordered(metadata, key, base_meta[key], METADATA_ORDER)
         base_org = normalize_concept_set_meta({"metadata": {"organization": base_meta.get("organization")}}, "")
         created = (base_org["metadata"].get("organization") or {}).get("created")
-        if created is not None and isinstance(metadata.get("organization"), dict):
+        if created is not None:
+            if not isinstance(metadata.get("organization"), dict):
+                # Dropped or replaced by a non-object: `created` is frozen all the same.
+                set_ordered(metadata, "organization", {"created": created, "current": created}, METADATA_ORDER)
             metadata["organization"]["created"] = created
 
     if org is not None:

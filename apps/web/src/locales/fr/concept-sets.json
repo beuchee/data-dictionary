@@ -1,5 +1,153 @@
 {
   "title": "Jeux de concepts",
   "description": "Jeux de concepts OHDSI gouvernés, relus et versionnés.",
-  "empty": "Le catalogue des jeux de concepts s'affichera ici."
+  "retry": "Réessayer",
+  "status": {
+    "draft": "Brouillon",
+    "pending_review": "En attente de relecture",
+    "approved": "Approuvé",
+    "needs_revision": "À réviser",
+    "deprecated": "Obsolète"
+  },
+  "standard": {
+    "standard": "Standard",
+    "classification": "Classification",
+    "non_standard": "Non standard"
+  },
+  "columns": {
+    "id": "ID",
+    "category": "Catégorie",
+    "subcategory": "Sous-catégorie",
+    "name": "Nom",
+    "description": "Description",
+    "version": "Version",
+    "status": "Statut",
+    "items": "Éléments",
+    "resolved": "Résolus",
+    "organization": "Organisation",
+    "modified": "Modifié"
+  },
+  "list": {
+    "search_placeholder": "Rechercher un jeu de concepts par nom ou ID...",
+    "load_error": "Les jeux de concepts n'ont pas pu être chargés",
+    "empty_title": "Aucun jeu de concepts",
+    "empty_description": "Ce dictionnaire ne contient aucun jeu de concepts.",
+    "no_match": "Aucun jeu de concepts ne correspond à ces filtres"
+  },
+  "tabs": {
+    "concepts": "Concepts",
+    "comments": "Commentaires",
+    "statistics": "Statistiques",
+    "reviews": "Relectures"
+  },
+  "detail": {
+    "breadcrumb": "Fil d'Ariane",
+    "untitled": "Jeu de concepts n°{{id}} (pas de nom dans cette langue)",
+    "not_found": "Le jeu de concepts {{id}} n'existe pas",
+    "version_not_found": "La version {{version}} de ce jeu de concepts est introuvable",
+    "back_to_list": "Retour aux jeux de concepts",
+    "load_error": "Ce jeu de concepts n'a pas pu être chargé",
+    "view_json": "Voir le JSON",
+    "view_current": "Voir la version actuelle",
+    "organization": "Maintenu par",
+    "created_by_org": "créé par {{name}}",
+    "created": "Créé par {{who}} le {{date}}",
+    "modified": "Modifié par {{who}} le {{date}}",
+    "past_version_title": "Vous consultez la version {{version}}, qui n'est pas la version actuelle",
+    "past_version_description": "La version actuelle est la {{current}}."
+  },
+  "versions": {
+    "title": "Historique des versions",
+    "description": "Toutes les versions publiées de ce jeu de concepts. Choisissez-en une pour l'afficher.",
+    "current": "actuelle",
+    "shown": "affichée",
+    "unavailable": "non archivée",
+    "date": "Date",
+    "author": "Auteur",
+    "message": "Message",
+    "commit": "Commit",
+    "empty": "Aucune version enregistrée"
+  },
+  "json": {
+    "title": "Jeu de concepts {{id}}, version {{version}}"
+  },
+  "concepts": {
+    "view": "Affichage des concepts",
+    "resolved": "Résolus",
+    "expression": "Expression",
+    "exclude": "Exclure",
+    "descendants": "Descendants",
+    "mapped": "Mappés",
+    "yes": "Oui",
+    "expression_empty": "L'expression ne contient aucun concept",
+    "resolved_search": "Rechercher par ID, nom, code ou vocabulaire...",
+    "resolved_error": "Les concepts résolus n'ont pas pu être chargés",
+    "resolved_missing_title": "Pas de liste résolue",
+    "resolved_missing_description": "Ce jeu de concepts n'a pas encore été résolu avec les vocabulaires OHDSI.",
+    "resolved_empty": "La liste résolue est vide",
+    "resolved_no_match": "Aucun concept résolu ne correspond à cette recherche",
+    "vocabulary_release": "Version des vocabulaires : {{release}}"
+  },
+  "concept": {
+    "title": "Détails du concept",
+    "name": "Nom du concept",
+    "id": "ID du concept",
+    "vocabulary": "Vocabulaire",
+    "code": "Code du concept",
+    "domain": "Domaine",
+    "class": "Classe du concept",
+    "standard": "Standard",
+    "validity": "Validité",
+    "valid": "Valide",
+    "invalid": "Invalide",
+    "invalid_reason": "Invalide ({{reason}})",
+    "valid_dates": "Valide du / au",
+    "fhir": "Ressource FHIR",
+    "no_link": "Aucun lien disponible",
+    "no_link_custom": "Aucun lien disponible (concept personnalisé)",
+    "open_athena": "Ouvrir dans Athena",
+    "vocabulary_section": "Vocabulaire"
+  },
+  "comments": {
+    "empty_title": "Aucun commentaire dans cette langue",
+    "empty_description": "Le commentaire expert de ce jeu de concepts n'a pas encore été rédigé dans cette langue."
+  },
+  "statistics": {
+    "empty_title": "Aucune statistique de distribution",
+    "empty_description": "Aucune statistique de distribution n'est disponible pour ce jeu de concepts.",
+    "profile": "Profil",
+    "profile_n": "Profil {{n}}",
+    "profile_empty": "Ce profil ne contient aucune statistique",
+    "typical_interval": "Intervalle typique :",
+    "missing_rate": "Taux de valeurs manquantes :",
+    "numeric_summary": "Résumé numérique",
+    "distribution": "Distribution",
+    "categories": "Catégories",
+    "value": "Valeur",
+    "count": "Effectif",
+    "percent": "Pourcentage",
+    "numeric": {
+      "min": "Min",
+      "p5": "P5",
+      "p25": "P25 (Q1)",
+      "median": "Médiane",
+      "mean": "Moyenne",
+      "p75": "P75 (Q3)",
+      "p95": "P95",
+      "max": "Max",
+      "sd": "ET",
+      "cv": "CV"
+    }
+  },
+  "reviews": {
+    "reviewer": "Relecteur",
+    "affiliation": "Affiliation",
+    "date": "Date",
+    "comments": "Commentaires",
+    "comment_only": "Commentaire",
+    "dialog_title": "Relecture de {{reviewer}}",
+    "no_comment": "Aucun commentaire.",
+    "empty_title": "Aucune relecture",
+    "empty_description": "Personne n'a encore relu ce jeu de concepts."
+  }
 }

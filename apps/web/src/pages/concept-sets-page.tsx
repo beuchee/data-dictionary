@@ -1,6 +1,1 @@
-import { Library } from 'lucide-react'
-import { PlaceholderPage } from './placeholder-page'
-
-export function ConceptSetsPage() {
-  return <PlaceholderPage pageKey="concept_sets" icon={Library} />
-}
+export { ConceptSetsListPage as ConceptSetsPage } from '@/features/concept-sets/concept-sets-list-page'

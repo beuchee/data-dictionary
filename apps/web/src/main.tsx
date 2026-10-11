@@ -9,19 +9,34 @@ import i18n, { resolveLanguage } from '@/lib/i18n'
 import '@/index.css'
 import { App } from '@/app/App'
 import { ConfigErrorScreen } from '@/components/layout/config-error-screen'
-import { loadInstanceConfig } from '@/lib/config'
+import { isServerMode } from '@/lib/api-client'
+import { loadStaticInstanceConfig } from '@/lib/config'
+import { getDictionarySource, type InstanceInfo } from '@/lib/data'
 import { applyBranding } from '@/lib/theme'
 import { useAppStore } from '@/stores/app-store'
 import { useConfigStore } from '@/stores/config-store'
+
+async function loadInstance(): Promise<InstanceInfo> {
+  try {
+    return await getDictionarySource().getInstance()
+  } catch (error) {
+    if (!isServerMode()) throw error
+    // The API did not answer: boot on the bundled config.json so the auth gate can
+    // say the server is unreachable, instead of a config error.
+    console.warn('GET /api/v1/instance/config failed, using the bundled config.json', error)
+    return { config: await loadStaticInstanceConfig(), server: null }
+  }
+}
 
 async function boot() {
   const root = createRoot(document.getElementById('root')!)
   document.documentElement.classList.toggle('dark', useAppStore.getState().darkMode)
 
   try {
-    const config = await loadInstanceConfig()
+    const instance = await loadInstance()
+    const { config } = instance
     applyBranding(config)
-    useConfigStore.getState().setConfig(config)
+    useConfigStore.getState().setInstance(instance)
     await i18n.changeLanguage(
       resolveLanguage(useAppStore.getState().language, config.languages, config.defaultLanguage),
     )

@@ -1,0 +1,415 @@
+{
+  "_comment": "Inputs and expected outputs of content_store.concept_set_summary / version_history, checked by both the API tests and apps/web/src/lib/data/catalog.test.ts so the static source returns what the API returns.",
+  "cases": [
+    {
+      "conceptSet": {
+        "id": 1,
+        "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+        "description": "Brief structured bedside diagnostic interview operationalising the CAM algorithm for delirium in hospitalised patients",
+        "version": "1.0.2",
+        "createdBy": "Boris Delange",
+        "createdDate": "2026-02-12",
+        "modifiedBy": "Boris Delange",
+        "modifiedDate": "2026-05-27",
+        "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
+        "expression": {
+          "items": [
+            {
+              "concept": {
+                "conceptId": 2100000000,
+                "conceptName": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+                "domainId": "Measurement",
+                "vocabularyId": "INDICATE",
+                "conceptClassId": "Observable Entity",
+                "standardConcept": "",
+                "standardConceptCaption": "Non-standard",
+                "conceptCode": "3D-CAM",
+                "validStartDate": "2026-03-13",
+                "validEndDate": "2099-12-31",
+                "invalidReason": null,
+                "invalidReasonCaption": "Valid"
+              },
+              "isExcluded": false,
+              "includeDescendants": false,
+              "includeMapped": false
+            }
+          ]
+        },
+        "tags": [],
+        "metadata": {
+          "uniqueId": "e29ddfbd-19ce-4eaa-b6b5-ab7f453682b3",
+          "organization": {
+            "created": {
+              "name": "INDICATE Consortium",
+              "url": "https://indicate-eu.org"
+            },
+            "current": {
+              "name": "INDICATE Consortium",
+              "url": "https://indicate-eu.org"
+            }
+          },
+          "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+          "reviewStatus": "pending_review",
+          "origin": null,
+          "translations": {
+            "en": {
+              "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+              "category": "Clinical observations",
+              "subcategory": "Neurological assessment",
+              "shortDescription": "Brief structured bedside diagnostic interview operationalising the CAM algorithm for delirium in hospitalised patients",
+              "longDescription": "## Definition & Clinical Context\n\nThe 3D-CAM (3-Minute Diagnostic Assessment for CAM-defined Delirium) is a brief, structured bedside diagnostic instrument that operationalises the Confusion Assessment Method (CAM) algorithm for identifying delirium in hospitalised patients. It takes a median of 3 minutes to administer (IQR 2–5 minutes) and does not require special training [1].\n\nThe instrument comprises 20 items organised into the four CAM diagnostic features:\n- acute onset and fluctuating course\n- inattention\n- disorganised thinking\n- altered level of consciousness\n\nA feature is considered present if any single item within that category is positive. Delirium is diagnosed when features 1 and 2 are both present, along with feature 3 and/or feature 4.\n\n## Included Concepts\n\nThis concept set contains a single custom concept, as no equivalent exists in standard terminologies (SNOMED, LOINC).\n\n## References\n\n[1] Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: Derivation and Validation of a 3-Minute Diagnostic Interview for CAM-Defined Delirium. *Ann Intern Med*. 2014;161(8):554-561. doi:10.7326/M14-0865. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/25329203/\" target=\"_blank\">25329203</a>"
+            },
+            "fr": {
+              "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+              "category": "Observations cliniques",
+              "subcategory": "Évaluation neurologique",
+              "shortDescription": "Entretien diagnostique structuré court au lit du patient, opérationnalisant l'algorithme CAM pour le delirium chez les patients hospitalisés",
+              "longDescription": "## Définition et contexte clinique\n\nLe 3D-CAM (3-Minute Diagnostic Assessment for CAM-defined Delirium) est un instrument diagnostique structuré et bref, réalisable au lit du patient, basé sur l'algorithme de la Confusion Assessment Method (CAM) pour identifier le délirium chez les patients hospitalisés. Son administration prend en médiane 3 minutes (IQR 2–5 minutes) et ne nécessite pas de formation spécifique [1].\n\nL'instrument comprend 20 items organisés selon les quatre critères diagnostiques du CAM :\n- début aigu et évolution fluctuante\n- inattention\n- désorganisation de la pensée\n- altération du niveau de conscience\n\nUn critère est considéré comme présent si au moins un item de cette catégorie est positif. Le délirium est diagnostiqué lorsque les critères 1 et 2 sont tous deux présents, accompagnés du critère 3 et/ou du critère 4.\n\n## Concepts inclus\n\nCe concept set contient un seul concept custom, aucun équivalent n'existant dans les terminologies standard (SNOMED, LOINC).\n\n## Références\n\n[1] Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: Derivation and Validation of a 3-Minute Diagnostic Interview for CAM-Defined Delirium. *Ann Intern Med*. 2014;161(8):554-561. doi:10.7326/M14-0865. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/25329203/\" target=\"_blank\">25329203</a>"
+            }
+          },
+          "createdByDetails": {
+            "firstName": "Boris",
+            "lastName": "Delange",
+            "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+            "profession": "Medical Informatics and Intensive Care Physician",
+            "orcid": "0009-0002-6055-6935"
+          },
+          "reviews": [],
+          "versions": [],
+          "distributionStats": null
+        }
+      },
+      "resolvedCount": 1,
+      "versionsIndex": {
+        "1.0.0": "ce8fd47179e877f3b338815a6c9ee226cac43311",
+        "1.0.2": "1f50acb5828b1ed66a3ecb054fc976ebbc14cf6e"
+      },
+      "summary": {
+        "id": 1,
+        "version": "1.0.2",
+        "uniqueId": "e29ddfbd-19ce-4eaa-b6b5-ab7f453682b3",
+        "translations": {
+          "en": {
+            "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+            "category": "Clinical observations",
+            "subcategory": "Neurological assessment",
+            "shortDescription": "Brief structured bedside diagnostic interview operationalising the CAM algorithm for delirium in hospitalised patients"
+          },
+          "fr": {
+            "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+            "category": "Observations cliniques",
+            "subcategory": "Évaluation neurologique",
+            "shortDescription": "Entretien diagnostique structuré court au lit du patient, opérationnalisant l'algorithme CAM pour le delirium chez les patients hospitalisés"
+          }
+        },
+        "reviewStatus": "pending_review",
+        "organization": {
+          "created": {
+            "name": "INDICATE Consortium",
+            "url": "https://indicate-eu.org"
+          },
+          "current": {
+            "name": "INDICATE Consortium",
+            "url": "https://indicate-eu.org"
+          }
+        },
+        "itemCount": 1,
+        "resolvedCount": 1,
+        "modifiedDate": "2026-05-27",
+        "modifiedBy": "Boris Delange"
+      },
+      "history": [
+        {
+          "version": "1.0.2",
+          "commit": "1f50acb5828b1ed66a3ecb054fc976ebbc14cf6e",
+          "isCurrent": true,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "1.0.0",
+          "commit": "ce8fd47179e877f3b338815a6c9ee226cac43311",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        }
+      ]
+    },
+    {
+      "conceptSet": {
+        "id": 2,
+        "name": "4 A's Test for Delirium Screening",
+        "description": "Rapid four-item bedside screening tool for delirium, designed for routine use without special training",
+        "version": "1.1.3",
+        "createdBy": "Boris Delange",
+        "createdDate": "2026-02-12",
+        "modifiedBy": "Boris Delange",
+        "modifiedDate": "2026-06-10",
+        "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
+        "expression": {
+          "items": [
+            {
+              "concept": {
+                "conceptId": 3662219,
+                "conceptName": "4AT - 4 A's Test",
+                "domainId": "Measurement",
+                "vocabularyId": "SNOMED",
+                "conceptClassId": "Staging / Scales",
+                "standardConcept": "S",
+                "standardConceptCaption": "Standard",
+                "conceptCode": "1239191000000102",
+                "validStartDate": "2020-08-05",
+                "validEndDate": "2099-12-31",
+                "invalidReason": null,
+                "invalidReasonCaption": "Valid"
+              },
+              "isExcluded": false,
+              "includeDescendants": false,
+              "includeMapped": false
+            }
+          ]
+        },
+        "tags": [],
+        "metadata": {
+          "uniqueId": "10a4e6c2-106c-44ea-9847-df0c67e37249",
+          "organization": {
+            "created": {
+              "name": "INDICATE Consortium",
+              "url": "https://indicate-eu.org"
+            },
+            "current": {
+              "name": "INDICATE Consortium",
+              "url": "https://indicate-eu.org"
+            }
+          },
+          "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+          "reviewStatus": "pending_review",
+          "origin": null,
+          "translations": {
+            "en": {
+              "name": "4 A's Test for Delirium Screening",
+              "category": "Clinical observations",
+              "subcategory": "Neurological assessment",
+              "shortDescription": "Rapid four-item bedside screening tool for delirium, designed for routine use without special training",
+              "longDescription": "## Definition & Clinical Context\n\nThe 4AT (4 'A's Test) is a rapid screening tool for delirium, designed for use in routine clinical practice without special training. It takes less than 2 minutes to administer and can be used with patients who have visual or hearing impairment, or who are too drowsy or agitated to undergo formal cognitive testing [1].\n\nThe instrument comprises four items:\n- alertness\n- AMT4 (Abbreviated Mental Test-4, a brief orientation screen)\n- attention (months of the year backwards)\n- acute change or fluctuating course\n\nThe total score ranges from 0 to 12. A score of 0 suggests delirium is unlikely, 1–3 indicates possible cognitive impairment warranting further investigation, and ≥ 4 suggests possible delirium.\n\n## Included Concepts\n\nThis concept set contains the OMOP-standard SNOMED concept for the scale:\n- `3662219` — 4AT - 4 A's Test (`1239191000000102`, Staging / Scales, Standard)\n\nThe non-standard SNOMED Observable Entity `3662221` (4AT (4 A's Test) score, `1239211000000103`) maps to this standard concept (OMOP `Maps to`), so recorded score values stored against the source code are captured through standard-concept resolution.\n\n## References\n\n[1] Bellelli G, Morandi A, Davis D, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. *Age Ageing*. 2014;43(4):496-502. doi:10.1093/ageing/afu021. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/24590568/\" target=\"_blank\">24590568</a>"
+            },
+            "fr": {
+              "name": "4 A's Test for Delirium Screening score",
+              "category": "Observations cliniques",
+              "subcategory": "Évaluation neurologique",
+              "shortDescription": "Outil de dépistage rapide du delirium à quatre items, conçu pour un usage en routine sans formation spécifique",
+              "longDescription": "## Définition et contexte clinique\n\nLe 4AT (4 'A's Test) est un outil de dépistage rapide du délirium, conçu pour être utilisé en pratique clinique courante sans formation spécifique. Son administration prend moins de 2 minutes et il peut être utilisé chez les patients présentant une déficience visuelle ou auditive, ou trop somnolents ou agités pour réaliser une évaluation cognitive formelle [1].\n\nL'instrument comprend quatre items :\n- vigilance\n- AMT4 (Abbreviated Mental Test-4, un test bref d'orientation)\n- attention (mois de l'année à l'envers)\n- changement aigu ou évolution fluctuante\n\nLe score total varie de 0 à 12. Un score de 0 suggère que le délirium est peu probable, 1–3 indique un trouble cognitif possible nécessitant des investigations complémentaires, et ≥ 4 suggère un délirium possible.\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED standard OMOP de l'échelle :\n- `3662219` — 4AT - 4 A's Test (`1239191000000102`, Staging / Scales, Standard)\n\nLe concept SNOMED Observable Entity non-standard `3662221` (4AT (4 A's Test) score, `1239211000000103`) se mappe vers ce concept standard (`Maps to` OMOP) ; les valeurs de score enregistrées sous le code source sont donc capturées via la résolution vers le concept standard.\n\n## Références\n\n[1] Bellelli G, Morandi A, Davis D, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. *Age Ageing*. 2014;43(4):496-502. doi:10.1093/ageing/afu021. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/24590568/\" target=\"_blank\">24590568</a>"
+            }
+          },
+          "createdByDetails": {
+            "firstName": "Boris",
+            "lastName": "Delange",
+            "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+            "profession": "Medical Informatics and Intensive Care Physician",
+            "orcid": "0009-0002-6055-6935"
+          },
+          "reviews": [],
+          "versions": [
+            {
+              "version": "1.1.1",
+              "date": "2026-05-06",
+              "author": "Boris Delange",
+              "message": "Replaced SNOMED Staging/Scales concept 3662219 (4AT - 4 A's Test, Standard) with SNOMED Observable Entity 3662221 (4AT (4 A's Test) score, Non-standard). Rationale: the Observable Entity represents the recorded score value rather than the assessment tool, which better matches the intended use of this concept set. Also removed includeDescendants (no longer applicable for the Observable Entity)."
+            },
+            {
+              "version": "1.1.3",
+              "date": "2026-06-10",
+              "author": "Boris Delange",
+              "message": "Switched to the standard SNOMED concept for the scale. A standard concept (the scale itself) is preferred over a more specific but non-standard 'score' concept, which should not be used directly in OMOP. Reverses the v1.1.1 substitution."
+            }
+          ],
+          "distributionStats": null
+        }
+      },
+      "resolvedCount": 1,
+      "versionsIndex": {
+        "1.0.0": "19a164f3bc488d3745970e28e97f88d3dd9599b8",
+        "1.1.1": "ce8fd47179e877f3b338815a6c9ee226cac43311",
+        "1.1.2": "1f50acb5828b1ed66a3ecb054fc976ebbc14cf6e",
+        "1.1.3": "b044bded70b88fd8622970df7f5fa45192cba8f3"
+      },
+      "summary": {
+        "id": 2,
+        "version": "1.1.3",
+        "uniqueId": "10a4e6c2-106c-44ea-9847-df0c67e37249",
+        "translations": {
+          "en": {
+            "name": "4 A's Test for Delirium Screening",
+            "category": "Clinical observations",
+            "subcategory": "Neurological assessment",
+            "shortDescription": "Rapid four-item bedside screening tool for delirium, designed for routine use without special training"
+          },
+          "fr": {
+            "name": "4 A's Test for Delirium Screening score",
+            "category": "Observations cliniques",
+            "subcategory": "Évaluation neurologique",
+            "shortDescription": "Outil de dépistage rapide du delirium à quatre items, conçu pour un usage en routine sans formation spécifique"
+          }
+        },
+        "reviewStatus": "pending_review",
+        "organization": {
+          "created": {
+            "name": "INDICATE Consortium",
+            "url": "https://indicate-eu.org"
+          },
+          "current": {
+            "name": "INDICATE Consortium",
+            "url": "https://indicate-eu.org"
+          }
+        },
+        "itemCount": 1,
+        "resolvedCount": 1,
+        "modifiedDate": "2026-06-10",
+        "modifiedBy": "Boris Delange"
+      },
+      "history": [
+        {
+          "version": "1.1.3",
+          "commit": "b044bded70b88fd8622970df7f5fa45192cba8f3",
+          "isCurrent": true,
+          "date": "2026-06-10",
+          "author": "Boris Delange",
+          "message": "Switched to the standard SNOMED concept for the scale. A standard concept (the scale itself) is preferred over a more specific but non-standard 'score' concept, which should not be used directly in OMOP. Reverses the v1.1.1 substitution."
+        },
+        {
+          "version": "1.1.2",
+          "commit": "1f50acb5828b1ed66a3ecb054fc976ebbc14cf6e",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "1.1.1",
+          "commit": "ce8fd47179e877f3b338815a6c9ee226cac43311",
+          "isCurrent": false,
+          "date": "2026-05-06",
+          "author": "Boris Delange",
+          "message": "Replaced SNOMED Staging/Scales concept 3662219 (4AT - 4 A's Test, Standard) with SNOMED Observable Entity 3662221 (4AT (4 A's Test) score, Non-standard). Rationale: the Observable Entity represents the recorded score value rather than the assessment tool, which better matches the intended use of this concept set. Also removed includeDescendants (no longer applicable for the Observable Entity)."
+        },
+        {
+          "version": "1.0.0",
+          "commit": "19a164f3bc488d3745970e28e97f88d3dd9599b8",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        }
+      ]
+    },
+    {
+      "conceptSet": {
+        "id": 900,
+        "version": "2.0.0",
+        "modifiedDate": "2026-01-01",
+        "expression": {
+          "items": []
+        },
+        "metadata": {
+          "organization": {
+            "name": "Legacy org",
+            "url": null
+          },
+          "reviewStatus": "draft",
+          "translations": {
+            "fr": {
+              "name": "Seulement en français",
+              "category": "Cat"
+            }
+          },
+          "versions": [
+            {
+              "version": "1.0.0",
+              "date": "2025-01-01",
+              "author": "A",
+              "message": "Init"
+            }
+          ]
+        }
+      },
+      "resolvedCount": null,
+      "versionsIndex": {
+        "2.0.0-rc.1": "cccccccccccccccccccccccccccccccccccccccc",
+        "1.10.0": "dddddddddddddddddddddddddddddddddddddddd",
+        "1.9.0": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "summary": {
+        "id": 900,
+        "version": "2.0.0",
+        "uniqueId": null,
+        "translations": {
+          "fr": {
+            "name": "Seulement en français",
+            "category": "Cat",
+            "subcategory": null,
+            "shortDescription": null
+          }
+        },
+        "reviewStatus": "draft",
+        "organization": {
+          "created": {
+            "name": "Legacy org",
+            "url": null
+          },
+          "current": {
+            "name": "Legacy org",
+            "url": null
+          }
+        },
+        "itemCount": 0,
+        "resolvedCount": null,
+        "modifiedDate": "2026-01-01",
+        "modifiedBy": null
+      },
+      "history": [
+        {
+          "version": "2.0.0",
+          "commit": null,
+          "isCurrent": true,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "2.0.0-rc.1",
+          "commit": "cccccccccccccccccccccccccccccccccccccccc",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "1.10.0",
+          "commit": "dddddddddddddddddddddddddddddddddddddddd",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "1.9.0",
+          "commit": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "isCurrent": false,
+          "date": null,
+          "author": null,
+          "message": null
+        },
+        {
+          "version": "1.0.0",
+          "commit": null,
+          "isCurrent": false,
+          "date": "2025-01-01",
+          "author": "A",
+          "message": "Init"
+        }
+      ]
+    }
+  ]
+}

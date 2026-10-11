@@ -3,13 +3,20 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, readdirSync } from 'fs'
 
 const REPO_ROOT = path.resolve(__dirname, '../..')
 const INSTANCE_CONFIG = path.join(REPO_ROOT, 'config.json')
 // TODO(v2-cutover): move the branding images out of legacy/ (v1 keeps them there) to a
 // location both builds can read, then drop this indirection.
 const BRANDING_DIR = path.join(REPO_ROOT, 'legacy')
+// TODO(v2-cutover): build.py writes the static payload into legacy/ for v1. Move its
+// output to a v2 location and drop this indirection; the app reads it as data/.
+const STATIC_PAYLOAD = path.join(REPO_ROOT, 'legacy', 'data.json')
+const STATIC_RESOLVED_DIR = path.join(REPO_ROOT, 'legacy', 'concept_sets_resolved')
+const RESOLVED_FILE = /^[1-9][0-9]*\.json$/
+const MISSING_PAYLOAD_WARNING =
+  '[instance-config] legacy/data.json not found: static mode has no catalogue to show. Run `python3 build.py` at the repo root.'
 
 const CONTENT_TYPES: Record<string, string> = {
   '.png': 'image/png',
@@ -41,15 +48,27 @@ function brandingFiles(): string[] {
   }
 }
 
+/** `data/data.json` → the payload, `data/concept_sets_resolved/<id>.json` → a deferred list. */
+function staticDataFile(rel: string): string | null {
+  if (rel === 'data/data.json') return STATIC_PAYLOAD
+  const prefix = 'data/concept_sets_resolved/'
+  if (rel.startsWith(prefix) && RESOLVED_FILE.test(rel.slice(prefix.length))) {
+    return path.join(STATIC_RESOLVED_DIR, rel.slice(prefix.length))
+  }
+  return null
+}
+
 /**
  * The instance config lives at the repo root, shared with v1 and the Python scripts,
  * so it is not copied into public/: dev serves it live (edits show on reload) and the
- * build emits it, with the logo and favicon it names, next to index.html.
+ * build emits it, with the logo and favicon it names, next to index.html. Same for
+ * the static-mode payload build.py writes (data/), emitted only by a static build.
  */
-function instanceConfigPlugin(basePrefix: string): Plugin {
+function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
   return {
     name: 'instance-config',
     configureServer(server) {
+      if (staticMode && !existsSync(STATIC_PAYLOAD)) server.config.logger.warn(MISSING_PAYLOAD_WARNING)
       server.middlewares.use((req, res, next) => {
         const urlPath = decodeURIComponent((req.url ?? '').split('?')[0])
         if (!urlPath.startsWith(`${basePrefix}/`)) return next()
@@ -57,6 +76,7 @@ function instanceConfigPlugin(basePrefix: string): Plugin {
         let file: string | null = null
         if (rel === 'config.json') file = INSTANCE_CONFIG
         else if (brandingFiles().includes(rel)) file = path.join(BRANDING_DIR, rel)
+        else file = staticDataFile(rel)
         if (!file || !existsSync(file)) return next()
         const ext = path.extname(file).toLowerCase()
         res.setHeader('Content-Type', ext === '.json' ? 'application/json' : (CONTENT_TYPES[ext] ?? 'application/octet-stream'))
@@ -68,6 +88,22 @@ function instanceConfigPlugin(basePrefix: string): Plugin {
       this.emitFile({ type: 'asset', fileName: 'config.json', source: readFileSync(INSTANCE_CONFIG) })
       for (const rel of brandingFiles()) {
         this.emitFile({ type: 'asset', fileName: rel, source: readFileSync(path.join(BRANDING_DIR, rel)) })
+      }
+      // A server build reads the content through the API: the payload would be dead weight.
+      if (!staticMode) return
+      if (!existsSync(STATIC_PAYLOAD)) {
+        this.warn(MISSING_PAYLOAD_WARNING)
+        return
+      }
+      this.emitFile({ type: 'asset', fileName: 'data/data.json', source: readFileSync(STATIC_PAYLOAD) })
+      if (existsSync(STATIC_RESOLVED_DIR)) {
+        for (const name of readdirSync(STATIC_RESOLVED_DIR).filter((n) => RESOLVED_FILE.test(n))) {
+          this.emitFile({
+            type: 'asset',
+            fileName: `data/concept_sets_resolved/${name}`,
+            source: readFileSync(path.join(STATIC_RESOLVED_DIR, name)),
+          })
+        }
       }
     },
   }
@@ -92,7 +128,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: basePath,
-    plugins: [react(), tailwindcss(), instanceConfigPlugin(basePrefix)],
+    plugins: [react(), tailwindcss(), instanceConfigPlugin(basePrefix, !env.VITE_API_URL)],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

@@ -6,6 +6,18 @@ export interface BrandColors {
   accent?: string
 }
 
+export interface RepositorySettings {
+  /** This repo's own URL (not the upstream it was forked from). */
+  url?: string
+  /** `<owner>/<project>`; derived from `url` when absent. */
+  repo?: string
+  branch?: string
+  upstream?: string
+  upstreamBranch?: string
+  /** `github` or `gitlab`, for a self-hosted forge whose domain says neither. */
+  forge?: string
+}
+
 /**
  * The per-instance `config.json` at the repo root, shared with v1 (`legacy/`) and the
  * Python scripts. Everything v2 added is optional so an older config keeps working.
@@ -14,13 +26,9 @@ export interface InstanceConfig {
   title: string
   languages: string[]
   defaultLanguage: string
-  repository?: {
-    url?: string
-    repo?: string
-    branch?: string
-    upstream?: string
-    upstreamBranch?: string
-  }
+  repository?: RepositorySettings
+  /** Pre-v1.2.6 name of `repository`, still read. */
+  github?: RepositorySettings
   organization?: {
     name?: string
     url?: string
@@ -61,10 +69,8 @@ export function assetUrl(file: string | undefined, baseUrl: string = import.meta
   return `${baseUrl.replace(/\/?$/, '/')}${file.replace(/^\/+/, '')}`
 }
 
-export async function loadInstanceConfig(): Promise<InstanceConfig> {
-  const res = await fetch(`${import.meta.env.BASE_URL}config.json`, { cache: 'no-cache' })
-  if (!res.ok) throw new Error(`config.json: HTTP ${res.status}`)
-  const raw = (await res.json()) as Partial<InstanceConfig>
+/** Defaults for the keys the app relies on: title, a non-empty `languages`, a `defaultLanguage` among them. */
+export function normalizeInstanceConfig(raw: Partial<InstanceConfig>): InstanceConfig {
   const languages = Array.isArray(raw.languages) && raw.languages.length > 0 ? raw.languages : ['en']
   return {
     ...raw,
@@ -73,4 +79,11 @@ export async function loadInstanceConfig(): Promise<InstanceConfig> {
     defaultLanguage:
       raw.defaultLanguage && languages.includes(raw.defaultLanguage) ? raw.defaultLanguage : languages[0],
   }
+}
+
+/** `config.json` served next to index.html (static mode, and the server-mode fallback). */
+export async function loadStaticInstanceConfig(baseUrl: string = import.meta.env.BASE_URL): Promise<InstanceConfig> {
+  const res = await fetch(`${baseUrl}config.json`, { cache: 'no-cache' })
+  if (!res.ok) throw new Error(`config.json: HTTP ${res.status}`)
+  return normalizeInstanceConfig((await res.json()) as Partial<InstanceConfig>)
 }

@@ -288,3 +288,14 @@ def test_history_is_unavailable_outside_git(content):
 def test_git_blob_refuses_unvalidated_arguments(content, sha, path):
     with pytest.raises(ValueError):
         git_blob(content, sha, path)
+
+
+def test_golden_summaries_and_histories():
+    """The fixture apps/web's static source is checked against too."""
+    import json
+    from pathlib import Path
+
+    golden = json.loads((Path(__file__).parent / "fixtures/catalog-golden.json").read_text())
+    for case in golden["cases"]:
+        assert concept_set_summary(case["conceptSet"], case["resolvedCount"]) == case["summary"]
+        assert version_history(case["conceptSet"], case["versionsIndex"]) == case["history"]

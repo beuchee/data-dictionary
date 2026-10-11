@@ -20,6 +20,10 @@ function readEnvValue(key) {
 }
 
 const webPort = process.env.WEB_PORT || readEnvValue('WEB_PORT') || '3000'
+// dev:all starts the API, so the web app talks to it (server mode) unless
+// VITE_API_URL is set otherwise. "/" goes through the vite proxy: no CORS.
+const env = { ...process.env }
+if (env.VITE_API_URL === undefined && readEnvValue('VITE_API_URL') === undefined) env.VITE_API_URL = '/'
 
 const procs = [
   { label: 'web', color: '\x1b[36m', cmd: 'npm', args: ['run', 'dev:web'] },
@@ -31,7 +35,7 @@ const children = procs.map(({ label, color, cmd, args }) => {
   // the whole group: killing the npm wrapper alone leaves vite and uvicorn running.
   const child = spawn(cmd, args, {
     cwd: repoRoot,
-    env: process.env,
+    env,
     stdio: ['inherit', 'pipe', 'pipe'],
     detached: true,
   })

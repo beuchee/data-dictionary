@@ -1,0 +1,909 @@
+[
+  {
+    "name": "empty expression",
+    "items": [],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26"
+    },
+    "resolvedConcepts": []
+  },
+  {
+    "name": "one concept, no flag",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "descendants",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 104,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "57054005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 105,
+        "conceptName": "Old myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "1755008",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 106,
+        "conceptName": "Acute anterior myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "54329005",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "descendants minus one excluded concept",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 102,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 105,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 102,
+        "conceptName": "Heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "56265001",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 104,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "57054005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 106,
+        "conceptName": "Acute anterior myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "54329005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 107,
+        "conceptName": "Heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "84114007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 108,
+        "conceptName": "Congestive heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "42343007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 109,
+        "conceptName": "Hypertensive heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "64715009",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "excluded branch",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 102,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 102,
+        "conceptName": "Heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "56265001",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 105,
+        "conceptName": "Old myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "1755008",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 107,
+        "conceptName": "Heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "84114007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 108,
+        "conceptName": "Congestive heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "42343007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 109,
+        "conceptName": "Hypertensive heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "64715009",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "mapped from a standard concept brings its source codes",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 104,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "ICD10": "2021 Release",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 104,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "57054005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 200,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "ICD10",
+        "domainId": "Condition",
+        "conceptClassId": "3-char nonbill code",
+        "conceptCode": "I21",
+        "standardConcept": null
+      }
+    ]
+  },
+  {
+    "name": "non-standard concept mapped to its standard one",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 200,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "ICD10": "2021 Release",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 104,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "57054005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 200,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "ICD10",
+        "domainId": "Condition",
+        "conceptClassId": "3-char nonbill code",
+        "conceptCode": "I21",
+        "standardConcept": null
+      }
+    ]
+  },
+  {
+    "name": "mapped applies to the item, not its descendants",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 102,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 102,
+        "conceptName": "Heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "56265001",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 104,
+        "conceptName": "Acute myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "57054005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 105,
+        "conceptName": "Old myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "1755008",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 106,
+        "conceptName": "Acute anterior myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "54329005",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 107,
+        "conceptName": "Heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "84114007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 108,
+        "conceptName": "Congestive heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "42343007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 109,
+        "conceptName": "Hypertensive heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "64715009",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "multi-parent hierarchy",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 110,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 109,
+        "conceptName": "Hypertensive heart disease",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "64715009",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 110,
+        "conceptName": "Hypertensive disorder",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "38341003",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 111,
+        "conceptName": "Essential hypertension",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "59621000",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "classification concept over flat LOINC tests",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 310,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "LOINC": "LOINC 2.81"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 300,
+        "conceptName": "Heart rate",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "8867-4",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 301,
+        "conceptName": "Heart rate --resting",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "40443-4",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 302,
+        "conceptName": "Body temperature",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "8310-5",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 310,
+        "conceptName": "Vital signs",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "LOINC Group",
+        "conceptCode": "LG41810-1",
+        "standardConcept": "C"
+      }
+    ]
+  },
+  {
+    "name": "custom concept kept from the expression",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 300,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2100000001,
+          "conceptName": "Local triage score",
+          "domainId": "Observation",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Custom",
+          "conceptCode": "TRIAGE-1",
+          "standardConcept": "S"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "LOINC": "LOINC 2.81"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 300,
+        "conceptName": "Heart rate",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "8867-4",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 2100000001,
+        "conceptName": "Local triage score",
+        "vocabularyId": "INDICATE",
+        "domainId": "Observation",
+        "conceptClassId": "Custom",
+        "conceptCode": "TRIAGE-1",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "custom concept listed twice appears once",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000001,
+          "conceptName": "Local triage score",
+          "domainId": "Observation",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Custom",
+          "conceptCode": "TRIAGE-1",
+          "standardConcept": "S"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2100000001,
+          "conceptName": "Local triage score",
+          "domainId": "Observation",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Custom",
+          "conceptCode": "TRIAGE-1",
+          "standardConcept": "S"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 2100000001,
+        "conceptName": "Local triage score",
+        "vocabularyId": "INDICATE",
+        "domainId": "Observation",
+        "conceptClassId": "Custom",
+        "conceptCode": "TRIAGE-1",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "excluded custom concept",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000001,
+          "conceptName": "Local triage score",
+          "domainId": "Observation",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Custom",
+          "conceptCode": "TRIAGE-1",
+          "standardConcept": "S"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2100000001,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 301,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "LOINC": "LOINC 2.81"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 301,
+        "conceptName": "Heart rate --resting",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "40443-4",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "only excluded items",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26"
+    },
+    "resolvedConcepts": []
+  },
+  {
+    "name": "everything excluded",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 103,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26"
+    },
+    "resolvedConcepts": []
+  },
+  {
+    "name": "invalid concept with its replacement mapped",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 120,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": true
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 103,
+        "conceptName": "Myocardial infarction",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "22298006",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 120,
+        "conceptName": "Myocardial infarction, old concept",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "1000120",
+        "standardConcept": null
+      }
+    ]
+  },
+  {
+    "name": "unknown concept id is dropped",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 999999,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 302,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "LOINC": "LOINC 2.81"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 302,
+        "conceptName": "Body temperature",
+        "vocabularyId": "LOINC",
+        "domainId": "Measurement",
+        "conceptClassId": "Clinical Observation",
+        "conceptCode": "8310-5",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "excluded mapped codes",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 107,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 201,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "SNOMED": "2026-03-01 SNOMED CT International Edition"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 107,
+        "conceptName": "Heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "84114007",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 108,
+        "conceptName": "Congestive heart failure",
+        "vocabularyId": "SNOMED",
+        "domainId": "Condition",
+        "conceptClassId": "Disorder",
+        "conceptCode": "42343007",
+        "standardConcept": "S"
+      }
+    ]
+  },
+  {
+    "name": "drug ingredient with descendants",
+    "items": [
+      {
+        "concept": {
+          "conceptId": 400,
+          "conceptName": ""
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 402,
+          "conceptName": ""
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ],
+    "vocabularyVersion": {
+      "release": "v5.0 01-SEP-26",
+      "RxNorm": "RxNorm 20260901"
+    },
+    "resolvedConcepts": [
+      {
+        "conceptId": 400,
+        "conceptName": "aspirin",
+        "vocabularyId": "RxNorm",
+        "domainId": "Drug",
+        "conceptClassId": "Ingredient",
+        "conceptCode": "1191",
+        "standardConcept": "S"
+      },
+      {
+        "conceptId": 401,
+        "conceptName": "aspirin 81 MG Oral Tablet",
+        "vocabularyId": "RxNorm",
+        "domainId": "Drug",
+        "conceptClassId": "Clinical Drug",
+        "conceptCode": "243670",
+        "standardConcept": "S"
+      }
+    ]
+  }
+]

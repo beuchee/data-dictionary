@@ -49,6 +49,7 @@ Every page: `PageContainer` + `PageHeader` (`components/ui/page-header.tsx`). Ne
 - **Empty**: `EmptyState` (`variant="empty"` for an empty collection, `"filtered"` for a search that matched nothing). Inside a table, the table's own empty row.
 - **Loading**: a `Skeleton` shaped like the final layout, or `<Loader2 className="animate-spin" size={14} />`. Never `return null` while loading. Lazy routes fall back to `PageLoading`.
 - A band explaining what is wrong with the thing on screen and how to fix it: `NoticeBanner` (`tone="warning" | "danger" | "progress"`).
+- A determinate progress bar (upload, import): `Progress` (`value` 0–100).
 - A headline figure: `StatCard`.
 
 ## 4. Data tables

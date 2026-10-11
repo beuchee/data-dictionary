@@ -1,0 +1,7 @@
+vocabulary_id	vocabulary_name	vocabulary_reference	vocabulary_version	vocabulary_concept_id
+None	OMOP Standardized Vocabularies	OMOP generated	v5.0 01-SEP-26	44819096
+SNOMED	Systematic Nomenclature of Medicine - Clinical Terms (IHTSDO)	http://snomed.info	2026-03-01 SNOMED CT International Edition	44819097
+ICD10	International Classification of Diseases, Tenth Revision (WHO)	http://www.who.int	2021 Release	44819124
+LOINC	Logical Observation Identifiers Names and Codes (Regenstrief Institute)	http://loinc.org	LOINC 2.81	44819102
+RxNorm	RxNorm (NLM)	http://www.nlm.nih.gov/research/umls/rxnorm	RxNorm 20260901	44819104
+UCUM	Unified Code for Units of Measure (Regenstrief Institute)	http://unitsofmeasure.org	Version 1.8.2	44819107

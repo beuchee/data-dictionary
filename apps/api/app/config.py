@@ -27,6 +27,10 @@ class Settings(BaseSettings):
     # TODO(v2-phase-2): clone the configured repository there on first start.
     content_dir: str | None = None
 
+    # Server folders an admin may import an ATHENA export from (comma-separated,
+    # absolute). Empty: imports come from browser uploads only.
+    vocabulary_import_roots: str = ""
+
     secret_key: str = INSECURE_SECRET_KEY
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24
@@ -46,6 +50,10 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
+    def vocabulary_import_root_list(self) -> list[Path]:
+        return [Path(p.strip()).expanduser().resolve() for p in self.vocabulary_import_roots.split(",") if p.strip()]
 
     @cached_property
     def data_path(self) -> Path:

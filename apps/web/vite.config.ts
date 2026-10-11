@@ -3,7 +3,7 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import { existsSync, readFileSync, readdirSync } from 'fs'
+import { existsSync, readFileSync, readdirSync, rmSync } from 'fs'
 
 const REPO_ROOT = path.resolve(__dirname, '../..')
 const INSTANCE_CONFIG = path.join(REPO_ROOT, 'config.json')
@@ -14,6 +14,9 @@ const BRANDING_DIR = path.join(REPO_ROOT, 'legacy')
 // output to a v2 location and drop this indirection; the app reads it as data/.
 const STATIC_PAYLOAD = path.join(REPO_ROOT, 'legacy', 'data.json')
 const STATIC_RESOLVED_DIR = path.join(REPO_ROOT, 'legacy', 'concept_sets_resolved')
+// Every concept id of the resolved lists: the browser vocabulary import keeps only
+// their relationships and synonyms (lib/vocabulary/wasm/athena-files.ts).
+const STATIC_RESOLVED_IDS = path.join(REPO_ROOT, 'legacy', 'resolved_concept_ids.json')
 const RESOLVED_FILE = /^[1-9][0-9]*\.json$/
 const MISSING_PAYLOAD_WARNING =
   '[instance-config] legacy/data.json not found: static mode has no catalogue to show. Run `python3 build.py` at the repo root.'
@@ -51,6 +54,7 @@ function brandingFiles(): string[] {
 /** `data/data.json` → the payload, `data/concept_sets_resolved/<id>.json` → a deferred list. */
 function staticDataFile(rel: string): string | null {
   if (rel === 'data/data.json') return STATIC_PAYLOAD
+  if (rel === 'data/resolved_concept_ids.json') return STATIC_RESOLVED_IDS
   const prefix = 'data/concept_sets_resolved/'
   if (rel.startsWith(prefix) && RESOLVED_FILE.test(rel.slice(prefix.length))) {
     return path.join(STATIC_RESOLVED_DIR, rel.slice(prefix.length))
@@ -96,6 +100,9 @@ function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
         return
       }
       this.emitFile({ type: 'asset', fileName: 'data/data.json', source: readFileSync(STATIC_PAYLOAD) })
+      if (existsSync(STATIC_RESOLVED_IDS)) {
+        this.emitFile({ type: 'asset', fileName: 'data/resolved_concept_ids.json', source: readFileSync(STATIC_RESOLVED_IDS) })
+      }
       if (existsSync(STATIC_RESOLVED_DIR)) {
         for (const name of readdirSync(STATIC_RESOLVED_DIR).filter((n) => RESOLVED_FILE.test(n))) {
           this.emitFile({
@@ -105,6 +112,33 @@ function instanceConfigPlugin(basePrefix: string, staticMode: boolean): Plugin {
           })
         }
       }
+    },
+  }
+}
+
+// Adapted from linkr@1310cf4a4 apps/web/vite.config.ts (stripCoiInServerMode).
+// coi-serviceworker makes a static host cross-origin isolated (COOP/COEP) for
+// DuckDB-WASM. A server build never runs DuckDB-WASM, and there the worker would
+// intercept API calls (breaking uploads); the dev server sends the real headers
+// itself. So the script is kept only in a static build.
+// A server build also drops the DuckDB-WASM bundles (~70 MB) public/ would copy.
+function stripCoi(keep: boolean): Plugin {
+  let outDir = ''
+  return {
+    name: 'strip-coi-serviceworker',
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      if (keep || !outDir) return
+      rmSync(path.join(outDir, 'duckdb'), { recursive: true, force: true })
+      rmSync(path.join(outDir, 'coi-serviceworker.js'), { force: true })
+    },
+    transformIndexHtml(html, ctx) {
+      if (keep && !ctx.server) return html
+      return html
+        .replace(/<script>window\.coi[\s\S]*?<\/script>\s*/, '')
+        .replace(/<script src="[^"]*coi-serviceworker\.js"><\/script>\s*/, '')
     },
   }
 }
@@ -128,7 +162,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: basePath,
-    plugins: [react(), tailwindcss(), instanceConfigPlugin(basePrefix, !env.VITE_API_URL)],
+    plugins: [react(), tailwindcss(), instanceConfigPlugin(basePrefix, !env.VITE_API_URL), stripCoi(!env.VITE_API_URL)],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -137,6 +171,10 @@ export default defineConfig(({ mode }) => {
     server: {
       port: webPort,
       ...(env.WEB_HOST ? { host: env.WEB_HOST } : {}),
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'credentialless',
+      },
       // Under a sub-path, API calls carry the prefix; the backend serves /api at its root.
       proxy: {
         [`${basePrefix}/api`]: {

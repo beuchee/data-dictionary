@@ -1,0 +1,501 @@
+{
+  "cases": [
+    {
+      "builder": "conceptSearch",
+      "input": {},
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c ORDER BY c.concept_id LIMIT 50 OFFSET 0",
+          "params": []
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c",
+          "params": []
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "heart failure"
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "heart failure",
+            "heart",
+            "failure"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75)))",
+          "params": [
+            "heart failure",
+            "heart",
+            "failure"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "  Ménière  ",
+        "limit": 10,
+        "offset": 20
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 10 OFFSET 20",
+          "params": [
+            "Ménière",
+            "Ménière"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75)))",
+          "params": [
+            "Ménière",
+            "Ménière"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "8867-4",
+        "vocabularyIds": [
+          "LOINC"
+        ],
+        "validOnly": true
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.vocabulary_id IN ($3) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "8867-4",
+            "8867-4",
+            "LOINC"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.vocabulary_id IN ($3) AND (c.invalid_reason IS NULL OR c.invalid_reason = '')",
+          "params": [
+            "8867-4",
+            "8867-4",
+            "LOINC"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "103"
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((c.concept_id = 103) OR (strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) ORDER BY (CASE WHEN c.concept_id = 103 THEN 0 WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "103",
+            "103"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((c.concept_id = 103) OR (strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75)))",
+          "params": [
+            "103",
+            "103"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "heart",
+        "domainIds": [
+          "Condition",
+          "Measurement"
+        ],
+        "conceptClassIds": [
+          "Disorder"
+        ],
+        "standard": [
+          "N",
+          "S"
+        ]
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.domain_id IN ($3, $4) AND c.concept_class_id IN ($5) AND (c.standard_concept = 'S' OR (c.standard_concept IS NULL OR c.standard_concept NOT IN ('S', 'C'))) ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "heart",
+            "heart",
+            "Condition",
+            "Measurement",
+            "Disorder"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.domain_id IN ($3, $4) AND c.concept_class_id IN ($5) AND (c.standard_concept = 'S' OR (c.standard_concept IS NULL OR c.standard_concept NOT IN ('S', 'C')))",
+          "params": [
+            "heart",
+            "heart",
+            "Condition",
+            "Measurement",
+            "Disorder"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "standard": [
+          "C"
+        ],
+        "limit": 5000,
+        "offset": -3
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE (c.standard_concept = 'C') ORDER BY c.concept_id LIMIT 1000 OFFSET 0",
+          "params": []
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE (c.standard_concept = 'C')",
+          "params": []
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "x' OR 1=1; DROP TABLE concept; --",
+        "domainIds": [
+          "') OR ('1'='1"
+        ]
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($4))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($4)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($5))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($5)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($6))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($6)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($7))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($7)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($8))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($8))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.domain_id IN ($9) ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($4))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($4)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($5))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($5)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($6))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($6)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($7))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($7)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($8))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($8)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "x' OR 1=1; DROP TABLE concept; --",
+            "x'",
+            "OR",
+            "1=1;",
+            "DROP",
+            "TABLE",
+            "concept;",
+            "--",
+            "') OR ('1'='1"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($3))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($3)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($4))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($4)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($5))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($5)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($6))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($6)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($7))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($7)))) AND (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($8))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($8))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) AND c.domain_id IN ($9)",
+          "params": [
+            "x' OR 1=1; DROP TABLE concept; --",
+            "x'",
+            "OR",
+            "1=1;",
+            "DROP",
+            "TABLE",
+            "concept;",
+            "--",
+            "') OR ('1'='1"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "term": "1234567890123456"
+      },
+      "output": {
+        "page": {
+          "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75))) ORDER BY (CASE WHEN strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1)) THEN 1 WHEN strip_accents(lower(c.concept_name)) = strip_accents(lower($1)) THEN 2 WHEN starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) THEN 3 WHEN (contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2)))) THEN 4 ELSE 5 END + (1.0 - GREATEST(jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))), jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1)))))), c.concept_id LIMIT 50 OFFSET 0",
+          "params": [
+            "1234567890123456",
+            "1234567890123456"
+          ]
+        },
+        "count": {
+          "sql": "SELECT COUNT(*) AS total FROM concept c WHERE ((strip_accents(lower(COALESCE(c.concept_code, ''))) = strip_accents(lower($1))) OR (strip_accents(lower(c.concept_name)) = strip_accents(lower($1))) OR (starts_with(strip_accents(lower(c.concept_name)), strip_accents(lower($1)))) OR ((contains(strip_accents(lower(c.concept_name)), strip_accents(lower($2))) OR contains(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($2))))) OR ((jaro_winkler_similarity(strip_accents(lower(c.concept_name)), strip_accents(lower($1))) >= 0.75 OR jaro_winkler_similarity(strip_accents(lower(COALESCE(c.concept_code, ''))), strip_accents(lower($1))) >= 0.75)))",
+          "params": [
+            "1234567890123456",
+            "1234567890123456"
+          ]
+        }
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": 103
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept c WHERE c.concept_id = 103",
+        "params": []
+      }
+    },
+    {
+      "builder": "relatedConcepts",
+      "input": {
+        "conceptId": 103
+      },
+      "output": {
+        "sql": "SELECT cr.relationship_id, r.relationship_name, c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason FROM concept_relationship cr JOIN concept c ON c.concept_id = cr.concept_id_2 LEFT JOIN relationship r ON r.relationship_id = cr.relationship_id WHERE cr.concept_id_1 = 103 AND (cr.invalid_reason IS NULL OR cr.invalid_reason = '') ORDER BY cr.relationship_id, c.concept_name, c.concept_id LIMIT 10000",
+        "params": []
+      }
+    },
+    {
+      "builder": "synonyms",
+      "input": {
+        "conceptId": 103
+      },
+      "output": {
+        "sql": "SELECT cs.concept_synonym_name, cs.language_concept_id, l.concept_name AS language_name FROM concept_synonym cs LEFT JOIN concept l ON l.concept_id = cs.language_concept_id WHERE cs.concept_id = 103 ORDER BY l.concept_name NULLS LAST, cs.concept_synonym_name",
+        "params": []
+      }
+    },
+    {
+      "builder": "hierarchyNodes",
+      "input": {
+        "conceptId": 103,
+        "mode": "closure"
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, h.level AS hierarchy_level FROM (SELECT ca.ancestor_concept_id AS concept_id, -MIN(ca.min_levels_of_separation) AS level FROM concept_ancestor ca WHERE ca.descendant_concept_id = 103 AND ca.ancestor_concept_id <> 103 AND ca.min_levels_of_separation <= 5 GROUP BY ca.ancestor_concept_id UNION ALL SELECT ca.descendant_concept_id AS concept_id, MIN(ca.min_levels_of_separation) AS level FROM concept_ancestor ca WHERE ca.ancestor_concept_id = 103 AND ca.descendant_concept_id <> 103 AND ca.min_levels_of_separation <= 5 GROUP BY ca.descendant_concept_id UNION ALL SELECT 103 AS concept_id, 0 AS level) h JOIN concept c ON c.concept_id = h.concept_id ORDER BY abs(h.level), h.level, c.concept_id LIMIT 150",
+        "params": []
+      }
+    },
+    {
+      "builder": "hierarchyNodes",
+      "input": {
+        "conceptId": 109,
+        "mode": "edges",
+        "maxDepth": 2,
+        "limit": 4
+      },
+      "output": {
+        "sql": "WITH RECURSIVE up(concept_id, depth) AS (SELECT ca.ancestor_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id = 109 UNION SELECT ca.ancestor_concept_id, up.depth + 1 FROM concept_ancestor ca JOIN up ON ca.descendant_concept_id = up.concept_id WHERE ca.min_levels_of_separation = 1 AND up.depth < 2), down(concept_id, depth) AS (SELECT ca.descendant_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id = 109 UNION SELECT ca.descendant_concept_id, down.depth + 1 FROM concept_ancestor ca JOIN down ON ca.ancestor_concept_id = down.concept_id WHERE ca.min_levels_of_separation = 1 AND down.depth < 2) SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, h.level AS hierarchy_level FROM (SELECT concept_id, -MIN(depth) AS level FROM up WHERE concept_id <> 109 GROUP BY concept_id UNION ALL SELECT concept_id, MIN(depth) AS level FROM down WHERE concept_id <> 109 GROUP BY concept_id UNION ALL SELECT 109 AS concept_id, 0 AS level) h JOIN concept c ON c.concept_id = h.concept_id ORDER BY abs(h.level), h.level, c.concept_id LIMIT 4",
+        "params": []
+      }
+    },
+    {
+      "builder": "hierarchyNodes",
+      "input": {
+        "conceptId": 109,
+        "mode": "closure",
+        "maxDepth": 2,
+        "limit": 4
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, h.level AS hierarchy_level FROM (SELECT ca.ancestor_concept_id AS concept_id, -MIN(ca.min_levels_of_separation) AS level FROM concept_ancestor ca WHERE ca.descendant_concept_id = 109 AND ca.ancestor_concept_id <> 109 AND ca.min_levels_of_separation <= 2 GROUP BY ca.ancestor_concept_id UNION ALL SELECT ca.descendant_concept_id AS concept_id, MIN(ca.min_levels_of_separation) AS level FROM concept_ancestor ca WHERE ca.ancestor_concept_id = 109 AND ca.descendant_concept_id <> 109 AND ca.min_levels_of_separation <= 2 GROUP BY ca.descendant_concept_id UNION ALL SELECT 109 AS concept_id, 0 AS level) h JOIN concept c ON c.concept_id = h.concept_id ORDER BY abs(h.level), h.level, c.concept_id LIMIT 4",
+        "params": []
+      }
+    },
+    {
+      "builder": "hierarchyNodes",
+      "input": {
+        "conceptId": 103,
+        "mode": "edges",
+        "maxDepth": 99,
+        "limit": 0
+      },
+      "output": {
+        "sql": "WITH RECURSIVE up(concept_id, depth) AS (SELECT ca.ancestor_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.descendant_concept_id = 103 UNION SELECT ca.ancestor_concept_id, up.depth + 1 FROM concept_ancestor ca JOIN up ON ca.descendant_concept_id = up.concept_id WHERE ca.min_levels_of_separation = 1 AND up.depth < 10), down(concept_id, depth) AS (SELECT ca.descendant_concept_id, 1 FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id = 103 UNION SELECT ca.descendant_concept_id, down.depth + 1 FROM concept_ancestor ca JOIN down ON ca.ancestor_concept_id = down.concept_id WHERE ca.min_levels_of_separation = 1 AND down.depth < 10) SELECT c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, CAST(c.valid_start_date AS VARCHAR) AS valid_start_date, CAST(c.valid_end_date AS VARCHAR) AS valid_end_date, c.invalid_reason, h.level AS hierarchy_level FROM (SELECT concept_id, -MIN(depth) AS level FROM up WHERE concept_id <> 103 GROUP BY concept_id UNION ALL SELECT concept_id, MIN(depth) AS level FROM down WHERE concept_id <> 103 GROUP BY concept_id UNION ALL SELECT 103 AS concept_id, 0 AS level) h JOIN concept c ON c.concept_id = h.concept_id ORDER BY abs(h.level), h.level, c.concept_id LIMIT 1",
+        "params": []
+      }
+    },
+    {
+      "builder": "hierarchyEdges",
+      "input": {
+        "ids": [
+          104,
+          103,
+          102,
+          103
+        ]
+      },
+      "output": {
+        "sql": "SELECT DISTINCT ca.ancestor_concept_id AS from_id, ca.descendant_concept_id AS to_id FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN (102, 103, 104) AND ca.descendant_concept_id IN (102, 103, 104) ORDER BY from_id, to_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantIds",
+      "input": {
+        "ids": [
+          102,
+          110
+        ],
+        "mode": "closure"
+      },
+      "output": {
+        "sql": "SELECT DISTINCT ca.descendant_concept_id AS concept_id FROM concept_ancestor ca WHERE ca.ancestor_concept_id IN (102, 110) AND ca.descendant_concept_id <> ca.ancestor_concept_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "descendantIds",
+      "input": {
+        "ids": [
+          102,
+          110
+        ],
+        "mode": "edges"
+      },
+      "output": {
+        "sql": "WITH RECURSIVE d(concept_id) AS (SELECT ca.descendant_concept_id FROM concept_ancestor ca WHERE ca.min_levels_of_separation = 1 AND ca.ancestor_concept_id IN (102, 110) UNION SELECT ca.descendant_concept_id FROM concept_ancestor ca JOIN d ON ca.ancestor_concept_id = d.concept_id WHERE ca.min_levels_of_separation = 1) SELECT DISTINCT concept_id FROM d",
+        "params": []
+      }
+    },
+    {
+      "builder": "mappedIds",
+      "input": {
+        "ids": [
+          200,
+          104
+        ]
+      },
+      "output": {
+        "sql": "SELECT DISTINCT cr.concept_id_2 AS concept_id FROM concept_relationship cr WHERE cr.concept_id_1 IN (104, 200) AND cr.relationship_id IN ('Maps to', 'Mapped from')",
+        "params": []
+      }
+    },
+    {
+      "builder": "resolvedDetails",
+      "input": {
+        "ids": [
+          300,
+          103
+        ]
+      },
+      "output": {
+        "sql": "SELECT c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept FROM concept c WHERE c.concept_id IN (103, 300)",
+        "params": []
+      }
+    },
+    {
+      "builder": "vocabularyVersions",
+      "input": {},
+      "output": {
+        "sql": "SELECT vocabulary_id, vocabulary_version FROM vocabulary WHERE vocabulary_version IS NOT NULL ORDER BY vocabulary_id",
+        "params": []
+      }
+    },
+    {
+      "builder": "filterOptions",
+      "input": {
+        "column": "domain_id"
+      },
+      "output": {
+        "sql": "SELECT DISTINCT domain_id AS value FROM concept WHERE domain_id IS NOT NULL AND domain_id <> '' ORDER BY value",
+        "params": []
+      }
+    }
+  ],
+  "rejects": [
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": -1
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": 1.5
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": "103; DROP TABLE concept"
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": true
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": 9007199254740992
+      }
+    },
+    {
+      "builder": "conceptById",
+      "input": {
+        "conceptId": null
+      }
+    },
+    {
+      "builder": "hierarchyEdges",
+      "input": {
+        "ids": []
+      }
+    },
+    {
+      "builder": "hierarchyEdges",
+      "input": {
+        "ids": [
+          1,
+          "2 OR 1=1"
+        ]
+      }
+    },
+    {
+      "builder": "descendantIds",
+      "input": {
+        "ids": [
+          1
+        ],
+        "mode": "closure; DROP TABLE concept"
+      }
+    },
+    {
+      "builder": "hierarchyNodes",
+      "input": {
+        "conceptId": 1,
+        "mode": "tree"
+      }
+    },
+    {
+      "builder": "mappedIds",
+      "input": {
+        "ids": [
+          1e+300
+        ]
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "standard": [
+          "S",
+          "X' OR '1'='1"
+        ]
+      }
+    },
+    {
+      "builder": "conceptSearch",
+      "input": {
+        "limit": "10; DROP TABLE concept"
+      }
+    },
+    {
+      "builder": "filterOptions",
+      "input": {
+        "column": "concept_name FROM concept; DROP TABLE concept; --"
+      }
+    }
+  ]
+}

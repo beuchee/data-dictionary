@@ -1,0 +1,8 @@
+domain_id	domain_name	domain_concept_id
+Condition	Condition	1000
+Drug	Drug	1001
+Measurement	Measurement	1002
+Metadata	Metadata	1003
+Observation	Observation	1004
+Spec Anatomic Site	Spec Anatomic Site	1005
+Unit	Unit	1006

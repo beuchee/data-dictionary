@@ -16,6 +16,7 @@ from app.api.v1.routes.mapping_recommendations import router as mapping_recommen
 from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
 from app.api.v1.routes.units import router as units_router
+from app.api.v1.routes.vocabulary import router as vocabulary_router
 from app.config import INSECURE_SECRET_KEY, settings
 from app.core.database import async_session
 from app.core.logging import setup_logging
@@ -113,3 +114,4 @@ app.include_router(concept_sets_router, prefix="/api/v1")
 app.include_router(projects_router, prefix="/api/v1")
 app.include_router(units_router, prefix="/api/v1")
 app.include_router(mapping_recommendations_router, prefix="/api/v1")
+app.include_router(vocabulary_router, prefix="/api/v1")

@@ -1,8 +1,10 @@
 // Adapted from linkr@1310cf4a4 apps/web/src/app/AuthGate.tsx (anonymous reading, catalog reset
 // on identity change, no app-store user mirror).
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router'
 import { Loader2 } from 'lucide-react'
 import { LoginPage } from '@/features/login/login-page'
+import { OAuthCallbackPage } from '@/features/login/oauth-callback'
 import { ServerUnreachable } from '@/features/login/server-unreachable'
 import { SetupWizard } from '@/features/setup/setup-wizard'
 import { isServerMode } from '@/lib/api-client'
@@ -21,6 +23,7 @@ interface AuthGateProps {
  */
 export function AuthGate({ children }: AuthGateProps) {
   const serverMode = isServerMode()
+  const location = useLocation()
   const needsSetup = useAuthStore((s) => s.needsSetup)
   const isCheckingAuth = useAuthStore((s) => s.isCheckingAuth)
   const serverUnreachable = useAuthStore((s) => s.serverUnreachable)
@@ -65,6 +68,9 @@ export function AuthGate({ children }: AuthGateProps) {
   }, [userId])
 
   if (!serverMode) return <>{children}</>
+
+  // Where OAuth sign-ins land: handled before any gate, signed in or not.
+  if (location.pathname === '/auth/callback') return <OAuthCallbackPage />
 
   if (isCheckingAuth || needsSetup === null || validatingToken) {
     return (

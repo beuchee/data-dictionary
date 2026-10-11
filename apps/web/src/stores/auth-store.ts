@@ -66,6 +66,8 @@ interface AuthState {
   logout: () => void
   validateToken: () => Promise<boolean>
   setTokens: (accessToken: string, refreshToken: string, user: AuthUser) => void
+  /** Signs in with a token pair obtained elsewhere (OAuth callback): stores it, then loads the user. */
+  acceptTokens: (accessToken: string, refreshToken: string) => Promise<boolean>
   /** Throws an ApiError when refused (422 for an invalid ORCID iD). */
   updateProfile: (changes: ProfileChanges) => Promise<void>
   /** Throws an ApiError when refused (403 wrong current password, 422 policy). */
@@ -217,6 +219,12 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     setStoredTokens(accessToken, refreshToken)
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user))
     set({ token: accessToken, refreshToken, user, loginError: null })
+  },
+
+  acceptTokens: async (accessToken, refreshToken) => {
+    setStoredTokens(accessToken, refreshToken)
+    set({ token: accessToken, refreshToken, loginError: null })
+    return get().validateToken()
   },
 
   updateProfile: async (changes) => {

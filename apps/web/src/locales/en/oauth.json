@@ -1,0 +1,32 @@
+{
+  "or": "or",
+  "sign_in_with": "Sign in with {{provider}}",
+  "provider": {
+    "github": "GitHub",
+    "gitlab": "GitLab",
+    "orcid": "ORCID"
+  },
+  "callback": {
+    "signing_in": "Signing you in…",
+    "failed_title": "Sign-in failed",
+    "back": "Back to sign in",
+    "home": "Go to the dictionary",
+    "empty": "Nothing to sign in with here: this page is where an identity provider sends you back.",
+    "linked": "Your {{provider}} identity is now linked to your account.",
+    "error": {
+      "invalid_state": "The sign-in could not be verified (it was started in another browser, or replayed). Start again.",
+      "expired_state": "The sign-in took too long. Start again.",
+      "provider_disabled": "This sign-in method is not enabled on this instance.",
+      "token_exchange_failed": "The identity provider did not confirm the sign-in.",
+      "provider_unreachable": "The identity provider could not be reached. Try again later.",
+      "profile_failed": "The identity provider did not return a usable profile.",
+      "account_disabled": "This account is disabled.",
+      "identity_in_use": "This identity is already linked to another account.",
+      "access_denied": "The sign-in was cancelled.",
+      "provider_error": "The identity provider refused the sign-in.",
+      "missing_code": "The identity provider sent no authorization code. Start again.",
+      "unknown": "The sign-in failed.",
+      "validation_failed": "The server refused the tokens it just issued. Start again."
+    }
+  }
+}

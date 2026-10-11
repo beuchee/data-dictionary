@@ -56,7 +56,15 @@
       "not_found": "Ce brouillon n'existe plus (déjà soumis ou abandonné ?).",
       "unauthenticated": "Votre session a expiré : reconnectez-vous.",
       "unreachable": "Le serveur est injoignable.",
-      "server": "Le serveur n'a pas pu soumettre la modification."
+      "server": "Le serveur n'a pas pu soumettre la modification.",
+      "base_changed": "Ce fichier a changé dans le dépôt depuis le début de votre brouillon : réappliquez votre modification sur la version actuelle (abandonnez le brouillon puis recommencez).",
+      "version_published": "Cette version est déjà publiée : passez à une nouvelle version avant de soumettre.",
+      "no_changes": "Le brouillon est identique au fichier du dépôt : rien à soumettre.",
+      "reviews_only": "Votre rôle ne permet que d'ajouter des relectures : ce brouillon modifie autre chose.",
+      "target_not_found": "Ce jeu de concepts ou ce projet n'existe plus dans le dépôt.",
+      "repository_state": "La copie de travail du serveur n'est pas en état de commiter : un administrateur doit la vérifier.",
+      "forge_auth": "La forge a refusé les identifiants : reconnectez-vous avec votre compte de forge, ou demandez à un administrateur de vérifier le jeton du serveur.",
+      "forge": "Git ou la forge a échoué."
     }
   },
   "propose": {

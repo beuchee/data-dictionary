@@ -13,7 +13,7 @@ import { forgeName, repositoryConfig, repositoryUrl } from '@/lib/data/forge'
 import { isReviewsOnlyChange } from '@/lib/drafts/diff'
 import { forgeFileUrl, proposeSteps } from '@/lib/drafts/forge-propose'
 import { draftEntityId, draftFilePath, isNewDraft } from '@/lib/drafts/paths'
-import { allowedSubmitModes, commitPermission } from '@/lib/drafts/permissions'
+import { PULL_PERMISSION, allowedSubmitModes } from '@/lib/drafts/permissions'
 import { submitErrorFrom, type SubmitError } from '@/lib/drafts/submit-errors'
 import { cn } from '@/lib/utils'
 import { userHasPermission, useAuthStore } from '@/stores/auth-store'
@@ -189,7 +189,7 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
       <FormField label={t('drafts.submit.message')}>
         {({ id }) => <Textarea id={id} value={message} onChange={(e) => setMessage(e.target.value)} rows={3} />}
       </FormField>
-      {error && <SubmitErrorBanner error={error} canPull={!!draft && has(commitPermission(draft.kind))} pulling={pulling} onPull={pull} />}
+      {error && <SubmitErrorBanner error={error} canPull={has(PULL_PERMISSION)} pulling={pulling} onPull={pull} />}
     </DialogShell>
   )
 }

@@ -1,0 +1,32 @@
+{
+  "or": "ou",
+  "sign_in_with": "Se connecter avec {{provider}}",
+  "provider": {
+    "github": "GitHub",
+    "gitlab": "GitLab",
+    "orcid": "ORCID"
+  },
+  "callback": {
+    "signing_in": "Connexion en cours…",
+    "failed_title": "Échec de la connexion",
+    "back": "Retour à la connexion",
+    "home": "Aller au dictionnaire",
+    "empty": "Rien pour se connecter ici : c'est la page où un fournisseur d'identité vous renvoie.",
+    "linked": "Votre identité {{provider}} est maintenant liée à votre compte.",
+    "error": {
+      "invalid_state": "La connexion n'a pas pu être vérifiée (commencée dans un autre navigateur, ou rejouée). Recommencez.",
+      "expired_state": "La connexion a pris trop de temps. Recommencez.",
+      "provider_disabled": "Ce mode de connexion n'est pas activé sur cette instance.",
+      "token_exchange_failed": "Le fournisseur d'identité n'a pas confirmé la connexion.",
+      "provider_unreachable": "Le fournisseur d'identité est injoignable. Réessayez plus tard.",
+      "profile_failed": "Le fournisseur d'identité n'a pas renvoyé de profil exploitable.",
+      "account_disabled": "Ce compte est désactivé.",
+      "identity_in_use": "Cette identité est déjà liée à un autre compte.",
+      "access_denied": "La connexion a été annulée.",
+      "provider_error": "Le fournisseur d'identité a refusé la connexion.",
+      "missing_code": "Le fournisseur d'identité n'a pas envoyé de code d'autorisation. Recommencez.",
+      "unknown": "La connexion a échoué.",
+      "validation_failed": "Le serveur a refusé les jetons qu'il venait d'émettre. Recommencez."
+    }
+  }
+}

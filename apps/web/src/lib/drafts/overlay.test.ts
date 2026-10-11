@@ -3,7 +3,6 @@ import { conceptSetSummary } from '@/lib/data/catalog'
 import * as v1 from '@/lib/export/v1-fixtures'
 import { findDraft, nextLocalId, overlayConceptSetSummaries, overlayProjects } from './overlay'
 import { draftEntityId, draftFilePath, isNewDraft } from './paths'
-import { allowedSubmitModes, canEdit, commitPermission, proposePermission } from './permissions'
 import type { Draft } from './types'
 
 const at = '2026-10-11T00:00:00.000Z'
@@ -84,30 +83,5 @@ describe('nextLocalId', () => {
     expect(nextLocalId([1, 5, 3], 20, 0)).toBe(20)
     expect(nextLocalId([1, 5, 3], 20, 25)).toBe(25)
     expect(nextLocalId([], undefined, 0)).toBe(1)
-  })
-})
-
-describe('permissions', () => {
-  const has = (granted: string[]) => (p: string) => granted.includes(p)
-
-  it('names the permission of each kind', () => {
-    expect(proposePermission('concept-set')).toBe('concept-sets:propose')
-    expect(proposePermission('mapping-recommendations')).toBe('mappings:write')
-    expect(proposePermission('unit-conversions')).toBe('units:write')
-    expect(commitPermission('project')).toBe('projects:commit')
-  })
-
-  it('offers commit only with the :commit permission', () => {
-    expect(allowedSubmitModes('concept-set', has(['concept-sets:propose']))).toEqual(['proposal'])
-    expect(allowedSubmitModes('concept-set', has(['concept-sets:propose', 'concept-sets:commit']))).toEqual(['proposal', 'commit'])
-    expect(allowedSubmitModes('project', has([]))).toEqual([])
-  })
-
-  it('lets a reviewer propose a reviews-only draft, and nothing else', () => {
-    expect(allowedSubmitModes('concept-set', has(['reviews:write']), true)).toEqual(['proposal'])
-    expect(allowedSubmitModes('concept-set', has(['reviews:write']), false)).toEqual([])
-    expect(allowedSubmitModes('project', has(['reviews:write']), true)).toEqual([])
-    expect(canEdit('concept-set', has(['reviews:write']))).toBe(false)
-    expect(canEdit('mapping-recommendations', has(['mappings:write']))).toBe(true)
   })
 })

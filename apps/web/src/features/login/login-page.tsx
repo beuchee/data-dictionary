@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
 import { BrandHeading } from '@/components/layout/brand-heading'
 import { useAuthStore } from '@/stores/auth-store'
+import { OAuthButtons } from './oauth-buttons'
 
 interface LoginPageProps {
   setupJustCompleted?: boolean
@@ -86,6 +87,9 @@ export function LoginPage({ setupJustCompleted, onContinueAnonymously, onSuccess
                 {loading ? t('auth.login.signing_in') : t('auth.login.submit')}
               </Button>
             </form>
+            <div className="mt-4">
+              <OAuthButtons />
+            </div>
           </CardContent>
         </Card>
 

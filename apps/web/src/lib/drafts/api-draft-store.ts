@@ -4,12 +4,30 @@ import type { Draft, DraftContentByKind, DraftKind, DraftOf, DraftStore, NewDraf
 
 /** `GET /git/status` (docs/design/drafts-and-proposals.md). */
 export interface GitStatus {
-  branch: string
-  head: string
+  /** The working copy's branch. */
+  branch: string | null
+  /** The branch content is committed to. */
+  contentBranch: string | null
+  /** The working copy's HEAD: what the API serves, so what an edit starts from. */
+  head: string | null
   remote: string | null
-  ahead: number
-  behind: number
+  /** The remote's head at the last fetch. */
+  remoteHead: string | null
+  /** null before the first fetch. */
+  ahead: number | null
+  behind: number | null
   dirty: boolean
+}
+
+/** `POST /git/pull`. */
+export interface PullResult {
+  before: string | null
+  head: string | null
+  updated: boolean
+  /** Versions indexed by the backfill that follows the pull. */
+  indexed: { id: string | number; version: string; commit: string }[]
+  indexCommitSha: string | null
+  indexError?: { code: string; message: string } | null
 }
 
 type FetchLike = (path: string, init?: RequestInit) => Promise<Response>
@@ -59,6 +77,11 @@ export class ApiDraftStore implements DraftStore {
     }
   }
 
+  /** The content repo's status, fetching the remote first when `fetch` (ahead / behind current); rejects on failure. */
+  fetchGitStatus(fetch = false): Promise<GitStatus> {
+    return this.request<GitStatus>(`/git/status${fetch ? '?fetch=true' : ''}`)
+  }
+
   async list(): Promise<Draft[]> {
     return (await this.request<WireDraft[]>('/drafts')).map(toDraft)
   }
@@ -73,6 +96,7 @@ export class ApiDraftStore implements DraftStore {
   }
 
   async create<K extends DraftKind>(draft: NewDraft<K>): Promise<DraftOf<K>> {
+    // The working copy's HEAD is what the API served the edited content from.
     const baseCommit = draft.baseCommit !== undefined ? draft.baseCommit : ((await this.gitStatus())?.head ?? null)
     const body = { kind: draft.kind, targetId: draft.targetId, baseCommit, content: draft.content }
     return toDraft(await this.request<WireDraft>('/drafts', { method: 'POST' }, body)) as DraftOf<K>
@@ -98,8 +122,8 @@ export class ApiDraftStore implements DraftStore {
     return this.request<SubmitResult>(`/drafts/${encodeURIComponent(id)}/submit`, { method: 'POST' }, { mode, message })
   }
 
-  /** Fast-forwards the content working copy (maintainers), after a 409 `pull_required`. */
-  async pull(): Promise<void> {
-    await this.request<unknown>('/git/pull', { method: 'POST' })
+  /** Fast-forwards the content working copy (maintainers), e.g. after a 409 `pull_required`. */
+  pull(): Promise<PullResult> {
+    return this.request<PullResult>('/git/pull', { method: 'POST' })
   }
 }

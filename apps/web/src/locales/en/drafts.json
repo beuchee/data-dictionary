@@ -56,7 +56,15 @@
       "not_found": "This draft no longer exists (already submitted or discarded?).",
       "unauthenticated": "Your session expired: log in again.",
       "unreachable": "The server could not be reached.",
-      "server": "The server could not submit the change."
+      "server": "The server could not submit the change.",
+      "base_changed": "This file changed in the repository since your draft started: reapply your edit on the current version (discard the draft and start again).",
+      "version_published": "This version is already published: bump to a new version before submitting.",
+      "no_changes": "The draft is identical to the repository's file: nothing to submit.",
+      "reviews_only": "Your role may only add reviews: this draft changes something else.",
+      "target_not_found": "This concept set or project no longer exists in the repository.",
+      "repository_state": "The server's working copy is not in a state to commit: an administrator must check it.",
+      "forge_auth": "The forge refused the credentials: sign in again with your forge account, or ask an administrator to check the server's token.",
+      "forge": "Git or the forge failed."
     }
   },
   "propose": {

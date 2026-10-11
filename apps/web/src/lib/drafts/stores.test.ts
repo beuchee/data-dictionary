@@ -119,6 +119,7 @@ describe('submitErrorFrom', () => {
     expect(submitErrorFrom(new ApiError(409, '{"detail":"pull_required"}')).code).toBe('pull_required')
     expect(submitErrorFrom(new ApiError(409, '{"detail":{"code":"pull_required","message":"Remote moved"}}'))).toEqual({
       code: 'pull_required',
+      serverCode: 'pull_required',
       message: 'Remote moved',
       issues: [],
     })
@@ -140,5 +141,23 @@ describe('submitErrorFrom', () => {
     expect(submitErrorFrom(new ApiError(502, '')).code).toBe('unreachable')
     expect(submitErrorFrom(new ApiError(500, '{"detail":"Git push failed"}'))).toMatchObject({ code: 'server', message: 'Git push failed' })
     expect(submitErrorFrom(new TypeError('Failed to fetch')).code).toBe('unreachable')
+  })
+
+  it('keeps the contract codes the dialog explains', () => {
+    const err = (status: number, code: string, extra = '') =>
+      submitErrorFrom(new ApiError(status, `{"detail":{"code":"${code}","message":"m"${extra}}}`))
+    expect(err(409, 'base_changed').code).toBe('base_changed')
+    expect(err(409, 'version_published').code).toBe('version_published')
+    expect(err(409, 'no_changes').code).toBe('no_changes')
+    expect(err(403, 'reviews_only').code).toBe('reviews_only')
+    expect(err(404, 'target_not_found').code).toBe('target_not_found')
+    expect(err(409, 'diverged')).toMatchObject({ code: 'repository_state', serverCode: 'diverged' })
+    expect(err(502, 'auth_failed').code).toBe('forge_auth')
+    expect(err(502, 'network')).toMatchObject({ code: 'forge', serverCode: 'network', message: 'm' })
+    expect(err(409, 'branch_exists').code).toBe('conflict')
+    expect(err(422, 'invalid_content', ',"errors":[{"pointer":"/version","message":"bad"}]')).toMatchObject({
+      code: 'validation',
+      issues: ['/version: bad'],
+    })
   })
 })

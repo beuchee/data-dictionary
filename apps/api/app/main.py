@@ -9,10 +9,12 @@ from sqlalchemy.exc import IntegrityError
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.api.v1.routes.auth import router as auth_router
+from app.api.v1.routes.branding import router as branding_router
 from app.api.v1.routes.concept_sets import router as concept_sets_router
 from app.api.v1.routes.drafts import router as drafts_router
 from app.api.v1.routes.git import router as git_router
 from app.api.v1.routes.health import router as health_router
+from app.api.v1.routes.identities import router as identities_router
 from app.api.v1.routes.import_proxy import router as import_proxy_router
 from app.api.v1.routes.instance import router as instance_router
 from app.api.v1.routes.mapping_recommendations import router as mapping_recommendations_router
@@ -21,6 +23,7 @@ from app.api.v1.routes.oauth import router as oauth_router
 from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
 from app.api.v1.routes.units import router as units_router
+from app.api.v1.routes.users import router as users_router
 from app.api.v1.routes.vocabulary import router as vocabulary_router
 from app.api.v1.routes.vocabulary_sql import router as vocabulary_sql_router
 from app.config import INSECURE_SECRET_KEY, settings
@@ -131,5 +134,8 @@ app.include_router(oauth_router, prefix="/api/v1")
 app.include_router(git_router, prefix="/api/v1")
 app.include_router(drafts_router, prefix="/api/v1")
 app.include_router(import_proxy_router, prefix="/api/v1")
+app.include_router(users_router, prefix="/api/v1")
+app.include_router(identities_router, prefix="/api/v1")
+app.include_router(branding_router, prefix="/api/v1")
 app.include_router(mappings_router, prefix="/api/v1")
 app.include_router(vocabulary_sql_router, prefix="/api/v1")

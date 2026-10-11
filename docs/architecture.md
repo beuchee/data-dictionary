@@ -57,6 +57,7 @@ build.py ──► legacy/data.json ──► vite plugin: data/… ──► St
   - `/concept-sets/{id}/resolved?version=&search=&offset=&limit=` → `{conceptSetId, version, vocabularyVersion, total, offset, limit, resolvedConcepts}` (`total` after search, before paging; no `limit` = all)
   - `/concept-sets/{id}/versions` → `{id, currentVersion, versions: [{version, commit, isCurrent, date, author, message}]}`, newest first
   - `/projects`, `/projects/{id}` (whole files), `/units/recommended`, `/units/conversions`, `/mapping-recommendations`
+  - `/instance/branding/{logo|favicon}` → the image config.json names (public, `no-cache`, sandboxed CSP)
   - 404 for unknown ids/versions, 503 when the content dir is unusable.
 - **Anonymous read**: `core/deps.py` → `require_read("concept-sets:read")`: open while `config.json` → `access.anonymousRead` is true (default), else a valid token with that permission (401 / 403).
 - **DictionarySource** (`apps/web/src/lib/data/`): one interface, `getDictionarySource()` picks the implementation. `catalog.ts` holds the pure twins of the Python summary / search / version-history code; `apps/api/tests/fixtures/catalog-golden.json` is checked by both test suites so the two sources return the same shapes. `forge.ts` builds raw URLs (ported from v1).
@@ -91,6 +92,12 @@ Contract (routes, permissions, stamping, errors): [design/drafts-and-proposals.m
 ## OAuth
 
 `GET /auth/oauth/{provider}/start` (`github`, `gitlab`, `orcid`; with the Bearer token of a signed-in user to *link* the identity) → `{authorizationUrl}` (`?redirect=true`: a 302) and an HttpOnly `SameSite=Lax` cookie sealing `{state, PKCE verifier, provider, linkUserId, exp}` (crypto.py, 10 min). The provider calls back `GET /auth/oauth/{provider}/callback`, which checks the cookie against `state`, exchanges the code (PKCE S256), then logs in the identity's account, links it to the signed-in one, or creates an account (`DD_OAUTH_DEFAULT_ROLE`, never admin; never matched by email), and redirects to the web app's `/auth/callback#access_token=…&refresh_token=…&provider=…[&linked=1]` (or `#error=<code>`). The web side reads the fragment, stores the pair like a password login, and clears it from the address bar. Redirect URIs come from `DD_PUBLIC_URL` only: register `{DD_PUBLIC_URL}/api/v1/auth/oauth/{provider}/callback` with each provider. Identities live in `user_identities` (provider, stable subject, username, email, profile). GitHub / GitLab tokens are stored per (user, host) in `git_credentials`, AES-GCM sealed to that pair, GitLab's refresh token too (renewed before a push); ORCID fills `users.orcid` and an empty name. `/instance/config` → `server.authProviders` lists `local` plus the enabled providers.
+
+## Accounts administration
+
+- `GET /users` (with linked identities and `hasPassword`), `PATCH /users/{id}` `{role?, isActive?}`, `POST /users/{id}/reset-password` `{password}` (temporary password, ends the account's sessions), `GET /roles` (`{roles: [{name, label, isSystem, permissions}], catalogue}`): all `users:manage`. Refused: leaving no active admin (409 `last_admin`), deactivating oneself (409 `self_deactivation`), giving or taking the admin role without being admin (403 `admin_only`), an unknown role (422).
+- `GET /auth/identities` → `{hasPassword, identities}`, `DELETE /auth/identities/{id}` (session JWT only): unlinking the only sign-in method is 409 `last_sign_in_method`; the forge token stored by that provider goes with it.
+- Web: Settings → Users (`features/users/`), the user menu's *Linked accounts* and *API tokens* dialogs (`features/account/`), Settings → Branding (`features/branding/`), Settings → Unit conversions / Recommended units (`features/units/`). The first-run wizard continues, once the admin is signed in, with organization, branding, anonymous read and the content repository status (`features/setup/instance-setup.tsx`), saved as one direct commit of config.json.
 
 ## Environment (`DD_*`, see `apps/api/.env.example`)
 

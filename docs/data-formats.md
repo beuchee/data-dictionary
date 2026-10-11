@@ -12,7 +12,8 @@ The JSON files at the repo root are the **source of truth** and must stay readab
 | `units/recommended_units.json` | Recommended unit per concept |
 | `units/unit_conversions.json` | Unit conversion factors (optional affine `offset`) |
 | `mapping_recommendations/mapping_recommendations.json` | `{translations: {en: {content}, …}}`, Markdown |
-| `config.json` | Per-instance settings: title, languages, repository, organization, customVocabulary, branding, tabs |
+| `config.json` | Per-instance settings: title, languages, repository, organization, customVocabulary, branding, tabs, access |
+| `branding/` | Logo and favicon uploaded from v2's Branding settings (`logo.<ext>`, `favicon.<ext>`); see below |
 | `id_counters.json` | Next ids. Only `build.py` writes it (auto-corrects) |
 | `concept_sets_versions.json` | `{id: {version: commitSha}}`. Only `snapshot.py` writes it |
 
@@ -20,6 +21,7 @@ On-disk format: 2-space indent, UTF-8 not escaped (`json.dumps(indent=2, ensure_
 
 - Number lexemes are preserved: `units/unit_conversions.json` holds factors like `1.0` that plain `JSON.stringify` would rewrite as `1`. Never save content with bare `JSON.stringify`; use the format package's `serialize`.
 - `config.json` is hand-formatted (inline arrays) and listed as the only non-canonical file in `packages/dictionary-format/fixtures/non-canonical.json`.
+- A `config.json` written by v2 (Branding settings, setup wizard) comes out canonical: the hand-formatted inline `languages` array becomes one item per line. Accepted: the file stays valid for v1, the scripts and Linkr.
 - Real files tolerate some legacy values the schemas accept: `standardConcept: ""`, `validStartDate`/`validEndDate` as `YYYYMMDD` or empty, reviews without `status`.
 
 ## Concept set schema
@@ -54,3 +56,13 @@ Concept sets are shared between separate dictionary repos (different organizatio
 ## Recommended units (lab/biology)
 
 `units/recommended_units.json` follows the **`EXAMPLE_UCUM_UNITS`** column of the official LOINC table (`LoincTable/Loinc.csv`, https://loinc.org/downloads/), matched by the concept's LOINC `concept_code`. If several units are listed, pick the one matching the property (e.g. `umol/L` for a Moles/volume LOINC). Any deviation must be justified in the concept set description. **Non-lab** concepts (vitals, scales, doses): methodology not defined yet.
+
+## Branding images
+
+`config.json` → `branding.logo` / `branding.favicon` are paths **relative to the site root**, as v1 reads them.
+
+- **v1's images** (`logo.png`, `favicon.png`) live in `legacy/`, which is v1's site root.
+- **Images uploaded from v2** (Settings → Branding, setup wizard) are committed to **`branding/` at the repository root** as `branding/logo.<ext>` / `branding/favicon.<ext>` (type sniffed from the bytes: PNG, JPEG, GIF, WebP, ICO, SVG without scripts; logo ≤ 1 MB, favicon ≤ 256 KB), and config.json names that path (`"logo": "branding/logo.png"`). A replaced `branding/` image is deleted in the same commit.
+- Who serves them: `build.py` copies `branding/` into `legacy/branding/` (gitignored, like the rest of its output), so v1's Pages site resolves `branding/logo.png`; v2's vite plugin serves and emits `branding/…` from the repo root and anything else from `legacy/`; in server mode the web app loads the content repository's current images from `GET /api/v1/instance/branding/{logo|favicon}` (no rebuild after a branding commit).
+- In a `config` draft the images travel under a reserved top-level key, `"$assets": {"logo": {"filename", "base64"}, "favicon": …}`, checked when the draft is saved and again at submit, and never written to config.json (docs/design/drafts-and-proposals.md). Static mode cannot upload images (the forge's edit page takes one text file): add them to `branding/` by hand.
+- `TODO(v2-cutover)`: move v1's images to `branding/` and drop the `legacy/` lookups.

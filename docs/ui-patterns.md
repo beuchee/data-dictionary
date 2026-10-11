@@ -92,6 +92,7 @@ Props: `onConfirm`, `confirmLabel`, `confirmDisabled`, `busy`, `destructive`, `f
 | `Input` / `Textarea` / `Select` / `Checkbox` / `Switch` | Never a raw `<input>`. |
 | `PasswordInput` | Any secret input (reveal toggle). |
 | `ColorPickerPopover` | Color selection. |
+| `FileDropZone` | The dashed "choose or drop a file" area (fixed height). |
 | `CodeEditor` (`components/editor/code-editor.tsx`) | A SQL editor (Monaco, bundled, Cmd/Ctrl+Enter = `onRun`). Several MB: always `lazy()` it. |
 | `CopyIconButton` + `copyText` (`lib/clipboard`) | Every clipboard write; never `navigator.clipboard` directly (undefined over plain HTTP). |
 

@@ -1,0 +1,37 @@
+{
+  "subtitle": "Configurez votre dictionnaire",
+  "steps": "Étapes de configuration",
+  "load_error": "Impossible de charger config.json",
+  "save_error": "Impossible de commiter la configuration",
+  "skip": "Passer pour l'instant",
+  "back": "Retour",
+  "next": "Suivant",
+  "finish": "Enregistrer et terminer",
+  "organization": {
+    "label": "Organisation",
+    "title": "Votre organisation",
+    "description": "Inscrite comme propriétaire des jeux de concepts modifiés ici. Modifiable ensuite dans Paramètres → Personnalisation."
+  },
+  "branding": {
+    "label": "Personnalisation",
+    "title": "Nom et couleurs",
+    "description": "Comment le dictionnaire se présente. Seules les couleurs primaire et secondaire sont personnalisables ; le reste en découle.",
+    "logo": "Logo (facultatif)"
+  },
+  "access": {
+    "label": "Accès",
+    "title": "Qui peut consulter",
+    "description": "Modifier demande toujours un compte ; la consultation peut être ouverte à tous."
+  },
+  "repository": {
+    "label": "Dépôt",
+    "title": "Dépôt de contenu",
+    "description": "Le dépôt git qui contient les fichiers JSON du dictionnaire. Vos réponses y sont commitées dans config.json.",
+    "remote": "Distant",
+    "branch": "Branche",
+    "head": "Commit",
+    "none": "Aucun (local uniquement)",
+    "unavailable": "Le dépôt de contenu n'a pas pu être lu.",
+    "env": "Il se règle dans l'environnement du serveur, pas ici : DD_CONTENT_REPO_URL (cloné au premier démarrage), DD_CONTENT_BRANCH, et DD_GIT_TOKEN pour pousser. Modifiez-les puis redémarrez le serveur."
+  }
+}

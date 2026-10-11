@@ -1,3 +1,5 @@
+import { getApiBaseUrl, isServerMode } from '@/lib/api-client'
+
 /** Brand colors as hex strings (`#1f6feb` or `#18e`). Every key is optional. */
 export interface BrandColors {
   primary?: string
@@ -67,6 +69,24 @@ export function assetUrl(file: string | undefined, baseUrl: string = import.meta
   if (!file?.trim()) return null
   if (/^(https?:|data:)/.test(file)) return file
   return `${baseUrl.replace(/\/?$/, '/')}${file.replace(/^\/+/, '')}`
+}
+
+/**
+ * The logo or favicon URL. Server mode: the API's route, which serves the
+ * content repository's current image (a branding commit shows without
+ * rebuilding the web app). Static mode: the path config.json names.
+ */
+export function brandingImageUrl(
+  config: Pick<InstanceConfig, 'branding'>,
+  kind: 'logo' | 'favicon',
+  serverMode: boolean = isServerMode(),
+  baseUrl?: string,
+): string | null {
+  const file = config.branding?.[kind]
+  if (!file?.trim()) return null
+  if (/^(https?:|data:)/.test(file)) return file
+  if (serverMode) return `${getApiBaseUrl()}/api/v1/instance/branding/${kind}?v=${encodeURIComponent(file)}`
+  return assetUrl(file, baseUrl)
 }
 
 /** Defaults for the keys the app relies on: title, a non-empty `languages`, a `defaultLanguage` among them. */

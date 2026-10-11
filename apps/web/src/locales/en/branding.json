@@ -1,0 +1,80 @@
+{
+  "tab_title": "Branding",
+  "load_error": "Could not load config.json",
+  "save": "Save as draft",
+  "reset": "Reset",
+  "read_only": "Your role cannot change the branding.",
+  "identity": {
+    "title": "Name and images",
+    "description": "How the dictionary presents itself in the header, the browser tab and the login page.",
+    "instance_title": "Title",
+    "instance_title_hint": "The dictionary's title (config.json `title`), also used by v1.",
+    "app_name": "App name",
+    "app_name_hint": "Shown in the header and the browser tab instead of the title. Optional.",
+    "logo_alt": "Logo alternative text"
+  },
+  "images": {
+    "logo": "Logo",
+    "favicon": "Favicon",
+    "none": "None",
+    "drop": "Choose or drop an image",
+    "hint": "PNG, JPEG, GIF, WebP, ICO or SVG, up to {{max}} KB",
+    "remove_upload": "Cancel the upload of {{name}}",
+    "static_mode": "Images are uploaded from a server instance; here, add them to the repository's branding/ folder.",
+    "error": {
+      "too_large": "The image is larger than {{max}} KB.",
+      "unsupported_type": "Not a PNG, JPEG, GIF, WebP, ICO or SVG image.",
+      "empty": "The file is empty.",
+      "read": "Could not read the file."
+    }
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "Primary and secondary colors. The text color on them and the dark-mode variants are derived automatically, checked against WCAG AA.",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "default": "Default",
+    "invalid": "Not a hex color",
+    "contrast": "Contrast {{light}} : 1 · dark {{dark}} : 1 (AA ≥ {{min}})",
+    "light": "Light",
+    "dark": "Dark",
+    "sample_primary": "Primary button",
+    "sample_secondary": "Secondary",
+    "sample_link": "A link",
+    "sample_focus": "Focus ring"
+  },
+  "languages": {
+    "title": "Languages",
+    "description": "The languages of the content (concept set translations, projects…). There is no fallback between them.",
+    "add": "Add",
+    "add_placeholder": "de, pt-BR…",
+    "remove": "Remove {{code}}",
+    "default": "Default language"
+  },
+  "organization": {
+    "title": "Organization and custom vocabulary",
+    "description": "The organization stamped as the owner of edited concept sets, and the vocabulary of custom concepts.",
+    "name": "Organization name",
+    "url": "Organization URL"
+  },
+  "vocabulary": {
+    "id": "Custom vocabulary id",
+    "prefix": "Concept code prefix",
+    "hint": "Custom concepts get ids from 2,000,000,000 upwards, in this vocabulary."
+  },
+  "display": {
+    "title": "Pages and access",
+    "show_projects": "Show the Projects page",
+    "show_mapping": "Show the Mapping recommendations page",
+    "anonymous_read": "Readable without logging in",
+    "anonymous_read_hint": "Server mode: anyone can browse the dictionary; editing always needs an account."
+  },
+  "error": {
+    "title_required": "The title is required.",
+    "languages_required": "Keep at least one language.",
+    "invalid_language": "A language code is not valid (en, fr, pt-BR…).",
+    "invalid_primary": "The primary color is not a hex color (#1f6feb).",
+    "invalid_secondary": "The secondary color is not a hex color (#6e40c9).",
+    "invalid_organization_url": "The organization URL must start with http:// or https://."
+  }
+}

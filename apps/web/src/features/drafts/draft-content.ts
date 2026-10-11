@@ -19,10 +19,11 @@ export function draftHref(draft: Draft): string {
     case 'mapping-recommendations':
       return '/mapping'
     case 'recommended-units':
+      return '/settings/recommended-units'
     case 'unit-conversions':
       return '/settings/units'
     case 'config':
-      return '/settings'
+      return '/settings/branding'
   }
 }
 

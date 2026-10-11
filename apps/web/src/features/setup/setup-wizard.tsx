@@ -1,6 +1,7 @@
-// Adapted from linkr@1310cf4a4 apps/web/src/features/setup/SetupWizard.tsx: the admin account
-// step only for now.
-// TODO(v2-phase-5): add the content repository, organization and branding steps (v2-plan § 3).
+// Adapted from linkr@1310cf4a4 apps/web/src/features/setup/SetupWizard.tsx: the admin account,
+// then (signed in) the instance steps of instance-setup.tsx.
+// TODO(v2-phase-5): choosing the content repository itself (URL, branch, token) from the
+// wizard; today it is environment configuration, shown read-only (v2-plan § 3).
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Loader2 } from 'lucide-react'
@@ -13,6 +14,7 @@ import { BrandHeading } from '@/components/layout/brand-heading'
 import { getApiBaseUrl } from '@/lib/api-client'
 import { passwordErrorFromApi, type PasswordRuleError } from '@/lib/password-policy'
 import { useAuthStore } from '@/stores/auth-store'
+import { InstanceSetup } from './instance-setup'
 
 interface SetupWizardProps {
   /** `signedIn`: the new admin is logged in; false sends them to the login page. */
@@ -31,6 +33,8 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
   const [policyError, setPolicyError] = useState<PasswordRuleError | null>(null)
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError] = useState('')
+  // The admin exists and is signed in: the instance steps follow.
+  const [adminReady, setAdminReady] = useState(false)
 
   const passwordReady = newPasswordReady(password, confirmPassword, { username }) && !policyError
 
@@ -58,7 +62,8 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
       })
       if (res.ok) {
         // Sign the new admin in with the same credentials, so nobody types them twice.
-        onComplete(await login(username.trim(), password))
+        if (await login(username.trim(), password)) setAdminReady(true)
+        else onComplete(false)
         return
       }
       const data = await res.json().catch(() => ({}))
@@ -71,6 +76,8 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
       setCreating(false)
     }
   }
+
+  if (adminReady) return <InstanceSetup onDone={() => onComplete(true)} />
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">

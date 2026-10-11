@@ -1,0 +1,67 @@
+// from linkr@1310cf4a4 apps/web/src/components/ui/file-drop-zone.tsx
+import { useState, type ReactNode } from 'react'
+import { cn } from '@/lib/utils'
+
+/**
+ * The dashed "choose a file" area, shared by every file-source field.
+ *
+ * Its height is FIXED rather than driven by content: these zones sit side by
+ * side across the add-database dialogs (upload a file, upload a folder, pick a
+ * server path), and one carrying an extra hint line used to render taller than
+ * its neighbours — the box visibly resized when the user switched engine or
+ * origin. A fixed height keeps the dialog still.
+ */
+export function FileDropZone({
+  icon,
+  label,
+  hint,
+  onClick,
+  onDropFiles,
+  disabled,
+  className,
+}: {
+  icon: ReactNode
+  label: string
+  /** Optional second line (e.g. the accepted extensions). Its presence must not
+   *  change the box height — `h-28` fixes it. */
+  hint?: string
+  onClick: () => void
+  /** Accept files dragged onto the zone. Omit for a zone nothing can be dropped
+   *  on (a server browse). */
+  onDropFiles?: (files: File[]) => void
+  disabled?: boolean
+  className?: string
+}) {
+  const [dragActive, setDragActive] = useState(false)
+  const dropHandlers = onDropFiles && !disabled
+    ? {
+        onDragOver: (e: React.DragEvent) => { e.preventDefault(); setDragActive(true) },
+        onDragLeave: () => setDragActive(false),
+        onDrop: (e: React.DragEvent) => {
+          e.preventDefault()
+          setDragActive(false)
+          const files = Array.from(e.dataTransfer.files)
+          if (files.length > 0) onDropFiles(files)
+        },
+      }
+    : {}
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      {...dropHandlers}
+      className={cn(
+        'flex h-28 w-full cursor-pointer flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-4 transition-colors hover:border-muted-foreground/40 hover:bg-muted/50 disabled:cursor-default disabled:opacity-60',
+        dragActive && 'border-primary bg-primary/5 hover:border-primary hover:bg-primary/5',
+        className,
+      )}
+    >
+      {icon}
+      <p className="text-xs text-muted-foreground">{label}</p>
+      {/* Only when given: `h-28` already fixes the height, and an empty
+          reserved line would push the icon and label above the centre. */}
+      {hint && <p className="text-[10px] text-muted-foreground/60">{hint}</p>}
+    </button>
+  )
+}

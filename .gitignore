@@ -15,6 +15,7 @@ legacy/data.json
 legacy/data_inline.js
 legacy/resolved_concept_ids.json
 legacy/concept_sets_resolved/
+legacy/branding/
 
 # v2 (apps/, packages/)
 node_modules/

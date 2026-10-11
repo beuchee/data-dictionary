@@ -1,0 +1,43 @@
+{
+  "menu": {
+    "api_tokens": "API tokens",
+    "linked": "Linked accounts"
+  },
+  "tokens": {
+    "title": "API tokens",
+    "description": "Personal tokens for scripts and tools (Authorization: Bearer ddt_…). They act with your role; they cannot manage tokens nor change your password.",
+    "name": "Name",
+    "name_placeholder": "e.g. ETL script",
+    "expiry": "Expires",
+    "expiry_30": "In 30 days",
+    "expiry_90": "In 90 days",
+    "expiry_365": "In a year",
+    "expiry_never": "Never",
+    "create": "Create",
+    "created_title": "Copy this token now: it will not be shown again.",
+    "empty": "No API tokens",
+    "dates": "Created {{created}} · last used {{used}} · expires {{expires}}",
+    "state_revoked": "Revoked",
+    "state_expired": "Expired",
+    "revoke": "Revoke",
+    "revoke_title": "Revoke “{{name}}”?",
+    "revoke_description": "Scripts using this token stop working at once.",
+    "load_error": "Could not load your API tokens.",
+    "create_error": "Could not create the token.",
+    "revoke_error": "Could not revoke the token."
+  },
+  "linked": {
+    "title": "Linked accounts",
+    "description": "The ways you sign in. A linked GitHub or GitLab account also opens your proposals under your own name.",
+    "set": "Set",
+    "not_set": "Not set",
+    "link": "Link {{provider}}",
+    "unlink": "Unlink",
+    "unlink_title": "Unlink {{provider}}?",
+    "unlink_description": "You will no longer sign in with it, and proposals will go through the instance's account.",
+    "last_method": "This is your only way to sign in: set a password or link another account first.",
+    "load_error": "Could not load your linked accounts.",
+    "link_error": "Could not start linking: the provider may not be configured.",
+    "unlink_error": "Could not unlink this account."
+  }
+}

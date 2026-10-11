@@ -1,5 +1,46 @@
 {
   "title": "Dev tools",
   "description": "SQL editor and vocabulary schema.",
-  "empty": "Developer tools will appear here."
+  "empty": "Developer tools will appear here.",
+  "tab_sql": "SQL editor",
+  "tab_erd": "Schema",
+  "admin_only": "The SQL editor is for administrators",
+  "admin_only_hint": "It queries the server's vocabulary directly: it needs the settings:manage permission.",
+  "no_vocabulary": "No OMOP vocabulary is loaded",
+  "load_vocabulary": "Load vocabularies",
+  "engine_server": "Read-only queries on the server's vocabulary.",
+  "engine_browser": "Read-only queries on the vocabulary loaded in this browser (DuckDB-WASM).",
+  "examples_placeholder": "Example queries…",
+  "examples": {
+    "vocabulary_counts": "Top 20 vocabularies by concept count",
+    "search_name": "Search concepts by name (heart rate)",
+    "descendants": "Descendants of concept 4329847",
+    "maps_to": "Mapped concepts for 4329847",
+    "domains": "All domains",
+    "vocabularies": "All vocabularies",
+    "concept_classes": "All concept classes",
+    "synonyms": "Synonyms for concept 4329847",
+    "describe": "Columns of the concept table"
+  },
+  "run": "Run",
+  "export_csv": "Export CSV",
+  "editor_label": "SQL query",
+  "editor_hint": "One read-only statement (SELECT, WITH, DESCRIBE, SHOW, EXPLAIN). Cmd/Ctrl+Enter runs it; at most {{limit}} rows are returned.",
+  "query_error": "The query failed",
+  "query_failed": "The query failed: {{message}}",
+  "refusal": {
+    "empty": "Type a query first.",
+    "several_statements": "Run one statement at a time.",
+    "not_read_only": "Only read-only queries are allowed (SELECT, WITH, DESCRIBE, SHOW, EXPLAIN)."
+  },
+  "row_count_one": "{{count}} row",
+  "row_count_other": "{{count}} rows",
+  "elapsed": "{{ms}} ms",
+  "truncated": "cut at {{limit}} rows",
+  "no_rows": "No rows.",
+  "erd_hint": "The OMOP vocabulary tables and their keys. Drag to move, scroll to zoom.",
+  "erd_label": "Diagram of the OMOP vocabulary tables",
+  "zoom_in": "Zoom in",
+  "zoom_out": "Zoom out",
+  "zoom_fit": "Fit to view"
 }

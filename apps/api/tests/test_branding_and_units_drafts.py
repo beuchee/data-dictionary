@@ -64,6 +64,17 @@ def test_decode_refuses_bad_input():
         b'<rect onload="x()"/>',
         b'<a href="javascript:x">',
         b"<foreignObject/>",
+        # Namespace prefixes: an SVG document is XML, `svg:script` runs.
+        b'<svg:script xmlns:svg="http://www.w3.org/2000/svg">alert(1)</svg:script>',
+        b'<x:foreignObject xmlns:x="http://www.w3.org/2000/svg"/>',
+        # Character references and whitespace inside the scheme.
+        b'<a href="&#106;avascript:alert(1)">',
+        b'<a href="&#x6A;&#x61;vascript&#58;alert(1)">',
+        b'<a href="java\tscript:alert(1)">',
+        b'<a href="java&#10;script:alert(1)">',
+        b'<set attributeName="on&#108;oad" to="x()"/>',
+        # An XSLT stylesheet turns the document into script-running HTML.
+        b'<?xml-stylesheet type="text/xsl" href="https://evil.example/x.xsl"?>',
     ):
         with pytest.raises(branding_assets.AssetError) as e:
             branding_assets.decode_asset("logo", _b64(SVG.replace(b"<rect", evil + b"<rect")))

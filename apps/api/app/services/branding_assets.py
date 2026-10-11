@@ -35,11 +35,36 @@ CONTENT_TYPES = {
 }
 
 # Markup that would run in an SVG opened as a document (a <img> never runs it,
-# but the file is also reachable directly).
+# but the file is also reachable directly: the static site serves it without
+# the API's sandbox CSP). Checked after numeric character references are
+# decoded; an element may carry a namespace prefix (`<svg:script>` runs in an
+# XML document); a URL scheme may hold whitespace (`java\tscript:`), which URL
+# parsing drops.
 _SVG_FORBIDDEN = re.compile(
-    rb"<\s*script|<\s*foreignObject|javascript\s*:|\son[a-z]+\s*=|<!ENTITY|<\s*iframe|<\s*embed|<\s*object",
+    rb"<\s*(?:[\w.-]+:)?(?:script|foreignObject|iframe|embed|object|handler)\b"
+    rb"|j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:"
+    rb"|[\s/\"']on[a-z]+\s*="
+    rb"|attributeName\s*=\s*[\"']?\s*on"
+    rb"|<!ENTITY|<\?xml-stylesheet",
     re.IGNORECASE,
 )
+_CHAR_REF = re.compile(rb"&#(x[0-9a-f]+|[0-9]+);?", re.IGNORECASE)
+
+
+def _decode_char_refs(data: bytes) -> bytes:
+    def one(m: re.Match) -> bytes:
+        ref = m.group(1).decode()
+        try:
+            code = int(ref[1:], 16) if ref[0] in "xX" else int(ref)
+            return chr(code).encode("utf-8")
+        except (ValueError, OverflowError):
+            return b"?"
+
+    return _CHAR_REF.sub(one, data)
+
+
+def unsafe_svg(data: bytes) -> bool:
+    return _SVG_FORBIDDEN.search(data) is not None or _SVG_FORBIDDEN.search(_decode_char_refs(data)) is not None
 
 
 class AssetError(ValueError):
@@ -93,7 +118,7 @@ def decode_asset(kind: str, value: Any) -> tuple[str, bytes]:
     ext = sniff_type(data)
     if ext is None:
         raise AssetError("unsupported_asset_type", f"The {kind} is not a PNG, JPEG, GIF, WebP, ICO or SVG image", kind)
-    if ext == "svg" and _SVG_FORBIDDEN.search(data):
+    if ext == "svg" and unsafe_svg(data):
         raise AssetError("unsafe_svg", f"The {kind} SVG contains scripts or embedded content", kind)
     return ext, data
 

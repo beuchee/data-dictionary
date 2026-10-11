@@ -1,0 +1,29 @@
+/* Syntax colors of CodePreview (highlight.js classes), from theme tokens so they follow dark mode. */
+.export-code .hljs-keyword,
+.export-code .hljs-built_in,
+.export-code .hljs-type {
+  color: var(--primary);
+  font-weight: 600;
+}
+.export-code .hljs-comment {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.export-code .hljs-number,
+.export-code .hljs-literal {
+  color: var(--chart-1);
+}
+.export-code .hljs-string {
+  color: var(--chart-2);
+}
+.export-code .hljs-attr,
+.export-code .hljs-attribute {
+  color: var(--chart-3);
+}
+.dark .export-code .hljs-attr,
+.dark .export-code .hljs-attribute {
+  color: var(--chart-2);
+}
+.dark .export-code .hljs-string {
+  color: var(--chart-4);
+}

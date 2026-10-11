@@ -105,7 +105,7 @@ export function buildProjectCsv(project: Project, lookup: PinnedConceptSetLookup
       }
     }
   }
-  return '﻿' + rows.join('\n')
+  return '\uFEFF' + rows.join('\n')
 }
 
 /** Ids are written bare, as v1 did; anything but a number is quoted like text. */

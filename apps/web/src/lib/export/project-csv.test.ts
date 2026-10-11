@@ -45,7 +45,7 @@ describe('project CSV: targeted cases', () => {
 
   it('skips a concept set the lookup does not know', () => {
     const p = { id: 9, translations: {}, groups: [{ id: 'g', rule: 'optional', conceptSets: [{ id: 404, version: '1.0.0' }] }] } as Project
-    expect(buildProjectCsv(p, () => null, 'en')).toBe('﻿' + 'group_name,group_rule,concept_set_id,concept_set_name,concept_set_category,concept_set_subcategory,concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,standard_concept,invalid_reason,valid_start_date,valid_end_date,is_excluded,include_descendants,include_mapped')
+    expect(buildProjectCsv(p, () => null, 'en')).toBe('\uFEFF' + 'group_name,group_rule,concept_set_id,concept_set_name,concept_set_category,concept_set_subcategory,concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,standard_concept,invalid_reason,valid_start_date,valid_end_date,is_excluded,include_descendants,include_mapped')
   })
 
   it('makes a safe file name', () => {

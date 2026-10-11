@@ -25,6 +25,7 @@
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "highlight.js": "^11.12.0",
     "i18next": "^25.8.7",
     "lucide-react": "^0.564.0",
     "radix-ui": "^1.4.3",

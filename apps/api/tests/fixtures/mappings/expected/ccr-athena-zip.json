@@ -1,0 +1,85 @@
+{
+  "detect": {
+    "format": "ccr",
+    "options": {}
+  },
+  "result": {
+    "format": "ccr",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "HR",
+        "sourceName": "Heart rate",
+        "sourceConceptId": 2000000001,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NA",
+        "sourceName": "Sodium, serum",
+        "sourceConceptId": 2000000002,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "VMODE",
+        "sourceName": "Ventilation mode",
+        "sourceConceptId": 2000000003,
+        "targetConceptId": 4230167
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "VMODE",
+        "sourceName": "Ventilation mode",
+        "sourceConceptId": 2000000003,
+        "targetConceptId": 45878245
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "FREE",
+        "sourceName": "Unmapped code",
+        "sourceConceptId": 2000000004,
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "INV",
+        "sourceName": "Only an invalid map",
+        "sourceConceptId": 2000000006,
+        "targetConceptId": 0
+      }
+    ],
+    "stats": {
+      "totalRows": 13,
+      "mappedRows": 4,
+      "unmappedRows": 2,
+      "skippedRows": 3,
+      "uniqueTargets": 4
+    },
+    "warnings": [
+      {
+        "code": "invalid_concept",
+        "count": 1,
+        "rows": [
+          5
+        ]
+      },
+      {
+        "code": "invalid_mapping",
+        "count": 1,
+        "rows": [
+          7
+        ]
+      },
+      {
+        "code": "invalid_target",
+        "count": 1,
+        "rows": [
+          9
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

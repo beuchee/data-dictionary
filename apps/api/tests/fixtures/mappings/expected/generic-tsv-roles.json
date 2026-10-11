@@ -1,0 +1,81 @@
+{
+  "detect": {
+    "format": "generic",
+    "options": {
+      "columns": {
+        "targetConceptId": "omop",
+        "sourceCode": "code",
+        "sourceVocabularyId": "vocab",
+        "sourceName": "libellé",
+        "status": "statut",
+        "frequency": "nb"
+      }
+    }
+  },
+  "result": {
+    "format": "generic",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "HR",
+        "sourceName": "Fréquence cardiaque",
+        "status": "validé",
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NA",
+        "sourceName": "Natrémie",
+        "status": "validé",
+        "frequency": 88,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NA",
+        "sourceName": "Natrémie",
+        "status": "validé",
+        "frequency": 88,
+        "targetConceptId": 3000285
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "FREE",
+        "sourceName": "Texte libre",
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "MIX",
+        "sourceName": "Mixed cell",
+        "frequency": 2.5,
+        "targetConceptId": 3004249
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "ZERO",
+        "sourceName": "Zéro",
+        "targetConceptId": 0
+      }
+    ],
+    "stats": {
+      "totalRows": 6,
+      "mappedRows": 4,
+      "unmappedRows": 2,
+      "skippedRows": 1,
+      "uniqueTargets": 4
+    },
+    "warnings": [
+      {
+        "code": "invalid_target",
+        "count": 2,
+        "rows": [
+          4,
+          6
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

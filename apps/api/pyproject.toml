@@ -29,6 +29,8 @@ dependencies = [
     "duckdb>=1.1",
     # Forge APIs (pull / merge requests) and OAuth token exchanges.
     "httpx>=0.27",
+    # Mapping import: XLSX files (services/mapping_import).
+    "openpyxl>=3.1",
     # The content-file contract (parse, validate, byte-exact serialize), shared
     # with the TS side. A path source in dev; the Docker image installs it first.
     "dictionary-format",

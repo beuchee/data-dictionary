@@ -2,7 +2,11 @@ import type { ExpressionItem } from '@data-dictionary/format'
 import { resolveItems, sqlLookup, stampVersion, versionFromRows } from './resolver'
 import { candidateFromRow, conceptFromRow, nodeFromRow, num, relatedFromRow, synonymFromRow, type Row } from './rows'
 import * as sql from './sql'
+import { checkReadOnlySql, limitedSql } from './sql-guard'
 import {
+  SqlQueryError,
+  type SqlOptions,
+  type SqlResult,
   VocabularyUnavailableError,
   type AncestorCandidate,
   type AncestorCandidateQuery,
@@ -147,4 +151,42 @@ export class WasmVocabularySource implements VocabularySource {
     const version = versionFromRows(await run(sql.vocabularyVersions()))
     return { conceptSetId, vocabularyVersion: stampVersion(version, resolvedConcepts), resolvedConcepts }
   }
+
+  // TODO(dev-tools): no time limit in the browser; a runaway query blocks the
+  // shared connection until the tab is reloaded.
+  async runSql(text: string, options: SqlOptions = {}): Promise<SqlResult> {
+    const refusal = checkReadOnlySql(text)
+    if (refusal) throw new SqlQueryError(refusal, refusal)
+    if (!(await (await library()).ensureMounted())) throw new VocabularyUnavailableError()
+    const limit = Math.max(1, Math.min(options.limit ?? 1000, 10_000))
+    const start = performance.now()
+    let result: { columns: string[]; rows: Row[] }
+    try {
+      result = await (await engine()).queryTable(limitedSql(text, limit))
+    } catch (error) {
+      throw new SqlQueryError(error instanceof Error ? error.message : String(error))
+    }
+    const kept = result.rows.slice(0, limit)
+    return {
+      columns: result.columns,
+      rows: kept.map((r) => result.columns.map((c) => cellValue(r[c]))),
+      rowCount: kept.length,
+      truncated: result.rows.length > limit,
+      elapsedMs: Math.round(performance.now() - start),
+    }
+  }
+}
+
+/** Arrow values the results table and the CSV can show: dates as ISO text, nested values as JSON. */
+function cellValue(value: unknown): unknown {
+  if (value === null || value === undefined) return null
+  if (value instanceof Date) return value.toISOString()
+  if (typeof value === 'object') {
+    try {
+      return JSON.stringify(value, (_k, v) => (typeof v === 'bigint' ? Number(v) : v))
+    } catch {
+      return String(value)
+    }
+  }
+  return value
 }

@@ -1,0 +1,22 @@
+{
+  "detect": {
+    "format": "generic",
+    "options": {
+      "columns": {}
+    }
+  },
+  "result": {
+    "format": "concept_ids",
+    "rows": [],
+    "stats": {
+      "totalRows": 0,
+      "mappedRows": 0,
+      "unmappedRows": 0,
+      "skippedRows": 0,
+      "uniqueTargets": 0
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "coi-serviceworker": "^0.1.7",
+    "fflate": "^0.8.3",
     "highlight.js": "^11.12.0",
     "i18next": "^25.8.7",
     "idb": "^8.0.4",
@@ -48,6 +49,7 @@
     "tailwindcss": "^4.1.18",
     "vis-data": "^8.0.5",
     "vis-network": "^10.1.2",
+    "xlsx": "npm:@e965/xlsx@^0.20.3",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

@@ -114,6 +114,33 @@ export interface VocabularyInfo {
   vocabularies: VocabularySummary[]
 }
 
+/** A Dev tools query's answer (`POST /vocabulary/sql`). */
+export interface SqlResult {
+  columns: string[]
+  /** One array per row, in `columns` order; dates as ISO text, big values as text. */
+  rows: unknown[][]
+  rowCount: number
+  /** More rows than `limit` existed. */
+  truncated: boolean
+  elapsedMs: number
+}
+
+export interface SqlOptions {
+  /** Rows kept, 1–10 000. Default 1000. */
+  limit?: number
+}
+
+/** A query refused (not read-only, several statements) or failing; `message` is for the user. */
+export class SqlQueryError extends Error {
+  /** Set when the browser's guard refused it (`sql-guard.ts`), for a translated message. */
+  readonly refusal: 'empty' | 'several_statements' | 'not_read_only' | null
+  constructor(message: string, refusal: SqlQueryError['refusal'] = null) {
+    super(message)
+    this.name = 'SqlQueryError'
+    this.refusal = refusal
+  }
+}
+
 /**
  * Read access to the OMOP vocabulary, whatever holds it: the API (server mode)
  * or DuckDB-WASM in the browser (static mode). Get it with `getVocabularySource()`.
@@ -140,6 +167,12 @@ export interface VocabularySource {
   getAncestorCandidates(ids: readonly number[], query?: AncestorCandidateQuery): Promise<AncestorCandidate[]>
   /** resolve.py's algorithm, live. */
   resolve(items: readonly ExpressionItem[], conceptSetId?: number | null): Promise<ResolveResult>
+  /**
+   * One read-only statement (SELECT, WITH, DESCRIBE, SHOW, EXPLAIN), for Dev
+   * tools. Server mode: admins only (`settings:manage`). Rejects with
+   * `SqlQueryError` for a refused or failing query.
+   */
+  runSql(sql: string, options?: SqlOptions): Promise<SqlResult>
 }
 
 export class VocabularyUnavailableError extends Error {

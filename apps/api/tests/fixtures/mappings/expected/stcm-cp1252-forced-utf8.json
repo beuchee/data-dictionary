@@ -1,0 +1,23 @@
+{
+  "result": {
+    "format": "stcm",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "FC",
+        "sourceName": "Fr�quence cardiaque",
+        "targetConceptId": 3027018
+      }
+    ],
+    "stats": {
+      "totalRows": 1,
+      "mappedRows": 1,
+      "unmappedRows": 0,
+      "skippedRows": 0,
+      "uniqueTargets": 1
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

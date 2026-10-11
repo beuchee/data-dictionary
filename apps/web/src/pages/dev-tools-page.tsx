@@ -1,6 +1,1 @@
-import { SquareTerminal } from 'lucide-react'
-import { PlaceholderPage } from './placeholder-page'
-
-export function DevToolsPage() {
-  return <PlaceholderPage pageKey="dev_tools" icon={SquareTerminal} />
-}
+export { DevToolsPage } from '@/features/dev-tools/dev-tools-page'

@@ -19,7 +19,7 @@ export interface PendingEdits {
 
 export interface CodeEditorProps {
   value: string
-  language: 'markdown' | 'json' | 'plaintext'
+  language: 'markdown' | 'json' | 'plaintext' | 'sql'
   onChange?: (value: string) => void
   readOnly?: boolean
   height?: string
@@ -30,6 +30,9 @@ export interface CodeEditorProps {
   wordWrap?: boolean
   /** Cmd/Ctrl+S inside the editor. */
   onSave?: () => void
+  /** Cmd/Ctrl+Enter, with the editor's current text (pending edits are flushed first). */
+  onRun?: (value: string) => void
+  ariaLabel?: string
 }
 
 export function CodeEditor({
@@ -42,6 +45,8 @@ export function CodeEditor({
   pendingEditsRef,
   wordWrap = false,
   onSave,
+  onRun,
+  ariaLabel,
 }: CodeEditorProps) {
   const darkMode = useAppStore((s) => s.darkMode)
 
@@ -53,10 +58,12 @@ export function CodeEditor({
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const onChangeRef = useRef(onChange)
   const onSaveRef = useRef(onSave)
+  const onRunRef = useRef(onRun)
   const onMountRef = useRef(onMount)
   useEffect(() => {
     onChangeRef.current = onChange
     onSaveRef.current = onSave
+    onRunRef.current = onRun
     onMountRef.current = onMount
   })
 
@@ -114,6 +121,12 @@ export function CodeEditor({
           flush()
           onSaveRef.current?.()
         }
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && onRunRef.current) {
+          e.preventDefault()
+          e.stopPropagation()
+          flush()
+          onRunRef.current(editor.getValue())
+        }
       }
       node?.addEventListener('keydown', onKeyDown, true)
       editor.onDidDispose(() => node?.removeEventListener('keydown', onKeyDown, true))
@@ -131,6 +144,7 @@ export function CodeEditor({
       onMount={handleMount}
       theme={darkMode ? 'vs-dark' : 'vs'}
       options={{
+        ariaLabel,
         readOnly,
         domReadOnly: readOnly,
         minimap: { enabled: false },

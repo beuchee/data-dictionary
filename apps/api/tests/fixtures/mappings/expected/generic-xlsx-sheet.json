@@ -1,0 +1,48 @@
+{
+  "result": {
+    "format": "generic",
+    "rows": [
+      {
+        "sourceCode": "HR",
+        "sourceName": "Heart rate",
+        "status": "true",
+        "frequency": 1520,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceCode": "NA",
+        "sourceName": "Sodium",
+        "status": "false",
+        "frequency": 88.5,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceCode": "FREE",
+        "sourceName": "Free text",
+        "targetConceptId": 0
+      },
+      {
+        "sourceCode": "MULTI",
+        "sourceName": "Two targets",
+        "frequency": 3,
+        "targetConceptId": 3004249
+      },
+      {
+        "sourceCode": "MULTI",
+        "sourceName": "Two targets",
+        "frequency": 3,
+        "targetConceptId": 3012888
+      }
+    ],
+    "stats": {
+      "totalRows": 4,
+      "mappedRows": 4,
+      "unmappedRows": 1,
+      "skippedRows": 0,
+      "uniqueTargets": 4
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

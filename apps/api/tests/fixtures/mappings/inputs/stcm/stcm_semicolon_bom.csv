@@ -1,0 +1,5 @@
+﻿source_code;source_concept_id;source_vocabulary_id;source_code_description;target_concept_id;invalid_reason
+HR;2000000001;EHOP;Heart rate, bedside;3027018;
+PAS;2000000008;EHOP;Pression artérielle systolique;3004249;
+NOTE;2000000009;EHOP;"Multi
+line; quoted";0;

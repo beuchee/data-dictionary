@@ -12,12 +12,13 @@ import { DataTable, type DataTableColumn, type DataTableQuery } from '@/componen
 import { DialogShell } from '@/components/ui/dialog-shell'
 import { EmptyState } from '@/components/ui/empty-state'
 import { Label } from '@/components/ui/label'
-import { MultiSelectFilter } from '@/components/ui/multi-select-filter'
+import { MULTI_SELECT_FORM_TRIGGER, MultiSelectFilter } from '@/components/ui/multi-select-filter'
 import { NoticeBanner } from '@/components/ui/notice-banner'
 import { SearchInput } from '@/components/ui/search-input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConceptDetailPanel } from '@/features/vocabulary'
 import { useVocabularyAvailable } from '@/features/units/vocabulary-availability'
+import { cn } from '@/lib/utils'
 import { VocabularyUnavailableError, getVocabularySource, type ConceptSearchPage, type FilterOptions, type OmopConcept, type RelatedConcept } from '@/lib/vocabulary'
 import { standardKind } from '../lib/concept-links'
 import { addItems, itemFromConcept, NO_FLAGS, type ItemFlags } from '../lib/expression'
@@ -42,6 +43,8 @@ interface Filters {
 
 const NO_FILTERS: Filters = { domainIds: [], vocabularyIds: [], conceptClassIds: [], standard: [], validOnly: true }
 const PAGE_SIZE = 50
+// The filter's default trigger fills its table cell: give it a toolbar width.
+const FILTER_TRIGGER = cn(MULTI_SELECT_FORM_TRIGGER, 'w-36')
 
 type SearchState =
   | { status: 'loading' }
@@ -243,10 +246,12 @@ function SearchPanel({ items, onChange }: { items: ExpressionItem[]; onChange: (
     <div className="flex min-h-0 flex-1 flex-col gap-2">
       <div className="flex flex-wrap items-center gap-2">
         <SearchInput size="dense" className="w-full max-w-xs" value={text} onChange={setText} placeholder={t('expression.search_placeholder')} />
-        <MultiSelectFilter value={filters.domainIds} options={options?.domains ?? []} placeholder={t('concept_sets.concept.domain')} onChange={(v) => setFilter('domainIds', v)} />
-        <MultiSelectFilter value={filters.vocabularyIds} options={options?.vocabularies ?? []} placeholder={t('concept_sets.concept.vocabulary')} onChange={(v) => setFilter('vocabularyIds', v)} />
-        <MultiSelectFilter value={filters.conceptClassIds} options={options?.conceptClasses ?? []} placeholder={t('concept_sets.concept.class')} onChange={(v) => setFilter('conceptClassIds', v)} />
+        <MultiSelectFilter showChevron triggerClass={FILTER_TRIGGER} value={filters.domainIds} options={options?.domains ?? []} placeholder={t('concept_sets.concept.domain')} onChange={(v) => setFilter('domainIds', v)} />
+        <MultiSelectFilter showChevron triggerClass={FILTER_TRIGGER} value={filters.vocabularyIds} options={options?.vocabularies ?? []} placeholder={t('concept_sets.concept.vocabulary')} onChange={(v) => setFilter('vocabularyIds', v)} />
+        <MultiSelectFilter showChevron triggerClass={FILTER_TRIGGER} value={filters.conceptClassIds} options={options?.conceptClasses ?? []} placeholder={t('concept_sets.concept.class')} onChange={(v) => setFilter('conceptClassIds', v)} />
         <MultiSelectFilter
+          showChevron
+          triggerClass={FILTER_TRIGGER}
           value={filters.standard}
           options={(['S', 'C', 'N'] as const).map((v) => ({ value: v, label: t(`expression.standard_filter.${v}`) }))}
           placeholder={t('concept_sets.concept.standard')}

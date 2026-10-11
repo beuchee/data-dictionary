@@ -24,6 +24,7 @@ import { REVIEW_STATUSES, type ReviewStatus } from '@data-dictionary/format'
 import { StatusBadge } from './components/badges'
 import { BulkExportDialog } from './editing/bulk-export-dialog'
 import { NewConceptSetButton } from './editing/new-concept-set-button'
+import { ImportButton } from './import/import-button'
 import {
   applyListFilters,
   categoryCounts,
@@ -132,6 +133,7 @@ export function ConceptSetsListPage() {
               <Download size={14} />
               {t('concept_sets.edit.export')}
             </Button>
+            {resource.data && <ImportButton summaries={overlaid.items} lang={lang} />}
             {resource.data && <NewConceptSetButton summaries={overlaid.items} />}
           </>
         }

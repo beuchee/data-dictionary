@@ -67,6 +67,13 @@ export interface SubmitResult {
   proposalUrl?: string | null
   /** The id allocated to a new concept set. */
   conceptSetId?: number | null
+  /**
+   * A concept set whose expression changed: `updated` when the server resolved
+   * it and committed `concept_sets_resolved/{id}.json` with it, `stale` when it
+   * had no vocabulary to (the list still is the old expression's).
+   */
+  resolved?: 'updated' | 'stale' | null
+  proposalError?: string | null
 }
 
 /**

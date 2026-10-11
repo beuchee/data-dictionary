@@ -6,6 +6,7 @@ import { PageLoading } from '@/components/layout/page-loading'
 import { PageContainer, PageHeader } from '@/components/ui/page-header'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { isServerMode } from '@/lib/api-client'
+import { proposePermission } from '@/lib/drafts/permissions'
 import { userHasPermission, useAuthStore } from '@/stores/auth-store'
 
 interface SettingsTab {
@@ -32,7 +33,7 @@ const TABS: SettingsTab[] = [
   { id: 'vocabularies', labelKey: 'vocabulary.tab_title', icon: BookA, component: VocabulariesTab },
   { id: 'units', labelKey: 'units.tab_conversions', icon: Scale, component: UnitConversionsTab },
   { id: 'recommended-units', labelKey: 'units.tab_recommended', icon: Ruler, component: RecommendedUnitsTab },
-  { id: 'branding', labelKey: 'branding.tab_title', icon: Palette, component: BrandingTab, permission: 'branding:write' },
+  { id: 'branding', labelKey: 'branding.tab_title', icon: Palette, component: BrandingTab, permission: proposePermission('config') },
   { id: 'users', labelKey: 'users.tab_title', icon: Users, component: UsersTab, permission: 'users:manage', serverOnly: true },
 ]
 

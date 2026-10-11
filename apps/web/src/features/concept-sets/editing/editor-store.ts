@@ -30,9 +30,8 @@ interface ConceptSetEditorState {
 /**
  * The concept set edit session of the detail page: a working copy that the
  * metadata, status and version dialogs and the Comments / Statistics editors
- * change, saved as a draft in one go. TODO(vocabulary): the expression editor
- * (add concepts, exclude / descendants / mapped toggles, optimize) writes
- * `expression.items` through `update` too.
+ * change, saved as a draft in one go. The expression editor (Concepts tab)
+ * writes `expression.items` through `update` too.
  */
 export const useConceptSetEditor = create<ConceptSetEditorState>()((set, get) => ({
   id: null,

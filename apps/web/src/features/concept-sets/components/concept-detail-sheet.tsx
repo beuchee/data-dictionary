@@ -29,10 +29,7 @@ export interface ConceptInfo {
 interface ConceptDetailSheetProps {
   concept: ConceptInfo | null
   onOpenChange: (open: boolean) => void
-  /**
-   * Vocabulary-powered panels under the details (hierarchy graph, related
-   * concepts, synonyms). Rendered as given; empty until that feature lands.
-   */
+  /** Vocabulary-powered panels under the details (hierarchy graph, related concepts, synonyms; v1's renderVocabTabs). */
   extraContent?: ReactNode
 }
 
@@ -142,9 +139,6 @@ function ConceptDetailBody({ concept, extraContent }: { concept: ConceptInfo; ex
             </div>
           )}
 
-          {/* TODO(vocabulary): hierarchy graph, related concepts and synonyms (v1:
-              renderVocabTabs) need the OHDSI vocabularies; the vocabulary feature
-              renders them through `extraContent`. */}
           {extraContent && (
             <div className="pt-4">
               <SectionLabel as="h3" className="mb-2">{t('concept_sets.concept.vocabulary_section')}</SectionLabel>

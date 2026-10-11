@@ -17,6 +17,7 @@ import { NoticeBanner } from '@/components/ui/notice-banner'
 import { SearchInput } from '@/components/ui/search-input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConceptDetailPanel } from '@/features/vocabulary'
+import { useVocabularyAvailable } from '@/features/units/vocabulary-availability'
 import { VocabularyUnavailableError, getVocabularySource, type ConceptSearchPage, type FilterOptions, type OmopConcept, type RelatedConcept } from '@/lib/vocabulary'
 import { standardKind } from '../lib/concept-links'
 import { addItems, itemFromConcept, NO_FLAGS, type ItemFlags } from '../lib/expression'
@@ -95,6 +96,7 @@ function SearchPanel({ items, onChange }: { items: ExpressionItem[]; onChange: (
   const [review, setReview] = useState<Review | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const present = useMemo(() => new Set(items.map((i) => i.concept.conceptId)), [items])
+  const available = useVocabularyAvailable()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -117,7 +119,6 @@ function SearchPanel({ items, onChange }: { items: ExpressionItem[]; onChange: (
 
   useEffect(() => {
     let cancelled = false
-    setState((s) => (s.status === 'ready' ? s : { status: 'loading' }))
     source
       .searchConcepts({ term, ...filters, limit: PAGE_SIZE, offset: page * PAGE_SIZE })
       .then((result) => !cancelled && setState({ status: 'ready', page: result }))
@@ -234,7 +235,7 @@ function SearchPanel({ items, onChange }: { items: ExpressionItem[]; onChange: (
 
   const onQueryChange = (q: DataTableQuery) => setPage((p) => (p === q.page ? p : q.page))
 
-  if (state.status === 'unavailable') {
+  if (available === 'no' || state.status === 'unavailable') {
     return <NoticeBanner tone="warning" title={t('expression.no_vocabulary_title')} description={t('expression.no_vocabulary_description')} />
   }
 

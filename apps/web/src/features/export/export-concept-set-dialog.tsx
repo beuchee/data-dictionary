@@ -53,6 +53,8 @@ export interface ExportConceptSetDialogProps {
   toolTag?: string
   /** `modifiedBy` stamped on the INDICATE JSON. Default: the signed-in user's name, if any. */
   modifiedBy?: string | null
+  /** Shown on the SQL tab, e.g. that the resolved concepts come from an unsaved expression. */
+  sqlNotice?: React.ReactNode
 }
 
 type ResolvedState =
@@ -90,6 +92,7 @@ export function ExportConceptSetDialog({
   permalink,
   toolTag,
   modifiedBy,
+  sqlNotice,
 }: ExportConceptSetDialogProps) {
   const { t, i18n } = useTranslation()
   const config = useConfigStore((s) => s.config)
@@ -207,6 +210,7 @@ export function ExportConceptSetDialog({
       </Tabs>
 
       <p className="text-xs text-muted-foreground">{t(`export.format_${format}_hint`)}</p>
+      {format === 'sql' && sqlNotice}
 
       {format === 'sql' && resolvedReady && (
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">

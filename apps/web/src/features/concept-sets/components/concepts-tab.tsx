@@ -9,7 +9,10 @@ import { SearchInput } from '@/components/ui/search-input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { resolvedKey, useCatalogStore } from '@/stores/catalog-store'
-import { isValidConcept, standardKind } from '../lib/concept-links'
+import { ConceptDetailPanel } from '@/features/vocabulary'
+import { ExpressionEditor } from '../expression/expression-editor'
+import { LiveResolvedTable } from '../expression/live-resolved-table'
+import { isCustomConcept, isValidConcept, standardKind } from '../lib/concept-links'
 import { ConceptDetailSheet, type ConceptInfo } from './concept-detail-sheet'
 import { StandardBadge, ValidityBadge } from './badges'
 import type { ExpressionItem } from '@data-dictionary/format'
@@ -23,9 +26,17 @@ interface ConceptsTabProps {
   version?: string
   view: ConceptsView
   onViewChange: (view: ConceptsView) => void
+  /** Edit mode: the expression is editable and its changes go here. */
+  onItemsChange?: (items: ExpressionItem[]) => void
+  /**
+   * An expression that differs from the repository's (the working copy or the
+   * user's draft): the Resolved view resolves it live instead of reading the
+   * repository's list. null / absent: the repository's list.
+   */
+  liveItems?: readonly ExpressionItem[] | null
 }
 
-export function ConceptsTab({ conceptSet, version, view, onViewChange }: ConceptsTabProps) {
+export function ConceptsTab({ conceptSet, version, view, onViewChange, onItemsChange, liveItems }: ConceptsTabProps) {
   const { t } = useTranslation()
   const [selected, setSelected] = useState<ConceptInfo | null>(null)
 
@@ -47,12 +58,28 @@ export function ConceptsTab({ conceptSet, version, view, onViewChange }: Concept
       </div>
 
       {view === 'expression' ? (
-        <ExpressionTable items={conceptSet.expression?.items ?? []} onSelect={setSelected} />
+        onItemsChange ? (
+          <ExpressionEditor conceptSetId={conceptSet.id} items={conceptSet.expression?.items ?? []} onChange={onItemsChange} onSelect={setSelected} />
+        ) : (
+          <ExpressionTable items={conceptSet.expression?.items ?? []} onSelect={setSelected} />
+        )
+      ) : liveItems ? (
+        <LiveResolvedTable conceptSetId={conceptSet.id} items={liveItems} onSelect={setSelected} />
       ) : (
         <ResolvedTable conceptSetId={conceptSet.id} version={version} onSelect={setSelected} />
       )}
 
-      <ConceptDetailSheet concept={selected} onOpenChange={(open) => !open && setSelected(null)} />
+      <ConceptDetailSheet
+        concept={selected}
+        onOpenChange={(open) => !open && setSelected(null)}
+        extraContent={
+          selected && !isCustomConcept(selected.conceptId) ? (
+            <div className="h-[520px]">
+              <ConceptDetailPanel conceptId={selected.conceptId} defaultTab="hierarchy" className="h-full" />
+            </div>
+          ) : undefined
+        }
+      />
     </div>
   )
 }

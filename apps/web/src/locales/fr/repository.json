@@ -18,5 +18,6 @@
   "pull": "Mettre à jour",
   "pulled_one": "Mis à jour. {{count}} version de jeu de concepts indexée.",
   "pulled_other": "Mis à jour. {{count}} versions de jeux de concepts indexées.",
-  "nothing_pulled": "Rien de nouveau à récupérer."
+  "nothing_pulled": "Rien de nouveau à récupérer.",
+  "index_error": "Les versions n'ont pas pu être indexées après la mise à jour ; la prochaine réessaiera."
 }

@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Loader2 } from 'lucide-react'
 import { DialogShell } from '@/components/ui/dialog-shell'
 import { resolvedKey, useCatalogStore } from '@/stores/catalog-store'
+import { draftResolvedConcepts } from '@/features/concept-sets/expression/live-resolution'
+import { UnsavedResolutionBadge } from '@/features/concept-sets/expression/live-resolved-table'
 import { diffResolved, type ResolvedDiff } from '../lib/project-editing'
 import type { ResolvedConcept } from '@data-dictionary/format'
 
@@ -22,7 +24,7 @@ interface UpdatePinsDialogProps {
   busy?: boolean
 }
 
-type DiffState = { status: 'loading' } | { status: 'ready'; diff: ResolvedDiff | null }
+type DiffState = { status: 'loading' } | { status: 'ready'; diff: ResolvedDiff | null; live: boolean }
 
 /**
  * Moving pinned concept sets to their current version, showing for each the
@@ -60,9 +62,14 @@ function PinDiff({ update }: { update: PinUpdate }) {
       await loadResolved(update.id, query)
       return useCatalogStore.getState().resolved[resolvedKey(update.id, query)]?.data?.resolvedConcepts ?? null
     }
-    Promise.all([read(update.pinned), read(undefined)])
-      .then(([before, after]) => !cancelled && setState({ status: 'ready', diff: diffResolved(before, after) }))
-      .catch(() => !cancelled && setState({ status: 'ready', diff: null }))
+    // The user's draft of the set (a changed expression) resolves live: that is what the pin would bring.
+    const current = async () => {
+      const live = await draftResolvedConcepts(update.id).catch(() => null)
+      return live ? { concepts: live, live: true } : { concepts: await read(undefined), live: false }
+    }
+    Promise.all([read(update.pinned), current()])
+      .then(([before, after]) => !cancelled && setState({ status: 'ready', diff: diffResolved(before, after.concepts), live: after.live }))
+      .catch(() => !cancelled && setState({ status: 'ready', diff: null, live: false }))
     return () => {
       cancelled = true
     }
@@ -75,6 +82,12 @@ function PinDiff({ update }: { update: PinUpdate }) {
         <span className="font-mono text-xs text-muted-foreground">
           {update.pinned} → {update.current}
         </span>
+        {state.status === 'ready' && state.live && (
+          <>
+            {' '}
+            <UnsavedResolutionBadge />
+          </>
+        )}
       </h3>
       {state.status === 'loading' ? (
         <Loader2 size={14} className="mt-2 animate-spin text-muted-foreground" />

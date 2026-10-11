@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { NoticeBanner } from '@/components/ui/notice-banner'
 import { isServerMode } from '@/lib/api-client'
 import { isNewDraft } from '@/lib/drafts/paths'
-import { canEdit } from '@/lib/drafts/permissions'
+import { canDraft } from '@/lib/drafts/permissions'
 import { userHasPermission, useAuthStore } from '@/stores/auth-store'
 import { useDraftsStore } from '@/stores/drafts-store'
 import { SubmitDialog } from '@/features/drafts/submit-dialog'
@@ -38,7 +38,7 @@ export function AddReview({ conceptSet, base, draft }: AddReviewProps) {
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState<DraftOf<'concept-set'> | null>(null)
   const has = (p: string) => userHasPermission(user, p)
-  if (!has('reviews:write') && !canEdit('concept-set', has)) return null
+  if (!canDraft('concept-set', has)) return null
 
   const submit = async (review: Omit<ReviewInput, 'timestamp'>) => {
     setBusy(true)

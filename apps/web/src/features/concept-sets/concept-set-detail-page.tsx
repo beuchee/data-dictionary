@@ -29,6 +29,8 @@ import { AddReview } from './editing/add-review'
 import { CommentsEditor } from './editing/comments-editor'
 import { ConceptSetActions } from './editing/concept-set-actions'
 import { useConceptSetEditor, useEditorDirty } from './editing/editor-store'
+import { liveExpression } from './expression/live-resolution'
+import { withItems } from './lib/expression'
 import { StatisticsEditor } from './editing/statistics-editor'
 import { isReachable, listPath, parseDetailTab, useContentLanguage, type DetailTab } from './lib/navigation'
 import type { ConceptSet, ConceptSetSummary, VersionInfo } from '@/lib/data'
@@ -211,10 +213,14 @@ function ConceptSetDetail({
   const editing = useConceptSetEditor((s) => s.id === loaded.id && s.working !== null)
   const working = useConceptSetEditor((s) => s.working)
   const stopEditing = useConceptSetEditor((s) => s.stop)
+  const updateWorking = useConceptSetEditor((s) => s.update)
   const dirty = useEditorDirty()
   const { confirmIfDirty, dialog: unsavedDialog } = useUnsavedChangesGuard(editing && dirty, stopEditing)
   // What the page shows: the working copy while editing, else this user's draft, else the repository's.
   const conceptSet = pastVersion ? loaded : editing && working ? working : (draft?.content ?? loaded)
+  // The edited (or drafted) expression, when it no longer matches the repository's: resolved live.
+  const liveItems =
+    pastVersion || !(editing || draft) ? null : liveExpression(conceptSet.expression?.items, base?.expression?.items, base !== null)
   const published = [...new Set([...(versions ?? []).map((v) => v.version), ...(base?.metadata?.versions ?? []).map((v) => v.version)])]
 
   // Leaving the set (another id, another page) ends its edit session.
@@ -255,6 +261,7 @@ function ConceptSetDetail({
             lang={lang}
             published={published}
             summaries={summaries}
+            liveItems={liveItems}
             onViewJson={() => setJsonOpen(true)}
             confirmIfDirty={confirmIfDirty}
           />
@@ -345,16 +352,13 @@ function ConceptSetDetail({
           })}
         </TabsList>
         <TabsContent value="concepts" className="mt-4">
-          {/* TODO(vocabulary): in edit mode the expression editor (add concepts from the
-              vocabulary, exclude / descendants / mapped toggles with live resolution,
-              optimize) plugs in here, writing `expression.items` through
-              useConceptSetEditor().update. Until then the tab shows the working copy's
-              expression read-only, and the resolved list of the repository's version. */}
           <ConceptsTab
             conceptSet={conceptSet}
             version={pastVersion ? shownVersion : undefined}
             view={view}
             onViewChange={(v) => setParam('view', v === 'resolved' ? null : v)}
+            onItemsChange={editing ? (items) => updateWorking((cs) => withItems(cs, items)) : undefined}
+            liveItems={liveItems}
           />
         </TabsContent>
         <TabsContent value="comments" className="mt-4">

@@ -23,7 +23,7 @@ import { useDraftsStore } from '@/stores/drafts-store'
 import { ConfirmDialog } from '@/features/drafts/confirm-dialog'
 import { useEditStamp } from '@/features/drafts/identity'
 import { SubmitDialog } from '@/features/drafts/submit-dialog'
-import { REVIEW_STATUSES, type ConceptSet, type ReviewStatus } from '@data-dictionary/format'
+import { REVIEW_STATUSES, type ConceptSet, type ExpressionItem, type ReviewStatus } from '@data-dictionary/format'
 import { applyMetadata, applyVersionBump } from '../lib/editing'
 import { listPath } from '../lib/navigation'
 import { useConceptSetEditor, useEditorDirty } from './editor-store'
@@ -46,6 +46,8 @@ interface ConceptSetActionsProps {
   /** Versions already published (never reused by a bump). */
   published: readonly string[]
   summaries: readonly ConceptSetSummary[]
+  /** The expression to resolve live (edited or drafted, unlike the repository's), for the SQL export. */
+  liveItems?: readonly ExpressionItem[] | null
   onViewJson: () => void
   /** Runs `action` unless edits would be lost, after asking. */
   confirmIfDirty: (action: () => void) => void
@@ -65,6 +67,7 @@ export function ConceptSetActions({
   lang,
   published,
   summaries,
+  liveItems,
   onViewJson,
   confirmIfDirty,
 }: ConceptSetActionsProps) {
@@ -225,7 +228,7 @@ export function ConceptSetActions({
           {t('concept_sets.edit.edit')}
         </Button>
       )}
-      <ExportButton conceptSet={shown} version={pastVersion ? requestedVersion : undefined} lang={lang} />
+      <ExportButton conceptSet={shown} version={pastVersion ? requestedVersion : undefined} lang={lang} liveItems={liveItems} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon-sm" aria-label={t('concept_sets.edit.more')}>

@@ -46,16 +46,16 @@ export function RepositoryDialog({ open, onOpenChange }: RepositoryDialogProps) 
   const { t } = useTranslation()
   const resetCatalog = useCatalogStore((s) => s.reset)
   const [status, setStatus] = useState<GitStatus | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [pulling, setPulling] = useState(false)
   const [error, setError] = useState<SubmitError | null>(null)
   const [pulled, setPulled] = useState<PullResult | null>(null)
 
   const refresh = useCallback(async (fetch: boolean) => {
-    setLoading(true)
-    setError(null)
     try {
-      setStatus(await (await getApiDraftStore()).fetchGitStatus(fetch))
+      const next = await (await getApiDraftStore()).fetchGitStatus(fetch)
+      setStatus(next)
+      setError(null)
     } catch (e) {
       setError(submitErrorFrom(e))
     } finally {
@@ -65,9 +65,22 @@ export function RepositoryDialog({ open, onOpenChange }: RepositoryDialogProps) 
 
   useEffect(() => {
     if (!open) return
-    setPulled(null)
-    void refresh(true)
-  }, [open, refresh])
+    let cancelled = false
+    getApiDraftStore()
+      .then((store) => store.fetchGitStatus(true))
+      .then((next) => {
+        if (!cancelled) setStatus(next)
+      })
+      .catch((e: unknown) => {
+        if (!cancelled) setError(submitErrorFrom(e))
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [open])
 
   const pull = async () => {
     setPulling(true)
@@ -162,7 +175,14 @@ export function RepositoryDialog({ open, onOpenChange }: RepositoryDialogProps) 
       )}
 
       <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={() => void refresh(true)} disabled={loading || pulling}>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setLoading(true)
+            void refresh(true)
+          }}
+          disabled={loading || pulling}
+        >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
           {t('repository.fetch')}
         </Button>

@@ -18,5 +18,6 @@
   "pull": "Pull",
   "pulled_one": "Pulled. {{count}} concept set version indexed.",
   "pulled_other": "Pulled. {{count}} concept set versions indexed.",
-  "nothing_pulled": "Nothing new to pull."
+  "nothing_pulled": "Nothing new to pull.",
+  "index_error": "The versions could not be indexed after the pull; the next pull retries."
 }

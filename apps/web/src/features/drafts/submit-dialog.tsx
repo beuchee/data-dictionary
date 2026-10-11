@@ -20,6 +20,7 @@ import { userHasPermission, useAuthStore } from '@/stores/auth-store'
 import { useCatalogStore } from '@/stores/catalog-store'
 import { useConfigStore, useInstanceConfig } from '@/stores/config-store'
 import { getApiDraftStore, useDraftsStore } from '@/stores/drafts-store'
+import { ResolvedFileNotice } from '@/features/concept-sets/expression/resolved-file-notice'
 import { defaultToolTag } from '@/features/export/export-settings'
 import { defaultSubmitMessage } from './draft-content'
 import { proposalText } from './proposal-text'
@@ -139,6 +140,9 @@ function ServerSubmitDialog({ open, onOpenChange, draft, base, intro, onSubmitte
               </p>
             )}
             {result.conceptSetId != null && <p className="text-xs text-muted-foreground">{t('drafts.submit.allocated_id', { id: result.conceptSetId })}</p>}
+            {result.resolved === 'updated' && <p className="text-xs text-muted-foreground">{t('expression.submit_resolved_updated')}</p>}
+            {result.resolved === 'stale' && <NoticeBanner tone="warning" title={t('expression.submit_resolved_stale')} />}
+            {result.proposalError && <NoticeBanner tone="warning" title={t('expression.submit_proposal_error')} description={result.proposalError} />}
           </div>
         </div>
       </DialogShell>
@@ -234,7 +238,7 @@ function SubmitErrorBanner({ error, canPull, pulling, onPull }: SubmitErrorBanne
 
 // --- Static mode -------------------------------------------------------------
 
-function ProposeDialog({ open, onOpenChange, draft, intro }: SubmitDialogProps) {
+function ProposeDialog({ open, onOpenChange, draft, base, intro }: SubmitDialogProps) {
   const { t } = useTranslation()
   const config = useInstanceConfig()
   const server = useConfigStore((s) => s.server)
@@ -327,6 +331,7 @@ function ProposeDialog({ open, onOpenChange, draft, intro }: SubmitDialogProps) 
           </li>
         ))}
       </ol>
+      {draft?.kind === 'concept-set' && <ResolvedFileNotice content={draft.content} base={base ?? null} isNew={prepared.isNew} />}
       {blocked && <NoticeBanner tone="warning" title={t('drafts.propose.popup_blocked')} />}
     </DialogShell>
   )

@@ -1,0 +1,51 @@
+{
+  "detect": {
+    "format": "concept_ids",
+    "options": {
+      "hasHeader": false
+    }
+  },
+  "result": {
+    "format": "concept_ids",
+    "rows": [
+      {
+        "targetConceptId": 3027018
+      },
+      {
+        "targetConceptId": 3019550
+      },
+      {
+        "targetConceptId": 3027018
+      },
+      {
+        "targetConceptId": 3004249
+      }
+    ],
+    "stats": {
+      "totalRows": 7,
+      "mappedRows": 4,
+      "unmappedRows": 0,
+      "skippedRows": 3,
+      "uniqueTargets": 3
+    },
+    "warnings": [
+      {
+        "code": "blank_row",
+        "count": 1,
+        "rows": [
+          3
+        ]
+      },
+      {
+        "code": "invalid_target",
+        "count": 2,
+        "rows": [
+          4,
+          6
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

@@ -1,7 +1,10 @@
 import type { ExpressionItem } from '@data-dictionary/format'
 import { ApiError, apiRequest } from '@/lib/api-client'
 import {
+  SqlQueryError,
   VocabularyUnavailableError,
+  type SqlOptions,
+  type SqlResult,
   type ConceptHierarchy,
   type ConceptSearchPage,
   type ConceptSearchQuery,
@@ -95,4 +98,28 @@ export class ApiVocabularySource implements VocabularySource {
       }),
     )
   }
+
+  async runSql(sql: string, options: SqlOptions = {}): Promise<SqlResult> {
+    try {
+      return await call(
+        apiRequest<SqlResult>(`${V}/sql`, { method: 'POST', body: JSON.stringify({ sql, limit: options.limit ?? 1000 }) }),
+      )
+    } catch (error) {
+      if (error instanceof ApiError && (error.status === 400 || error.status === 408)) {
+        throw new SqlQueryError(apiDetail(error.message))
+      }
+      throw error
+    }
+  }
+}
+
+/** FastAPI's `{"detail": "…"}` as text, else the raw body. */
+export function apiDetail(body: string): string {
+  try {
+    const detail = (JSON.parse(body) as { detail?: unknown }).detail
+    if (typeof detail === 'string') return detail
+  } catch {
+    // not JSON
+  }
+  return body
 }

@@ -1,0 +1,29 @@
+{
+  "detect": {
+    "format": "stcm",
+    "options": {}
+  },
+  "result": {
+    "format": "stcm",
+    "rows": [
+      {
+        "sourceCode": "HR",
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceCode": "RR",
+        "targetConceptId": 3024171
+      }
+    ],
+    "stats": {
+      "totalRows": 2,
+      "mappedRows": 2,
+      "unmappedRows": 0,
+      "skippedRows": 0,
+      "uniqueTargets": 2
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

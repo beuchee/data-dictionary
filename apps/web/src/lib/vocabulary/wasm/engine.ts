@@ -96,6 +96,13 @@ export async function query(sql: string, params: readonly unknown[] = []): Promi
   }
 }
 
+/** One statement's columns (from the schema, so an empty result keeps them) and rows. */
+export async function queryTable(sql: string): Promise<{ columns: string[]; rows: Row[] }> {
+  const conn = await getConnection()
+  const table = await conn.query(sql)
+  return { columns: table.schema.fields.map((f) => f.name), rows: toRows(table) }
+}
+
 /** Column names a query would return, without running it. */
 export async function columnsOf(sql: string): Promise<string[]> {
   const conn = await getConnection()

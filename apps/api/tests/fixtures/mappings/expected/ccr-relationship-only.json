@@ -1,0 +1,60 @@
+{
+  "detect": {
+    "format": "ccr",
+    "options": {}
+  },
+  "result": {
+    "format": "ccr",
+    "rows": [
+      {
+        "sourceConceptId": 2000000001,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceConceptId": 2000000002,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceConceptId": 2000000003,
+        "targetConceptId": 4230167
+      },
+      {
+        "sourceConceptId": 2000000003,
+        "targetConceptId": 45878245
+      },
+      {
+        "sourceConceptId": 2000000005,
+        "targetConceptId": 3004249
+      },
+      {
+        "sourceConceptId": 9999999,
+        "targetConceptId": 3027018
+      }
+    ],
+    "stats": {
+      "totalRows": 9,
+      "mappedRows": 6,
+      "unmappedRows": 0,
+      "skippedRows": 2,
+      "uniqueTargets": 5
+    },
+    "warnings": [
+      {
+        "code": "invalid_mapping",
+        "count": 1,
+        "rows": [
+          7
+        ]
+      },
+      {
+        "code": "invalid_target",
+        "count": 1,
+        "rows": [
+          9
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

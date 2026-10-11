@@ -1,0 +1,9 @@
+source_code,source_concept_id,source_vocabulary_id,source_code_description,target_concept_id,target_vocabulary_id,valid_start_date,valid_end_date,invalid_reason,source_domain_id
+HR,2000000001,EHOP,Heart rate,3027018,LOINC,1970-01-01,2099-12-31,,Measurement
+"NA","2000000002","EHOP","Sodium [Moles/volume] in Serum, Plasma","3019550","LOINC",1970-01-01,2099-12-31,,Measurement
+TEMP,2000000003,EHOP,"Temp ""core""",0,,1970-01-01,2099-12-31,,Measurement
+OLD,2000000004,EHOP,Deprecated code,3004249,LOINC,1970-01-01,2020-12-31,D,Measurement
+SPO2,0,EHOP,Oxygen saturation,40762499,LOINC,1970-01-01,2099-12-31,,Measurement
+BAD,2000000006,EHOP,Not an id,abc,LOINC,1970-01-01,2099-12-31,,Measurement
+,,,,,,,,,
+HUGE,2000000007,EHOP,Too large,9007199254740993,LOINC,1970-01-01,2099-12-31,,Measurement

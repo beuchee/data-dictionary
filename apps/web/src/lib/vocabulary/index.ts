@@ -4,7 +4,7 @@ import { WasmVocabularySource } from './wasm-source'
 import type { VocabularySource } from './types'
 
 export type * from './types'
-export { VocabularyUnavailableError } from './types'
+export { SqlQueryError, VocabularyUnavailableError } from './types'
 
 let source: VocabularySource | null = null
 

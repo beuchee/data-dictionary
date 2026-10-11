@@ -1,0 +1,19 @@
+#curie_map:
+#  skos: "http://www.w3.org/2004/02/skos/core#"
+#  semapv: "https://w3id.org/semapv/vocab/"
+#  sssom: "https://w3id.org/sssom/"
+#  OHDSI: "http://ohdsi.org/concept/"
+#  omopc: "https://omop.example.org/concept/"
+#  SNOMED: "http://snomed.info/id/"
+#mapping_set_id: "adult-icu"
+#mapping_set_title: "Adult ICU"
+#mapping_date: "2026-01-01"
+#license: "https://creativecommons.org/publicdomain/zero/1.0/"
+subject_id	subject_label	subject_source	predicate_id	predicate_modifier	object_id	object_label	object_source	mapping_cardinality	mapping_justification	confidence	author_id	comment
+EHOP:HR	Heart rate	EHOP	skos:exactMatch		OHDSI:3027018	Heart rate	LOINC		semapv:ManualMappingCuration		Boris	
+EHOP:NA	Sodium, serum	EHOP	skos:broadMatch		omopc:3019550	Sodium	LOINC		semapv:UnspecifiedMatching	0.9	Boris	a | b
+EHOP:FREE	Free text	EHOP	skos:exactMatch		sssom:NoTermFound		OHDSI	1:0	semapv:ManualMappingCuration			
+EHOP:NEG	Negated	EHOP	skos:exactMatch	Not	OHDSI:3004249		LOINC		semapv:ManualMappingCuration			
+EHOP:SCT	To SNOMED IRI	EHOP	skos:exactMatch		SNOMED:22298006		SNOMED		semapv:ManualMappingCuration			
+LOCAL1	No prefix	EHOP	skos:closeMatch		https://athena.ohdsi.org/search-terms/terms/40762499		LOINC					
+EHOP:BAD	Bad id	EHOP	skos:exactMatch		OHDSI:12ab		LOINC					

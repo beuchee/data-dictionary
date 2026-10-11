@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """Update the code of this fork from the INDICATE upstream repository.
 
-Pulls the latest version of the application code (build/resolve/reset scripts,
-SPA assets in legacy/, Claude skills, CLAUDE.md) from the upstream repo,
-without touching team-owned content (concept_sets/, projects/, units/,
-mapping_recommendations/, config.json, branding assets, etc.).
+Pulls the latest version of the application code (the v2 app in apps/ and
+packages/, docker/, the build/resolve/reset scripts, the v1 SPA in legacy/,
+docs, CI files, Claude skills) from the upstream repo, without touching
+team-owned content (concept_sets/, projects/, units/, mapping_recommendations/,
+config.json, branding/ and the v1 branding images, etc.).
 
-The upstream URL and branch are read from config.json (`github.upstream` and
-`github.upstreamBranch`); override with --upstream / --branch.
+A directory is checked out over yours: files added upstream appear, files you
+changed are overwritten, but a file deleted upstream stays in your fork until
+you delete it (`git diff upstream/<branch> --stat -- apps packages` shows them).
+
+The upstream URL and branch are read from config.json (`repository.upstream` and
+`repository.upstreamBranch`); override with --upstream / --branch.
 
 Run from the repository root:
 
@@ -33,20 +38,31 @@ UPSTREAM_PATHS = [
     "build.py",
     "resolve.py",
     "snapshot.py",
-    # build.py and snapshot.py run these (standard library only, shared with the v2 API).
-    "apps/api/app/services/catalog_build.py",
-    "apps/api/app/services/versioning.py",
     "reset.py",
     "update_from_upstream.py",
+    # v2: the web app, the API (build.py and snapshot.py also run two of its
+    # services), the shared format package, Docker and dev scripts.
+    "apps",
+    "packages",
+    "docker",
+    "scripts",
+    "package.json",
+    "package-lock.json",
+    "turbo.json",
     "CLAUDE.md",
     "AGENTS.md",
     "docs",
     "FORKING.md",
+    "CHANGELOG.md",
     "concept_set.example.json",
     "config.local.example.json",
     ".gitignore",
     ".gitlab-ci.yml",
     ".github/workflows/build-and-deploy.yml",
+    ".github/workflows/tests.yml",
+    ".github/workflows/v2-static.yml",
+    ".github/workflows/docker.yml",
+    # v1 SPA, live until the v2 cutover.
     "legacy/index.html",
     "legacy/app.css",
     "legacy/app.js",
@@ -73,6 +89,7 @@ UPSTREAM_PATHS = [
 PROTECTED = {
     "config.json",            # fork's branding/identity
     "config.local.json",      # fork's machine paths (gitignored anyway)
+    "branding",               # images uploaded from v2's Settings → Branding
     "legacy/logo.png",
     "legacy/favicon.png",
     "legacy/data_dictionary.png",
@@ -183,7 +200,7 @@ def main():
     print(f"\nUpdating code from upstream/{branch}. The following content is preserved:")
     print("  - concept_sets/, projects/, units/, mapping_recommendations/, concept_sets_resolved/")
     print("  - config.json, config.local.json, id_counters.json")
-    print("  - legacy/logo.png, legacy/favicon.png, legacy/data_dictionary.png")
+    print("  - branding/, legacy/logo.png, legacy/favicon.png, legacy/data_dictionary.png")
     print("  - legacy/data.json, legacy/data_inline.js (regenerated via build.py)")
     print()
 
@@ -199,6 +216,8 @@ def main():
 
     print("\nDone. Review changes with `git diff` and commit when satisfied.")
     print("If build.py or any source data changed, run `python3 build.py` to regenerate legacy/data.json.")
+    print("If package-lock.json or apps/api/pyproject.toml changed, reinstall: `npm install`, and")
+    print("`uv pip install -e \".[dev]\"` in apps/api.")
 
 
 if __name__ == "__main__":

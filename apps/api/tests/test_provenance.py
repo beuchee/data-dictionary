@@ -10,6 +10,7 @@ from app.services import forge
 from app.services.provenance import (
     Instance,
     Submitter,
+    is_reimport,
     mirror_root_from_english,
     normalize_concept_set_meta,
     only_reviews_appended,
@@ -198,3 +199,32 @@ def test_forge_detection_and_repo_url():
     assert forge.api_base("github", "https://ghe.corp.org/o/r") == "https://ghe.corp.org/api/v3"
     assert forge.api_base("gitlab", "https://gitlab.example.org/g/s/p.git") == "https://gitlab.example.org/api/v4"
     assert forge.project_path("https://oauth2:x@gitlab.example.org/g/s/p.git") == "g/s/p"
+
+
+def test_a_reimport_may_replace_the_frozen_origin():
+    base = read_json(REPO_ROOT / "concept_sets/1.json")
+    uid = base["metadata"]["uniqueId"]
+    origin = {
+        "uniqueId": uid,
+        "repo": "https://gitlab.com/src/dict",
+        "version": "9.0.0",
+        "commit": "abc1234",
+        "organization": None,
+        "importedDate": "2026-10-11",
+    }
+    draft = copy.deepcopy(base)
+    draft["version"] = "9.0.0"
+    draft["metadata"]["origin"] = origin
+    assert is_reimport(draft["metadata"], base["metadata"], "9.0.0")
+    stamp_concept_set(draft, cs_id=1, base=base, submitter=ALICE, instance=INSTANCE, today="2026-10-11")
+    assert draft["metadata"]["origin"] == origin
+    assert draft["metadata"]["uniqueId"] == uid
+
+    # Another lineage, or a version the draft does not carry: an edit, frozen.
+    assert not is_reimport({"origin": {**origin, "uniqueId": "other"}}, base["metadata"], "9.0.0")
+    assert not is_reimport({"origin": origin}, base["metadata"], "8.0.0")
+    assert not is_reimport({"origin": base["metadata"].get("origin")}, base["metadata"], base["version"])
+    edited = copy.deepcopy(base)
+    edited["metadata"]["origin"] = {**origin, "version": "1.2.3"}
+    stamp_concept_set(edited, cs_id=1, base=base, submitter=ALICE, instance=INSTANCE, today="2026-10-11")
+    assert edited["metadata"].get("origin") == base["metadata"].get("origin")

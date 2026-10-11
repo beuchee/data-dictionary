@@ -14,6 +14,7 @@ from app.services.git_service import get_content_repo
 
 from conftest import API, create_user, login
 from git_fixtures import commit_all, git, make_remote, read, write
+from vocab_fixtures import build_library
 
 
 @pytest.fixture
@@ -401,3 +402,59 @@ async def test_new_project_commit_allocates_the_project_id(api, db, remote):
     written = parse(remote.remote_file("main", f"projects/{next_id}.json"))
     assert written["id"] == next_id and list(written)[0] == "id"
     assert read(remote.work / "id_counters.json")["nextProjectId"] == next_id + 1
+
+
+# --- resolved list --------------------------------------------------------------
+
+
+def _expression(*ids: int, descendants: bool = False) -> dict:
+    return {
+        "items": [
+            {
+                "concept": {
+                    "conceptId": i,
+                    "conceptName": f"c{i}",
+                    "domainId": "Condition",
+                    "vocabularyId": "SNOMED",
+                    "conceptClassId": "Disorder",
+                    "standardConcept": "S",
+                    "conceptCode": str(i),
+                },
+                "isExcluded": False,
+                "includeDescendants": descendants,
+                "includeMapped": False,
+            }
+            for i in ids
+        ]
+    }
+
+
+async def test_a_changed_expression_carries_its_resolved_list(api, db, remote):
+    build_library()
+    headers = await _user(db, api, "mia", "maintainer")
+    cs = _cs(remote, 2)
+    cs["expression"] = _expression(103, descendants=True)
+    out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 2, cs), "commit")).json()
+    assert out.get("resolved") == "updated", out
+    raw = remote.remote_file(out["commitSha"], "concept_sets_resolved/2.json")
+    assert not raw.endswith(b"\n")  # resolve.py's format: no trailing newline
+    resolved = json.loads(raw)
+    assert list(resolved) == ["conceptSetId", "vocabularyVersion", "resolvedConcepts"]
+    assert resolved["conceptSetId"] == 2
+    assert [c["conceptId"] for c in resolved["resolvedConcepts"]] == [103, 104, 105, 106]
+
+    # Same expression again: nothing resolved, the list stays.
+    cs2 = _cs(remote, 2)
+    cs2["metadata"]["translations"]["en"]["longDescription"] = "x"
+    out2 = (await _submit(api, headers, await _draft(api, headers, "concept-set", 2, cs2), "commit")).json()
+    assert "resolved" not in out2
+
+
+async def test_without_a_vocabulary_the_resolved_list_is_reported_stale(api, db, remote):
+    headers = await _user(db, api, "mia", "maintainer")
+    cs = _cs(remote, 2)
+    before = remote.remote_file("main", "concept_sets_resolved/2.json")
+    cs["expression"] = _expression(103)
+    out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 2, cs), "commit")).json()
+    assert out["resolved"] == "stale"
+    assert remote.remote_file("main", "concept_sets_resolved/2.json") == before

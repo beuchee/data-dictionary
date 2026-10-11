@@ -24,6 +24,40 @@ def list_concept_sets(_user=Depends(_read), store: ContentStore = Depends(get_co
     return json_response(store.catalogue().summaries)
 
 
+# Custom concepts (no OHDSI vocabulary row) take ids from here up; resolve.py's rule.
+CUSTOM_CONCEPT_BASE = 2_100_000_000
+_CUSTOM_FIELDS = ("conceptName", "domainId", "vocabularyId", "conceptClassId", "conceptCode")
+
+
+def custom_concepts(concept_sets: dict[int, dict]) -> list[dict]:
+    """The custom concepts the catalogue uses, one per id (its first
+    definition, by set id), with the sets using it. Twin of `customConcepts`
+    in apps/web/src/lib/data/catalog.ts."""
+    found: dict[int, dict] = {}
+    for cs_id in sorted(concept_sets):
+        expression = concept_sets[cs_id].get("expression")
+        items = expression.get("items") if isinstance(expression, dict) else None
+        for item in items if isinstance(items, list) else []:
+            concept = item.get("concept") if isinstance(item, dict) else None
+            cid = concept.get("conceptId") if isinstance(concept, dict) else None
+            if not isinstance(cid, int) or isinstance(cid, bool) or cid < CUSTOM_CONCEPT_BASE:
+                continue
+            entry = found.setdefault(
+                cid, {"conceptId": cid, **{k: concept.get(k) for k in _CUSTOM_FIELDS}, "conceptSetIds": []}
+            )
+            if cs_id not in entry["conceptSetIds"]:
+                entry["conceptSetIds"].append(cs_id)
+    return [found[k] for k in sorted(found)]
+
+
+@router.get("/custom-concepts")
+def list_custom_concepts(_user=Depends(_read), store: ContentStore = Depends(get_content_store)):
+    """`[{conceptId, conceptName, domainId, vocabularyId, conceptClassId,
+    conceptCode, conceptSetIds}]`: the custom concepts in use, so a new one
+    gets an id above all of them."""
+    return json_response(custom_concepts(store.catalogue().concept_sets))
+
+
 @router.get("/{cs_id}")
 def get_concept_set(
     cs_id: int = CsId,

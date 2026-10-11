@@ -324,7 +324,9 @@ def concepts_by_ids(ids: Iterable[Any]) -> Query:
     )
 
 
-def descendant_pairs(ancestor_ids: Iterable[Any], mode: HierarchyMode, within_ids: Iterable[Any] | None = None) -> Query:
+def descendant_pairs(
+    ancestor_ids: Iterable[Any], mode: HierarchyMode, within_ids: Iterable[Any] | None = None
+) -> Query:
     """(ancestor, descendant) pairs: every descendant of each of `ancestor_ids`
     (never itself), kept to `within_ids` when given."""
     id_list = _required_ids(ancestor_ids)
@@ -382,7 +384,8 @@ def ancestor_candidates(ids: Iterable[Any], mode: HierarchyMode, max_depth: Any 
     else:
         raise QueryError(f"Unknown hierarchy mode: {mode!r}")
     return (
-        f"{prefix}SELECT {CONCEPT_COLUMNS}, COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth "
+        f"{prefix}SELECT {CONCEPT_COLUMNS}, "
+        "COUNT(DISTINCT a.descendant_id) AS covered_count, MIN(a.depth) AS min_depth "
         f"FROM {source} JOIN concept c ON c.concept_id = a.ancestor_id "
         f"WHERE a.ancestor_id NOT IN ({id_list}) AND (c.invalid_reason IS NULL OR c.invalid_reason = '') "
         "GROUP BY ALL HAVING COUNT(DISTINCT a.descendant_id) >= 2 "

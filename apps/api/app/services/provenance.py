@@ -172,6 +172,18 @@ _FROZEN_ROOT = ("createdBy", "createdDate")
 _FROZEN_METADATA = ("uniqueId", "origin", "createdByDetails")
 
 
+def is_reimport(metadata: dict, base_meta: dict, version: Any) -> bool:
+    """Whether a draft brings a newer copy of the same lineage from its source
+    repository (a cross-repo re-import): its `origin` is a new record of that
+    same `uniqueId` at the version the draft carries. Only then may an edit
+    replace the frozen `origin` (written once per import, never by an edit)."""
+    origin = metadata.get("origin")
+    if not isinstance(origin, dict) or origin == base_meta.get("origin"):
+        return False
+    uid = base_meta.get("uniqueId")
+    return bool(uid) and origin.get("uniqueId") == uid and origin.get("version") == version
+
+
 def stamp_concept_set(
     cs: dict,
     *,
@@ -214,7 +226,10 @@ def stamp_concept_set(
             if key in base:
                 set_ordered(cs, key, base[key], CONCEPT_SET_ORDER)
         base_meta = base.get("metadata") if isinstance(base.get("metadata"), dict) else {}
+        reimport = is_reimport(metadata, base_meta, cs.get("version"))
         for key in _FROZEN_METADATA:
+            if key == "origin" and reimport:
+                continue
             if key in base_meta:
                 set_ordered(metadata, key, base_meta[key], METADATA_ORDER)
         base_org = normalize_concept_set_meta({"metadata": {"organization": base_meta.get("organization")}}, "")

@@ -34,7 +34,7 @@ from app.config import settings
 from app.core.permissions import user_permissions
 from app.models.draft import Draft
 from app.models.user import User
-from app.services import forge, git_credential_service, oauth_service, versioning
+from app.services import draft_resolution, forge, git_credential_service, oauth_service, versioning
 from app.services.content_store import ContentStore
 from app.services.git_service import Author, ContentRepo, GitError, strip_credentials
 from app.services.provenance import (
@@ -191,6 +191,9 @@ class _Plan:
     body: str
     files: dict[str, bytes | None] = field(default_factory=dict)
     index_sha: str | None = None
+    # "updated": the resolved list was recomputed into this commit; "stale": the
+    # expression changed but no vocabulary was loaded to resolve it.
+    resolved: str | None = None
 
 
 def _default_message(spec: KindSpec, kind: str, target_id: int | None, content: Any, is_new: bool) -> str:
@@ -228,6 +231,7 @@ def _prepare(
     instance_config: dict,
     author: Author,
     trailer: str | None,
+    resolution: draft_resolution.Resolution | None = None,
 ) -> _Plan:
     """Blocking: everything up to the commits (no push)."""
     spec = KINDS[draft.kind]
@@ -313,6 +317,15 @@ def _prepare(
     path = spec.file_path(target_id)
     files[path] = serialize_bytes(content, spec.format_kind)
 
+    # A changed expression carries its resolved list, recomputed here (never the browser's).
+    resolved_state = None
+    if draft.kind == "concept-set" and draft_resolution.expression_changed(content, base_doc):
+        if resolution is not None:
+            files[draft_resolution.resolved_path(target_id)] = draft_resolution.resolved_bytes(target_id, resolution)
+            resolved_state = "updated"
+        else:
+            resolved_state = "stale"
+
     # Never reuse a published (id, version) pair.
     version = content.get("version") if draft.kind == "concept-set" else None
     base_version = base_doc.get("version") if isinstance(base_doc, dict) else None
@@ -326,7 +339,7 @@ def _prepare(
             f"Version {version} of concept set {target_id} is already published: bump to a new version",
         )
 
-    if base_doc is not None and files.get(path) == repo.show(base, path) and len(files) == 1:
+    if base_doc is not None and all(data == repo.show(base, p) for p, data in files.items()):
         raise SubmitError(409, "no_changes", "The draft is identical to the file in the repository")
 
     text = (message or "").strip() or _default_message(spec, draft.kind, target_id, content, is_new)
@@ -342,6 +355,7 @@ def _prepare(
         title=title.strip(),
         body=rest.strip(),
         files=files,
+        resolved=resolved_state,
     )
     if mode == "commit" and version_changed:
         versioning.record(index, target_id, version, commit_sha)
@@ -411,6 +425,11 @@ async def submit(
 
     committer = repo.committer
     user_author = Author(submitter.display_name, submitter.email or committer.email)
+    resolution = (
+        await asyncio.to_thread(draft_resolution.resolve, draft_resolution.items_of(draft.content))
+        if draft.kind == "concept-set"
+        else None
+    )
 
     def work() -> dict:
         if mode == "commit":
@@ -425,6 +444,7 @@ async def submit(
                 instance_config=config,
                 author=user_author,
                 trailer=None,
+                resolution=resolution,
             )
             if remote_url:
                 repo.push(plan.head_sha, repo.branch, token)
@@ -450,6 +470,7 @@ async def submit(
                 instance_config=config,
                 author=author,
                 trailer=trailer,
+                resolution=resolution,
             )
             branch = _proposal_branch(submitter, draft.kind, draft.target_id, plan.commit_sha)
             try:
@@ -481,6 +502,8 @@ async def submit(
         result["conceptSetId"] = plan.target_id
     if plan.index_sha:
         result["indexCommitSha"] = plan.index_sha
+    if plan.resolved:
+        result["resolved"] = plan.resolved
 
     if mode == "proposal":
         branch = outcome["branch"]

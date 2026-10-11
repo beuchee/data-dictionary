@@ -173,3 +173,21 @@ async def test_content_unavailable_is_503(client, tmp_path):
     _use_store(ContentStore(tmp_path / "missing"))
     assert (await client.get(f"{API}/concept-sets")).status_code == 503
     assert (await client.get(f"{API}/instance/config")).status_code == 503
+
+
+def test_custom_concepts_are_listed_once_with_their_sets():
+    from app.api.v1.routes.concept_sets import custom_concepts
+
+    def cs(*ids):
+        return {"expression": {"items": [{"concept": {"conceptId": i, "conceptName": f"n{i}"}} for i in ids]}}
+
+    out = custom_concepts({3: cs(2_100_000_002, 5), 1: cs(2_100_000_002, 2_100_000_007, True), 2: {"expression": None}})
+    assert [(c["conceptId"], c["conceptName"], c["conceptSetIds"]) for c in out] == [
+        (2_100_000_002, "n2100000002", [1, 3]),
+        (2_100_000_007, "n2100000007", [1]),
+    ]
+
+
+async def test_custom_concepts_route(content_client):
+    r = await content_client.get(f"{API}/concept-sets/custom-concepts")
+    assert r.status_code == 200 and isinstance(r.json(), list)

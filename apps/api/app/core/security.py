@@ -1,4 +1,5 @@
 import gzip
+import re
 from datetime import UTC, datetime, timedelta
 from functools import cache
 from pathlib import Path
@@ -70,6 +71,21 @@ def password_policy_error(password: str, username: str) -> dict | None:
         return {"code": "password_is_username", "message": "The password must not be the username."}
     if password.lower() in _common_passwords():
         return {"code": "password_common", "message": "This password is among the most commonly used ones."}
+    return None
+
+
+# Usernames of accounts created by the setup or an administrator (OAuth picks its
+# own, from the provider's handle). Twin: apps/web/src/lib/username-rule.ts.
+USERNAME_PATTERN = re.compile(r"[A-Za-z0-9._-]{3,64}")
+
+
+def username_error(username: str) -> dict | None:
+    """Why `username` may not name a new local account (`{code, message}`), or None."""
+    if USERNAME_PATTERN.fullmatch(username) is None:
+        return {
+            "code": "username_invalid",
+            "message": "3 to 64 characters: letters, digits, dot, underscore or hyphen.",
+        }
     return None
 
 

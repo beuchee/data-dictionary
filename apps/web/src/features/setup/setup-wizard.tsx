@@ -7,12 +7,14 @@ import { useTranslation } from 'react-i18next'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { FieldError } from '@/components/ui/field-error'
 import { FormField } from '@/components/ui/form-field'
 import { Input } from '@/components/ui/input'
 import { NewPasswordFields, newPasswordReady } from '@/components/ui/new-password-fields'
 import { BrandHeading } from '@/components/layout/brand-heading'
 import { getApiBaseUrl } from '@/lib/api-client'
 import { passwordErrorFromApi, type PasswordRuleError } from '@/lib/password-policy'
+import { isUsernameErrorFromApi, isValidUsername } from '@/lib/username-rule'
 import { useAuthStore } from '@/stores/auth-store'
 import { InstanceSetup } from './instance-setup'
 
@@ -36,6 +38,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
   // The admin exists and is signed in: the instance steps follow.
   const [adminReady, setAdminReady] = useState(false)
 
+  const usernameValid = isValidUsername(username.trim())
   const passwordReady = newPasswordReady(password, confirmPassword, { username }) && !policyError
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,7 +49,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
       return
     }
     // Each password problem is shown under its field: no banner here.
-    if (!passwordReady || creating) return
+    if (!usernameValid || !passwordReady || creating) return
     setCreating(true)
     try {
       const res = await fetch(`${getApiBaseUrl()}/api/v1/setup/initialize`, {
@@ -69,6 +72,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
       const data = await res.json().catch(() => ({}))
       const policy = passwordErrorFromApi(data)
       if (policy) setPolicyError(policy)
+      else if (isUsernameErrorFromApi(data)) setCreateError(t('auth.username_rule.invalid'))
       else setCreateError(typeof data.detail === 'string' ? data.detail : t('auth.setup.error_generic'))
     } catch {
       setCreateError(t('auth.setup.error_generic'))
@@ -92,7 +96,10 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
             <form onSubmit={handleSubmit} className="space-y-4">
               <FormField label={t('auth.setup.username')} required>
                 {({ id }) => (
-                  <Input id={id} value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" autoFocus />
+                  <>
+                    <Input id={id} value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" autoFocus />
+                    <FieldError message={username.trim() && !usernameValid ? t('auth.username_rule.invalid') : null} />
+                  </>
                 )}
               </FormField>
               <div className="grid grid-cols-2 gap-4">
@@ -129,7 +136,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
 
               {createError && <p className="text-sm text-destructive">{createError}</p>}
 
-              <Button type="submit" className="w-full" disabled={creating || !username.trim() || !passwordReady}>
+              <Button type="submit" className="w-full" disabled={creating || !usernameValid || !passwordReady}>
                 {creating && <Loader2 size={14} className="animate-spin" />}
                 {creating ? t('auth.setup.creating') : t('auth.setup.create_account')}
               </Button>

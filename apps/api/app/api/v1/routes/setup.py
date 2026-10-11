@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.core.database import get_db
 from app.core.permissions import ADMIN_ROLE
-from app.core.security import hash_password, password_policy_error
+from app.core.security import hash_password, password_policy_error, username_error
 from app.models.user import User
 from app.schemas.auth import SetupRequest, SetupStatusResponse, UserResponse
 
@@ -49,8 +49,8 @@ async def setup_initialize(request: SetupRequest, db: AsyncSession = Depends(get
     if await _user_count(db) > 0:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Setup already completed")
     username = request.username.strip()
-    if not username:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "The username must not be blank")
+    if error := username_error(username):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
     if error := password_policy_error(request.password, username):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, error)
     password_hash = hash_password(request.password)

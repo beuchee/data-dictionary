@@ -4,11 +4,13 @@ import asyncio
 from datetime import UTC, datetime, timedelta
 
 import jwt
+import pytest
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import settings
+from app.core.security import username_error
 from app.main import app
 from app.models.base import Base
 from app.models.user import User
@@ -67,6 +69,19 @@ async def test_setup_applies_the_password_policy(client):
     assert (await _initialize(client, username="administrator", password="administrator")).status_code == 422
     assert (await _initialize(client, username="   ")).status_code == 422
     assert (await client.get(f"{API}/setup/status")).json()["needs_setup"] is True
+
+
+@pytest.mark.parametrize("username", ["ad", "jane doe", "tab\there", "nul\x00x", "émile", "a" * 65, "x/y"])
+async def test_setup_refuses_an_invalid_username(client, username):
+    r = await _initialize(client, username=username)
+    assert r.status_code == 422
+    assert r.json()["detail"]["code"] == "username_invalid"
+    assert (await client.get(f"{API}/setup/status")).json()["needs_setup"] is True
+
+
+@pytest.mark.parametrize("username", ["abc", "jane.doe", "j_doe-2", "A" * 64])
+def test_username_rule_accepts(username):
+    assert username_error(username) is None
 
 
 async def test_login_me_refresh_logout(client):

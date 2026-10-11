@@ -2,6 +2,7 @@
 export interface BrandColors {
   primary?: string
   secondary?: string
+  /** Accepted for compatibility and ignored: `--accent` stays the neutral hover surface. */
   accent?: string
 }
 

@@ -1,4 +1,4 @@
-import { appName, assetUrl, type BrandColors, type InstanceConfig } from '@/lib/config'
+import { appName, assetUrl, type InstanceConfig } from '@/lib/config'
 
 export interface Rgb {
   /** 0–255 per channel; may fall outside that range for a color out of the sRGB gamut. */
@@ -178,7 +178,13 @@ export function deriveDarkVariant(color: Rgb): Oklch {
 // CSS custom properties
 // ---------------------------------------------------------------------------
 
-type Role = keyof BrandColors
+/**
+ * The customisable brand roles. `accent` is deliberately not one: in shadcn it is
+ * the hover surface of menus and ghost buttons, so a saturated brand color there
+ * tints every hover. It stays the neutral token of index.css; a `colors.accent`
+ * key in config.json is accepted and ignored.
+ */
+type Role = 'primary' | 'secondary'
 
 // Tokens each brand color drives, beyond `--<role>` and `--<role>-foreground`.
 const EXTRA_TOKENS: Record<Role, { color: string[]; foreground: string[] }> = {
@@ -187,10 +193,9 @@ const EXTRA_TOKENS: Record<Role, { color: string[]; foreground: string[] }> = {
     foreground: ['--sidebar-primary-foreground'],
   },
   secondary: { color: [], foreground: [] },
-  accent: { color: [], foreground: [] },
 }
 
-const ROLES: Role[] = ['primary', 'secondary', 'accent']
+const ROLES: Role[] = ['primary', 'secondary']
 
 function roleVariables(role: Role, color: Oklch): CssVariables {
   const rgb = clampRgb(oklchToRgb(color))

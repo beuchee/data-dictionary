@@ -133,14 +133,14 @@ Copié depuis Linkr (dépendances limitées à `@/lib/utils` et aux fichiers voi
   "appName": "INDICATE Data Dictionary",
   "colors": {
     "primary": "#1f6feb",
-    "secondary": "#6e40c9",
-    "accent": "#2ea44f"
+    "secondary": "#6e40c9"
   },
   "darkColors": { "primary": "#58a6ff" },
   "font": "Inter"
 }
 ```
 
+- Seules `primary` et `secondary` sont personnalisables (décidé le 2026-10-11) : dans shadcn, `--accent` est la surface de survol des menus et boutons fantômes, une couleur de marque saturée y teinterait chaque survol. `accent` reste donc le token neutre d'`index.css` ; une clé `colors.accent` reste acceptée par le schéma (compatibilité) et est ignorée.
 - Au démarrage, le front injecte les couleurs dans les tokens CSS (`--primary`, `--secondary`, `--ring`, `--sidebar-primary`…) ; à partir d'une couleur de base, `lib/theme.ts` dérive la variante d'avant-plan et la variante sombre (calcul OKLCH, contraste AA vérifié). Fonction pure → testée.
 - Écran admin « Personnalisation » : upload du logo/favicon, sélecteurs de couleur avec aperçu en direct, nom, langues, organisation, onglets visibles, vocabulaire custom. En mode serveur, l'enregistrement **commite `config.json` + les images** (la personnalisation suit le dépôt, donc aussi le build statique).
 - L'assistant de premier lancement couvre : compte admin → dépôt de contenu (URL, branche, token) → organisation → branding → contenu (partir du dépôt INDICATE, d'un dépôt vide, ou d'un fork). Il remplace `reset.py` pour un nouveau dictionnaire.
@@ -292,6 +292,7 @@ Chaque phase se termine par des tests verts et une démo utilisable.
 - Login : comptes locaux + OAuth GitHub, GitLab et ORCID.
 - Lecture anonyme autorisée, paramétrable (`config.json` → `access.anonymousRead`).
 - Mappings importés : partagés dans l'instance, non versionnés.
+- (2026-10-11) Branding : seules `primary` et `secondary` sont personnalisables ; `accent` reste neutre (clé acceptée, ignorée).
 
 ## 11. Points restant à trancher
 

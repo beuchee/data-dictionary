@@ -71,7 +71,10 @@
       "properties": {
         "primary": { "$ref": "#/$defs/hexColor" },
         "secondary": { "$ref": "#/$defs/hexColor" },
-        "accent": { "$ref": "#/$defs/hexColor" }
+        "accent": {
+          "$ref": "#/$defs/hexColor",
+          "description": "Accepted for compatibility and ignored by v2: the accent token stays a neutral hover surface. Only primary and secondary are customisable."
+        }
       },
       "additionalProperties": true
     },

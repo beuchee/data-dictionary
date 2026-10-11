@@ -209,11 +209,18 @@ describe('themeVariables', () => {
     expect(dark['--primary']).toBe(formatOklch(deriveDarkVariant(hex('#1f6feb'))))
   })
 
-  it('maps secondary and accent to their own pair only', () => {
-    const { light } = themeVariables({ colors: { secondary: '#6e40c9', accent: '#2ea44f' } })
-    expect(Object.keys(light).sort()).toEqual(
-      ['--accent', '--accent-foreground', '--secondary', '--secondary-foreground'].sort(),
-    )
+  it('maps secondary to its own pair only', () => {
+    const { light } = themeVariables({ colors: { secondary: '#6e40c9' } })
+    expect(Object.keys(light).sort()).toEqual(['--secondary', '--secondary-foreground'])
+  })
+
+  it('ignores accent: it stays the neutral hover surface', () => {
+    expect(themeVariables({ colors: { accent: '#2ea44f' }, darkColors: { accent: '#58a6ff' } })).toEqual({
+      light: {},
+      dark: {},
+    })
+    const { light } = themeVariables({ colors: { primary: '#1f6feb', accent: '#2ea44f' } })
+    expect(Object.keys(light).some((k) => k.startsWith('--accent'))).toBe(false)
   })
 
   it('uses darkColors when given instead of deriving', () => {
@@ -226,9 +233,9 @@ describe('themeVariables', () => {
   })
 
   it('applies a darkColors entry even without a light color', () => {
-    const { light, dark } = themeVariables({ darkColors: { accent: '#58a6ff' } })
+    const { light, dark } = themeVariables({ darkColors: { secondary: '#58a6ff' } })
     expect(light).toEqual({})
-    expect(Object.keys(dark).sort()).toEqual(['--accent', '--accent-foreground'])
+    expect(Object.keys(dark).sort()).toEqual(['--secondary', '--secondary-foreground'])
   })
 })
 

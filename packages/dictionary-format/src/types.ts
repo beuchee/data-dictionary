@@ -232,6 +232,7 @@ export interface RepositoryConfig extends Open {
 export interface BrandingColors extends Open {
   primary?: string
   secondary?: string
+  /** Accepted for compatibility, ignored by v2 (the accent token stays neutral). */
   accent?: string
 }
 

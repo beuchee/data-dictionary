@@ -668,6 +668,28 @@ def _empty_view(table: str) -> str:
     return f"SELECT {cols} WHERE false"
 
 
+def view_statements() -> list[str]:
+    """`CREATE VIEW <table> AS …` over the library's partitions, one per table
+    (an empty typed view for a table the library lacks)."""
+    files = library_files()
+    if not any(name.startswith("concept/") for name, _ in files):
+        raise VocabularyUnavailable("No vocabulary has been imported")
+    by_table: dict[str, list[str]] = {}
+    for name, path in files:
+        table = name.split("/", 1)[0]
+        if table in TABLE_COLUMNS and not skip_glob_path(path):
+            by_table.setdefault(table, []).append(path)
+    statements = []
+    for table in LIBRARY_TABLES:
+        paths = by_table.get(table)
+        if paths:
+            select = f"SELECT * FROM read_parquet([{', '.join(_lit(p) for p in paths)}], union_by_name=true)"
+        else:
+            select = _empty_view(table)
+        statements.append(f"CREATE VIEW {table} AS {select}")
+    return statements
+
+
 class Library:
     """A DuckDB connection whose views read the library's partitions. Rebuilt
     on `invalidate()` (after an import or a removal); `cursor()` hands each
@@ -696,22 +718,9 @@ class Library:
         return any(name.startswith("concept/") for name, _ in library_files())
 
     def _build(self) -> duckdb.DuckDBPyConnection:
-        files = library_files()
-        if not any(name.startswith("concept/") for name, _ in files):
-            raise VocabularyUnavailable("No vocabulary has been imported")
-        by_table: dict[str, list[str]] = {}
-        for name, path in files:
-            table = name.split("/", 1)[0]
-            if table in TABLE_COLUMNS and not skip_glob_path(path):
-                by_table.setdefault(table, []).append(path)
         con = duckdb.connect()
-        for table in LIBRARY_TABLES:
-            paths = by_table.get(table)
-            if paths:
-                select = f"SELECT * FROM read_parquet([{', '.join(_lit(p) for p in paths)}], union_by_name=true)"
-            else:
-                select = _empty_view(table)
-            con.execute(f"CREATE VIEW {table} AS {select}")
+        for statement in view_statements():
+            con.execute(statement)
         return con
 
     def cursor(self) -> duckdb.DuckDBPyConnection:

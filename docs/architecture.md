@@ -22,7 +22,8 @@ apps/api/                  FastAPI + SQLAlchemy async + Alembic (copied from Lin
   app/services/versioning.py      version index (snapshot, backfill); stdlib only, run by snapshot.py
   app/services/catalog_build.py   static payload (data.json…); stdlib only, run by build.py
   app/api/v1/routes/       health, setup, auth, oauth, instance, concept_sets, projects, units,
-                           mapping_recommendations, drafts, git
+                           mapping_recommendations, drafts, git, vocabulary,
+                           vocabulary_sql, mappings
 packages/dictionary-format/  JSON Schemas + byte-exact parse/serialize/validate, TS and Python
 concept_sets/ projects/ units/ …  the content (unchanged, shared with v1 and Linkr)
 legacy/                    v1 SPA; build.py writes the static payload here
@@ -111,6 +112,15 @@ Contract (routes, permissions, stamping, errors): [design/drafts-and-proposals.m
 | `DD_OAUTH_GITLAB_CLIENT_ID/SECRET/BASE_URL` (`_SCOPE`) | GitLab sign-in, self-hosted base URL (default scope `read_user api`) |
 | `DD_OAUTH_ORCID_CLIENT_ID/SECRET`, `DD_OAUTH_ORCID_SANDBOX` | ORCID sign-in |
 | `DD_OAUTH_DEFAULT_ROLE` | role of accounts created by OAuth (default `viewer`) |
+- **Dev tools SQL** (`/dev-tools?section=sql|erd`): `VocabularySource.runSql(sql, {limit})`. Server: `POST /vocabulary/sql` (`settings:manage`; `services/vocabulary_sql.py`): exactly one statement that DuckDB's parser types SELECT or EXPLAIN, run on a throwaway connection holding only the library's views, file access confined to the library folder and configuration locked; rows capped (≤ 10 000, `truncated`), interrupted after 30 s (408). Static: `lib/vocabulary/sql-guard.ts` (one statement, read-only keywords) then DuckDB-WASM, the query wrapped in `LIMIT n+1`. The Monaco editor (`components/editor/code-editor.tsx`) is bundled, SQL only, and lazy-loaded.
+
+## Mapping import and coverage
+
+An imported mapping (v2 plan §7) is a file turned into normalized rows `{sourceVocabularyId?, sourceCode?, sourceName?, sourceConceptId?, targetConceptId (0 = unmapped), equivalence?, status?, frequency?}`, then scored against every project (`lib/coverage`, at each project's pinned versions) on Mapping → Coverage.
+
+- **Parsers**, one per format, pure, in TS (`apps/web/src/lib/mapping-import/`) and Python (`apps/api/app/services/mapping_import/`): generic table with column roles, source_to_concept_map (+ Linkr's `source_domain_id`), CONCEPT + CONCEPT_RELATIONSHIP (`Maps to`, `Maps to value`), SSSOM TSV, Usagi CSV, Linkr mapping project (ZIP / folder / JSON export), concept id list. Delimited text, XLSX (SheetJS / openpyxl) and ZIP (fflate / zipfile). `detectFormat` proposes a format and options; the dialog lets the user change both. Usagi and Linkr count `approved` rows by default (`defaultStatuses`), changeable on the coverage page.
+- **Shared fixtures**: `apps/api/tests/fixtures/mappings/` — `make_fixtures.py` writes `inputs/`, `cases.json` lists the cases, `expected/<case>.json` is written by the TS suite (`UPDATE_MAPPING_GOLDEN=1 npx vitest run src/lib/mapping-import`) and checked by both. A parser change must keep both green.
+- **Storage**: server mode → `mapping_imports` (metadata, stats, warnings) + `mapping_import_rows` (the rows as one gzip'd JSON blob: immutable, always read whole, possibly 100k+ rows), shared by the instance, not versioned. Routes `/api/v1/mappings`: `GET ""` (summaries), `GET /{id}` (with `rows`), both `require_read("mappings:read")`; `POST ""` (multipart `files[]`, `options` JSON with `format` or `auto`, `name`, `description`; 422 `{code, detail}` for an unreadable file, 413 over 256 MB) and `DELETE /{id}`, both `mappings:write`. The server parses with the Python twin. Static mode → IndexedDB `dd-mappings`, parsed in the browser. Both behind `getMappingSource()` (`lib/mappings`), read through `stores/mappings-store.ts` (which also caches each pinned set's resolved ids).
 
 ## Boot and auth
 

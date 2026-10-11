@@ -1,0 +1,29 @@
+{
+  "detect": {
+    "format": "concept_ids",
+    "options": {
+      "hasHeader": true
+    }
+  },
+  "result": {
+    "format": "concept_ids",
+    "rows": [
+      {
+        "targetConceptId": 3027018
+      },
+      {
+        "targetConceptId": 3019550
+      }
+    ],
+    "stats": {
+      "totalRows": 2,
+      "mappedRows": 2,
+      "unmappedRows": 0,
+      "skippedRows": 0,
+      "uniqueTargets": 2
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

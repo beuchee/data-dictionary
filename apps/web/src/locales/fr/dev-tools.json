@@ -1,5 +1,46 @@
 {
   "title": "Outils de développement",
   "description": "Éditeur SQL et schéma des vocabulaires.",
-  "empty": "Les outils de développement s'afficheront ici."
+  "empty": "Les outils de développement s'afficheront ici.",
+  "tab_sql": "Éditeur SQL",
+  "tab_erd": "Schéma",
+  "admin_only": "L'éditeur SQL est réservé aux administrateurs",
+  "admin_only_hint": "Il interroge directement le vocabulaire du serveur : il faut la permission settings:manage.",
+  "no_vocabulary": "Aucun vocabulaire OMOP n'est chargé",
+  "load_vocabulary": "Charger les vocabulaires",
+  "engine_server": "Requêtes en lecture seule sur le vocabulaire du serveur.",
+  "engine_browser": "Requêtes en lecture seule sur le vocabulaire chargé dans ce navigateur (DuckDB-WASM).",
+  "examples_placeholder": "Exemples de requêtes…",
+  "examples": {
+    "vocabulary_counts": "Les 20 vocabulaires qui ont le plus de concepts",
+    "search_name": "Chercher des concepts par nom (heart rate)",
+    "descendants": "Descendants du concept 4329847",
+    "maps_to": "Concepts mappés de 4329847",
+    "domains": "Tous les domaines",
+    "vocabularies": "Tous les vocabulaires",
+    "concept_classes": "Toutes les classes de concepts",
+    "synonyms": "Synonymes du concept 4329847",
+    "describe": "Colonnes de la table concept"
+  },
+  "run": "Exécuter",
+  "export_csv": "Exporter en CSV",
+  "editor_label": "Requête SQL",
+  "editor_hint": "Une seule instruction en lecture seule (SELECT, WITH, DESCRIBE, SHOW, EXPLAIN). Cmd/Ctrl+Entrée l'exécute ; au plus {{limit}} lignes sont renvoyées.",
+  "query_error": "La requête a échoué",
+  "query_failed": "La requête a échoué : {{message}}",
+  "refusal": {
+    "empty": "Saisissez d'abord une requête.",
+    "several_statements": "Exécutez une instruction à la fois.",
+    "not_read_only": "Seules les requêtes en lecture seule sont autorisées (SELECT, WITH, DESCRIBE, SHOW, EXPLAIN)."
+  },
+  "row_count_one": "{{count}} ligne",
+  "row_count_other": "{{count}} lignes",
+  "elapsed": "{{ms}} ms",
+  "truncated": "coupé à {{limit}} lignes",
+  "no_rows": "Aucune ligne.",
+  "erd_hint": "Les tables des vocabulaires OMOP et leurs clés. Faites glisser pour déplacer, la molette pour zoomer.",
+  "erd_label": "Schéma des tables des vocabulaires OMOP",
+  "zoom_in": "Zoomer",
+  "zoom_out": "Dézoomer",
+  "zoom_fit": "Ajuster à la vue"
 }

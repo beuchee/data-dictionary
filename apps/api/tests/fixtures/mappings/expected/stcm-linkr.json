@@ -1,0 +1,64 @@
+{
+  "detect": {
+    "format": "stcm",
+    "options": {}
+  },
+  "result": {
+    "format": "stcm",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "HR",
+        "sourceName": "Heart rate",
+        "sourceConceptId": 2000000001,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NA",
+        "sourceName": "Sodium [Moles/volume] in Serum, Plasma",
+        "sourceConceptId": 2000000002,
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "TEMP",
+        "sourceName": "Temp \"core\"",
+        "sourceConceptId": 2000000003,
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "SPO2",
+        "sourceName": "Oxygen saturation",
+        "targetConceptId": 40762499
+      }
+    ],
+    "stats": {
+      "totalRows": 7,
+      "mappedRows": 3,
+      "unmappedRows": 1,
+      "skippedRows": 3,
+      "uniqueTargets": 3
+    },
+    "warnings": [
+      {
+        "code": "invalid_mapping",
+        "count": 1,
+        "rows": [
+          4
+        ]
+      },
+      {
+        "code": "invalid_target",
+        "count": 2,
+        "rows": [
+          6,
+          7
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

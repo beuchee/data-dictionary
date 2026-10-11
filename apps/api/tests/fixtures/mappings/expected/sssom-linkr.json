@@ -1,0 +1,71 @@
+{
+  "detect": {
+    "format": "sssom",
+    "options": {}
+  },
+  "result": {
+    "format": "sssom",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "HR",
+        "sourceName": "Heart rate",
+        "equivalence": "skos:exactMatch",
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NA",
+        "sourceName": "Sodium, serum",
+        "equivalence": "skos:broadMatch",
+        "targetConceptId": 3019550
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "FREE",
+        "sourceName": "Free text",
+        "equivalence": "skos:exactMatch",
+        "targetConceptId": 0
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "LOCAL1",
+        "sourceName": "No prefix",
+        "equivalence": "skos:closeMatch",
+        "targetConceptId": 40762499
+      }
+    ],
+    "stats": {
+      "totalRows": 7,
+      "mappedRows": 3,
+      "unmappedRows": 1,
+      "skippedRows": 3,
+      "uniqueTargets": 3
+    },
+    "warnings": [
+      {
+        "code": "invalid_target",
+        "count": 1,
+        "rows": [
+          7
+        ]
+      },
+      {
+        "code": "negated",
+        "count": 1,
+        "rows": [
+          4
+        ]
+      },
+      {
+        "code": "non_omop_object",
+        "count": 1,
+        "rows": [
+          5
+        ]
+      }
+    ],
+    "defaultStatuses": null,
+    "suggestedName": "Adult ICU"
+  }
+}

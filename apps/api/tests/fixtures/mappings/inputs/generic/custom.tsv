@@ -1,0 +1,8 @@
+code	libellé	omop	statut	nb	vocab
+HR	Fréquence cardiaque	3027018	Validé	1 520	EHOP
+NA	Natrémie	3019550;3000285 | 3000285	validé	88	EHOP
+FREE	Texte libre				EHOP
+MIX	Mixed cell	3004249, oops		2.5	EHOP
+					
+ZERO	Zéro	0			EHOP
+		nope			

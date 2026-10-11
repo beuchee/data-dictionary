@@ -17,12 +17,14 @@ from app.api.v1.routes.health import router as health_router
 from app.api.v1.routes.identities import router as identities_router
 from app.api.v1.routes.instance import router as instance_router
 from app.api.v1.routes.mapping_recommendations import router as mapping_recommendations_router
+from app.api.v1.routes.mappings import router as mappings_router
 from app.api.v1.routes.oauth import router as oauth_router
 from app.api.v1.routes.projects import router as projects_router
 from app.api.v1.routes.setup import router as setup_router
 from app.api.v1.routes.units import router as units_router
 from app.api.v1.routes.users import router as users_router
 from app.api.v1.routes.vocabulary import router as vocabulary_router
+from app.api.v1.routes.vocabulary_sql import router as vocabulary_sql_router
 from app.config import INSECURE_SECRET_KEY, settings
 from app.core.database import async_session
 from app.core.logging import setup_logging
@@ -133,3 +135,5 @@ app.include_router(drafts_router, prefix="/api/v1")
 app.include_router(users_router, prefix="/api/v1")
 app.include_router(identities_router, prefix="/api/v1")
 app.include_router(branding_router, prefix="/api/v1")
+app.include_router(mappings_router, prefix="/api/v1")
+app.include_router(vocabulary_sql_router, prefix="/api/v1")

@@ -93,6 +93,7 @@ Props: `onConfirm`, `confirmLabel`, `confirmDisabled`, `busy`, `destructive`, `f
 | `PasswordInput` | Any secret input (reveal toggle). |
 | `ColorPickerPopover` | Color selection. |
 | `FileDropZone` | The dashed "choose or drop a file" area (fixed height). |
+| `CodeEditor` (`components/editor/code-editor.tsx`) | A SQL editor (Monaco, bundled, Cmd/Ctrl+Enter = `onRun`). Several MB: always `lazy()` it. |
 | `CopyIconButton` + `copyText` (`lib/clipboard`) | Every clipboard write; never `navigator.clipboard` directly (undefined over plain HTTP). |
 
 **Tooltips** are the Radix `Tooltip` (`components/ui/tooltip.tsx`); style it as little as possible. The native `title=` attribute is not a tooltip.

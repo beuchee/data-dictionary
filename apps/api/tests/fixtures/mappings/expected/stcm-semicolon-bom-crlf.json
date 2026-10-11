@@ -1,0 +1,42 @@
+{
+  "detect": {
+    "format": "stcm",
+    "options": {}
+  },
+  "result": {
+    "format": "stcm",
+    "rows": [
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "HR",
+        "sourceName": "Heart rate, bedside",
+        "sourceConceptId": 2000000001,
+        "targetConceptId": 3027018
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "PAS",
+        "sourceName": "Pression artérielle systolique",
+        "sourceConceptId": 2000000008,
+        "targetConceptId": 3004249
+      },
+      {
+        "sourceVocabularyId": "EHOP",
+        "sourceCode": "NOTE",
+        "sourceName": "Multi\r\nline; quoted",
+        "sourceConceptId": 2000000009,
+        "targetConceptId": 0
+      }
+    ],
+    "stats": {
+      "totalRows": 3,
+      "mappedRows": 2,
+      "unmappedRows": 1,
+      "skippedRows": 0,
+      "uniqueTargets": 2
+    },
+    "warnings": [],
+    "defaultStatuses": null,
+    "suggestedName": null
+  }
+}

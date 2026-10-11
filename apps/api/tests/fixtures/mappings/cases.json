@@ -1,0 +1,51 @@
+[
+  { "name": "stcm-linkr", "files": ["stcm/source_to_concept_map.csv"], "detect": "stcm", "options": { "format": "stcm" } },
+  { "name": "stcm-semicolon-bom-crlf", "files": ["stcm/stcm_semicolon_bom.csv"], "detect": "stcm", "options": { "format": "stcm" } },
+  { "name": "stcm-cp1252-auto", "files": ["stcm/stcm_cp1252.csv"], "detect": "stcm", "options": { "format": "stcm" } },
+  { "name": "stcm-cp1252-forced-utf8", "files": ["stcm/stcm_cp1252.csv"], "options": { "format": "stcm", "encoding": "utf-8" } },
+  { "name": "stcm-utf16", "files": ["stcm/stcm_utf16.txt"], "detect": "stcm", "options": { "format": "stcm" } },
+  { "name": "stcm-missing-target", "files": ["stcm/stcm_missing_target.csv"], "options": { "format": "stcm" }, "error": "missing_columns" },
+  { "name": "stcm-forced-delimiter", "files": ["stcm/source_to_concept_map.csv"], "options": { "format": "stcm", "delimiter": ";" }, "error": "missing_columns" },
+  { "name": "ccr-two-files", "files": ["ccr/concept.csv", "ccr/concept_relationship.csv"], "detect": "ccr", "options": { "format": "ccr" } },
+  { "name": "ccr-athena-zip", "files": ["ccr/ccr_athena.zip"], "detect": "ccr", "options": { "format": "ccr" } },
+  { "name": "ccr-relationship-only", "files": ["ccr/relationship_only.tsv"], "detect": "ccr", "options": { "format": "ccr" } },
+  { "name": "ccr-concept-only", "files": ["ccr/concept.csv"], "options": { "format": "ccr" }, "error": "missing_file" },
+  { "name": "sssom-linkr", "files": ["sssom/mappings.sssom.tsv"], "detect": "sssom", "options": { "format": "sssom" } },
+  { "name": "usagi", "files": ["usagi/usagi.csv"], "detect": "usagi", "options": { "format": "usagi" } },
+  { "name": "linkr-zip", "files": ["linkr/project.zip"], "detect": "linkr", "options": { "format": "linkr" } },
+  { "name": "linkr-json-export", "files": ["linkr/export.json"], "detect": "linkr", "options": { "format": "linkr" } },
+  { "name": "linkr-broken-json", "files": ["linkr/broken.json"], "options": { "format": "linkr" }, "error": "invalid_json" },
+  { "name": "linkr-bad-zip", "files": ["linkr/bad.zip"], "options": { "format": "linkr" }, "error": "bad_zip" },
+  { "name": "linkr-no-mappings", "files": ["stcm/stcm_cp1252.csv"], "options": { "format": "linkr" }, "error": "missing_file" },
+  { "name": "list-plain", "files": ["list/ids.txt"], "detect": "concept_ids", "options": { "format": "concept_ids" } },
+  { "name": "list-header", "files": ["list/ids_header.csv"], "detect": "concept_ids", "options": { "format": "concept_ids" } },
+  { "name": "list-empty", "files": ["list/empty.csv"], "options": { "format": "concept_ids" }, "error": "empty_file" },
+  { "name": "list-pdf", "files": ["list/notes.pdf"], "options": { "format": "concept_ids" }, "error": "unsupported_file" },
+  {
+    "name": "generic-tsv-roles",
+    "files": ["generic/custom.tsv"],
+    "detect": "generic",
+    "options": {
+      "format": "generic",
+      "columns": { "sourceCode": "code", "sourceName": "libellé", "targetConceptId": "omop", "status": "statut", "frequency": "nb", "sourceVocabularyId": "vocab" }
+    }
+  },
+  { "name": "generic-missing-role", "files": ["generic/custom.tsv"], "options": { "format": "generic", "columns": { "sourceCode": "code" } }, "error": "missing_columns" },
+  { "name": "generic-unknown-column", "files": ["generic/custom.tsv"], "options": { "format": "generic", "columns": { "targetConceptId": "nope" } }, "error": "missing_columns" },
+  {
+    "name": "generic-noheader-skip",
+    "files": ["generic/noheader.csv"],
+    "options": { "format": "generic", "hasHeader": false, "skipRows": 2, "columns": { "sourceCode": "column_1", "targetConceptId": "column_2" } }
+  },
+  {
+    "name": "generic-xlsx-sheet",
+    "files": ["generic/workbook.xlsx"],
+    "options": {
+      "format": "generic",
+      "sheet": "Mapping",
+      "columns": { "sourceCode": "Code", "sourceName": "Label", "targetConceptId": "Concept ID", "frequency": "Count", "status": "Reviewed" }
+    }
+  },
+  { "name": "generic-xlsx-unknown-sheet", "files": ["generic/workbook.xlsx"], "options": { "format": "generic", "sheet": "Nope", "columns": { "targetConceptId": "Concept ID" } }, "error": "unknown_sheet" },
+  { "name": "detect-xlsx-first-sheet", "files": ["generic/workbook.xlsx"], "detect": "generic", "options": { "format": "concept_ids" } }
+]

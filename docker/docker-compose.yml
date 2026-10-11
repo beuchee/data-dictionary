@@ -1,8 +1,12 @@
 # Full-stack deployment (front + API behind nginx), SQLite in a named volume.
 # From the repo root:  docker compose -f docker/docker-compose.yml up --build
+# Reference for every variable: docs/deployment.md.
 #
-# Set DD_SECRET_KEY before `up` (JWT signing key):
+# Set DD_SECRET_KEY before `up` (JWT signing key; keep it, changing it signs
+# everyone out):
 #   export DD_SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))")
+# Ports: DD_WEB_PORT (default 3000, the app) and DD_API_PORT (default 8000,
+# loopback only, for debugging the API directly).
 services:
   web:
     build:
@@ -13,9 +17,10 @@ services:
         # proxies them to the api service (backend URL never baked in).
         VITE_API_URL: /
     ports:
-      - "3000:80"
+      - "${DD_WEB_PORT:-3000}:80"
     depends_on:
       - api
+    restart: unless-stopped
 
   api:
     build:
@@ -24,21 +29,25 @@ services:
     ports:
       # Loopback only: the web container reaches the API over the compose
       # network; publishing it on every interface would bypass nginx.
-      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:${DD_API_PORT:-8000}:8000"
     environment:
       - DD_DATA_DIR=/var/lib/data-dictionary
-      # Working copy of the content repository, read by /api/v1/concept-sets & co.
-      # With DD_CONTENT_REPO_URL, the API clones it there on first start (full
-      # history), pulls from it and pushes commits / proposal branches to it.
+      # Content repository. On first start the API clones DD_CONTENT_REPO_URL
+      # (full history: it serves past versions) into DD_CONTENT_DIR, then pulls
+      # from it and pushes commits / proposal branches to it (https or ssh only).
+      # Point it at YOUR dictionary's repository; the default (when the variable
+      # is unset) is INDICATE's. Set it empty to use the working copy's `origin`.
       - DD_CONTENT_DIR=/var/lib/data-dictionary/content
-      # - DD_CONTENT_REPO_URL=https://github.com/indicate-eu/data-dictionary
+      - DD_CONTENT_REPO_URL=${DD_CONTENT_REPO_URL-https://github.com/indicate-eu/data-dictionary}
       # - DD_CONTENT_BRANCH=main
+      # Service token: private repo, direct commits, proposals of users who did
+      # not sign in with the forge.
       # - DD_GIT_TOKEN=${DD_GIT_TOKEN}
       # - DD_GIT_AUTHOR_NAME=Data Dictionary
       # - DD_GIT_AUTHOR_EMAIL=data-dictionary@example.org
       # Public URL of the app (OAuth redirect URIs:
       # {DD_PUBLIC_URL}/api/v1/auth/oauth/{provider}/callback).
-      # - DD_PUBLIC_URL=http://localhost:3000
+      - DD_PUBLIC_URL=${DD_PUBLIC_URL:-http://localhost:3000}
       # OAuth sign-in, each provider enabled by its id + secret:
       # - DD_OAUTH_GITHUB_CLIENT_ID=${DD_OAUTH_GITHUB_CLIENT_ID}
       # - DD_OAUTH_GITHUB_CLIENT_SECRET=${DD_OAUTH_GITHUB_CLIENT_SECRET}
@@ -49,12 +58,20 @@ services:
       # - DD_OAUTH_ORCID_CLIENT_SECRET=${DD_OAUTH_ORCID_CLIENT_SECRET}
       # - DD_OAUTH_DEFAULT_ROLE=viewer
       - DD_SECRET_KEY=${DD_SECRET_KEY:?set DD_SECRET_KEY before up}
-      - DD_CORS_ORIGINS=http://localhost:3000
+      - DD_CORS_ORIGINS=${DD_PUBLIC_URL:-http://localhost:3000}
       - DD_DEBUG=false
+      # PostgreSQL instead of SQLite (uncomment the db service below too):
+      # - DD_DATABASE_URL=postgresql+asyncpg://data_dictionary:data_dictionary@db:5432/data_dictionary
     volumes:
       - dd-data:/var/lib/data-dictionary
+      # Use a working copy from the host instead of cloning: mount it and point
+      # DD_CONTENT_DIR at it (DD_CONTENT_REPO_URL= empty to use its `origin`).
+      # The API then runs as the directory's owner (see api-entrypoint.sh).
+      # - /path/to/data-dictionary:/srv/content
+    restart: unless-stopped
 
-  # Uncomment for PostgreSQL (and set DD_DATABASE_URL=postgresql+asyncpg://…):
+  # PostgreSQL: uncomment, set DD_DATABASE_URL above (change the password), and
+  # add to the api service:  depends_on: { db: { condition: service_healthy } }
   # db:
   #   image: postgres:16-alpine
   #   environment:
@@ -63,6 +80,11 @@ services:
   #     POSTGRES_PASSWORD: data_dictionary
   #   volumes:
   #     - pgdata:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U data_dictionary -d data_dictionary"]
+  #     interval: 5s
+  #     retries: 10
+  #   restart: unless-stopped
 
 volumes:
   dd-data:

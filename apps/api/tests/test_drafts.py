@@ -345,6 +345,21 @@ async def test_new_concept_set_proposal_allocates_an_id_and_opens_a_pr(api, db, 
     assert payload["head"] == out["branch"] and payload["base"] == "main" and payload["title"] == "Add a set"
 
 
+async def test_profile_fields_cannot_forge_commit_trailers(api, db, remote):
+    """The profile is free text the user sets: a newline in it must not add
+    trailer lines (another co-author, a sign-off) to the commit message."""
+    headers = await _user(
+        db, api, "eve", "editor", first_name="Eve\nCo-authored-by: Linus <torvalds@example.org>", email="e@x>\nfoo"
+    )
+    cs = _cs(remote, 1)
+    cs["tags"] = ["x"]
+    out = (await _submit(api, headers, await _draft(api, headers, "concept-set", 1, cs), "proposal")).json()
+    message = git(remote.bare, "log", "-1", "--format=%B", out["commitSha"])
+    trailers = [line for line in message.splitlines() if ":" in line and line.split(":")[0].endswith("-by")]
+    assert len(trailers) == 1, message
+    assert "\n" not in trailers[0] and trailers[0].startswith("Co-authored-by: Eve Co-authored-by")
+
+
 async def test_proposal_survives_a_forge_failure_with_a_manual_link(api, db, remote, monkeypatch):
     headers = await _user(db, api, "eve", "editor")
     monkeypatch.setattr(forge, "transport", httpx.MockTransport(lambda req: httpx.Response(422, json={"message": "x"})))

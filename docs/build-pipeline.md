@@ -1,6 +1,6 @@
 # Build pipeline and versioning
 
-Three independent Python scripts. `build.py` does **not** re-resolve; it reads the existing resolved files as they are. Each script's docstring documents its full CLI.
+Three independent Python scripts. `build.py` does **not** re-resolve; it reads the existing resolved files as they are. Each script's docstring documents its full CLI. `snapshot.py` and `build.py` are command lines over `apps/api/app/services/versioning.py` and `catalog_build.py` (standard library only, loaded by path), the same code the v2 API runs; their output is checked against frozen copies of the v1 scripts (`apps/api/tests/test_versioning_and_build.py`).
 
 - **`resolve.py`** expands `expression.items` against the OMOP vocabulary (descendants via `concept_ancestor`, mapped via `concept_relationship`; resolved = included − excluded) and writes `concept_sets_resolved/{id}.json`. Run it only after editing a set's `expression`, then **commit** the resolved file: CI never runs it. `--vocab` is auto-detected (a `.duckdb` file, or a folder of Athena CSV / Parquet); without it, the `ohdsiVocab` key of `config.local.json` is used.
 - **`snapshot.py`** records `(id, version) → HEAD commit SHA` in `concept_sets_versions.json` for any version not yet indexed. Called by `build.py`.
@@ -27,7 +27,7 @@ A version that was never snapshotted is unreachable, not merely absent.
 2. `python3 build.py` (`snapshot.py` stamps the pair at `HEAD`; it refuses files with uncommitted changes).
 3. Commit the updated `concept_sets_versions.json`.
 
-`snapshot.py` is idempotent. **Never reuse a published `(id, version)` pair**: if a version is wrong, bump again. (v2 removes the two-commit dance in server mode by snapshotting right after its own commit.)
+`snapshot.py` is idempotent. **Never reuse a published `(id, version)` pair**: if a version is wrong, bump again. (In server mode, v2 does it for you: a direct commit that changes a version is followed by its index commit, and `POST /git/pull` runs the backfill.)
 
 ### Catching up on missed versions
 

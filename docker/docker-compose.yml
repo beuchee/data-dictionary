@@ -28,9 +28,26 @@ services:
     environment:
       - DD_DATA_DIR=/var/lib/data-dictionary
       # Working copy of the content repository, read by /api/v1/concept-sets & co.
-      # TODO(v2-phase-2): the API clones the configured repository there on first
-      # start; until then, put a checkout of the content repo in the volume.
+      # With DD_CONTENT_REPO_URL, the API clones it there on first start (full
+      # history), pulls from it and pushes commits / proposal branches to it.
       - DD_CONTENT_DIR=/var/lib/data-dictionary/content
+      # - DD_CONTENT_REPO_URL=https://github.com/indicate-eu/data-dictionary
+      # - DD_CONTENT_BRANCH=main
+      # - DD_GIT_TOKEN=${DD_GIT_TOKEN}
+      # - DD_GIT_AUTHOR_NAME=Data Dictionary
+      # - DD_GIT_AUTHOR_EMAIL=data-dictionary@example.org
+      # Public URL of the app (OAuth redirect URIs:
+      # {DD_PUBLIC_URL}/api/v1/auth/oauth/{provider}/callback).
+      # - DD_PUBLIC_URL=http://localhost:3000
+      # OAuth sign-in, each provider enabled by its id + secret:
+      # - DD_OAUTH_GITHUB_CLIENT_ID=${DD_OAUTH_GITHUB_CLIENT_ID}
+      # - DD_OAUTH_GITHUB_CLIENT_SECRET=${DD_OAUTH_GITHUB_CLIENT_SECRET}
+      # - DD_OAUTH_GITLAB_CLIENT_ID=${DD_OAUTH_GITLAB_CLIENT_ID}
+      # - DD_OAUTH_GITLAB_CLIENT_SECRET=${DD_OAUTH_GITLAB_CLIENT_SECRET}
+      # - DD_OAUTH_GITLAB_BASE_URL=https://gitlab.com
+      # - DD_OAUTH_ORCID_CLIENT_ID=${DD_OAUTH_ORCID_CLIENT_ID}
+      # - DD_OAUTH_ORCID_CLIENT_SECRET=${DD_OAUTH_ORCID_CLIENT_SECRET}
+      # - DD_OAUTH_DEFAULT_ROLE=viewer
       - DD_SECRET_KEY=${DD_SECRET_KEY:?set DD_SECRET_KEY before up}
       - DD_CORS_ORIGINS=http://localhost:3000
       - DD_DEBUG=false

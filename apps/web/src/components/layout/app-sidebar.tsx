@@ -15,8 +15,9 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { appName, brandingImageUrl } from '@/lib/config'
+import { appName } from '@/lib/config'
 import { useInstanceConfig } from '@/stores/config-store'
+import { BrandLogo } from './brand-logo'
 import { BOTTOM_NAV_ITEMS, activeNavItem, mainNavItems, type NavItem } from './nav-items'
 
 export function AppSidebar() {
@@ -25,7 +26,6 @@ export function AppSidebar() {
   const config = useInstanceConfig()
   const items = mainNavItems(config)
   const active = activeNavItem(pathname, [...items, ...BOTTOM_NAV_ITEMS])
-  const logo = brandingImageUrl(config, 'logo')
   const name = appName(config)
 
   const renderItem = (item: NavItem) => {
@@ -49,9 +49,7 @@ export function AppSidebar() {
           to="/"
           className="flex min-w-0 items-center gap-2.5 transition-opacity hover:opacity-80 group-data-[collapsible=icon]:hidden"
         >
-          {logo && (
-            <img src={logo} alt={config.branding?.logoAlt ?? name} className="h-7 w-auto shrink-0 object-contain" />
-          )}
+          <BrandLogo fallbackAlt={name} className="h-7 w-auto shrink-0 object-contain" />
           <span className="truncate text-sm font-semibold text-sidebar-foreground">{name}</span>
         </Link>
         <SidebarTrigger aria-label={t('layout.header.toggle_sidebar')} />

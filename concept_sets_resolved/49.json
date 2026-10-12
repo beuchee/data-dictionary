@@ -817,6 +817,114 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2901672,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection Box of 50 by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5118556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2901673,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5118557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2901674,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection Box of 5 by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5118558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2901675,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5118559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2901676,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5118560",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2901677,
+      "conceptName": "0.2 ML Heparin Sodium 25000 IU/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5118561",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902621,
+      "conceptName": "1000 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection Box of 12",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5119477",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902622,
+      "conceptName": "1000 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5119478",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902623,
+      "conceptName": "1000 ML Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection Box of 12 by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119479",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902624,
+      "conceptName": "1000 ML Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection Box of 12",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5119480",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902625,
+      "conceptName": "1000 ML Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119481",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902626,
+      "conceptName": "1000 ML Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5119482",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2904181,
       "conceptName": "1 ML Heparin Sodium 5000 UNT/ML Injection Box of 50 by Dbl",
       "vocabularyId": "RxNorm Extension",
@@ -850,6 +958,24 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
       "conceptCode": "OMOP5121012",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2904186,
+      "conceptName": "1 ML Heparin Sodium 5000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5121014",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2904187,
+      "conceptName": "1 ML Heparin Sodium 5000 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5121015",
       "standardConcept": "S"
     },
     {
@@ -889,6 +1015,87 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2904193,
+      "conceptName": "1 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5121021",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2904194,
+      "conceptName": "1 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5121022",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906378,
+      "conceptName": "35 ML Heparin Sodium 1000 UNT/ML Injection by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906379,
+      "conceptName": "35 ML Heparin Sodium 1000 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5123160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906380,
+      "conceptName": "35 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5123161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907349,
+      "conceptName": "500 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection Box of 18 by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907350,
+      "conceptName": "500 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection Box of 18",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907351,
+      "conceptName": "500 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907352,
+      "conceptName": "500 ML Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5124106",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2907727,
       "conceptName": "5 ML Heparin Sodium 5000 UNT/ML Injection Box of 50 by Pfizer",
       "vocabularyId": "RxNorm Extension",
@@ -922,6 +1129,141 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5124481",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907732,
+      "conceptName": "5 ML Heparin Sodium 5000 UNT/ML Injectable Solution Box of 50 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124482",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907733,
+      "conceptName": "5 ML Heparin Sodium 5000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124483",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907734,
+      "conceptName": "5 ML Heparin Sodium 5000 UNT/ML Injectable Solution by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124484",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907735,
+      "conceptName": "5 ML Heparin Sodium 5000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5124485",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907736,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection Box of 50 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907737,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124487",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907738,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124488",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907739,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124489",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907740,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907741,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5124491",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907742,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 50 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124492",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907743,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907744,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124494",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907745,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124495",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2907746,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5124496",
       "standardConcept": "S"
     },
     {
@@ -1006,12 +1348,219 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2910607,
+      "conceptName": "Heparin Sodium 5000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127359",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910608,
+      "conceptName": "Heparin Sodium 5000 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127360",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910609,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127361",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910610,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910611,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127363",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910612,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injection by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5127364",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910613,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5127365",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910614,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127366",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910615,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127367",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910616,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127368",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2910617,
       "conceptName": "Heparin Sodium 10 UNT/ML Injection Box of 50",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5127369",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910619,
+      "conceptName": "Heparin Sodium 25000 IU/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127371",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910620,
+      "conceptName": "Heparin Sodium 25000 IU/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5127372",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910621,
+      "conceptName": "Heparin Sodium 25000 IU/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5127373",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910622,
+      "conceptName": "Heparin Sodium 25000 IU/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5127374",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910623,
+      "conceptName": "Heparin Sodium 2 IU/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5127375",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910624,
+      "conceptName": "Heparin Sodium 0.002 IU/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5127376",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2910625,
+      "conceptName": "Heparin Sodium Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5127377",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936557,
+      "conceptName": "Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection Box of 18",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5153275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936558,
+      "conceptName": "Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection Box of 12",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5153276",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936559,
+      "conceptName": "Heparin Sodium 2 IU/ML / sodium chloride 9 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5153277",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936560,
+      "conceptName": "Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection Box of 12",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5153278",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936562,
+      "conceptName": "Heparin Sodium 0.002 IU/ML / sodium chloride 0.009 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5153279",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2936563,
+      "conceptName": "Heparin Sodium / sodium chloride Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5153280",
       "standardConcept": "S"
     },
     {
@@ -5866,12 +6415,66 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35827978,
+      "conceptName": "1000 MG Heparin Sodium 0.5 UNT/MG Topical Ointment [Peseta]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5040421",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35827979,
+      "conceptName": "1000 MG Heparin Sodium 0.5 UNT/MG Topical Ointment",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5040420",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35828350,
       "conceptName": "100 ML heparin 1000 UNT/ML Injectable Solution by Sawai",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5039883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828358,
+      "conceptName": "50 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Yoshindo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828359,
+      "conceptName": "50 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039875",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828360,
+      "conceptName": "50 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Nipro",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039874",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828361,
+      "conceptName": "50 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039873",
       "standardConcept": "S"
     },
     {
@@ -5965,6 +6568,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35828405,
+      "conceptName": "20 ML Heparin Sodium 250 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039829",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828406,
+      "conceptName": "20 ML Heparin Sodium 250 UNT/ML Injectable Solution by Nisshin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039828",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828407,
+      "conceptName": "20 ML Heparin Sodium 250 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039827",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35828408,
       "conceptName": "20 ML Heparin Sodium 200 UNT/ML Prefilled Syringe [Hepafilled]",
       "vocabularyId": "RxNorm Extension",
@@ -6001,6 +6631,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35828412,
+      "conceptName": "20 ML Heparin Sodium 200 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039822",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828413,
+      "conceptName": "20 ML Heparin Sodium 200 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039821",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35828414,
       "conceptName": "20 ML Heparin Sodium 150 UNT/ML Prefilled Syringe [Hepafilled]",
       "vocabularyId": "RxNorm Extension",
@@ -6034,6 +6682,15 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5039817",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828581,
+      "conceptName": "20 ML Heparin Sodium 150 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039816",
       "standardConcept": "S"
     },
     {
@@ -6079,6 +6736,51 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5039766",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828636,
+      "conceptName": "10 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Yoshindo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828637,
+      "conceptName": "10 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828638,
+      "conceptName": "10 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Mochida",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828639,
+      "conceptName": "10 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Nipro",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039758",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828640,
+      "conceptName": "10 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039757",
       "standardConcept": "S"
     },
     {
@@ -6208,6 +6910,123 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35828798,
+      "conceptName": "100 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Yoshindo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828799,
+      "conceptName": "100 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Fuso",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828800,
+      "conceptName": "100 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039918",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828929,
+      "conceptName": "Heparin Sodium 5000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828930,
+      "conceptName": "Heparin Sodium 5000 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829054,
+      "conceptName": "1 ML Heparin Sodium 5000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039539",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829055,
+      "conceptName": "1 ML Heparin Sodium 1000 UNT/ML Injectable Solution [Novo-Heparin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5039538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829056,
+      "conceptName": "1 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Ajinomoto Seiyaku",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039537",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829057,
+      "conceptName": "1 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829485,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injectable Solution [Novo-Heparin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5039164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829486,
+      "conceptName": "Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829487,
+      "conceptName": "Heparin Sodium 1000 UNT/ML [Novo-Heparin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039162",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829488,
+      "conceptName": "Heparin Sodium 1000 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039161",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35829489,
       "conceptName": "Heparin Sodium 500 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
@@ -6217,12 +7036,66 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35829490,
+      "conceptName": "Heparin Sodium 500 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829491,
+      "conceptName": "Heparin Sodium 0.5 UNT/MG Topical Ointment [Peseta]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5039158",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829492,
+      "conceptName": "Heparin Sodium 0.5 UNT/MG Topical Ointment",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039157",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829493,
+      "conceptName": "Heparin Sodium 0.5 UNT/MG [Peseta]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039156",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829494,
+      "conceptName": "Heparin Sodium 0.5 UNT/MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039155",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35829495,
       "conceptName": "Heparin Sodium 350 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP5039154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829496,
+      "conceptName": "Heparin Sodium 350 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039153",
       "standardConcept": "S"
     },
     {
@@ -6244,6 +7117,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35829499,
+      "conceptName": "Heparin Sodium 250 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829500,
+      "conceptName": "Heparin Sodium 250 UNT/ML [Hepafilled]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829501,
+      "conceptName": "Heparin Sodium 250 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039148",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35829502,
       "conceptName": "Heparin Sodium 200 UNT/ML Prefilled Syringe [Hepafilled]",
       "vocabularyId": "RxNorm Extension",
@@ -6259,6 +7159,33 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP5039146",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829504,
+      "conceptName": "Heparin Sodium 200 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039145",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829505,
+      "conceptName": "Heparin Sodium 200 UNT/ML [Hepafilled]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039144",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829506,
+      "conceptName": "Heparin Sodium 200 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039143",
       "standardConcept": "S"
     },
     {
@@ -6280,12 +7207,57 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35829509,
+      "conceptName": "Heparin Sodium 150 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5039140",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829510,
+      "conceptName": "Heparin Sodium 150 UNT/ML [Hepafilled]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039139",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829511,
+      "conceptName": "Heparin Sodium 150 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039138",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35829512,
       "conceptName": "Heparin Sodium 100 UNT/ML Prefilled Syringe [Hepaflush]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP5039137",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829514,
+      "conceptName": "Heparin Sodium 100 UNT/ML [Hepaflush]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039135",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829515,
+      "conceptName": "Heparin Sodium 100 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039134",
       "standardConcept": "S"
     },
     {
@@ -6307,6 +7279,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35829518,
+      "conceptName": "Heparin Sodium 10 UNT/ML [Hepaflush]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5039131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829519,
+      "conceptName": "Heparin Sodium 10 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5039130",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35829520,
       "conceptName": "Heparin Sodium Prefilled Syringe [Hepafilled]",
       "vocabularyId": "RxNorm Extension",
@@ -6322,6 +7312,60 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5039128",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829523,
+      "conceptName": "Heparin Sodium Topical Ointment [Peseta]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5039126",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829524,
+      "conceptName": "Heparin Sodium Injectable Solution [Novo-Heparin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5039125",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829525,
+      "conceptName": "Heparin Sodium Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5039124",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829871,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Yoshindo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829872,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution by Mochida",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829873,
+      "conceptName": "5 ML Heparin Sodium 1000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039656",
       "standardConcept": "S"
     },
     {
@@ -6439,6 +7483,15 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5037575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35832152,
+      "conceptName": "20 ML Heparin Sodium 150 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039815",
       "standardConcept": "S"
     },
     {
@@ -6682,6 +7735,69 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5022773",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867437,
+      "conceptName": "Heparin Sodium 10500 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5023699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867438,
+      "conceptName": "Heparin Sodium 7000 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5023700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867439,
+      "conceptName": "Heparin Sodium 5000 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5023701",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867440,
+      "conceptName": "Heparin Sodium Topical Ointment",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5023702",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867441,
+      "conceptName": "Heparin Sodium Topical Ointment [Haipulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5023703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35867442,
+      "conceptName": "Heparin Sodium Topical Ointment [Meidexi]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5023704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35884360,
+      "conceptName": "Heparin Sodium",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "OMOP5031264",
       "standardConcept": "S"
     },
     {

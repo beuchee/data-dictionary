@@ -2,7 +2,7 @@
   "id": 49,
   "name": "Heparin",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": true,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35884360,
+          "conceptName": "Heparin Sodium",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm Extension",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "OMOP5031264",
+          "validStartDate": "2020-10-02",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
       }
     ]
   },
@@ -45,7 +64,7 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "approved",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
@@ -106,6 +125,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-10-12",
+        "author": "Boris Delange",
+        "message": "Add the RxNorm Extension ingredient Heparin Sodium (35884360) with its descendants. RxNorm Extension carries it as a standard Ingredient separate from the RxNorm ingredient heparin (1367571), so its 177 descendants, mostly European products (e.g. Novo-Heparin, Hepaflush), were not reached by the heparin anchor and a site mapping its heparin products to them was counted as not covered. Low molecular weight heparins (RxNorm Extension 35884361, 35884372) stay out of this set, which covers unfractionated heparin."
       }
     ],
     "distributionStats": null

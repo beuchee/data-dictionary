@@ -15,3 +15,23 @@ docs/data.json
 docs/data_inline.js
 docs/resolved_concept_ids.json
 docs/concept_sets_resolved/
+
+# Artefacts of the v2 branch (apps/, packages/, legacy/) that stay on disk when
+# switching back to main: build outputs, dependencies, caches, agent worktrees.
+legacy/
+node_modules/
+.venv/
+dist/
+*.egg-info/
+*.tsbuildinfo
+.turbo/
+.pytest_cache/
+.ruff_cache/
+apps/web/public/duckdb/
+apps/web/public/coi-serviceworker.js
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+.claude/worktrees/

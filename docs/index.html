@@ -110,8 +110,9 @@
             <th data-sort="category" style="width:14%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
             <th data-sort="subcategory" style="width:14%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
             <th data-sort="name" style="width:24%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="description" style="width:30%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="description" style="width:22%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
             <th data-sort="version" style="width:8%" class="td-center"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="reviewers" style="width:8%" class="td-center"><span data-i18n="Reviewers">Reviewers</span> <span class="sort-icon">&#9650;</span></th>
             <th data-sort="reviewStatus" style="width:10%" class="td-center"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
           </tr>
           <tr class="filter-row">
@@ -121,6 +122,7 @@
             <th><div class="ms-container" id="filter-subcategory"></div></th>
             <th><input type="text" class="column-filter" id="filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
             <th><input type="text" class="column-filter" id="filter-description" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+            <th></th>
             <th></th>
             <th><div class="ms-container" id="filter-reviewStatus"></div></th>
           </tr>
@@ -159,7 +161,7 @@
         <button class="tab-btn-blue active" data-tab="concepts"><i class="fas fa-list"></i> <span data-i18n="Concepts">Concepts</span></button>
         <button class="tab-btn-blue" data-tab="comments"><i class="fas fa-comment"></i> <span data-i18n="Comments">Comments</span></button>
         <button class="tab-btn-blue" data-tab="statistics"><i class="fas fa-chart-bar"></i> <span data-i18n="Statistics">Statistics</span></button>
-        <button class="tab-btn-blue" data-tab="review"><i class="fas fa-clipboard-check"></i> <span data-i18n="Review">Review</span></button>
+        <button class="tab-btn-blue" data-tab="review"><i class="fas fa-clipboard-check"></i> <span data-i18n="Reviews">Reviews</span> <span id="cs-review-tab-count"></span></button>
       </div>
     </div>
 

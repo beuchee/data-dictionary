@@ -646,6 +646,7 @@ var App = (function() {
     'Reviews':                       { fr: 'Relectures' },
     'Add Review':                    { fr: 'Ajouter une relecture' },
     'Reviewer':                      { fr: 'Relecteur' },
+    'Reviewers':                     { fr: 'Relecteurs' },
     'No reviews yet. Click "Add Review" to submit the first review.': { fr: 'Aucune relecture. Cliquez sur « Ajouter une relecture » pour soumettre la première.' },
 
     // Comments
@@ -2533,6 +2534,18 @@ var App = (function() {
   }
 
   // ==================== GETCSDATA ====================
+  // Distinct people among the reviews, keyed by name (ORCID is optional and
+  // not always filled), falling back to the ORCID when the name is empty.
+  function countReviewers(reviews) {
+    var seen = new Set();
+    reviews.forEach(function(r) {
+      var p = r.reviewer || {};
+      var key = ((p.firstName || '') + ' ' + (p.lastName || '')).trim().toLowerCase() || p.orcid || '';
+      if (key) seen.add(key);
+    });
+    return seen.size;
+  }
+
   function getCSData() {
     return conceptSets.map(function(cs) {
       var tr = t(cs);
@@ -2543,6 +2556,7 @@ var App = (function() {
         subcategory: tr.subcategory || '',
         description: tr.shortDescription || '',
         reviewStatus: (cs.metadata && cs.metadata.reviewStatus) || 'draft',
+        reviewers: countReviewers(((cs.metadata && cs.metadata.reviews) || []).concat(sessionReviews[cs.id] || [])),
         version: cs.version || '',
         concepts: (cs.expression && cs.expression.items) ? cs.expression.items.length : 0,
         modified: cs.modifiedDate || cs.createdDate || '',
@@ -2935,6 +2949,7 @@ var App = (function() {
     openExportModal: openExportModal,
     initSharedEvents: initSharedEvents,
     getCSData: getCSData,
+    countReviewers: countReviewers,
     getConceptSet: getConceptSet,
     getResolvedConceptSet: getResolvedConceptSet,
     getLatestVersion: getLatestVersion,

@@ -139,6 +139,8 @@ var ConceptSetsPage = (function() {
       var cmp;
       if (csSort.key === 'version') {
         cmp = App.compareVersions(a.version, b.version);
+      } else if (csSort.key === 'reviewers') {
+        cmp = a.reviewers - b.reviewers;
       } else {
         var va = (a[csSort.key] || '').toString().toLowerCase();
         var vb = (b[csSort.key] || '').toString().toLowerCase();
@@ -255,6 +257,7 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
         '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description || '') + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
+        '<td class="td-center">' + d.reviewers + '</td>' +
         '<td class="td-center" data-tooltip="' + App.escapeHtml(App.statusLabel(d.reviewStatus)) + '">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';
     }).join('');
@@ -4399,6 +4402,7 @@ var ConceptSetsPage = (function() {
   function renderReviewTab(cs) {
     var reviews = getReviewsForCS(cs);
     document.getElementById('cs-review-count').textContent = reviews.length;
+    document.getElementById('cs-review-tab-count').textContent = '(' + reviews.length + ')';
 
     var proposeBtn = document.getElementById('cs-propose-github');
     if (proposeBtn) {

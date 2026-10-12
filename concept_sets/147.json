@@ -103,6 +103,20 @@
         "status": "approved",
         "comments": "Ingredient and hierarchy reviewed; resolved list not reviewed exhaustively.",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Mathilde",
+          "lastName": "Bories",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Pharmacist",
+          "orcid": "0000-0001-9092-4298"
+        },
+        "reviewTimestamp": "2026-10-12T08:54:29.000Z",
+        "status": "approved",
+        "comments": "Approved the addition of the RxNorm ingredient argipressin (19006871) with its descendants. Validated orally; recorded by Boris Delange.",
+        "version": "1.0.2"
       }
     ],
     "versions": [

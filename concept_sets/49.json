@@ -117,6 +117,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI05 via the ingredient hierarchy.\n\n## Use in our quality indicators\n- Used in QI05 (Thromboembolic prevention).\n- CQL: covered as a whole via the anchor concept 1367571 heparin with descendants (OMOP hierarchy codesystem) in [`AnticoagulationDrugs.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/AnticoagulationDrugs.cql?plain=1); the 7058 resolved concepts were not reviewed one by one.\n\n## Suggestions\n- None.\n",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Mathilde",
+          "lastName": "Bories",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Pharmacist",
+          "orcid": "0000-0001-9092-4298"
+        },
+        "reviewTimestamp": "2026-10-12T08:54:29.000Z",
+        "status": "approved",
+        "comments": "Approved the addition of the RxNorm Extension ingredient Heparin Sodium (35884360) with its descendants. Validated orally; recorded by Boris Delange.",
+        "version": "1.0.2"
       }
     ],
     "versions": [

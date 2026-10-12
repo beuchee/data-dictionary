@@ -160,6 +160,60 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2904306,
+      "conceptName": "1 ML argipressin 1 MG/ML Injection [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5121133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2904307,
+      "conceptName": "1 ML argipressin 1 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5121134",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2916092,
+      "conceptName": "argipressin 1 MG/ML Injection [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5132917",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2916093,
+      "conceptName": "argipressin 1 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5132918",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19006871,
+      "conceptName": "argipressin",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "1098",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19006872,
+      "conceptName": "argipressin 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "413832",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 19039813,
       "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
       "vocabularyId": "RxNorm",
@@ -178,12 +232,165 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 19108575,
+      "conceptName": "argipressin 20 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "437068",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 19118739,
       "conceptName": "vasopressin (USP) 20 UNT/ML [Pitressin]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "569490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21036340,
+      "conceptName": "Argipressin Prefilled Syringe [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP261501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21046189,
+      "conceptName": "Argipressin 20 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP261504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21048139,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP299150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21067812,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP299155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21067813,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe [Pitressin] by Mercury",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP299158",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085422,
+      "conceptName": "Argipressin 20 UNT/ML Prefilled Syringe [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP261506",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087367,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP299151",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087368,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe [Pitressin] Box of 10 by Mercury",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP299160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097181,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP299157",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21105089,
+      "conceptName": "Argipressin 20 UNT/ML [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP261502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21107042,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe Box of 10 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP299154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21116781,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP299152",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21124506,
+      "conceptName": "Argipressin 20 UNT/ML Prefilled Syringe Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP261505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21126543,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP299159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21136411,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Prefilled Syringe Box of 20 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP299156",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21164033,
+      "conceptName": "Argipressin 20 UNT/ML Prefilled Syringe [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP261507",
       "standardConcept": "S"
     },
     {
@@ -277,6 +484,186 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35742285,
+      "conceptName": "Argipressin Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2743746",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35753975,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2755436",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35754319,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2755780",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35762618,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2764079",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35766376,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2767837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35775988,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2777449",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776066,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution Box of 20 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777049,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2778510",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777087,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2778548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777330,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2778791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777471,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution Box of 10 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2778932",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777472,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2778933",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777636,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2779097",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777756,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution [Pitressin] Box of 10 by Mercury",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777757,
+      "conceptName": "1 ML Argipressin 20 UNT/ML Injectable Solution [Pitressin] by Mercury",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779218",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36054388,
+      "conceptName": "1 ML argipressin 20 UNT/ML Injectable Solution Box of 10 by AOP",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4979629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36054389,
+      "conceptName": "1 ML argipressin 20 UNT/ML Injectable Solution by AOP",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4979630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055474,
+      "conceptName": "2 ML argipressin 20 UNT/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4980830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36061219,
+      "conceptName": "argipressin 20 UNT/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4987113",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36214231,
+      "conceptName": "argipressin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1154328",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 36223616,
       "conceptName": "vasopressin (USP) Injectable Product",
       "vocabularyId": "RxNorm",
@@ -302,6 +689,33 @@
       "conceptClassId": "Branded Dose Group",
       "conceptCode": "1593737",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 36883719,
+      "conceptName": "Argipressin Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP999153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36942483,
+      "conceptName": "1 ML argipressin 20 UNT/ML Injectable Solution Box of 10 by Aop Orphanc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5208475",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36948643,
+      "conceptName": "1 ML argipressin 20 UNT/ML Injectable Solution by Aop Orphanc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5208474",
+      "standardConcept": "S"
     },
     {
       "conceptId": 37003084,
@@ -409,6 +823,15 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
       "conceptCode": "2399915",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40011113,
+      "conceptName": "argipressin Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "437069",
       "standardConcept": "S"
     },
     {
@@ -574,6 +997,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 40974527,
+      "conceptName": "Argipressin 0.0665 MG/ML Injectable Solution [Empressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2172489",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40999900,
       "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
       "vocabularyId": "RxNorm Extension",
@@ -628,6 +1060,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 41114191,
+      "conceptName": "Argipressin Injectable Solution [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2312153",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 41116340,
       "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 50",
       "vocabularyId": "RxNorm Extension",
@@ -643,6 +1084,24 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
       "conceptCode": "OMOP2322845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41162406,
+      "conceptName": "Argipressin 0.0665 MG/ML Injectable Solution [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2360368",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41173517,
+      "conceptName": "Argipressin 0.0665 MG/ML [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2371479",
       "standardConcept": "S"
     },
     {
@@ -880,6 +1339,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 41345551,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2543513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346094,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution [Empressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2544056",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 41377597,
       "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton]",
       "vocabularyId": "RxNorm Extension",
@@ -1024,6 +1501,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 41453346,
+      "conceptName": "2 ML Argipressin 0.0663 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2651308",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41454177,
+      "conceptName": "2 ML Argipressin 0.0663 MG/ML Injectable Solution [Empressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2652139",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41455909,
+      "conceptName": "2 ML Argipressin 0.0663 MG/ML Injectable Solution [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2653871",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 41456705,
       "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 100",
       "vocabularyId": "RxNorm Extension",
@@ -1042,6 +1546,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 41459746,
+      "conceptName": "2 ML Argipressin 0.0663 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2657708",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 41461601,
       "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 100",
       "vocabularyId": "RxNorm Extension",
@@ -1057,6 +1570,87 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
       "conceptCode": "OMOP2660103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481315,
+      "conceptName": "Argipressin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP418707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481316,
+      "conceptName": "Argipressin 20 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP418708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42683819,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution [Reverpleg] Box of 10 by Infarama",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4912720",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42711538,
+      "conceptName": "Argipressin 0.0663 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2738414",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42712461,
+      "conceptName": "Argipressin 0.0663 MG/ML [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2731793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42718194,
+      "conceptName": "Argipressin 0.0663 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2727552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42722933,
+      "conceptName": "Argipressin 0.0663 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2724553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42726661,
+      "conceptName": "Argipressin 0.0663 MG/ML Injectable Solution [Empressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2725894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42730586,
+      "conceptName": "Argipressin 0.0663 MG/ML Injectable Solution [Empressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2723161",
       "standardConcept": "S"
     },
     {
@@ -1093,6 +1687,249 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4698871",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43036047,
+      "conceptName": "Argipressin Injectable Solution [Reverpleg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4851089",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43036048,
+      "conceptName": "Argipressin 20 UNT/ML [Reverpleg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4851090",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43036049,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution [Reverpleg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4851091",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43036050,
+      "conceptName": "Argipressin 20 UNT/ML Injectable Solution [Reverpleg] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4851092",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039569,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution [Reverpleg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4854605",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039570,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution [Reverpleg] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4854606",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039571,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution [Reverpleg] Box of 10 by Orpha Devel",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4854607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039572,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4854608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039573,
+      "conceptName": "2 ML Argipressin 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4854609",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43258030,
+      "conceptName": "Argipressin 1 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP552929",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43268919,
+      "conceptName": "Argipressin Injection [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP552924",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43268920,
+      "conceptName": "Argipressin 1 MG/ML [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP552926",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43268921,
+      "conceptName": "Argipressin 1 MG/ML Injection [Pitressin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP552931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269645,
+      "conceptName": "1 ML Argipressin 1 MG/ML Injection [Pitressin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP560668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43275197,
+      "conceptName": "1 ML Argipressin 1 MG/ML Injection [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP560666",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43279793,
+      "conceptName": "Argipressin 1 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP552928",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43279794,
+      "conceptName": "Argipressin 1 MG/ML Injection [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP552930",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43280502,
+      "conceptName": "1 ML Argipressin 1 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP560664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43280503,
+      "conceptName": "1 ML Argipressin 1 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP560665",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43290626,
+      "conceptName": "Argipressin 1 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP552925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43602072,
+      "conceptName": "Argipressin 0.0665 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP928658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43608787,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP752019",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43608788,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution [Empressin] Box of 10 by Orpha Devel",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP752025",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638165,
+      "conceptName": "Argipressin 0.0665 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP928661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43745978,
+      "conceptName": "Argipressin 0.0665 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP928660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43824845,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP752020",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43861082,
+      "conceptName": "2 ML Argipressin 0.0665 MG/ML Injectable Solution [Empressin] by Orpha Devel",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP752023",
       "standardConcept": "S"
     },
     {

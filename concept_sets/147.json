@@ -2,11 +2,11 @@
   "id": 147,
   "name": "Vasopressin",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-04-09",
+  "modifiedDate": "2026-10-12",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,6 +20,25 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "11149",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 19006871,
+          "conceptName": "argipressin",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1098",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -92,6 +111,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-10-12",
+        "author": "Boris Delange",
+        "message": "Add the RxNorm ingredient argipressin (19006871) with its descendants. Argipressin is the INN of arginine vasopressin, the vasopressin used in intensive care, and RxNorm carries it as a standard Ingredient separate from vasopressin (USP) (1507835). Its descendants, which include the European products Empressin and Reverpleg, were not reached by the vasopressin (USP) anchor, so a site mapping its vasopressin to them was counted as not covered."
       }
     ],
     "distributionStats": null

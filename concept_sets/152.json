@@ -89,7 +89,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:19:52.710Z",
+        "status": "needs_revision",
+        "comments": "## Summary\n**Needs revision** Should \"37078026\tOxygen | Blood arterial | Chemistry - non-challenge\" be really part of the concept set? The two other concepts are otherwise approved.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: 2 of 3 concepts are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1): [3022803](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L38), [3027801](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L37) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (1): 37078026 Oxygen | Blood arterial | Chemistry - non-challenge (classification concept). **shouldn't this be removed?**\n\n## Suggestions\n- None for the set itself; the unused concepts are a scope decision of our indicators, not a defect of the set.\n",
+        "version": "1.2.0"
+      }
+    ],
     "versions": [],
     "distributionStats": null
   }

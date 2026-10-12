@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:31:12.753Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI03 (exclusion from the feeding indicator).\n\n## Use in our quality indicators\n- Used in QI03 (Feeding).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi03Feeding.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1) ([2100000009](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1#L30); each ID links to its code definition).\n\n## Decision trail\n- 2026-05-07 · Jan Moringen (implementation): Proposed removing 44813449 (ear syringing) from CS 285; Boris replaced the set by the custom concept 2100000009 on 2026-06-11 (commit [7af3b42](https://github.com/indicate-eu/data-dictionary/commit/7af3b42531747f883fc180df80dfd9ac7e5df149)). — [DD PR #11 (open, obsolete)](https://github.com/indicate-eu/data-dictionary/pull/11)\n\n## Suggestions\n- None.\n",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

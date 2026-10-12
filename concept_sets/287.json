@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T19:27:42.236Z",
+        "status": "needs_revision",
+        "comments": "## Summary\n**Needs revision.** Our indicator (QI03) uses only 604877 (Estimated required quantity of energy in 24 hours). Suggest to restrict the set to this concept: 604878 (per kg body weight), 4027088 (non-protein) and 45771253 (paediatric) denote different quantities, and the parent 4022415 (Energy requirement) is unspecific.\n\n## Use in our quality indicators\n- Used in QI03 (Feeding).\n- CQL: 1 of 5 concepts are referenced in [`IndicateQi03Feeding.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1): [604877](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1#L28) (each ID links to its code definition).\n\n## Suggestions\n- Restrict the expression to 604877 (Estimated required quantity of energy in 24 hours).\n",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

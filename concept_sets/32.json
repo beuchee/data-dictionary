@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:25:27.667Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI06 (ventilator-associated pneumonia)\n\n## Use in our quality indicators\n- Used in QI06 (Infection rate).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi06InfectionRate.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1) ([259992](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1#L47); each ID links to its code definition).\n\n## Suggestions\n- None.\n",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

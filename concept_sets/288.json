@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:28:13.079Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI08 (36685263, Observation domain).\n\n## Use in our quality indicators\n- Used in QI08 (Advance care plan).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi08AdvanceCarePlan.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1) ([36685263](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1#L17); each ID links to its code definition).\n\n## Decision trail\n- 2026-06-29 · Jan Moringen (implementation): QI08 mapping updated: the three consultation concepts, 45877806 for decision authority, and \"Discussion about care plan with family\" (4247376, no concept set yet) ([mapping rows](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi08-advance-care-plan.md?plain=1#L58)). — [QI PR #9 (merged by Gregor Lichtner 2026-07-01, commit 9251d11)](https://github.com/umg-minai/indicate-qi-definitions/pull/9)\n\n## Suggestions\n- None.\n",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

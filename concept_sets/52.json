@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:29:20.848Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI05 via the ingredient hierarchy.\n\n## Use in our quality indicators\n- Used in QI05 (Thromboembolic prevention).\n- CQL: covered as a whole via the anchor concept 19001014 nadroparin with descendants (OMOP hierarchy codesystem) in [`AnticoagulationDrugs.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/AnticoagulationDrugs.cql?plain=1); the 1081 resolved concepts were not reviewed one by one.\n\n## Suggestions\n- None.\n",
+        "version": "1.0.1"
+      }
+    ],
     "versions": [
       {
         "version": "1.0.1",

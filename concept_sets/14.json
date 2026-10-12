@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:27:44.891Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Used in QI07. Agree with using the standard SNOMED Staging/Scales concept for RASS rather than the non-standard observable-entity score concept ([issue #19](https://github.com/indicate-eu/data-dictionary/issues/19), v1.1.3): OMOP standardness takes precedence over semantic precision.\n\n## Use in our quality indicators\n- Used in QI07 (Pain, sedation, delirium).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi07PainSedationDelir.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi07PainSedationDelir.cql?plain=1) ([1447532](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi07PainSedationDelir.cql?plain=1#L34); each ID links to its code definition).\n\n## Suggestions\n- None.\n",
+        "version": "1.1.3"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.1",

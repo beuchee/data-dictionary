@@ -70,7 +70,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-09T15:25:58.013Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved.** Reviewed by our clinician: Device domain only, insertion/removal/replacement procedures removed (issues [#14](https://github.com/indicate-eu/data-dictionary/issues/14)/[#15](https://github.com/indicate-eu/data-dictionary/issues/15), commit [39c07ba](https://github.com/indicate-eu/data-dictionary/commit/39c07bae1b4011d29c67dc403486d9155ee884e4)). Used in QI06.\n\n## Use in our quality indicators\n- Used in QI06 (Infection rate).\n- CQL: covered as a whole via the anchor concept 4179206 Central venous catheter with descendants (OMOP hierarchy codesystem) in [`IndicateQi06InfectionRate.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1); the 7 resolved concepts were not reviewed one by one.\n\n## Suggestions\n- None.\n",
+        "version": "1.2.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

@@ -585,6 +585,7 @@ var App = (function() {
     // Table headers
     'Category':                      { fr: 'Catégorie' },
     'Subcategory':                   { fr: 'Sous-catégorie' },
+    'Shown:':                        { fr: 'Affichés :' },
     'Name':                          { fr: 'Nom' },
     'Description':                   { fr: 'Description' },
     'Status':                        { fr: 'Statut' },

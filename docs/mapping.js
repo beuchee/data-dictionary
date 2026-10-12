@@ -1376,6 +1376,8 @@ var MappingPage = (function() {
     name: '',
     groups: new Set(),
     rules: new Set(),
+    categories: new Set(),
+    subcategories: new Set(),
     statuses: new Set() // 'covered' | 'not_covered'
   };
 
@@ -1498,7 +1500,7 @@ var MappingPage = (function() {
     });
 
     eligibilitySort = { key: null, asc: true };
-    eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), statuses: new Set() };
+    eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), categories: new Set(), subcategories: new Set(), statuses: new Set() };
 
     panel.innerHTML =
       '<div class="mapping-eligibility-toolbar">' +
@@ -1511,16 +1513,20 @@ var MappingPage = (function() {
         '<table id="mapping-eligibility-table">' +
           '<thead>' +
             '<tr>' +
-              '<th data-sort="groupName" style="width:18%"><span data-i18n="Group">Group</span> <span class="sort-icon">&#9650;</span></th>' +
-              '<th data-sort="rule" style="width:14%"><span data-i18n="Group rule">Group rule</span> <span class="sort-icon">&#9650;</span></th>' +
-              '<th data-sort="csName" style="width:32%"><span data-i18n="Concept set">Concept set</span> <span class="sort-icon">&#9650;</span></th>' +
-              '<th data-sort="resolved" style="width:10%" class="td-center"><span data-i18n="Resolved">Resolved</span> <span class="sort-icon">&#9650;</span></th>' +
-              '<th data-sort="covered" style="width:14%" class="td-center"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="groupName" style="width:12%"><span data-i18n="Group">Group</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="rule" style="width:10%"><span data-i18n="Group rule">Group rule</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="category" style="width:12%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="subcategory" style="width:12%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="csName" style="width:26%"><span data-i18n="Concept set">Concept set</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="resolved" style="width:8%" class="td-center"><span data-i18n="Resolved">Resolved</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="covered" style="width:12%" class="td-center"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>' +
               '<th style="width:8%" class="td-center"><span data-i18n="Details">Details</span></th>' +
             '</tr>' +
             '<tr class="filter-row">' +
               '<th><div class="ms-container" id="mapping-eligibility-filter-group"></div></th>' +
               '<th><div class="ms-container" id="mapping-eligibility-filter-rule"></div></th>' +
+              '<th><div class="ms-container" id="mapping-eligibility-filter-category"></div></th>' +
+              '<th><div class="ms-container" id="mapping-eligibility-filter-subcategory"></div></th>' +
               '<th><input type="text" class="column-filter" id="mapping-eligibility-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>' +
               '<th></th>' +
               '<th><div class="ms-container" id="mapping-eligibility-filter-status"></div></th>' +
@@ -1537,7 +1543,7 @@ var MappingPage = (function() {
       writeEligibilityUrl();
       // Reset filters & sort when the project changes.
       eligibilitySort = { key: null, asc: true };
-      eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), statuses: new Set() };
+      eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), categories: new Set(), subcategories: new Set(), statuses: new Set() };
       renderEligibilityRows();
     });
 
@@ -1597,10 +1603,13 @@ var MappingPage = (function() {
     result.groups.forEach(function(g) {
       g.perCS.forEach(function(cs) {
         var live = App.getConceptSet(cs.id, cs.version) || App.getConceptSet(cs.id);
-        var name = live ? (App.t(live).name || live.name || ('#' + cs.id)) : ('#' + cs.id);
+        var tr = live ? App.t(live) : {};
+        var name = live ? (tr.name || live.name || ('#' + cs.id)) : ('#' + cs.id);
         rows.push({
           groupName: g.name || '',
           rule: g.rule,
+          category: tr.category || '',
+          subcategory: tr.subcategory || '',
           csId: cs.id,
           csVersion: cs.version || '',
           csName: name,
@@ -1613,6 +1622,11 @@ var MappingPage = (function() {
     // Populate filter dropdowns from the full row set.
     var allGroups = [...new Set(rows.map(function(r) { return r.groupName; }).filter(Boolean))].sort();
     var allRules = [...new Set(rows.map(function(r) { return r.rule; }))].sort();
+    var allCategories = [...new Set(rows.map(function(r) { return r.category; }).filter(Boolean))].sort();
+    // Subcategories offered follow the selected categories, as on the concept sets page.
+    var allSubcategories = [...new Set(rows.filter(function(r) {
+      return eligibilityFilters.categories.size === 0 || eligibilityFilters.categories.has(r.category);
+    }).map(function(r) { return r.subcategory; }).filter(Boolean))].sort();
     var ruleLabelMap = {};
     allRules.forEach(function(r) { ruleLabelMap[r] = ruleLabel(r); });
     var statusLabelMap = {
@@ -1630,6 +1644,8 @@ var MappingPage = (function() {
     }
     buildOrRefresh('mapping-eligibility-filter-group', allGroups, eligibilityFilters.groups);
     buildOrRefresh('mapping-eligibility-filter-rule', allRules, eligibilityFilters.rules, ruleLabelMap);
+    buildOrRefresh('mapping-eligibility-filter-category', allCategories, eligibilityFilters.categories);
+    buildOrRefresh('mapping-eligibility-filter-subcategory', allSubcategories, eligibilityFilters.subcategories);
     buildOrRefresh('mapping-eligibility-filter-status', ['covered', 'not_covered'], eligibilityFilters.statuses, statusLabelMap);
 
     // Filtering.
@@ -1637,6 +1653,8 @@ var MappingPage = (function() {
     var filtered = rows.filter(function(r) {
       if (f.groups.size > 0 && !f.groups.has(r.groupName)) return false;
       if (f.rules.size > 0 && !f.rules.has(r.rule)) return false;
+      if (f.categories.size > 0 && !f.categories.has(r.category)) return false;
+      if (f.subcategories.size > 0 && !f.subcategories.has(r.subcategory)) return false;
       if (f.statuses.size > 0) {
         var key = r.covered ? 'covered' : 'not_covered';
         if (!f.statuses.has(key)) return false;
@@ -1673,7 +1691,11 @@ var MappingPage = (function() {
     if (summary) {
       var coveredCount = rows.filter(function(r) { return r.covered; }).length;
       summary.textContent = App.i18n('Coverage:') + ' ' + coveredCount + ' / ' + rows.length +
-        ' · ' + App.i18n('Project score:') + ' ' + result.score + '%';
+        ' · ' + App.i18n('Project score:') + ' ' + result.score + '%' +
+        // With a filter on (e.g. one category), also give the coverage of the rows shown.
+        (filtered.length !== rows.length
+          ? ' · ' + App.i18n('Shown:') + ' ' + filtered.filter(function(r) { return r.covered; }).length + ' / ' + filtered.length
+          : '');
     }
 
     var tbody = document.getElementById('mapping-eligibility-tbody');
@@ -1684,6 +1706,8 @@ var MappingPage = (function() {
       return '<tr data-cs-id="' + r.csId + '" data-cs-version="' + App.escapeHtml(r.csVersion) + '" style="cursor:pointer">' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.groupName) + '">' + App.escapeHtml(r.groupName) + '</td>' +
         '<td>' + App.escapeHtml(ruleLabel(r.rule)) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.category) + '"><span class="badge badge-category">' + App.escapeHtml(r.category) + '</span></td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(r.subcategory) + '</span></td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.csName) + '"><strong>' + App.escapeHtml(r.csName) + '</strong></td>' +
         '<td class="td-center" style="font-family:monospace">' + r.resolved + '</td>' +
         '<td class="td-center">' + statusCell + '</td>' +
